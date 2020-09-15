@@ -1,0 +1,22 @@
+/**app.wxss**/
+@import './theme/dark.wxss';
+@import './theme/orange.wxss';
+
+
+
+.container {
+  height: 100%;
+  width: 100%;
+} 
+
+.white {
+  color: #FFFFFF;
+}
+
+page {
+  background-color: #1E1F24;
+}
+
+
+
+

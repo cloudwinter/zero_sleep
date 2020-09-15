@@ -1,0 +1,111 @@
+<!--component/anmo/anmo.wxml-->
+
+<view class="{{skin}}">
+
+	<view class="top" style="margin-top:{{display=='high'?90:0}}rpx;">
+		<view class="donghuaqu">
+			<view class="dh-content">
+				<image class="dh-icon" src="../../../images/{{skin}}/anmo@3x.png"></image>
+				<view class="dh-name">按摩频率</view>
+			</view>
+		</view>
+	</view>
+
+	<view class="shijian">
+		<view class="shijian-button left button-bg-normal {{currentTimeSelected=='10min'?'button-bg-selected':'button-bg'}}">
+			<!-- <view class=""></view> -->
+			<view class="shijian-button-content" bindtap="timeClick" data-time="10min">
+				<image wx:if="{{currentTimeSelected!='10min'}}" class="shijian-icon" src="../../../images/{{skin}}/time-10-normal@2x.png"></image>
+				<image wx:else class="shijian-icon" src="../../../images/{{skin}}/time-10-selected@2x.png"></image>
+				<view class="name {{currentTimeSelected=='10min'?'text-selected':'text-normal'}}">10 分钟</view>
+			</view>
+		</view>
+
+		<view class="middle">
+		<view class="shijian-button button-bg-normal {{currentTimeSelected=='20min'?'button-bg-selected':'button-bg'}}">
+			<!-- <button class=""></button> -->
+			<view class="shijian-button-content" bindtap="timeClick" data-time="20min">
+				<image wx:if="{{currentTimeSelected!='20min'}}" class="shijian-icon" src="../../../images/{{skin}}/time-20-normal@2x.png"></image>
+				<image wx:else class="shijian-icon" src="../../../images/{{skin}}/time-20-selected@2x.png"></image>
+				<view class="name {{currentTimeSelected=='20min'?'text-selected':'text-normal'}}">20 分钟</view>
+			</view>
+		</view>
+		</view>
+
+		<view class="shijian-button right button-bg-normal {{currentTimeSelected=='30min'?'button-bg-selected':'button-bg'}}">
+			<!-- <button class=""></button> -->
+			<view class="shijian-button-content" bindtap="timeClick" data-time="30min">
+				<image wx:if="{{currentTimeSelected!='30min'}}" class="shijian-icon" src="../../../images/{{skin}}/time-30-normal@2x.png"></image>
+				<image wx:else class="shijian-icon" src="../../../images/{{skin}}/time-30-selected@2x.png"></image>
+				<view class="name {{currentTimeSelected=='30min'?'text-selected':'text-normal'}}">30 分钟</view>
+			</view>
+		</view>
+
+	</view>
+
+
+	<view class="anmo-type">
+		<view class="anmo-content anmo-button-bg button-bg">
+			<view class="anmo-button-top">
+				<view class="anmo-button-top-left" bindtap="tapMinus" data-type="anmopinglv">
+					<image class="anmo-button-icon" src="../../../images/{{skin}}/minus-normal@3x.png"></image>
+				</view>
+				<view class="anmo-button-top-middle">
+					<image class="anmo-type-icon" src="../../../images/{{skin}}/anmopinglv@3x.png"></image>
+					<view class="anmo-type-name">按摩频率</view>
+				</view>
+				<view class="anmo-button-top-right" bindtap="tapPlus" data-type="anmopinglv">
+					<image class="anmo-button-icon" src="../../../images/{{skin}}/plus-normal@3x.png"></image>
+				</view>
+
+			</view>
+			<view class="anmo-button-bottom">
+				<view wx:if="{{anmopinglv>=1}}" class="line4 line-color"></view>
+				<view wx:if="{{anmopinglv>=2}}" class="line4 line-color"></view>
+				<view wx:if="{{anmopinglv>=3}}" class="line4 line-color"></view>
+				<view wx:if="{{anmopinglv==4}}" class="line4 line-color"></view>
+			</view>
+			<view></view>
+		</view>
+		<view class="anmo-content anmo-button-bg button-bg">
+			<view class="anmo-button-top">
+				<view class="anmo-button-top-left" bindtap="tapMinus" data-type="toubu">
+					<image class="anmo-button-icon" src="../../../images/{{skin}}/minus-normal@3x.png"></image>
+				</view>
+				<view class="anmo-button-top-middle">
+					<image class="anmo-type-icon" src="../../../images/{{skin}}/toubuanmo@3x.png"></image>
+					<view class="anmo-type-name">头部按摩</view>
+				</view>
+				<view class="anmo-button-top-right" bindtap="tapPlus" data-type="toubu">
+					<image class="anmo-button-icon" src="../../../images/{{skin}}/plus-normal@3x.png"></image>
+				</view>
+
+			</view>
+			<view class="anmo-button-bottom">
+				<view wx:if="{{toubu>=1}}" class="line3 line-color"></view>
+				<view wx:if="{{toubu>=2}}" class="line3 line-color"></view>
+				<view wx:if="{{toubu>=3}}" class="line3 line-color"></view>
+			</view>
+		</view>
+		<view class="anmo-content anmo-button-bg button-bg">
+			<view class="anmo-button-top">
+				<view class="anmo-button-top-left" bindtap="tapMinus" data-type="tuibu">
+					<image class="anmo-button-icon" src="../../../images/{{skin}}/minus-normal@3x.png"></image>
+				</view>
+				<view class="anmo-button-top-middle">
+					<image class="anmo-type-icon" src="../../../images/{{skin}}/zubuanmo@3x.png"></image>
+					<view class="anmo-type-name">腿部按摩</view>
+				</view>
+				<view class="anmo-button-top-right" bindtap="tapPlus" data-type="tuibu">
+					<image class="anmo-button-icon" src="../../../images/{{skin}}/plus-normal@3x.png"></image>
+				</view>
+			</view>
+			<view class="anmo-button-bottom">
+				<view wx:if="{{tuibu>=1}}" class="line3 line-color"></view>
+				<view wx:if="{{tuibu>=2}}" class="line3 line-color"></view>
+				<view wx:if="{{tuibu>=3}}" class="line3 line-color"></view>
+			</view>
+		</view>
+	</view>
+
+</view>

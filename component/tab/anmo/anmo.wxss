@@ -1,0 +1,211 @@
+/* component/anmo/anmo.wxss */
+@import './../../../common/tab.wxss';
+
+
+/********* common ************** */
+.text-normal {
+  color: white;
+}
+
+
+
+/*** common dark  */
+.dark .text-selected {
+  color: #05BF74;
+}
+
+.dark .button-bg {
+  background: #1E1F24;
+}
+
+.dark .button-bg-selected {
+  background-color: #1E1F24;
+  border:3rpx solid #5A9927;
+}
+
+/*** common orange  */
+.orange .text-selected {
+  color: #05BF74;
+}
+
+.orange .button-bg {
+  background: #6E269A;
+}
+
+.orange .button-bg-selected {
+  background-color: #6E269A;
+  border:3rpx solid #FF9704;
+}
+
+.dark .line-color {
+  background-color: #05BF74;
+}
+
+.orange .line-color {
+  background-color: #FF9704;
+}
+
+
+
+
+/********* 时间区域 ************** */
+.shijian {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-top: 30rpx;
+}
+
+.shijian .shijian-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.shijian .left {
+  flex: 1;
+  margin-left: 40rpx;
+}
+
+.shijian .middle {
+  flex: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shijian .right {
+  flex: 1;
+  margin-right: 40rpx;
+}
+
+.button-bg-normal {
+  width: 176rpx;
+  height: 120rpx;
+  border-radius: 60rpx;
+  background: #1E1F24;
+  /* position: absolute;
+  z-index: -1; */
+}
+
+.shijian-button-content {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.shijian-button .shijian-icon {
+  width: 41rpx;
+  height: 41rpx;
+  margin-top: 17rpx;
+}
+
+.shijian-button .name {
+  margin-top: 5rpx;
+  font-size: 26rpx;
+}
+
+
+
+/********* 按摩类型 ************** */
+.anmo-type {
+  width: 100%;
+  margin-top: 17rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.anmo-content {
+  width: 90%;
+  height: 120rpx;
+  margin-top: 30rpx;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.anmo-button-bg {
+  width: 90% !important;
+  height: 120rpx;
+  border-radius: 120rpx;
+  background: #1E1F24;
+  /* position: absolute;
+  z-index: -1; */
+}
+
+.anmo-button-top {
+  width: 100%;
+  flex: auto;
+  display: flex;
+  align-items: center;
+}
+
+.anmo-button-top-left {
+  width: 90rpx;
+  height: 100%;
+  padding-left: 80rpx;
+  display: flex;
+  align-items: center;
+}
+
+.anmo-button-icon {
+  width: 45rpx;
+  height: 45rpx;
+}
+
+.anmo-button-top-right {
+  width: 90rpx;
+  height: 100%;
+  padding-right: 80rpx;
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+}
+
+.anmo-button-top-middle {
+  flex: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.anmo-button-bottom {
+  width: 85%;
+  display: flex;
+  height: 4px;
+}
+
+.line4 {
+  width: 24%;
+  height: 4rpx;
+  background: #05BF74;
+  border-radius: 4rpx;
+  margin-right: 2rpx;
+}
+
+.line3 {
+  width: 33%;
+  height: 4rpx;
+  background: #05BF74;
+  border-radius: 4rpx;
+  margin-right: 2rpx;
+}
+
+.anmo-type-icon{
+  width: 39rpx;
+  height: 39rpx;
+}
+
+.anmo-type-name {
+  color: white;
+  font-size: 26rpx;
+  margin-left: 19rpx;
+}
+
+
+
+
+
+
+

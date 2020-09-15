@@ -1,0 +1,59 @@
+<!--component/tab/weitiao/weitiao-W4.wxml-->
+
+<view class="{{skin}}">
+
+	<view class="top" style="margin-top:{{display=='high'?90:0}}rpx;">
+		<view class="donghuaqu" >
+			<view class="dh-content">
+				<!-- 调整 -->
+					<block wx:if="{{currentAnjian.anjian=='beibutz'}}">
+						<image wx:if="{{animationPosition==1}}" class="dh-icon" src="../../../animation/{{skin}}/beibutiaozheng-1@3x.png"></image>
+						<image wx:if="{{animationPosition==2}}" class="dh-icon" src="../../../animation/{{skin}}/beibutiaozheng-2@3x.png"></image>
+						<image wx:if="{{animationPosition==3}}" class="dh-icon" src="../../../animation/{{skin}}/beibutiaozheng-3@3x.png"></image>
+					</block>
+					<block wx:if="{{currentAnjian.anjian=='tuibutz'}}">
+						<image wx:if="{{animationPosition==1}}" class="dh-icon" src="../../../animation/{{skin}}/tuibutiaozheng-1@3x.png"></image>
+						<image wx:if="{{animationPosition==2}}" class="dh-icon" src="../../../animation/{{skin}}/tuibutiaozheng-2@3x.png"></image>
+						<image wx:if="{{animationPosition==3}}" class="dh-icon" src="../../../animation/{{skin}}/tuibutiaozheng-3@3x.png"></image>
+					</block>
+					<view class="dh-name">{{currentAnjian.name}}</view>
+			</view>
+		</view>
+	</view>
+
+
+	<!-- 调整区 -->
+	<view class="tiaozheng-type" style="margin-top:80rpx;">
+		<view class="tiaozheng-content tiaozheng-button-bg button-bg">
+			<!-- <view class="tiaozheng-button-bg"></view> -->
+			<view class="tiaozheng-button-top-left" bindtouchstart="touchStart" bindtouchend="touchEnd" data-type="beibutzTop">
+				<image class="tiaozheng-button-icon" src="{{beibutzTop?imgSanjiao.imgSanjiaoTopSelected:imgSanjiao.imgSanjiaoTopNormal}}"></image>
+			</view>
+			<view class="tiaozheng-button-top-middle">
+				<image class="tiaozheng-type-icon" src="../../../images/{{skin}}/zhihan-xiao@3x.png"></image>
+				<view class="tiaozheng-type-name">背部调整</view>
+			</view>
+			<view class="tiaozheng-button-top-right" bindtouchstart="touchStart" bindtouchend="touchEnd" data-type="beibutzBottom">
+				<image class="tiaozheng-button-icon" src="{{beibutzBottom?imgSanjiao.imgSanjiaoBottomSelected:imgSanjiao.imgSanjiaoBottomNormal}}"></image>
+			</view>
+		</view>
+
+
+		<view class="tiaozheng-content tiaozheng-button-bg button-bg" style="margin-top:80rpx;">
+			<!-- <button class="tiaozheng-button-bg"></button> -->
+			<view class="tiaozheng-button-top-left" bindtouchstart="touchStart" bindtouchend="touchEnd" data-type="tuibutzTop">
+				<image class="tiaozheng-button-icon" src="{{tuibutzTop?imgSanjiao.imgSanjiaoTopSelected:imgSanjiao.imgSanjiaoTopNormal}}"></image>
+			</view>
+			<view class="tiaozheng-button-top-middle">
+				<image class="tiaozheng-type-icon" src="../../../images/{{skin}}/tuibuxunhuan-xiao@3x.png"></image>
+				<view class="tiaozheng-type-name">腿部调整</view>
+			</view>
+			<view class="tiaozheng-button-top-right" bindtouchstart="touchStart" bindtouchend="touchEnd" data-type="tuibutzBottom">
+				<image class="tiaozheng-button-icon" src="{{tuibutzBottom?imgSanjiao.imgSanjiaoBottomSelected:imgSanjiao.imgSanjiaoBottomNormal}}"></image>
+			</view>
+		</view>
+
+	</view>
+
+
+</view>

@@ -1,0 +1,50 @@
+/* component/common/tab.wxss */
+.top {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dark .donghuaqu {
+  width: 468rpx;
+  height: 468rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url("https://syy.freep.cn/632008/yuan@3x.png");
+  background-position: 50% 50%;
+  background-size: cover;  
+}
+
+.orange .donghuaqu {
+  width: 468rpx;
+  height: 468rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url("https://syy.freep.cn/632008/orange_yuan@3x.png");
+  background-position: 50% 50%;
+  background-size: cover;  
+}
+
+
+.donghuaqu .dh-content {
+  width: 324rpx;
+  height: 324rpx;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.dh-content .dh-icon{
+  width: 204rpx;
+  height: 204rpx;
+  margin-top: 15rpx;
+}
+
+.dh-content .dh-name{
+  color: #41B67D;
+}
+
+

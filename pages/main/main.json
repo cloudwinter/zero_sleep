@@ -1,0 +1,24 @@
+{
+  "usingComponents":{
+    "navbar":"/component/navbar/navbar",
+    "kuaijie-K1":"/component/tab/kuaijie/kuaijie-K1",
+    "kuaijie-K2":"/component/tab/kuaijie/kuaijie-K2",
+    "kuaijie-K3":"/component/tab/kuaijie/kuaijie-K3",
+    "kuaijie-K4":"/component/tab/kuaijie/kuaijie-K4",
+    "kuaijie-K5":"/component/tab/kuaijie/kuaijie-K5",
+    "kuaijie-K6":"/component/tab/kuaijie/kuaijie-K6",
+    "weitiao-W1":"/component/tab/weitiao/weitiao-W1",
+    "weitiao-W2":"/component/tab/weitiao/weitiao-W2",
+    "weitiao-W3":"/component/tab/weitiao/weitiao-W3",
+    "weitiao-W4":"/component/tab/weitiao/weitiao-W4",
+    "weitiao-W5":"/component/tab/weitiao/weitiao-W5",
+    "weitiao-W6":"/component/tab/weitiao/weitiao-W6",
+    "weitiao-W7":"/component/tab/weitiao/weitiao-W7",
+    "weitiao-W8":"/component/tab/weitiao/weitiao-W8",
+    "weitiao-W9":"/component/tab/weitiao/weitiao-W9",
+    "anmo":"/component/tab/anmo/anmo",
+    "dengguang":"/component/tab/dengguang/dengguang"
+  },
+  "disableScroll": true
+  
+}

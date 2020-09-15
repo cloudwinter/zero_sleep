@@ -1,0 +1,28 @@
+/**index.wxss**/
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.logo {
+  width: 124px;
+  height: 165px;
+  margin-top: 180px;
+}
+
+.bottom {
+  top: 500px;
+  position: fixed;
+  align-content: center;
+  width: 100%;
+}
+
+.bottom .button {
+  width:200px; 
+  height:44px;
+  border-radius: 10px;
+  color: white;
+  border-color: white;
+  border-width: 1rpx;
+}

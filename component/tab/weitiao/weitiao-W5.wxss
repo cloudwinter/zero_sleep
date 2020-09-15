@@ -1,0 +1,138 @@
+/* component/tab/weitiao/weitiao-W4.wxss */
+
+@import './../../../common/tab.wxss';
+
+/********common************** */
+.dark .button-bg {
+  background: #1E1F24;
+}
+
+.dark .button-bg-selected {
+  background-color: #1E1F24;
+  border:3rpx solid #5A9927;
+}
+
+
+.orange .button-bg {
+  background: #6E269A;
+}
+
+.orange .button-bg-selected {
+  background-color: #6E269A;
+  border:3rpx solid #FF9704;
+}
+
+
+/* .button-bg {
+  background: #1E1F24;
+  position: absolute;
+}
+
+.button-bg-selected {
+  background-color: #1E1F24;
+  border:3rpx solid #5A9927;
+} */
+
+
+
+/********调整************** */
+.tiaozheng-type {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tiaozheng-content {
+  width: 90%;
+  height: 120rpx;
+  margin-top: 36rpx;
+  display: flex;
+  align-items: center;
+}
+
+.tiaozheng-button-bg {
+  width: 90% !important;
+  height: 120rpx;
+  border-radius: 120rpx;
+  /* background: #1E1F24; */
+  /* position: absolute;
+  z-index: -1; */
+}
+
+.tiaozheng-button-top-left {
+  width: 64rpx;
+  height: 120rpx;
+  padding-left: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tiaozheng-button-top-right {
+  width: 64rpx;
+  height: 120rpx;
+  padding-right: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tiaozheng-button-top-middle {
+  flex: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tiaozheng-button-icon {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.tiaozheng-type-icon{
+  width: 100rpx;
+  height: 80rpx;
+}
+
+.tiaozheng-type-name {
+  color: white;
+  font-size: 26rpx;
+}
+
+
+/********循环************** */
+.xunhuan-type {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.xunhuan-content {
+  width: 90%;
+  height: 120rpx;
+  margin-top: 36rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.xunhuan-button-bg {
+  width: 90% !important;
+  height: 120rpx;
+  border-radius: 120rpx;
+  /* background: #1E1F24; */
+  /* position: absolute;
+  z-index: -1; */
+}
+
+.xunhuan-type-icon{
+  width: 100rpx;
+  height: 80rpx;
+}
+
+.xunhuan-type-name {
+  color: white;
+  font-size: 26rpx;
+}

@@ -1,0 +1,15 @@
+<!--index.wxml-->
+<view class="page-{{skin}}">
+	<navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}" background="{{navbar.background}}" back="{{false}}"></navbar>
+
+	<view class="{{skin}}">
+
+		<view class="container">
+			<image class="logo" src="../../images/logo@2x.png"></image>
+			<view class="bottom">
+				<button class="button" bindtap="enter" plain="true">进入</button>
+			</view>
+		</view>
+
+	</view>
+</view>

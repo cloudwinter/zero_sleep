@@ -1,0 +1,20 @@
+<!--component/kuaijie/kuaijie-K1.wxml-->
+
+<view class="{{skin}}">
+
+	<view class="top" style="margin-top:{{display=='high'?90:0}}rpx;">
+		<view class="donghuaqu">
+			<view class="dh-content">
+				<image class="dh-icon" src="../../../images/{{skin}}/dengguang@3x.png"></image>
+				<view class="dh-name">灯光时间</view>
+			</view>
+		</view>
+	</view>
+
+	<view class="anjian">
+		<button class="dengguang-button-bg {{currentSelected=='10min'?'button-bg-selected':'button-bg'}}" bindtap="click" data-time="10min">10分钟</button>
+		<button class="dengguang-button-bg {{currentSelected=='8h'?'button-bg-selected':'button-bg'}}" bindtap="click" data-time="8h">8小时</button>
+		<button class="dengguang-button-bg {{currentSelected=='10h'?'button-bg-selected':'button-bg'}}" bindtap="click" data-time="10h">10小时</button>
+	</view>
+
+</view>

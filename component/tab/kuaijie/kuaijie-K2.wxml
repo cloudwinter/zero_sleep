@@ -1,0 +1,88 @@
+<!--component/kuaijie/kuaijie-K2.wxml-->
+<view class="{{skin}}" bindtap="tapBlank" data-blank="blank">
+
+	<view class="top" style="margin-top:{{display=='high'?90:0}}rpx;">
+		<view class="donghuaqu">
+			<view class="dh-content">
+				<block wx:if="{{currentAnjian.anjian=='kandianshi'}}">
+					<image class="dh-icon" src="../../../images/{{skin}}/kandianshi-da@3x.png"></image>
+				</block>
+				<block wx:if="{{currentAnjian.anjian=='lingyali'}}">
+					<image class="dh-icon" src="../../../images/{{skin}}/lingyali-da@3x.png"></image>
+				</block>
+				<block wx:if="{{currentAnjian.anjian=='zhihan'}}">
+					<image class="dh-icon" src="../../../images/{{skin}}/zhihan-da@3x.png"></image>
+				</block>
+				<block wx:if="{{currentAnjian.anjian=='fuyuan'}}">
+					<image class="dh-icon" src="../../../images/{{skin}}/fuyuan-da@3x.png"></image>
+				</block>
+				<block wx:if="{{currentAnjian.anjian=='tingyinyue'}}">
+					<image class="dh-icon" src="../../../images/{{skin}}/tingyinyue-da@3x.png"></image>
+				</block>
+				<block wx:if="{{currentAnjian.anjian=='tuibufangsong'}}">
+					<image class="dh-icon" src="../../../images/{{skin}}/tuibufangsong-da@3x.png"></image>
+				</block>
+				<view class="dh-name">{{currentAnjian.name}}</view>
+			</view>
+		</view>
+	</view>
+
+	<view class="jiyi">
+		<view class="button left {{jiyi1?'button-bg-selected':'button-bg'}}" catchtap="tapJiyi1" bindtouchstart="touchStart" bindtouchend="touchEnd">
+			<image class="dian" wx:if="{{jiyi1}}" src="../../../images/{{skin}}/dian-green@3x.png"></image>
+			<image class="dian" wx:else src="../../../images/{{skin}}/dian-black@3x.png"></image> 
+			<view class="name">记忆一</view>
+		</view>
+		<view class="middle"></view>
+		<view class="button right {{jiyi2?'button-bg-selected':'button-bg'}}" catchtap="tapJiyi2" bindtouchstart="touchStart" bindtouchend="touchEnd">
+			<image class="dian" wx:if="{{jiyi2}}" src="../../../images/{{skin}}/dian-green@3x.png"></image>
+			<image class="dian" wx:else src="../../../images/{{skin}}/dian-black@3x.png"></image>
+			<view class="name">记忆二</view>
+		</view>
+	</view>
+
+
+	<view class="anjianqu" style="padding-top:10rpx;">
+		<view class="anjian-left">
+			<image class="anjian-bg" wx:if="{{kandianshi}}" src="../../../images/{{skin}}/anjian-yuan-seleced@3x.png"></image>
+			<image class="anjian-bg" wx:else src="../../../images/{{skin}}/anjian-yuan-normal@3x.png"></image>
+			<view class="anjiian-content" catchtap="tapKandianshi" bindtouchstart="touchStart" bindtouchend="touchEnd">
+				<image class="anjian-icon" src="../../../images/{{skin}}/kandianshi-xiao@3x.png"></image>
+				<view class="name">看电视</view>
+			</view>
+		</view>
+		<view class="anjian-right">
+			<image class="anjian-bg" wx:if="{{lingyali}}" src="../../../images/{{skin}}/anjian-yuan-seleced@3x.png"></image>
+			<image class="anjian-bg" wx:else src="../../../images/{{skin}}/anjian-yuan-normal@3x.png"></image>
+			<view class="anjiian-content" catchtap="tapLingyali" bindtouchstart="touchStart" bindtouchend="touchEnd">
+				<image class="anjian-icon" src="../../../images/{{skin}}/lingyali-xiao@3x.png"></image>
+				<view class="name">零压力</view>
+			</view>
+		</view>
+
+
+	</view>
+
+
+	<view class="anjianqu" style="margin-top:110rpx">
+
+		<view class="anjian-left">
+			<image class="anjian-bg" wx:if="{{zhihan}}" src="../../../images/{{skin}}/anjian-yuan-seleced@3x.png"></image>
+			<image class="anjian-bg" wx:else src="../../../images/{{skin}}/anjian-yuan-normal@3x.png"></image>
+			<view class="anjiian-content" catchtap="tapZhihan" bindtouchstart="touchStart" bindtouchend="touchEnd">
+				<image class="anjian-icon" src="../../../images/{{skin}}/zhihan-xiao@3x.png"></image>
+				<view class="name">止鼾</view>
+			</view>
+		</view>
+
+		<view class="anjian-right">
+			<image class="anjian-bg" src="../../../images/{{skin}}/anjian-yuan-normal@3x.png"></image>
+			<view class="anjiian-content" catchtap="tapFuyuan">
+				<image class="anjian-icon" src="../../../images/{{skin}}/fuyuan-xiao@3x.png"></image>
+				<view class="name">复原</view>
+			</view>
+		</view>
+	
+	</view>
+
+</view>

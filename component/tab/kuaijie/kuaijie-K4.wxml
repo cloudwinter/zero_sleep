@@ -1,0 +1,113 @@
+<!--component/kuaijie/kuaijie-K4.wxml-->
+<view class="{{skin}}" bindtap="tapBlank" data-blank="blank">
+
+	<view class="top" style="margin-top:{{display=='high'?90:0}}rpx;">
+		<view class="donghuaqu">
+			<view class="dh-content">
+				<block wx:if="{{currentAnjian.anjian=='kandianshi'}}">
+					<image class="dh-icon" src="../../../images/{{skin}}/kandianshi-da@3x.png"></image>
+				</block>
+				<block wx:if="{{currentAnjian.anjian=='lingyali'}}">
+					<image class="dh-icon" src="../../../images/{{skin}}/lingyali-da@3x.png"></image>
+				</block>
+				<block wx:if="{{currentAnjian.anjian=='fuyuan'}}">
+					<image class="dh-icon" src="../../../images/{{skin}}/fuyuan-da@3x.png"></image>
+				</block>
+				<view class="dh-name">{{currentAnjian.name}}</view>
+			</view>
+		</view>
+	</view>
+
+	<view class="fenti" hidden="{{currentType!='fenti'}}">
+		<view class="jiyi">
+			<view class="button middle button-bg" catchtap="tapChannelType" bindtouchstart="touchStart" bindtouchend="touchEnd">
+				<image class="dian" src="../../../images/{{skin}}/dian-black@3x.png"></image>
+				<view class="white">分体</view>
+			</view>
+		</view>
+
+
+		<view class="anjianqu" style="padding-top:10rpx;">
+			<view class="anjian-left">
+				<view class="anjiian-content anjian-button-bg {{kandianshiLeft?'button-bg-selected':'button-bg'}}" catchtap="tapKandianshiLeft" bindtouchstart="touchStart" bindtouchend="touchEnd">
+					<image class="anjian-icon" src="../../../images/{{skin}}/kandianshi-xiao@3x.png"></image>
+					<view class="name">看电视</view>
+				</view>
+			</view>
+			<view class="anjian-right">
+				<view class="anjiian-content anjian-button-bg {{kandianshiRight?'button-bg-selected':'button-bg'}}" catchtap="tapKandianshiRight" bindtouchstart="touchStart" bindtouchend="touchEnd">
+					<image class="anjian-icon" src="../../../images/{{skin}}/kandianshi-xiao@3x.png"></image>
+					<view class="name">看电视</view>
+				</view>
+			</view>
+		</view>
+
+
+		<view class="anjianqu" style="margin-top:30rpx">
+			<view class="anjian-left">
+				<view class="anjiian-content anjian-button-bg {{lingyaliLeft?'button-bg-selected':'button-bg'}}" catchtap="tapLingyaliLeft" bindtouchstart="touchStart" bindtouchend="touchEnd">
+					<image class="anjian-icon" src="../../../images/{{skin}}/lingyali-xiao@3x.png"></image>
+					<view class="name">零压力</view>
+				</view>
+			</view>
+
+			<view class="anjian-right">
+				<view class="anjiian-content anjian-button-bg {{lingyaliRight?'button-bg-selected':'button-bg'}}" catchtap="tapLingyaliRight" bindtouchstart="touchStart" bindtouchend="touchEnd">
+					<image class="anjian-icon" src="../../../images/{{skin}}/lingyali-xiao@3x.png"></image>
+					<view class="name">零压力</view>
+				</view>
+			</view>
+		</view>
+
+		<view class="anjianqu" style="margin-top:30rpx">
+				<view class="anjian-left">
+				<view class="anjiian-content anjian-button-bg button-bg}}" catchtap="tapFuyuanLeft" bindtouchstart="touchStart" bindtouchend="touchEnd">
+					<image class="anjian-icon" src="../../../images/{{skin}}/fuyuan-xiao@3x.png"></image>
+					<view class="name">复原</view>
+				</view>
+			</view>
+
+			<view class="anjian-right">
+				<view class="anjiian-content anjian-button-bg button-bg}}" catchtap="tapFuyuanRight" bindtouchstart="touchStart" bindtouchend="touchEnd">
+					<image class="anjian-icon" src="../../../images/{{skin}}/fuyuan-xiao@3x.png"></image>
+					<view class="name">复原</view>
+				</view>
+			</view>
+		</view>
+	</view>
+
+
+
+
+	<view class="tongbu" hidden="{{currentType!='tongbu'}}">
+		<view class="jiyi">
+			<view class="button middle button-bg" catchtap="tapChannelType" bindtouchstart="touchStart" bindtouchend="touchEnd" >
+				<image class="dian" src="../../../images/{{skin}}/dian-black@3x.png"></image>
+				<view class="white">同步</view>
+			</view>
+		</view>
+
+
+		<view class="anjianqu" style="margin-top:30rpx">
+			<view class="anjiian-chang-content anjian-chang-button-bg button-bg" catchtap="tapTB" data-anjian="kandianshi" data-name="看电视">
+				<image class="anjian-icon" src="../../../images/{{skin}}/kandianshi-xiao@3x.png"></image>
+				<view class="name">看电视</view>
+			</view>
+		</view>
+
+		<view class="anjianqu" style="margin-top:30rpx">
+			<view class="anjiian-chang-content anjian-chang-button-bg button-bg" catchtap="tapTB" data-anjian="lingyali" data-name="零压力">
+				<image class="anjian-icon" src="../../../images/{{skin}}/lingyali-xiao@3x.png"></image>
+				<view class="name">零压力</view>
+			</view>
+		</view>
+
+		<view class="anjianqu" style="margin-top:30rpx">
+			<view class="anjiian-chang-content anjian-chang-button-bg button-bg" catchtap="tapTB"  data-anjian="fuyuan" data-name="复原">
+				<image class="anjian-icon" src="../../../images/{{skin}}/fuyuan-xiao@3x.png"></image>
+				<text class="name" decode="{{true}}" space="{{true}}">复原&nbsp;&nbsp;&nbsp;</text>
+			</view>
+		</view>
+	</view>
+
+</view>

@@ -1,0 +1,39 @@
+<!--search.wxml-->
+<view class="page-{{skin}}">
+<navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}" background="{{navbar.background}}" title="蓝牙设备"></navbar>
+
+<view class="{{skin}}">
+	<view class="search-container">
+		<view class="title">
+			<text class="white title-text-left">蓝牙设备</text>
+			<text class="white title-text-right">{{time}}S</text>
+		</view>
+
+
+
+
+		<block wx:for="{{devices}}" wx:key="*this" wx:for-item="device">
+			<view class="list-item button-bg" data-device="{{device}}">
+				<!-- <button class="item_bg"></button> -->
+				<view class="item-content">
+					<text class="name">{{device.name}}</text>
+					<view class="item-right">
+						<block wx:if="{{connected&&connected.deviceId===device.deviceId}}">
+							<view class="green" bindtap="disconnect" data-device="{{device}}">断开连接</view>
+							<view class="green" bindtap="enter" data-device="{{device}}">进入</view>
+						</block>
+						<block wx:else>
+							<view class="green" bindtap="connect" data-device="{{device}}">点击连接</view>
+						</block>
+					</view>
+				</view>
+			</view>
+		</block>
+
+		<view class="bottom">
+			<button class="button" bindtap="search" plain="true">扫描附近蓝牙设备</button>
+		</view>
+	</view>
+</view>
+
+</view>

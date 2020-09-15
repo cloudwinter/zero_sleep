@@ -1,0 +1,26 @@
+
+.page-orange {
+  width: 100vw;
+  height: 100vh;
+  background-color: #58008E;
+  background-image: url("https://syy.freep.cn/632008/orange_bg@3x.png");
+
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  position: relative;
+}
+
+
+.orange {
+  height: 100%;
+  width: 100%;
+}
+
+
+.orange .text-normal {
+  color: white;
+}
+
+.orange .text-selected {
+  color: #05BF74;
+}

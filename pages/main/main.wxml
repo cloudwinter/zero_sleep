@@ -1,0 +1,47 @@
+<!--main.wxml-->
+<view class="page-{{skin}}">
+<navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}" background="{{navbar.background}}"  back="{{true}}" set="{{true}}"></navbar>
+
+
+<!-- 底部切换菜单 -->
+<view class="tab-bar">
+	<block wx:for="{{tabBar}}" wx:for-item="item" wx:key="index">
+		<view class="tab-item {{index==nowIndex?'active':''}}" bindtap="{{item.tapFunction}}">
+			<!-- <view style="position: relative;display:inline-block;"> -->
+				<image src="{{nowIndex === index ? item.selectedIconPath : item.iconPath}}" class="tabbar_icon"></image>
+			<!-- </view> -->
+			<text class="icon-text">{{item.text}}</text>
+		</view>
+	</block>
+</view>
+
+	<!-- 页面容器 -->
+	<view class="container">
+		<view class="tab-container" hidden="{{nowPage!='kuaijie'}}">
+			<kuaijie-K1 wx:if="{{kuaijieType=='K1'}}"></kuaijie-K1>
+			<kuaijie-K2 wx:if="{{kuaijieType=='K2'}}"></kuaijie-K2>
+			<kuaijie-K3 wx:if="{{kuaijieType=='K3'}}"></kuaijie-K3>
+			<kuaijie-K4 wx:if="{{kuaijieType=='K4'}}"></kuaijie-K4>
+			<kuaijie-K5 wx:if="{{kuaijieType=='K5'}}"></kuaijie-K5>
+			<kuaijie-K6 wx:if="{{kuaijieType=='K6'}}"></kuaijie-K6>
+		</view>
+		<view class="tab-container" hidden="{{nowPage!='weitiao'}}">
+			<weitiao-W1 wx:if="{{weitiaoType=='W1'}}"></weitiao-W1>
+			<weitiao-W2 wx:if="{{weitiaoType=='W2'}}"></weitiao-W2>
+			<weitiao-W3 wx:if="{{weitiaoType=='W3'}}"></weitiao-W3>
+			<weitiao-W4 wx:if="{{weitiaoType=='W4'}}"></weitiao-W4>
+			<weitiao-W5 wx:if="{{weitiaoType=='W5'}}"></weitiao-W5>
+			<weitiao-W6 wx:if="{{weitiaoType=='W6'}}"></weitiao-W6>
+			<weitiao-W7 wx:if="{{weitiaoType=='W7'}}"></weitiao-W7>
+			<weitiao-W8 wx:if="{{weitiaoType=='W8'}}"></weitiao-W8>
+			<weitiao-W9 wx:if="{{weitiaoType=='W9'}}"></weitiao-W9>
+		</view>
+		<view class="tab-container" hidden="{{nowPage!='anmo'}}">
+			<anmo></anmo>
+		</view>
+		<view class="tab-container" hidden="{{nowPage!='dengguang'}}">
+			<dengguang></dengguang>
+		</view>
+	</view>
+
+	</view>

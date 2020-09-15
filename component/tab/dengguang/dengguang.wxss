@@ -1,0 +1,64 @@
+/* component/dengguang/dengguang.wxss */
+@import './../../../common/tab.wxss';
+
+/*** common  */
+.orange .button-bg {
+  background: #6E269A;
+
+}
+
+.orange .button-bg-selected {
+  background-color: #3D0464;
+  border:3rpx solid #FF9704;
+}
+
+
+.dark .button-bg {
+  background: #1E1F24;
+  /* border-color: #5A9927; */
+}
+
+.dark .button-bg-selected {
+  background-color: #1E1F24;
+  border:3rpx solid #5A9927;
+}
+
+
+.anjian {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  margin-top: 74rpx;
+}
+
+.dengguang-button-bg {
+  display: flex;
+  width: 90% !important;
+  height: 120rpx;
+  border-radius: 120rpx;
+  /* background: #1E1F24;
+  border-color: #5A9927; */
+  color: white;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40rpx;
+  font-weight:normal;
+  font-size: 30rpx;
+  letter-spacing:2rpx;
+}
+
+/* .button-bg-selected {
+  display: flex;
+  width: 90% !important;
+  height: 120rpx;
+  border-radius: 120rpx;
+  background-color: #1E1F24;
+  border:3rpx solid #5A9927;
+  color: white;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40rpx;
+  font-size: 30rpx;
+  letter-spacing:2rpx;
+} */

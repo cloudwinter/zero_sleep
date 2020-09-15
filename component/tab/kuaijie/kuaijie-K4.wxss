@@ -1,0 +1,128 @@
+/* component/kuaijie/kuaijie-K4.wxss */
+
+@import './../../../common/tab.wxss';
+
+/************common****************** */
+.dark .button-bg {
+  background: #1E1F24;
+}
+
+.dark .button-bg-selected {
+  background-color: #1E1F24;
+  border:3rpx solid #5A9927;
+}
+
+
+.orange .button-bg {
+  background: #6E269A;
+}
+
+.orange .button-bg-selected {
+  background-color: #6E269A;
+  border:3rpx solid #FF9704;
+}
+
+
+/********** 记忆区 **************/
+
+.jiyi {
+  display: flex;
+  height: 120rpx;
+  padding-top: 20rpx;
+  width: 100%;
+  justify-content: center;
+}
+
+.jiyi .button {
+  width: 324rpx !important;
+  height: 120rpx;
+  border-radius: 120rpx;
+  display: flex;
+  align-items: center;
+}
+
+
+.jiyi .button .dian{
+  width: 28rpx;
+  height: 28rpx;
+  padding-left: 52rpx;
+}
+
+.jiyi .button .white {
+  color: white;
+  padding-left: 60rpx;
+}
+
+
+/*******************按键区*********************/
+
+.anjianqu {
+  display: flex;
+  margin-left: 39rpx;
+  margin-right: 39rpx;
+  margin-top: 30rpx;
+  align-items: center;
+  height: 120rpx;
+}
+
+.anjianqu .anjian-left {
+  flex: auto;
+  height: 120rpx;
+  display: flex;
+  position: relative;
+}
+
+
+.anjianqu .anjian-right {
+  flex: auto;
+  height: 120rpx;
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+}
+
+
+
+.anjiian-content {
+  display: flex;
+  height: 120rpx;
+  width: 324rpx;
+  align-items: center;
+  /* justify-content: center; */
+}
+
+.anjian-button-bg {
+  width: 324rpx;
+  height: 120rpx;
+  border-radius: 120rpx;
+}
+
+.anjian-icon{
+  width: 100rpx;
+  height: 80rpx;
+  margin-left: 80rpx;
+}
+
+.name{
+  color: white;
+  font-size: 24rpx;
+}
+
+.anjiian-chang-content {
+  display: flex;
+  height: 120rpx;
+  align-items: center;
+  justify-content: center;
+}
+
+.anjian-chang-button-bg {
+  width: 100% !important;
+  height: 120rpx;
+  border-radius: 120rpx;
+}
+
+.anjiian-chang-content .anjian-icon {
+  width: 100rpx;
+  height: 80rpx;
+  margin-left: 0rpx;
+}

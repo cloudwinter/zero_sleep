@@ -1,0 +1,132 @@
+/* component/kuaijie/kuaijie-K2.wxss */
+/* component/kuaijie/kuaijie-K1.wxss */
+@import './../../../common/tab.wxss';
+
+/************common****************** */
+.dark .button-bg {
+  background: #1E1F24;
+}
+
+.dark .button-bg-selected {
+  background-color: #1E1F24;
+  border:3rpx solid #5A9927;
+}
+
+
+.orange .button-bg {
+  background: #6E269A;
+}
+
+.orange .button-bg-selected {
+  background-color: #6E269A;
+  border:3rpx solid #FF9704;
+}
+
+
+
+
+.jiyi {
+  display: flex;
+  height: 120rpx;
+  padding-top: 20rpx;
+  width: 100%;
+}
+
+.jiyi .button {
+  width: 324rpx;
+  height: 120rpx;
+  border-radius: 120rpx;
+  display: flex;
+  align-items: center;
+}
+
+.jiyi .left {
+  width: 324rpx;
+  height: 120rpx;
+  margin-left: 30rpx;
+}
+
+.jiyi .middle {
+  flex: auto;
+}
+
+.jiyi .right {
+  width: 324rpx;
+  height: 120rpx;
+  margin-right: 30rpx;
+}
+
+.jiyi-button-bg {
+  width: 100%;
+  height: 120rpx;
+  border-radius: 120rpx;
+  position: absolute;
+  z-index: -1;
+}
+
+
+
+.jiyi .button .dian{
+  width: 28rpx;
+  height: 28rpx;
+  padding-left: 52rpx;
+}
+
+.jiyi .button .name {
+  color: white;
+  padding-left: 60rpx;
+}
+
+
+
+.anjianqu {
+  display: flex;
+  margin-left: 135rpx;
+  margin-right: 135rpx;
+  margin-top: 80rpx;
+  align-items: center;
+  height: 120rpx;
+}
+
+.anjianqu .anjian-left {
+  flex: auto;
+  height: 204rpx;
+  display: flex;
+  position: relative;
+}
+
+
+.anjianqu .anjian-right {
+  flex: auto;
+  height: 204rpx;
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+}
+
+.anjian-bg {
+  width: 204rpx;
+  height: 204rpx;
+  /* position: absolute;
+  z-index: -1; */
+}
+
+.anjiian-content {
+  display: flex;
+  height: 204rpx;
+  width: 204rpx;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+}
+
+.anjiian-content .anjian-icon{
+  width: 120rpx;
+  height: 96rpx;
+  margin-top: 20rpx;
+}
+
+.anjiian-content .name{
+  color: white;
+  font-size: 24rpx;
+}

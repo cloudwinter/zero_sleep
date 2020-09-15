@@ -1,0 +1,27 @@
+.page-dark {
+  width: 100vw;
+  height: 100vh;
+  background-color: #1E1F24;
+  background-image: url("https://syy.freep.cn/632008/bg@2x.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  position: relative;
+}
+
+.dark {
+  height: 100%;
+  width: 100%;
+}
+
+.dark .text {
+  color: black;
+}
+
+
+.dark .text-normal {
+  color: white;
+}
+
+.dark .text-selected {
+  color: #05BF74;
+}
