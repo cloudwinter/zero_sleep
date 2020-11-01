@@ -46,7 +46,7 @@ page {
   font-size: 12px;
   width: 34rpx;
   height: 32rpx;
-  background-image: url("https://syy.freep.cn/632008/back@3x.png");
+  background-image: url("http://www.tri-mix.net/xiaochengxuPIC/zerosleep2.png");
   background-position: 50% 50%;
   background-size: cover
 }
@@ -56,7 +56,7 @@ page {
   width: 34rpx;
   height: 32rpx;
   margin-left: 10px;
-  background-image: url("https://syy.freep.cn/632008/set@3x.png");
+  background-image: url("http://www.tri-mix.net/xiaochengxuPIC/zerosleep3.png");
   background-position: 50% 50%;
   background-size: cover
 }
