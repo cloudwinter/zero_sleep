@@ -575,6 +575,8 @@ Page({
         } else if (name.indexOf('QMS-DQ') >= 0 ||
           name.indexOf('QMS-443') >= 0) {
           return 'K5';
+        } else if (name.indexOf('S3-2') >= 0) {
+          return 'K2';
         }
       }
       // 默认K1
@@ -619,6 +621,8 @@ Page({
         } else if (name.indexOf('QMS-DQ') >= 0 ||
           name.indexOf('QMS-443') >= 0) {
           return 'W8';
+        } else if (name.indexOf('S3-2') >= 0) {
+          return 'W10';
         }
       }
       // 默认K1
