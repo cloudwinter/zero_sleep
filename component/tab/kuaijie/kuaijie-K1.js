@@ -186,6 +186,16 @@ Component({
       util.sendBlueCmd(connected, sendPrefix + cmd, options);
     },
 
+    /**
+     * 发送完整的蓝牙命令
+     * @param {} cmd 
+     * @param {*} options 
+     */
+    sendFullBlueCmd(cmd, options) {
+      var connected = this.data.connected;
+      util.sendBlueCmd(connected, cmd, options);
+    },
+
 
 
     /*************-------------点击事件--------------------*********** */
@@ -526,6 +536,54 @@ Component({
       })
       // 单击
       this.sendBlueCmd('002916DE');
+    },
+
+
+    /**
+     * 全身循环的点击事件
+     */
+    tapQuanshengxunhuan() {
+      console.info("tapQuanshengxunhuan");
+      this.setData({
+        currentAnjian: {
+          anjian: 'quanshengxunhuan',
+          name: '全身循环'
+        }
+      })
+      // 单击
+      this.sendFullBlueCmd('FFFFFFFF05000500E4C74A');
+    },
+
+
+    /**
+     * 瑜伽的点击事件
+     */
+    tapYujia() {
+      console.info("tapQuanshengxunhuan");
+      this.setData({
+        currentAnjian: {
+          anjian: 'yujia',
+          name: '瑜伽'
+        }
+      })
+      // 单击
+      this.sendFullBlueCmd('FFFFFFFF050000000D16C5');
+    },
+
+
+    /**
+     * 臀部循环的点击事件
+     */
+    tapTunbuxunhuan() {
+      console.info("tapTunbuxunhuan");
+      this.setData({
+        currentAnjian: {
+          anjian: 'tunbuxunhuan',
+          name: '臀部循环'
+        }
+      })
+      // 单击
+      this.sendFullBlueCmd('FFFFFFFF05000500E6468B');
     },
 
   },

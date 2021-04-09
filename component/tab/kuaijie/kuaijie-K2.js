@@ -100,7 +100,7 @@ Component({
      */
     askJiyiStatus(connected, cur) {
       var name = connected.name;
-      if (name.indexOf('QMS-MQ') >= 0 || name.indexOf('QMS2') >= 0) {
+      if (name.indexOf('QMS-MQ') >= 0 || name.indexOf('QMS2') >= 0 || name.indexOf('S3-2')) {
         cur.setData({
           askType: '2'
         })
