@@ -22,6 +22,14 @@ Page({
     this.setData({
       skin: app.globalData.skin
     })
+
+    var query = wx.createSelectorQuery();
+    query.select('#navbar').boundingClientRect()
+    query.exec((res) => {
+      var navHeight = res[0].height; // 获取navHeight高度
+      app.globalData.navHeight = navHeight;
+      console.info("onLoad->nav高度：" + navHeight+" "+app.globalData.navHeight);
+    })
   },
 
   /**

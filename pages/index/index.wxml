@@ -1,6 +1,6 @@
 <!--index.wxml-->
 <view class="page-{{skin}}">
-	<navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}" background="{{navbar.background}}" back="{{false}}"></navbar>
+	<navbar id="navbar" loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}" background="{{navbar.background}}" back="{{false}}"></navbar>
 
 	<view class="{{skin}}">
 

@@ -21,6 +21,7 @@ Component({
   data: {
     skin: app.globalData.skin,
     display: app.globalData.display,
+    containerHeight: '', 
     connected: {},
     currentAnjian: {
       anjian: 'kandianshi', // kandianshi,lingyali,zhihan,tingyinyue,fuyuan,tuibufangsong
@@ -62,9 +63,11 @@ Component({
     },
     attached: function () {
       // 在组件实例进入页面节点树时执行
-      console.info("attached");
+      console.info("attached"+app.globalData.screenHeight+"-"+app.globalData.navHeight);
       this.setData({
-        display: app.globalData.display
+        display: app.globalData.display,
+        // 屏幕高度-顶部高度-tab高度-预留5px底部距离
+        containerHeight:app.globalData.screenHeight-app.globalData.navHeight-52-5
       })
     },
     detached: function () {

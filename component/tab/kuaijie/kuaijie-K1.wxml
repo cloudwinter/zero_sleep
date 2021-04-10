@@ -1,6 +1,7 @@
 <!--component/kuaijie/kuaijie-K1.wxml-->
 
-<view class="{{skin}}" bindtap="tapBlank" data-blank="blank">
+<scroll-view scroll-y="true" class="{{skin}}" bindtap="tapBlank" data-blank="blank"
+enhanced="true" showScrollbar="false" style="height:{{containerHeight}}px">
 
 	<view class="top" style="margin-top:{{display=='high'?90:0}}rpx;">
 		<view class="donghuaqu">
@@ -27,10 +28,10 @@
 					<image class="dh-icon" src="../../../images/{{skin}}/quanshenxunhuan-da@3x.png"></image>
 				</block>
 				<block wx:if="{{currentAnjian.anjian=='yujia'}}">
-					<image class="dh-icon" src="../../../images/{{skin}}/tunbuxunhuan-da@3x.png"></image>
+					<image class="dh-icon" src="../../../images/{{skin}}/yujia-da@3x.png"></image>
 				</block>
 				<block wx:if="{{currentAnjian.anjian=='tunbuxunhuan'}}">
-					<image class="dh-icon" src="../../../images/{{skin}}/kj-tunbuxunhuan-da@3x.png"></image>
+					<image class="dh-icon" src="../../../images/{{skin}}/tunbuxunhuan-da@3x.png"></image>
 				</block>
 				<view class="dh-name">{{currentAnjian.name}}</view>
 			</view>
@@ -116,18 +117,18 @@
 		<view class="anjian-middle">
 			<image class="anjian-bg" src="../../../images/{{skin}}/anjian-yuan-normal@3x.png"></image>
 			<view class="anjiian-content" catchtap="tapYujia">
-				<image class="anjian-icon" src="../../../images/{{skin}}/tunbuxunhuan-xiao@3x.png"></image>
+				<image class="anjian-icon" src="../../../images/{{skin}}/yujia-xiao@3x.png"></image>
 				<view class="name">瑜伽</view>
 			</view>
 		</view>
 		<view class="anjian-right">
 			<image class="anjian-bg" src="../../../images/{{skin}}/anjian-yuan-normal@3x.png"></image>
 			<view class="anjiian-content" catchtap="tapTunbuxunhuan">
-				<image class="anjian-icon" src="../../../images/{{skin}}/kj-tunbuxunhuan-xiao@3x.png"></image>
+				<image class="anjian-icon" src="../../../images/{{skin}}/tunbuxunhuan-xiao@3x.png"></image>
 				<view class="name">臀部循环</view>
 			</view>
 		</view>
 	</view>
 
 
-</view>
+</scroll-view>

@@ -4,6 +4,7 @@
   bottom:0;
   left:0;
   width:100%;
+  height: 52px;
   background-color: #0E0F12;
   border-top:1px solid #17181D;
   z-index:500;
@@ -14,6 +15,7 @@
   bottom:0;
   left:0;
   width:100%;
+  height: 52px;
   background-color: #6B05AC;
   z-index:500;
 }

@@ -24,6 +24,7 @@ App({
           display = screenHeight > 790 ? 'high' : 'normal';
         }
         this.globalData.display = display
+        this.globalData.screenHeight = screenHeight;
         console.info("app onShow->屏幕高度：" + screenHeight, this.globalData.display);
       },
     })
@@ -31,5 +32,7 @@ App({
   globalData: {
     skin: 'dark',
     display: 'normal',
+    screenHeight: '',
+    navHeight:'',
   }
 })
