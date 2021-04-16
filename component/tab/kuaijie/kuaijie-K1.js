@@ -570,7 +570,7 @@ Component({
         }
       })
       // 单击
-      this.sendFullBlueCmd('FFFFFFFF050000000D16C5');
+      this.sendFullBlueCmd('FFFFFFFF050000004E5734');
     },
 
 
