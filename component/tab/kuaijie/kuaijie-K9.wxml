@@ -1,6 +1,4 @@
-<!--component/tab/kuaijie/kuaijie-K8.wxml-->
-<!--component/kuaijie/kuaijie-K3.wxml-->
-
+<!--component/tab/kuaijie/kuaijie-K9.wxml-->
 <view class="{{skin}}" bindtap="tapBlank" data-blank="blank">
 
 <view class="top" style="margin-top:{{display=='high'?90:0}}rpx;">
@@ -12,8 +10,8 @@
       <block wx:if="{{currentAnjian.anjian=='lingyali'}}">
         <image class="dh-icon" src="../../../images/{{skin}}/lingyali-da@3x.png"></image>
       </block>
-      <block wx:if="{{currentAnjian.anjian=='dingyao'}}">
-        <image class="dh-icon" src="../../../images/{{skin}}/dingyao-da@3x.png"></image>
+      <block wx:if="{{currentAnjian.anjian=='zhihan'}}">
+        <image class="dh-icon" src="../../../images/{{skin}}/zhihan-da@3x.png"></image>
       </block>
       <block wx:if="{{currentAnjian.anjian=='fuyuan'}}">
         <image class="dh-icon" src="../../../images/{{skin}}/fuyuan-da@3x.png"></image>
@@ -91,10 +89,11 @@
 
 
   <view class="anjian-middle">
-    <image class="anjian-bg" src="../../../images/{{skin}}/anjian-yuan-normal@3x.png"></image>
-    <view class="anjiian-content" catchtap="tapDingyao" bindtouchstart="touchStart" bindtouchend="touchEnd">
-      <image class="anjian-icon" src="../../../images/{{skin}}/dingyao-xiao@3x.png"></image>
-      <view class="name">顶腰</view>
+    <image class="anjian-bg" wx:if="{{zhihan}}" src="../../../images/{{skin}}/anjian-yuan-seleced@3x.png"></image>
+    <image class="anjian-bg" wx:else src="../../../images/{{skin}}/anjian-yuan-normal@3x.png"></image>
+    <view class="anjiian-content" catchtap="tapZhihan" bindtouchstart="touchStart" bindtouchend="touchEnd">
+      <image class="anjian-icon" src="../../../images/{{skin}}/zhihan-xiao@3x.png"></image>
+      <view class="name">止鼾</view>
     </view>
   </view>
 
@@ -111,5 +110,6 @@
 </view>
 
 </view>
+
 
 
