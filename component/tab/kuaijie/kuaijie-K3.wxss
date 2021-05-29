@@ -81,8 +81,8 @@
 
 .anjianqu {
   display: flex;
-  margin-left: 135rpx;
-  margin-right: 135rpx;
+  margin-left: 60rpx;
+  margin-right: 60rpx;
   margin-top: 80rpx;
   align-items: center;
   height: 120rpx;
@@ -90,39 +90,47 @@
 
 .anjianqu .anjian-left {
   flex: auto;
-  height: 204rpx;
+  height: 160rpx;
   display: flex;
   position: relative;
+}
+
+.anjianqu .anjian-middle {
+  width: 180rpx;
+  height: 160rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 
 .anjianqu .anjian-right {
   flex: auto;
-  height: 204rpx;
+  height: 160rpx;
   display: flex;
   align-items: center;
   flex-direction: row-reverse;
 }
 
 .anjian-bg {
-  width: 204rpx;
-  height: 204rpx;
+  width: 160rpx;
+  height: 160rpx;
   /* position: absolute;
   z-index: -1; */
 }
 
 .anjiian-content {
   display: flex;
-  height: 204rpx;
-  width: 204rpx;
+  height: 160rpx;
+  width: 160rpx;
   align-items: center;
   flex-direction: column;
   position: absolute;
 }
 
 .anjiian-content .anjian-icon{
-  width: 120rpx;
-  height: 96rpx;
+  width: 100rpx;
+  height: 80rpx;
   margin-top: 20rpx;
 }
 

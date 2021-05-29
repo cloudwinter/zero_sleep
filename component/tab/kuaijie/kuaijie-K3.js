@@ -500,6 +500,36 @@ Component({
       // 单击
       this.sendBlueCmd('F10FD294');
     },
+
+    /**
+     * 一键升起
+     */
+    tapShenQi() {
+      console.info("tapShenQi");
+      this.setData({
+        currentAnjian: {
+          anjian: 'yijianshengqi',
+          name: '一键升起'
+        }
+      })
+      // 单击
+      this.sendBlueCmd('00065702');
+    },
+
+    /**
+     * 一键降下
+     */
+    tapJiangXia() {
+      console.info("tapJiangXia");
+      this.setData({
+        currentAnjian: {
+          anjian: 'yijianjiangxia',
+          name: '一键降下'
+        }
+      })
+      // 单击
+      this.sendBlueCmd('000796C2');
+    },
   },
 
 })

@@ -17,6 +17,12 @@
 				<block wx:if="{{currentAnjian.anjian=='fuyuan'}}">
 					<image class="dh-icon" src="../../../images/{{skin}}/fuyuan-da@3x.png"></image>
 				</block>
+				<block wx:if="{{currentAnjian.anjian=='yijianshengqi'}}">
+					<image class="dh-icon" src="../../../images/{{skin}}/fuyuan-da@3x.png"></image>
+				</block>
+				<block wx:if="{{currentAnjian.anjian=='yijianjiangxia'}}">
+					<image class="dh-icon" src="../../../images/{{skin}}/fuyuan-da@3x.png"></image>
+				</block>
 				<view class="dh-name">{{currentAnjian.name}}</view>
 			</view>
 		</view>
@@ -38,7 +44,17 @@
 
 
 	<view class="anjianqu" style="padding-top:10rpx;">
+
 		<view class="anjian-left">
+			<image class="anjian-bg" src="../../../images/{{skin}}/anjian-yuan-normal@3x.png"></image>
+			<view class="anjiian-content" catchtap="tapShenQi">
+				<image class="anjian-icon" src="../../../images/{{skin}}/yujia-xiao@3x.png"></image>
+				<view class="name">一键升起</view>
+			</view>
+		</view>
+
+
+		<view class="anjian-middle">
 			<image class="anjian-bg" wx:if="{{kandianshi}}" src="../../../images/{{skin}}/anjian-yuan-seleced@3x.png"></image>
 			<image class="anjian-bg" wx:else src="../../../images/{{skin}}/anjian-yuan-normal@3x.png"></image>
 			<view class="anjiian-content" catchtap="tapKandianshi" bindtouchstart="touchStart" bindtouchend="touchEnd">
@@ -46,6 +62,8 @@
 				<view class="name">看电视</view>
 			</view>
 		</view>
+
+
 		<view class="anjian-right">
 			<image class="anjian-bg" wx:if="{{lingyali}}" src="../../../images/{{skin}}/anjian-yuan-seleced@3x.png"></image>
 			<image class="anjian-bg" wx:else src="../../../images/{{skin}}/anjian-yuan-normal@3x.png"></image>
@@ -61,7 +79,17 @@
 
 	<view class="anjianqu" style="margin-top:110rpx">
 
+
 		<view class="anjian-left">
+			<image class="anjian-bg" src="../../../images/{{skin}}/anjian-yuan-normal@3x.png"></image>
+			<view class="anjiian-content" catchtap="tapJiangXia">
+				<image class="anjian-icon" src="../../../images/{{skin}}/yujia-xiao@3x.png"></image>
+				<view class="name">一键降下</view>
+			</view>
+		</view>
+
+
+		<view class="anjian-middle">
 			<image class="anjian-bg" wx:if="{{zhihan}}" src="../../../images/{{skin}}/anjian-yuan-seleced@3x.png"></image>
 			<image class="anjian-bg" wx:else src="../../../images/{{skin}}/anjian-yuan-normal@3x.png"></image>
 			<view class="anjiian-content" catchtap="tapDingyao" bindtouchstart="touchStart" bindtouchend="touchEnd">
@@ -69,6 +97,8 @@
 				<view class="name">顶腰</view>
 			</view>
 		</view>
+
+
 
 		<view class="anjian-right">
 			<image class="anjian-bg" src="../../../images/{{skin}}/anjian-yuan-normal@3x.png"></image>
