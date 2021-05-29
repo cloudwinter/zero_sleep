@@ -515,6 +515,7 @@ Page({
         if (name.indexOf('QMS-IQ') >= 0 ||
           name.indexOf('QMS-I06') >= 0 ||
           name.indexOf('QMS-I06') >= 0 ||
+          name.indexOf('QMS-LQ') >= 0 ||
           name.indexOf('QMS-L04') >= 0 ||
           name.indexOf('QMS-JQ-D') >= 0 ||
           name.indexOf('QMS-NQ') >= 0 ||
@@ -550,7 +551,8 @@ Page({
         if (name.indexOf('QMS-IQ') >= 0 ||
           name.indexOf('QMS-I06') >= 0 ||
           name.indexOf('QMS-I06') >= 0 ||
-          name.indexOf('QMS-L04') >= 0) {
+          name.indexOf('QMS-L04') >= 0 ||
+          name.indexOf('QMS-LQ') >= 0) {
           return 'K1';
         } else if (name.indexOf('QMS-JQ-D') >= 0 ||
           name.indexOf('QMS-NQ') >= 0 ||
@@ -593,7 +595,8 @@ Page({
         if (name.indexOf('QMS-IQ') >= 0 ||
           name.indexOf('QMS-I06') >= 0 ||
           name.indexOf('QMS-I06') >= 0 ||
-          name.indexOf('QMS-L04') >= 0) {
+          name.indexOf('QMS-L04') >= 0 || 
+          name.indexOf('QMS-LQ') >= 0) {
           return 'W1';
         } else if (name.indexOf('QMS-JQ-D') >= 0 ||
           name.indexOf('QMS4') >= 0) {
