@@ -18,10 +18,10 @@
 					<image class="dh-icon" src="../../../images/{{skin}}/fuyuan-da@3x.png"></image>
 				</block>
 				<block wx:if="{{currentAnjian.anjian=='yijianshengqi'}}">
-					<image class="dh-icon" src="../../../images/{{skin}}/fuyuan-da@3x.png"></image>
+					<image class="dh-icon" src="../../../images/{{skin}}/yijianshengqi-da@3x.png"></image>
 				</block>
 				<block wx:if="{{currentAnjian.anjian=='yijianjiangxia'}}">
-					<image class="dh-icon" src="../../../images/{{skin}}/fuyuan-da@3x.png"></image>
+					<image class="dh-icon" src="../../../images/{{skin}}/yijianjiangxia-da@3x.png"></image>
 				</block>
 				<view class="dh-name">{{currentAnjian.name}}</view>
 			</view>
@@ -48,7 +48,7 @@
 		<view class="anjian-left">
 			<image class="anjian-bg" src="../../../images/{{skin}}/anjian-yuan-normal@3x.png"></image>
 			<view class="anjiian-content" catchtap="tapShenQi">
-				<image class="anjian-icon" src="../../../images/{{skin}}/yujia-xiao@3x.png"></image>
+				<image class="anjian-icon" src="../../../images/{{skin}}/yijianshengqi-xiao@3x.png"></image>
 				<view class="name">一键升起</view>
 			</view>
 		</view>
@@ -83,7 +83,7 @@
 		<view class="anjian-left">
 			<image class="anjian-bg" src="../../../images/{{skin}}/anjian-yuan-normal@3x.png"></image>
 			<view class="anjiian-content" catchtap="tapJiangXia">
-				<image class="anjian-icon" src="../../../images/{{skin}}/yujia-xiao@3x.png"></image>
+				<image class="anjian-icon" src="../../../images/{{skin}}/yijianjiangxia-xiao@3x.png"></image>
 				<view class="name">一键降下</view>
 			</view>
 		</view>

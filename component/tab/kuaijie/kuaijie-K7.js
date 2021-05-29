@@ -1,4 +1,4 @@
-// component/kuaijie/kuaijie-K2.js
+// component/tab/kuaijie/kuaijie-K7.js
 const util = require('../../../utils/util')
 const WxNotificationCenter = require('../../../utils/WxNotificationCenter')
 const app = getApp();
@@ -91,7 +91,7 @@ Component({
       that.setData({
         connected: connected,
       })
-      WxNotificationCenter.removeNotification("INIT",that);
+      WxNotificationCenter.removeNotification("INIT", that);
       that.askJiyiStatus(connected, that);
     },
 
@@ -100,72 +100,36 @@ Component({
      */
     askJiyiStatus(connected, cur) {
       var name = connected.name;
-      if (name.indexOf('QMS-MQ') >= 0 
-      || name.indexOf('QMS2') >= 0 
-      || name.indexOf('QMS3') >= 0) {
-        cur.setData({
-          askType: '2'
-        })
-        // 记忆1
-        var jiyi1 = '2800039F09';
-        // 记忆2
-        var jiyi2 = '3000031F0E';
-        // 看电视
-        var kandianshi = '1800039F06';
-        // 零压力
-        var lingyali = '2000031ECB';
-        // 止鼾
-        var zhihan = '3800039ECC';
-        setTimeout(() => {
-          cur.sendAskBlueCmd(jiyi1)
-        }, 100);
-        setTimeout(() => {
-          this.sendAskBlueCmd(jiyi2)
-        }, 200);
-        setTimeout(() => {
-          this.sendAskBlueCmd(kandianshi)
-        }, 300);
-        setTimeout(() => {
-          this.sendAskBlueCmd(lingyali)
-        }, 400);
-        setTimeout(() => {
-          this.sendAskBlueCmd(zhihan)
-        }, 500);
-      } else {
-        cur.setData({
-          askType: '1'
-        })
-        // 记忆1
-        var jiyi1 = '2800091F0E';
-        // 记忆2
-        var jiyi2 = '310009CEC9';
-        // 看电视
-        var kandianshi = '1600097EC2';
-        // 零压力
-        var lingyali = '1F0009AEC0';
-        // 止鼾
-        var zhihan = '3A0009BF0B';
-        setTimeout(() => {
-          cur.sendAskBlueCmd(jiyi1)
-        }, 100);
-        setTimeout(() => {
-          this.sendAskBlueCmd(jiyi2)
-        }, 200);
-        setTimeout(() => {
-          this.sendAskBlueCmd(kandianshi)
-        }, 300);
-        setTimeout(() => {
-          this.sendAskBlueCmd(lingyali)
-        }, 400);
-        setTimeout(() => {
-          this.sendAskBlueCmd(zhihan)
-        }, 500);
-      }
+      // 记忆1
+      var jiyi1 = '2800039F09';
+      // 记忆2
+      var jiyi2 = '3000031F0E';
+      // 看电视
+      var kandianshi = '1800039F06';
+      // 零压力
+      var lingyali = '2000031ECB';
+      // 止鼾
+      var zhihan = '3800039ECC';
+      setTimeout(() => {
+        cur.sendAskBlueCmd(jiyi1)
+      }, 100);
+      setTimeout(() => {
+        this.sendAskBlueCmd(jiyi2)
+      }, 200);
+      setTimeout(() => {
+        this.sendAskBlueCmd(kandianshi)
+      }, 300);
+      setTimeout(() => {
+        this.sendAskBlueCmd(lingyali)
+      }, 400);
+      setTimeout(() => {
+        this.sendAskBlueCmd(zhihan)
+      }, 500);
 
     },
 
 
-  
+
 
     /**
      * 蓝牙回复回调
@@ -174,65 +138,35 @@ Component({
     blueReply(cmd) {
       var that = this.observer;
       var prefix = cmd.substr(0, 14).toUpperCase();
-      console.info('kuaijie-k2->askBack', cmd, prefix);
+      console.info('kuaijie-k7->askBack', cmd, prefix);
       var askType = that.data.askType;
-      if (askType == '1') {
-        if (prefix == askReply1Prefix) {
-          var status = cmd.substr(14, 2).toUpperCase();
-          if ('AA' == status) {
-            that.setData({
-              jiyi1: true
-            })
-          }
-          if ('AB' == status) {
-            that.setData({
-              jiyi2: true
-            })
-          }
-          if ('A5' == status) {
-            that.setData({
-              kandianshi: true
-            })
-          }
-          if ('A9' == status) {
-            that.setData({
-              lingyali: true
-            })
-          }
-          if ('AF' == status) {
-            that.setData({
-              zhihan: true
-            })
-          }
+
+      if (prefix == askReply2Prefix) {
+        var status = cmd.substr(14, 2).toUpperCase();
+        if ('0A' == status) {
+          that.setData({
+            jiyi1: true
+          })
         }
-      } else {
-        if (prefix == askReply2Prefix) {
-          var status = cmd.substr(14, 2).toUpperCase();
-          if ('0A' == status) {
-            that.setData({
-              jiyi1: true
-            })
-          }
-          if ('0B' == status) {
-            that.setData({
-              jiyi2: true
-            })
-          }
-          if ('05' == status) {
-            that.setData({
-              kandianshi: true
-            })
-          }
-          if ('09' == status) {
-            that.setData({
-              lingyali: true
-            })
-          }
-          if ('0F' == status) {
-            that.setData({
-              zhihan: true
-            })
-          }
+        if ('0B' == status) {
+          that.setData({
+            jiyi2: true
+          })
+        }
+        if ('05' == status) {
+          that.setData({
+            kandianshi: true
+          })
+        }
+        if ('09' == status) {
+          that.setData({
+            lingyali: true
+          })
+        }
+        if ('0F' == status) {
+          that.setData({
+            zhihan: true
+          })
         }
       }
 

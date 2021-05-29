@@ -578,7 +578,7 @@ Page({
           name.indexOf('QMS-443') >= 0) {
           return 'K5';
         } else if (name.indexOf('S3-2') >= 0) {
-          return 'K2';
+          return 'K7';
         }
       }
       // 默认K1

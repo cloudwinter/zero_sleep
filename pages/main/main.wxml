@@ -24,6 +24,7 @@
 			<kuaijie-K4 wx:if="{{kuaijieType=='K4'}}"></kuaijie-K4>
 			<kuaijie-K5 wx:if="{{kuaijieType=='K5'}}"></kuaijie-K5>
 			<kuaijie-K6 wx:if="{{kuaijieType=='K6'}}"></kuaijie-K6>
+			<kuaijie-K7 wx:if="{{kuaijieType=='K7'}}"></kuaijie-K7>
 		</view>
 		<view class="tab-container" hidden="{{nowPage!='weitiao'}}">
 			<weitiao-W1 wx:if="{{weitiaoType=='W1'}}"></weitiao-W1>
