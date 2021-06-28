@@ -509,7 +509,7 @@ Component({
       this.setData({
         currentAnjian: {
           anjian: 'yijianshengqi',
-          name: '一键升起'
+          name: '一键上升'
         }
       })
       // 单击
@@ -524,7 +524,7 @@ Component({
       this.setData({
         currentAnjian: {
           anjian: 'yijianjiangxia',
-          name: '一键降下'
+          name: '一键下降'
         }
       })
       // 单击

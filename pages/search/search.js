@@ -537,7 +537,7 @@ Page({
           name.indexOf('QMS-443') >= 0 ||
           name.indexOf('S3-2') >= 0 ||
           name.indexOf('S3-3') >= 0 ||
-          name.indexOf('S4-4') >= 0)  {
+          name.indexOf('S3-4') >= 0)  {
           return true;
         }
       }
@@ -634,7 +634,7 @@ Page({
         } else if (name.indexOf('S3-2') >= 0) {
           return 'W10';
         } else if (name.indexOf('S3-3') >= 0 ||
-        name.indexOf('S3-4') >= 0) {
+          name.indexOf('S3-4') >= 0) {
           return 'W11';
         }
       }
