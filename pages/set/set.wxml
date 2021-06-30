@@ -9,7 +9,7 @@
 				<view class="shezhi-button-left">连接设备</view>
 				<view class="shezhi-button-right">
 					<view class="shezhi-button-name">已连接</view>
-					<image class="shezhi-button-icon" src="../../images/{{skin}}/set@3x.png"></image>
+					<image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
 				</view>
 			</view>
 
@@ -18,7 +18,7 @@
 				<view class="shezhi-button-left">模式选择</view>
 				<view class="shezhi-button-right">
 					<view class="shezhi-button-name">{{skin=='dark'?'深黑':'紫色'}}</view>
-					<image class="shezhi-button-icon" src="../../images/{{skin}}/set@3x.png"></image>
+					<image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
 				</view>
 			</view>
 

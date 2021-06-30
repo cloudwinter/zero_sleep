@@ -1,2 +1,69 @@
 <!--pages/alarm/alarm.wxml-->
-<text>pages/alarm/alarm.wxml</text>
+<!--pages/set.wxml-->
+<view class="page-{{skin}}">
+	<navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}"
+		background="{{navbar.background}}" title="闹钟"></navbar>
+
+	<view class="{{skin}}">
+		<view class="content">
+
+			<!-- 闹钟开关 -->
+			<view class="item">
+				<!-- <button class="shezhi-button-bg"></button> -->
+				<view class="item-left">闹钟开关</view>
+				<view class="item-right">
+					<switch checked bindchange="alarmSwitch" />
+				</view>
+			</view>
+
+			<!-- 是否重复 -->
+			<view class="item" style="margin-top:40rpx;">
+				<view class="item-left">是否重复</view>
+				<view class="item-right" bindtap="periodTap">
+					<view class=".item-right-name">已连接</view>
+					<image class="item-right-icon" src="../../images/{{skin}}/row@3x.png"></image>
+				</view>
+			</view>
+
+			<!-- 备注 -->
+			<view class="item" style="margin-top:1px;">
+				<view class="item-left">备注</view>
+				<view class="item-right" bindtap="remarkTap">
+					<view class=".item-right-name">起床</view>
+					<image class="item-right-icon" src="../../images/{{skin}}/row@3x.png"></image>
+				</view>
+			</view>
+
+
+			<!-- 模式 -->
+			<view class="item" style="margin-top:1px;">
+				<view class="item-left">模式</view>
+				<view class="item-right" bindtap="modeTap">
+					<view class=".item-right-name">零压力</view>
+					<image class="item-right-icon" src="../../images/{{skin}}/row@3x.png"></image>
+				</view>
+			</view>
+
+
+			<!-- 按摩 -->
+			<view class="item" style="margin-top:1px;">
+				<view class="item-left">按摩</view>
+				<view class="item-right">
+					<switch checked bindchange="anmoSwitch" />
+				</view>
+			</view>
+
+
+			<!-- 响铃 -->
+			<view class="item" style="margin-top:1px;">
+				<view class="item-left">响铃</view>
+				<view class="item-right">
+					<switch checked bindchange="anmoSwitch" />
+				</view>
+			</view>
+
+
+		</view>
+	</view>
+
+</view>
