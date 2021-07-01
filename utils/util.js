@@ -14,6 +14,17 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+/**
+ * 判断对象是否为空
+ * @param {*} object 
+ */
+function isNotEmptyObject(object) {
+  if(object && Object.keys(object) > 0) {
+    return true;
+  }
+  return false;
+}
+
 function showToast(msg) {
   wx.showToast({
     title: msg,
@@ -164,5 +175,6 @@ module.exports = {
   hexStringToArrayBuffer,
   transSpecialChar,
   sendBlueCmd,
+  isNotEmptyObject,
 
 }

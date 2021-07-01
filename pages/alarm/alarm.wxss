@@ -131,7 +131,6 @@
   display: flex;
   align-items: center;
   height: 120rpx;
-  flex-direction: column;
 }
 
 .radio {
