@@ -2,6 +2,8 @@
 const _STORAGE_KEY = 'bleConf'
 const _SKIP_KEY = 'skip'
 const _LAST_CONNECT_KEY = 'last_connected'
+const _CONNECTED_KEY = 'connected'
+const _ALARM_KEY = 'alarm:'
 const _PROPS = {
   _ID: 'id'
 }
@@ -168,6 +170,61 @@ function getLastConnected() {
 }
 
 
+/**
+ * 存储当前连接的设备
+ * @param {*} connected 
+ */
+function putCurrentConnected(connected){
+  var dataVal = JSON.stringify(connected);
+  wx.setStorage({
+    data: dataVal,
+    key: _CONNECTED_KEY,
+  })
+  console.log("putCurrentConnected",dataVal);
+}
+
+/**
+ * 获取当前连接设备的设备信息
+ */
+function getCurrentConnected() {
+  var dataVal = wx.getStorageSync(_CONNECTED_KEY);
+  console.log("getCurrentConnected",dataVal);
+  var connected;
+  if(dataVal) {
+    connected = JSON.parse(dataVal);
+  }
+  return connected;
+}
+
+
+/**
+ * 存储当前连接的设备
+ * @param {*} connected 
+ */
+function putAlarm(deviceId,alarm){
+  var key = _ALARM_KEY+deviceId;
+  var dataVal = JSON.stringify(alarm);
+  wx.setStorage({
+    data: dataVal,
+    key: key,
+  })
+  console.log("putAlarm",dataVal);
+}
+
+/**
+ * 获取当前连接设备的设备信息
+ */
+function getAlarm(deviceId) {
+  var dataVal = wx.getStorageSync(_ALARM_KEY+deviceId);
+  console.log("getAlarm",dataVal);
+  var alarm;
+  if(dataVal) {
+    alarm = JSON.parse(dataVal);
+  }
+  return alarm;
+}
+
+
 
 
 
@@ -184,4 +241,8 @@ module.exports = {
   getSkin,
   putLastConnected,
   getLastConnected,
+  putCurrentConnected,
+  getCurrentConnected,
+  putAlarm,
+  getAlarm,
 }

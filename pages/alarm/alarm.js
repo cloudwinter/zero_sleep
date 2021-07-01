@@ -1,6 +1,7 @@
 // pages/alarm/alarm.js
 const util = require('../../utils/util');
 const configManager = require('../../utils/configManager')
+const WxNotificationCenter = require('../../utils/WxNotificationCenter')
 const app = getApp();
 const weekArray = [
   '一',
@@ -18,6 +19,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    connected: '', // 当前连接的设备
     skin: app.globalData.skin,
     navbar: {
       loading: false,
@@ -41,16 +43,16 @@ Page({
     ],
     dialogShow: false,
     selectedRadio: 'drak',
-    isOpenAlarm: true, // 闹钟开关
     alarm: { // 闹钟设置
+      isOpenAlarm: true, // 闹钟开关
       time: '12:00',
       periodDesc: '永不',
       period: [],
       remark: '',
-      modeVal:'',
-      modeName:'',
-      anmo:false,
-      ring:false
+      modeVal: '',
+      modeName: '',
+      anmo: false,
+      ring: false
     },
     periodDialogShow: false, // 周期选择对话框
     periodList: [{
@@ -91,8 +93,8 @@ Page({
     ],
     remarkDialogShow: false,
     remarkInputValue: '',
-    modeDialogShow:false,
-    modeSelectRadio:'',
+    modeDialogShow: false,
+    modeSelectRadio: '',
 
   },
 
@@ -102,8 +104,36 @@ Page({
   onLoad: function (options) {
     this.setData({
       skin: app.globalData.skin,
-      selectedRadio: app.globalData.skin
+      selectedRadio: app.globalData.skin,
+      connected: configManager.getCurrentConnected()
     })
+    WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
+    // 如果缓存中有设置缓存回显
+    if(this.data.connected) {
+      let alarm = configManager.getAlarm;
+      if(alarm) {
+        this.setData({alarm:alarm});
+      }
+    }
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+    WxNotificationCenter.removeNotification("BLUEREPLY", this);
+  },
+
+
+
+
+  /**
+   * 蓝牙回复回调
+   * @param {*} cmd 
+   */
+  blueReply(cmd) {
+    var prefix = cmd.substr(0, 14).toUpperCase();
+    console.info('kuaijie-K1->askBack', cmd, prefix);
   },
 
   /**
@@ -111,9 +141,9 @@ Page({
    * @param {}} e 
    */
   alarmSwitch: function (e) {
-    var openAlarm = this.data.isOpenAlarm;
+    var openAlarm = this.data.alarm.isOpenAlarm;
     this.setData({
-      isOpenAlarm: !openAlarm
+      ['alarm.isOpenAlarm']: !openAlarm
     })
   },
 
@@ -181,8 +211,8 @@ Page({
     console.log('onModalPeriodClick period=' + period + ' periodDesc=' + periodDesc);
     this.setData({
       periodDialogShow: false,
-      ['alarm.period']:period,
-      ['alarm.periodDesc']:periodDesc,
+      ['alarm.period']: period,
+      ['alarm.periodDesc']: periodDesc,
     })
 
   },
@@ -227,7 +257,7 @@ Page({
     }
     this.setData({
       remarkDialogShow: false,
-      ['alarm.remark']:inputVal
+      ['alarm.remark']: inputVal
     });
   },
 
@@ -236,15 +266,17 @@ Page({
    * 模式
    * @param {*} e 
    */
-  modeTap:function(e) {
-    this.setData({modeDialogShow:true});
+  modeTap: function (e) {
+    this.setData({
+      modeDialogShow: true
+    });
   },
 
   /**
    * 模式选择
    * @param {*} e 
    */
-  modeRadioChange: function(e) {
+  modeRadioChange: function (e) {
     this.setData({
       modeSelectRadio: e.detail.value
     })
@@ -254,7 +286,7 @@ Page({
    * 模式选择点击
    * @param {*} e 
    */
-  onModalModeClick:function(e) {
+  onModalModeClick: function (e) {
     let cType = e.currentTarget.dataset.ctype;
     if (cType == 'cancel') {
       this.setData({
@@ -265,14 +297,14 @@ Page({
     let modeSelectRadio = this.data.modeSelectRadio;
     let modeSelectName;
     this.data.modeItems.forEach(obj => {
-      if(modeSelectRadio == obj.value) {
+      if (modeSelectRadio == obj.value) {
         modeSelectName = obj.name;
       }
     });
     this.setData({
       modeDialogShow: false,
-      ['alarm.modeVal']:modeSelectRadio,
-      ['alarm.modeName']:modeSelectName,
+      ['alarm.modeVal']: modeSelectRadio,
+      ['alarm.modeName']: modeSelectName,
     })
   },
 
@@ -280,9 +312,9 @@ Page({
    * 按摩选择
    * @param {*} e 
    */
-  anmoSwitch: function(e) {
+  anmoSwitch: function (e) {
     this.setData({
-      ['alarm.anmo']:!this.data.alarm.anmo
+      ['alarm.anmo']: !this.data.alarm.anmo
     })
   },
 
@@ -290,9 +322,9 @@ Page({
    * 响铃选择
    * @param {*} e 
    */
-  ringSwitch:function(e) {
+  ringSwitch: function (e) {
     this.setData({
-      ['alarm.ring']:!this.data.alarm.ring
+      ['alarm.ring']: !this.data.alarm.ring
     })
   },
 
@@ -301,8 +333,18 @@ Page({
    * 保存操作
    * @param {*} e 
    */
-  saveTap:function(e) {
-
+  saveTap: function (e) {
+    let connected = this.data.connected;
+    if (!connected) {
+      util.showToast('当前设备未连接');
+      return;
+    }
+    configManager.putAlarm(connected.deviceId, this.data.alarm);
+    // TODO
+    // 组装命令
+    // 发送蓝牙命令
+    wx.navigateBack({
+      delta: 1,
+    })
   }
-
 })

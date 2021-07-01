@@ -16,12 +16,19 @@ Page({
       show: true,
       animated: false,
     },
-    items: [
-      { value: 'dark', name: '深黑', checked: 'true' },
-      { value: 'orange', name: '紫色' },
+    items: [{
+        value: 'dark',
+        name: '深黑',
+        checked: 'true'
+      },
+      {
+        value: 'orange',
+        name: '紫色'
+      },
     ],
     dialogShow: false,
-    selectedRadio: 'drak'
+    selectedRadio: 'drak',
+    connected: {}
   },
 
   /**
@@ -32,6 +39,7 @@ Page({
       skin: app.globalData.skin,
       selectedRadio: app.globalData.skin
     })
+
   },
 
 
@@ -39,8 +47,9 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    
   },
+
 
 
 
@@ -71,6 +80,13 @@ Page({
     // configManager.setSkin(skin);
     this.setData({
       dialogShow: true
+    })
+  },
+
+
+  alarm: function(e) {
+    wx.navigateTo({
+      url: '/pages/alarm/alarm',
     })
   },
 

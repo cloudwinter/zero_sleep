@@ -12,11 +12,11 @@
 				<!-- <button class="shezhi-button-bg"></button> -->
 				<view class="item-left">闹钟开关</view>
 				<view class="item-right">
-					<switch checked="{{isOpenAlarm}}" bindchange="alarmSwitch" />
+					<switch checked="{{alarm.isOpenAlarm}}" bindchange="alarmSwitch" />
 				</view>
 			</view>
 
-			<view hidden="{{!isOpenAlarm}}" style="width:100%;margin-top:40rpx;">
+			<view hidden="{{!alarm.isOpenAlarm}}" style="width:100%;margin-top:40rpx;">
 
 				<!-- 时间 -->
 				<view class="item">
