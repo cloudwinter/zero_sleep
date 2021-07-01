@@ -22,6 +22,8 @@ Component({
     display: app.globalData.display,
     connected: {},
     currentSelected: '',
+    isLightShow: false,
+    lineItems: [] //灯光亮度
   },
 
 
@@ -40,12 +42,13 @@ Component({
       console.info("dengguang-->created", app.globalData.display);
       var that = this;
       WxNotificationCenter.addNotification("INIT", that.initConnected, that);
+      WxNotificationCenter.addNotification("BLUEREPLY", that.blueReply, that);
     },
     attached: function () {
       // 在组件实例进入页面节点树时执行
       console.info("attached");
       this.setData({
-        display:app.globalData.display
+        display: app.globalData.display
       })
     },
     detached: function () {
@@ -53,6 +56,7 @@ Component({
       console.info("detached");
       var that = this;
       WxNotificationCenter.removeNotification("INIT", that);
+      WxNotificationCenter.removeNotification("BLUEREPLY", that);
     },
   },
 
@@ -71,7 +75,7 @@ Component({
       that.setData({
         connected: connected,
       })
-      //WxNotificationCenter.removeNotification("INIT",that);
+      that.sendBlueCmd('FF23D729');
     },
 
 
@@ -81,6 +85,46 @@ Component({
     sendBlueCmd(cmd, options) {
       var connected = this.data.connected;
       util.sendBlueCmd(connected, sendPrefix + cmd, options);
+    },
+
+    /**
+     * 蓝牙回复回调
+     * @param {*} cmd 
+     */
+    blueReply(cmd) {
+      var that = this.observer;
+      var lineItems = [];
+      var prefix = cmd.substr(0, 14).toUpperCase();
+      if ('FFFFFFFF050001' != prefix) {
+        return;
+      }
+
+      var level = cmd.substr(14, 16).toUpperCase();
+      if('01' == level) {
+        lineItems = [1];
+      } else if('02' == level) {
+        lineItems = [1,1];
+      } else if('03' == level) {
+        lineItems = [1,1,1];
+      } else if('04' == level) {
+        lineItems = [1,1,1,1];
+      } else if('05' == level) {
+        lineItems = [1,1,1,1,1];
+      } else if('06' == level) {
+        lineItems = [1,1,1,1,1,1];
+      } else if('07' == level) {
+        lineItems = [1,1,1,1,1,1,1];
+      } else if('08' == level) {
+        lineItems = [1,1,1,1,1,1,1,1];
+      } else if('09' == level) {
+        lineItems = [1,1,1,1,1,1,1,1,1];
+      } else if('0A' == level) {
+        lineItems = [1,1,1,1,1,1,1,1,1,1];
+      }
+      that.setData({
+        isLightShow:true,
+        lineItems:lineItems
+      })
     },
 
 
@@ -119,7 +163,39 @@ Component({
 
         }
       }));
-    }
+    },
+
+    /**
+     * 亮度减小
+     * @param {*} e 
+     */
+    tapMinus(e) {
+      let lineItems = this.data.lineItems;
+      if (lineItems.length == 0) {
+        util.showToast('当前亮度已经调整到最小');
+        return;
+      }
+      lineItems.splice(lineItems.length - 1, 1);
+      this.setData({
+        lineItems: lineItems
+      })
+    },
+
+    /**
+     * 亮度增加
+     * @param {*} e 
+     */
+    tapPlus(e) {
+      let lineItems = this.data.lineItems;
+      if (lineItems.length == 10) {
+        util.showToast('当前亮度已经调整到最大');
+        return;
+      }
+      lineItems.push(1);
+      this.setData({
+        lineItems: lineItems
+      })
+    },
 
 
   }
