@@ -19,7 +19,7 @@ const formatNumber = n => {
  * @param {*} object 
  */
 function isNotEmptyObject(object) {
-  if(object && Object.keys(object) > 0) {
+  if (object && Object.keys(object) > 0) {
     return true;
   }
   return false;
@@ -36,7 +36,7 @@ function showToast(msg) {
 function showLoading(title) {
   wx.showLoading({
     title: title,
-    mask:true,
+    mask: true,
   });
 }
 
@@ -57,6 +57,19 @@ function showModal(content) {
 
 
 /**
+ * String->Array
+ * @param {*} str 
+ */
+function str2abArray(str) {
+  var array = new Uint8Array(str.length);
+  for (var i = 0, l = str.length; i < l; i++) {
+    array[i] = str.charCodeAt(i);
+  }
+  console.log(array);
+  return array;
+}
+
+/**
  * String->ArrayBuffer
  * @param {*} str 
  */
@@ -70,15 +83,15 @@ function str2ab(str) {
 }
 
 // ArrayBuffer转16进度字符串示例
-function ab2hex(buffer) {
-  var hexArr = Array.prototype.map.call(
-    new Uint8Array(buffer),
-    function (bit) {
-      return ('00' + bit.toString(16)).slice(-2)
-    }
-  )
-  return hexArr.join('');
-}
+// function ab2hex(buffer) {
+//   var hexArr = Array.prototype.map.call(
+//     new Uint8Array(buffer),
+//     function (bit) {
+//       return ('00' + bit.toString(16)).slice(-2)
+//     }
+//   )
+//   return hexArr.join('');
+// }
 
 
 /**
@@ -99,23 +112,43 @@ function ab2hex(buffer) {
  * 16进制字符串返回buff
  * @param {*} str 
  */
-function hexStringToArrayBuffer(str) {  
-  if (!str || str.length<2) {
+function hexStringToArrayBuffer(str) {
+  if (!str || str.length < 2) {
     return new ArrayBuffer(0);
   }
-  var buffer = new ArrayBuffer(str.length/2);
+  var buffer = new ArrayBuffer(str.length / 2);
   let dataView = new DataView(buffer)
-  let ind = 0;    
+  let ind = 0;
   for (var i = 0, len = str.length; i < len; i += 2) {
-    let code = parseInt(str.substr(i, 2), 16)    
+    let code = parseInt(str.substr(i, 2), 16)
     // console.log(str.substr(i, 2));
     // console.log(ind);
     dataView.setUint8(ind, code)
     ind++
-  }  
+  }
   //console.log("长度"+buffer);
   return buffer;
 }
+
+
+/**
+ * 将字符串每隔一定长度切分放入一个数组中
+ * @param {*} str 原始字符
+ * @param {*} length 每隔几个字符
+ * return 返回数组
+ */
+function strToArray(str,itemLength) {
+  if(!str || str.length % 2 != 0) {
+    console.error('strToArray 字符为空或长度异常',str,length);
+    return;
+  }
+  let array = [];
+  for(let i=0;i<str.length;i +=itemLength) {
+    array.push(str.substr(i,itemLength));
+  }
+  return array;
+}
+
 
 /**
  * 给蓝牙发送命令
@@ -123,8 +156,8 @@ function hexStringToArrayBuffer(str) {
  * @param {*} cmd 
  * @param {*} option 
  */
-function sendBlueCmd(connected,cmd,option){
-  console.info('sendBlueCmd',connected,cmd);
+function sendBlueCmd(connected, cmd, option) {
+  console.info('sendBlueCmd', connected, cmd);
   let buf = hexStringToArrayBuffer(cmd);
   wx.writeBLECharacteristicValue({
     deviceId: connected.deviceId,
@@ -134,14 +167,14 @@ function sendBlueCmd(connected,cmd,option){
     success: function (res) {
       // 指令发送成功
       console.info('sendBlueCmd success');
-      if(option) {
+      if (option) {
         option.success(res);
       }
     },
     fail: function (res) {
       // 指令发送失败
-      console.error('sendBlueCmd fail',res);
-      if(option) {
+      console.error('sendBlueCmd fail', res);
+      if (option) {
         option.fail(res);
       }
     },
@@ -150,13 +183,13 @@ function sendBlueCmd(connected,cmd,option){
 
 
 function transSpecialChar(name) {
-  if(name){
-    name = name.replace(/:/g,'A');
-    name = name.replace(/;/g,'B');
-    name = name.replace(/</g,'C');
-    name = name.replace(/=/g,'D');
-    name = name.replace(/>/g,'E');
-    name = name.replace(/\?/g,'F');
+  if (name) {
+    name = name.replace(/:/g, 'A');
+    name = name.replace(/;/g, 'B');
+    name = name.replace(/</g, 'C');
+    name = name.replace(/=/g, 'D');
+    name = name.replace(/>/g, 'E');
+    name = name.replace(/\?/g, 'F');
   }
   return name;
 }
@@ -170,11 +203,12 @@ module.exports = {
   showLoading,
   hideLoading,
   showModal,
+  str2abArray,
   str2ab,
   ab2hex,
   hexStringToArrayBuffer,
   transSpecialChar,
   sendBlueCmd,
   isNotEmptyObject,
-
+  strToArray,
 }

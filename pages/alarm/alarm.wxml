@@ -22,7 +22,7 @@
 				<view class="item">
 					<view class="item-left">时间</view>
 					<picker mode="time" value="{{alarm.time}}" start="00:00" end="23:59" bindchange="bindTimeChange">
-						<view class="item-right" bindtap="timeTap">
+						<view class="item-right">
 							<view class="weui-input item-right-name">{{alarm.time}}</view>
 							<image class="item-right-icon" src="../../images/{{skin}}/row@3x.png"></image>
 						</view>
@@ -30,10 +30,18 @@
 
 				</view>
 
-
 				<!-- 是否重复 -->
-				<view class="item" style="margin-top:1rpx;">
+				<view class="item" style="margin-top:1px;">
 					<view class="item-left">是否重复</view>
+					<view class="item-right">
+						<switch checked="{{alarm.repeat}}" bindchange="repeatSwitch" />
+					</view>
+				</view>
+
+
+				<!-- 星期 -->
+				<view class="item" style="margin-top:1rpx;">
+					<view class="item-left">星期</view>
 					<view class="item-right" bindtap="periodTap">
 						<view class=".item-right-name">{{alarm.periodDesc}}</view>
 						<image class="item-right-icon" src="../../images/{{skin}}/row@3x.png"></image>
@@ -95,7 +103,7 @@
 <!-- 周期选择对话框 -->
 <view class="modal-dialog" hidden="{{!periodDialogShow}}">
 	<view class="modal-box">
-		<text class="modal-box-title" style="margin-bottom:30rpx;">重复</text>
+		<text class="modal-box-title" style="margin-bottom:30rpx;">星期</text>
 		<view class="model-line"></view>
 		<view class="modal-box-body">
 			<view wx:for="{{periodList}}" wx:key="key" wo:for-item='item' style="width: 100%;">
@@ -163,8 +171,8 @@
 			<view bindtap="onModalModeClick" data-ctype="cancel" class="modal-box-button" hover-class="modal-box-button-hover"
 				style="flex-grow:1;color:black">取消</view>
 			<view style="width:1rpx;height:100%;background:#eee"></view>
-			<view bindtap="onModalModeClick" data-ctype="confirm" class="modal-box-button" hover-class="modal-box-button-hover"
-				style="flex-grow:1;color:#59B84D;">确定</view>
+			<view bindtap="onModalModeClick" data-ctype="confirm" class="modal-box-button"
+				hover-class="modal-box-button-hover" style="flex-grow:1;color:#59B84D;">确定</view>
 		</view>
 	</view>
 </view>

@@ -1,5 +1,7 @@
 // pages/alarm/alarm.js
+const time = require('../../utils/time');
 const util = require('../../utils/util');
+const crcUtil = require('../../utils/crcUtil');
 const configManager = require('../../utils/configManager')
 const WxNotificationCenter = require('../../utils/WxNotificationCenter')
 const app = getApp();
@@ -12,6 +14,7 @@ const weekArray = [
   '六',
   '日',
 ];
+const alarmPre = 'FFFFFFFF0100';
 
 Page({
 
@@ -38,23 +41,25 @@ Page({
       },
       {
         value: 'close',
-        name: '关闭',
+        name: '不动作',
       },
     ],
     dialogShow: false,
     selectedRadio: 'drak',
     alarm: { // 闹钟设置
-      isOpenAlarm: true, // 闹钟开关
-      time: '12:00',
-      periodDesc: '永不',
+      isOpenAlarm: false, // 闹钟开关
+      time: '',
+      repeat: false,
+      periodDesc: '',
       period: [],
       remark: '',
-      modeVal: '',
-      modeName: '',
+      modeVal: 'close',
+      modeName: '不动作',
       anmo: false,
       ring: false
     },
     periodDialogShow: false, // 周期选择对话框
+
     periodList: [{
         id: 1,
         name: '周一',
@@ -109,11 +114,15 @@ Page({
     })
     WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
     // 如果缓存中有设置缓存回显
-    if(this.data.connected) {
-      let alarm = configManager.getAlarm;
-      if(alarm) {
-        this.setData({alarm:alarm});
-      }
+    let alarm = configManager.getAlarm;
+    if (util.isNotEmptyObject(alarm)) {
+      this.setData({
+        alarm: alarm
+      });
+    }
+    let connected = this.data.connected;
+    if (util.isNotEmptyObject(connected)) {
+      this.sendRequestAlarmCmd();
     }
   },
 
@@ -125,6 +134,19 @@ Page({
   },
 
 
+  /**
+   * 初始化发送时间校验闹钟请求
+   */
+  sendRequestAlarmCmd: function () {
+    let cmdPrefix = 'FFFFFFFF01000111';
+    let date = time.getDateInfo(new Date());
+    let cmdTime = date.hour + date.minute + date.second + date.week + date.year + date.month + date.day;
+    let cmdCrc = crcUtil.HexToCSU16(cmdPrefix + cmdTime);
+    let cmd = cmdPrefix + cmdTime + cmdCrc;
+    console.log('sendRequestAlarmCmd:', cmd);
+
+    util.sendBlueCmd(this.data.connected, cmd);
+  },
 
 
   /**
@@ -132,8 +154,84 @@ Page({
    * @param {*} cmd 
    */
   blueReply(cmd) {
-    var prefix = cmd.substr(0, 14).toUpperCase();
-    console.info('kuaijie-K1->askBack', cmd, prefix);
+    var prefix = cmd.substr(0, 12).toUpperCase();
+    if (alarmPre != prefix) {
+      return;
+    }
+    if ('FFFFFFFF0100030B000B04' == cmd) {
+      // 无闹钟
+      this.setData({
+        alarm: {
+          isOpenAlarm: false
+        }
+      })
+      return;
+    }
+    // 有闹钟
+    let alarm = this.data.alarm;
+    let hasAlarmPre = 'FFFFFFFF01000419'; //前缀
+    if (cmd.substr(0, 16).toUpperCase() == hasAlarmPre) {
+      let cmdStatus = cmd.substr(16, 2);
+      if ('0F' == cmdStatus) {
+        // 开启
+        alarm.isOpenAlarm = true;
+      } else {
+        // 关闭
+        alarm.isOpenAlarm = false;
+      }
+      // 时间
+      let timeHour = cmd.substr(18, 2);
+      let timeMin = cmd.substr(20, 2);
+      alarm.time = timeHour + ':' + timeMin;
+
+      // 星期
+      let cmdWeek = cmd.substr(24, 14);
+      let cmdweekArray = util.strToArray(cmdWeek, 2);
+      let period = [];
+      let periodDesc = '';
+      for (let i; i < cmdweekArray.length; i++) {
+        if (cmdweekArray[i] == '01') {
+          period.push[this.data.periodList[i].id];
+        }
+      }
+      if (period.length > 0) {
+        period.forEach(j => {
+          periodDesc += weekArray[j - 1];
+        });
+      }
+      alarm.period = period;
+      alarm.periodDesc = periodDesc;
+
+      // 重复
+      let cmdRepeat = cmd.substr(36, 2);
+      alarm.repeat = cmdRepeat == '01' ? true : false;
+
+      // 模式
+      let cmdMode = cmd.substr(38, 2);
+      if ('01' == cmdMode) {
+        alarm.modeVal = 'lingyali';
+        alarm.modeName = '零压力';
+      } else if ('02' == cmdMode) {
+        alarm.modeVal = 'jiyi1';
+        alarm.modeName = '记忆一';
+      } else {
+        alarm.modeVal = 'close';
+        alarm.modeName = '不动作';
+      }
+
+      // 按摩
+      let cmdAnmo = cmd.substr(40, 2);
+      alarm.anmo = '01' == cmdAnmo ? true : false;
+
+      // 响铃
+      let cmdRing = cmd.substr(42, 2);
+      alarm.ring = '01' == cmdRing ? true : false;
+      this.setData({
+        alarm: alarm
+      })
+
+    }
+
   },
 
   /**
@@ -148,15 +246,21 @@ Page({
   },
 
 
+  repeatSwitch: function (e) {
+    var repeat = this.data.alarm.repeat;
+    this.setData({
+      ['alarm.repeat']: !repeat
+    })
+  },
+
+
   /**
    * 时间选择
    * @param {}} e 
    */
   bindTimeChange: function (e) {
     this.setData({
-      alarm: {
-        time: e.detail.value
-      }
+      ['alarm.time']: e.detail.value
     })
   },
 
@@ -196,12 +300,11 @@ Page({
     let i = 0;
     this.data.periodList.forEach(item => {
       if (item.checked) {
-        period[i] = item.id;
+        period.push(item.id);
         i++;
       }
     });
     if (period.length > 0) {
-      let count = 0;
       period.forEach(j => {
         periodDesc += weekArray[j - 1];
       });
@@ -335,14 +438,91 @@ Page({
    */
   saveTap: function (e) {
     let connected = this.data.connected;
-    if (!connected) {
+    if (!util.isNotEmptyObject(connected)) {
       util.showToast('当前设备未连接');
       return;
     }
+    let alarm = this.data.alarm;
+    let openAlarm = alarm.isOpenAlarm;
+    let time = alarm.time;
+    if (openAlarm && time == '') {
+      util.showToast('请选择时间');
+      return;
+    }
+
     configManager.putAlarm(connected.deviceId, this.data.alarm);
-    // TODO
-    // 组装命令
+
+    // 前缀
+    let sendAlarmCmdPre = 'FFFFFFFF01000219';
+    // 状态
+    if (openAlarm) {
+      sendAlarmCmdPre += '01';
+    } else {
+      sendAlarmCmdPre += 'A1';
+    }
+    // 时间
+    if (time == '') {
+      sendAlarmCmdPre += '000000';
+    } else {
+      sendAlarmCmdPre += time.substr(0, 2) + time.substr(3, 2) + '00';
+    }
+
+    // 星期
+    let period = alarm.period;
+    if (period.length == 0) {
+      sendAlarmCmdPre += '00000000000000';
+    } else {
+      for (let i = 1; i <= 7; i++) {
+        if (period.includes(i)) {
+          sendAlarmCmdPre += '01';
+        } else {
+          sendAlarmCmdPre += '00';
+        }
+      }
+    }
+
+    // 重复
+    let repeat = alarm.repeat;
+    if (repeat) {
+      sendAlarmCmdPre += '01';
+    } else {
+      sendAlarmCmdPre += '00';
+    }
+
+    // 模式
+    let mode = alarm.modeVal;
+    if ('lingyali' == mode) {
+      sendAlarmCmdPre += '01';
+    } else if ('jiyi1' == mode) {
+      sendAlarmCmdPre += '02';
+    } else {
+      sendAlarmCmdPre += '03';
+    }
+
+    // 按摩
+    let anmo = alarm.anmo;
+    if (anmo) {
+      sendAlarmCmdPre += '01';
+    } else {
+      sendAlarmCmdPre += '00';
+    }
+
+    // 响铃
+    let ring = alarm.ring;
+    if (ring) {
+      sendAlarmCmdPre += '01';
+    } else {
+      sendAlarmCmdPre += '00';
+    }
+
+    let cmdCrc = crcUtil.HexToCSU16(sendAlarmCmdPre);
+    let cmd = sendAlarmCmdPre + cmdCrc;
+
     // 发送蓝牙命令
+    console.log('saveTap->', cmd);
+    util.sendBlueCmd(connected, cmd);
+
+    // 返回上一页
     wx.navigateBack({
       delta: 1,
     })
