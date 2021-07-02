@@ -45,7 +45,6 @@ Page({
       },
     ],
     dialogShow: false,
-    selectedRadio: 'drak',
     alarm: { // 闹钟设置
       isOpenAlarm: false, // 闹钟开关
       time: '',
@@ -108,8 +107,8 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      skin: app.globalData.skin,
-      selectedRadio: app.globalData.skin,
+      // skin: app.globalData.skin,
+      skin:'orange',
       connected: configManager.getCurrentConnected()
     })
     WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);

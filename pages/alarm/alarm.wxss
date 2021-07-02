@@ -16,6 +16,37 @@
 }
 
 
+.dark .item {
+  width: 100%;
+  height: 88rpx;
+  background: #2B2D36;
+  display: flex;
+  align-items: center;
+}
+
+.orange .item {
+  width: 100%;
+  height: 88rpx;
+  background: #4E1277;
+  display: flex;
+  align-items: center;
+}
+
+
+.dark .item-right-name {
+  color: #59B84D;
+  font-size: 28rpx;
+}
+
+
+.orange .item-right-name {
+  color: #FF9704;
+  font-size: 28rpx;
+}
+
+
+
+
 .content {
   width: 100%;
   display: flex;
@@ -32,13 +63,7 @@
   align-items: center;
 }
 
-.item {
-  width: 100%;
-  height: 88rpx;
-  background: #2B2D36;
-  display: flex;
-  align-items: center;
-}
+
 
 
 .item-left {
@@ -72,7 +97,6 @@
 }
 
 .button-name {
-  color: #59B84D;
   margin-left: 5rpx;
 }
 
@@ -83,13 +107,21 @@
   width: 100%;
 }
 
-
-.wx-switch-input{
+/** 复选框 */
+.dark .wx-switch-input{
   width:88rpx !important;
   height:44rpx !important;
   background: #59B84D !important;
   border: #59B84D !important; /* 2018-07-18 重置开关边框颜色 */
 }
+
+.orange .wx-switch-input{
+  width:88rpx !important;
+  height:44rpx !important;
+  background: #FF9704 !important;
+  border: #FF9704 !important; /* 2018-07-18 重置开关边框颜色 */
+}
+
 /*白色样式（false的样式）*/
 .wx-switch-input::before{
   width:88rpx !important;
@@ -102,6 +134,11 @@
 }
 
 /** 对话框 */
+.sure {
+  color:green;
+}
+
+
 .model-line {
   width:100%;height:1rpx;background:#2B2D36;
 }

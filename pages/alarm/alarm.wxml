@@ -88,7 +88,7 @@
 
 
 			<!-- 保存 -->
-			<view class="item" style="margin-top:10px;justify-content: center;" bindtap="saveTap">
+			<view class="item item-right-name" style="margin-top:10px;justify-content: center;" bindtap="saveTap">
 				<image class="button-icon" src="../../images/{{skin}}/alarm@2x.png"></image>
 				<view class="button-name">保存</view>
 			</view>
@@ -119,8 +119,8 @@
 			<view bindtap="onModalPeriodClick" data-ctype="cancel" class="modal-box-button"
 				hover-class="modal-box-button-hover" style="flex-grow:1;color:#000">取消</view>
 			<view style="width:1rpx;height:100%;background:#eee"></view>
-			<view bindtap="onModalPeriodClick" data-ctype="confirm" class="modal-box-button"
-				hover-class="modal-box-button-hover" style="flex-grow:1;color:green;">确定</view>
+			<view bindtap="onModalPeriodClick" data-ctype="confirm" class="modal-box-button sure"
+				hover-class="modal-box-button-hover" style="flex-grow:1;">确定</view>
 		</view>
 	</view>
 </view>
@@ -138,8 +138,8 @@
 			<view bindtap="onModalRemarkClick" data-ctype="cancel" class="modal-box-button"
 				hover-class="modal-box-button-hover" style="flex-grow:1;color:#000;">取消</view>
 			<view style="width:1rpx;height:100%;background:#eee"></view>
-			<view bindtap="onModalRemarkClick" data-ctype="confirm" class="modal-box-button"
-				hover-class="modal-box-button-hover" style="flex-grow:1;color:green;">确定</view>
+			<view bindtap="onModalRemarkClick" data-ctype="confirm" class="modal-box-button sure"
+				hover-class="modal-box-button-hover" style="flex-grow:1;">确定</view>
 		</view>
 	</view>
 </view>
@@ -171,8 +171,8 @@
 			<view bindtap="onModalModeClick" data-ctype="cancel" class="modal-box-button" hover-class="modal-box-button-hover"
 				style="flex-grow:1;color:black">取消</view>
 			<view style="width:1rpx;height:100%;background:#eee"></view>
-			<view bindtap="onModalModeClick" data-ctype="confirm" class="modal-box-button"
-				hover-class="modal-box-button-hover" style="flex-grow:1;color:#59B84D;">确定</view>
+			<view bindtap="onModalModeClick" data-ctype="confirm" class="modal-box-button sure"
+				hover-class="modal-box-button-hover" style="flex-grow:1;">确定</view>
 		</view>
 	</view>
 </view>
