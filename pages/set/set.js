@@ -35,7 +35,8 @@ Page({
     faultDebugShow: false,
     debugDialogShow: false, // 故障调试对话框
     faultPart: '',
-    faultCause: ''
+    faultCause: '',
+    alarmStatus: '未设置'
 
 
   },
@@ -49,7 +50,7 @@ Page({
     let faultDebugShow = false;
     if (util.isNotEmptyObject(connected)) {
       status = '已连接';
-      faultDebugShow = faultDebugShow(connected.name);
+      faultDebugShow = this.isShowFaultDebug(connected.name);
     } else {
       status = '未连接';
     }
@@ -58,7 +59,7 @@ Page({
       selectedRadio: app.globalData.skin,
       connected: connected,
       status: status,
-      faultDebugShow:faultDebugShow,
+      faultDebugShow: faultDebugShow,
     })
     WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
   },
@@ -69,6 +70,28 @@ Page({
    */
   onUnload: function () {
     WxNotificationCenter.removeNotification("BLUEREPLY", this);
+  },
+
+  /**
+   * 
+   */
+  onShow: function () {
+    let alarmStatus = this.data.alarmStatus;
+    if(util.isNotEmptyObject(this.data.connected)) {
+      let alarm = configManager.getAlarm(this.data.connected.deviceId);
+      if(util.isNotEmptyObject(alarm)) {
+        alarmStatus = '已连接';
+      } else {
+        alarmStatus = '未连接';
+      }
+    } else {
+      alarmStatus = '未连接';
+    }
+    
+    
+    this.setData({
+      alarmStatus:alarmStatus
+    })
   },
 
 
@@ -195,7 +218,7 @@ Page({
    */
   faultDebug: function (e) {
     let connected = this.data.connected;
-    if (!connected || Object.keys(connected) == 0) {
+    if (!util.isNotEmptyObject(connected)) {
       util.showToast('当前设备未连接');
       return;
     }

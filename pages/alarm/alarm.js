@@ -107,20 +107,24 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      // skin: app.globalData.skin,
-      skin:'orange',
+      skin: app.globalData.skin,
+      // skin:'orange',
       connected: configManager.getCurrentConnected()
     })
     WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
-    // 如果缓存中有设置缓存回显
-    let alarm = configManager.getAlarm;
-    if (util.isNotEmptyObject(alarm)) {
-      this.setData({
-        alarm: alarm
-      });
-    }
+
     let connected = this.data.connected;
     if (util.isNotEmptyObject(connected)) {
+
+      // 如果缓存中有设置缓存回显
+      let alarm = configManager.getAlarm(connected.deviceId);
+      if (util.isNotEmptyObject(alarm)) {
+        this.setData({
+          alarm: alarm
+        });
+      }
+
+
       this.sendRequestAlarmCmd();
     }
   },
@@ -153,10 +157,12 @@ Page({
    * @param {*} cmd 
    */
   blueReply(cmd) {
-    var prefix = cmd.substr(0, 12).toUpperCase();
+    cmd = cmd.toUpperCase();
+    var prefix = cmd.substr(0, 12);
     if (alarmPre != prefix) {
       return;
     }
+    console.log('alarm->blueReply :', cmd);
     if ('FFFFFFFF0100030B000B04' == cmd) {
       // 无闹钟
       this.setData({
@@ -188,11 +194,12 @@ Page({
       let cmdweekArray = util.strToArray(cmdWeek, 2);
       let period = [];
       let periodDesc = '';
-      for (let i; i < cmdweekArray.length; i++) {
+      for (let i = 0; i < cmdweekArray.length; i++) {
         if (cmdweekArray[i] == '01') {
-          period.push[this.data.periodList[i].id];
+          period.push(this.data.periodList[i].id);
         }
       }
+      console.log('alarm->blueReply :period:,'+period);
       if (period.length > 0) {
         period.forEach(j => {
           periodDesc += weekArray[j - 1];
@@ -202,11 +209,11 @@ Page({
       alarm.periodDesc = periodDesc;
 
       // 重复
-      let cmdRepeat = cmd.substr(36, 2);
+      let cmdRepeat = cmd.substr(38, 2);
       alarm.repeat = cmdRepeat == '01' ? true : false;
 
       // 模式
-      let cmdMode = cmd.substr(38, 2);
+      let cmdMode = cmd.substr(40, 2);
       if ('01' == cmdMode) {
         alarm.modeVal = 'lingyali';
         alarm.modeName = '零压力';
@@ -219,15 +226,17 @@ Page({
       }
 
       // 按摩
-      let cmdAnmo = cmd.substr(40, 2);
+      let cmdAnmo = cmd.substr(42, 2);
       alarm.anmo = '01' == cmdAnmo ? true : false;
 
       // 响铃
-      let cmdRing = cmd.substr(42, 2);
+      let cmdRing = cmd.substr(44, 2);
       alarm.ring = '01' == cmdRing ? true : false;
       this.setData({
         alarm: alarm
       })
+
+      configManager.putAlarm(this.data.connected.deviceId,alarm);
 
     }
 

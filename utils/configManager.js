@@ -1,4 +1,3 @@
-
 const _STORAGE_KEY = 'bleConf'
 const _SKIP_KEY = 'skip'
 const _LAST_CONNECT_KEY = 'last_connected'
@@ -131,18 +130,18 @@ function clone(obj) {
  * dark
  * orange
  */
-function setSkin(style){
+function setSkin(style) {
   wx.setStorage({
     data: style,
     key: _SKIP_KEY,
   })
-  console.log("setSkin",style);
+  console.log("setSkin", style);
 }
 
-function getSkin(){
+function getSkin() {
   var skipStyle = wx.getStorageSync(_SKIP_KEY);
-  console.log("getSkin",skipStyle);
-  if(skipStyle != '') {
+  console.log("getSkin", skipStyle);
+  if (skipStyle != '') {
     return skipStyle;
   }
   return 'dark';
@@ -152,12 +151,12 @@ function getSkin(){
  * 存储最近一次连接的设备
  * @param {*} deviceId 
  */
-function putLastConnected(deviceId){
+function putLastConnected(deviceId) {
   wx.setStorage({
     data: deviceId,
     key: _LAST_CONNECT_KEY,
   })
-  console.log("putLastConnected",deviceId);
+  console.log("putLastConnected", deviceId);
 }
 
 /**
@@ -165,7 +164,7 @@ function putLastConnected(deviceId){
  */
 function getLastConnected() {
   var deviceId = wx.getStorageSync(_LAST_CONNECT_KEY);
-  console.log("putLastConnected",deviceId);
+  console.log("putLastConnected", deviceId);
   return deviceId;
 }
 
@@ -174,13 +173,13 @@ function getLastConnected() {
  * 存储当前连接的设备
  * @param {*} connected 
  */
-function putCurrentConnected(connected){
+function putCurrentConnected(connected) {
   var dataVal = JSON.stringify(connected);
   wx.setStorage({
     data: dataVal,
     key: _CONNECTED_KEY,
   })
-  console.log("putCurrentConnected",dataVal);
+  console.log("putCurrentConnected end", dataVal);
 }
 
 /**
@@ -188,11 +187,11 @@ function putCurrentConnected(connected){
  */
 function getCurrentConnected() {
   var dataVal = wx.getStorageSync(_CONNECTED_KEY);
-  console.log("getCurrentConnected",dataVal);
   var connected;
-  if(dataVal) {
+  if (dataVal) {
     connected = JSON.parse(dataVal);
   }
+  console.log("getCurrentConnected connected:", connected);
   return connected;
 }
 
@@ -201,27 +200,35 @@ function getCurrentConnected() {
  * 存储当前连接的设备
  * @param {*} connected 
  */
-function putAlarm(deviceId,alarm){
-  var key = _ALARM_KEY+deviceId;
+function putAlarm(deviceId, alarm) {
   var dataVal = JSON.stringify(alarm);
   wx.setStorage({
-    data: dataVal,
-    key: key,
+    data: deviceId,
+    key: _ALARM_KEY,
   })
-  console.log("putAlarm",dataVal);
+  wx.setStorage({
+    data: dataVal,
+    key: _ALARM_KEY+deviceId,
+  })
+  console.log("putAlarm", deviceId, dataVal);
 }
 
 /**
  * 获取当前连接设备的设备信息
  */
 function getAlarm(deviceId) {
-  var dataVal = wx.getStorageSync(_ALARM_KEY+deviceId);
-  console.log("getAlarm",dataVal);
+  var cacheDeviceId = wx.getStorageSync(_ALARM_KEY);
   var alarm;
-  if(dataVal) {
-    alarm = JSON.parse(dataVal);
+  if (deviceId == cacheDeviceId) {
+    var dataVal = wx.getStorageSync(_ALARM_KEY+deviceId);
+    if (dataVal) {
+      alarm = JSON.parse(dataVal);
+    }
+    return alarm;
   }
+  console.log("getAlarm", deviceId, alarm);
   return alarm;
+
 }
 
 

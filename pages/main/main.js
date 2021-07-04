@@ -180,6 +180,7 @@ Page({
             }
           }
           console.log('device connected:', that.data.connected);
+          //configManager.putCurrentConnected(that.data.connected);
           that.notifyBLECharacteristicValueChange()
         },
         fail: function (res) {

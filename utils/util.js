@@ -19,10 +19,12 @@ const formatNumber = n => {
  * @param {*} object 
  */
 function isNotEmptyObject(object) {
-  if (object && Object.keys(object) > 0) {
-    return true;
+  let result = false;
+  if (object && Object.keys(object).length > 0) {
+    result = true;
   }
-  return false;
+  console.log('isNotEmptyObject object', object, result);
+  return result;
 }
 
 function showToast(msg) {
@@ -137,15 +139,16 @@ function hexStringToArrayBuffer(str) {
  * @param {*} length 每隔几个字符
  * return 返回数组
  */
-function strToArray(str,itemLength) {
-  if(!str || str.length % 2 != 0) {
-    console.error('strToArray 字符为空或长度异常',str,length);
+function strToArray(str, itemLength) {
+  if (!str || str.length % 2 != 0) {
+    console.error('strToArray 字符为空或长度异常', str, length);
     return;
   }
   let array = [];
-  for(let i=0;i<str.length;i +=itemLength) {
-    array.push(str.substr(i,itemLength));
+  for (let i = 0; i < str.length; i += itemLength) {
+    array.push(str.substr(i, itemLength));
   }
+  console.log('strToArray array', array);
   return array;
 }
 
