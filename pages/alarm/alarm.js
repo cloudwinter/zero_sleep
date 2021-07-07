@@ -22,7 +22,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    connected: '', // 当前连接的设备
+    connected: {}, // 当前连接的设备
     skin: app.globalData.skin,
     navbar: {
       loading: false,
@@ -458,7 +458,7 @@ Page({
       return;
     }
 
-    configManager.putAlarm(connected.deviceId, this.data.alarm);
+    //configManager.putAlarm(connected.deviceId, this.data.alarm);
 
     // 前缀
     let sendAlarmCmdPre = 'FFFFFFFF01000219';

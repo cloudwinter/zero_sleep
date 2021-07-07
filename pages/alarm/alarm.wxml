@@ -19,16 +19,17 @@
 			<view hidden="{{!alarm.isOpenAlarm}}" style="width:100%;margin-top:40rpx;">
 
 				<!-- 时间 -->
-				<view class="item">
-					<view class="item-left">时间</view>
-					<picker mode="time" value="{{alarm.time}}" start="00:00" end="23:59" bindchange="bindTimeChange">
+				<picker mode="time" value="{{alarm.time}}" start="00:00" end="23:59" bindchange="bindTimeChange"
+					style="width:100%">
+					<view class="item">
+						<view class="item-left">时间</view>
 						<view class="item-right">
 							<view class="weui-input item-right-name">{{alarm.time}}</view>
 							<image class="item-right-icon" src="../../images/{{skin}}/row@3x.png"></image>
 						</view>
-					</picker>
 
-				</view>
+					</view>
+				</picker>
 
 				<!-- 是否重复 -->
 				<view class="item" style="margin-top:1px;">
@@ -40,22 +41,22 @@
 
 
 				<!-- 星期 -->
-				<view class="item" style="margin-top:1rpx;">
+				<view class="item" style="margin-top:1rpx;" bindtap="periodTap">
 					<view class="item-left">星期</view>
-					<view class="item-right" bindtap="periodTap">
+					<view class="item-right">
 						<view class=".item-right-name">{{alarm.periodDesc}}</view>
 						<image class="item-right-icon" src="../../images/{{skin}}/row@3x.png"></image>
 					</view>
 				</view>
 
 				<!-- 备注 -->
-				<view class="item" style="margin-top:1px;" bindtap="remarkTap">
+				<!-- <view class="item" style="margin-top:1px;" bindtap="remarkTap">
 					<view class="item-left">备注</view>
 					<view class="item-right">
 						<view class=".item-right-name">{{alarm.remark}}</view>
 						<image class="item-right-icon" src="../../images/{{skin}}/row@3x.png"></image>
 					</view>
-				</view>
+				</view> -->
 
 
 				<!-- 模式 -->
@@ -112,6 +113,7 @@
 					<checkbox class="checkbox" checked="{{item.checked}}" />
 					<view class="dialog-item-name">{{item.name}}</view>
 				</view>
+				<view class="model-line"></view>
 			</view>
 		</view>
 		<view class="model-line"></view>
@@ -159,7 +161,7 @@
 						<view>
 							<radio class="radio" value="{{item.value}}" checked="{{item.value==alarm.modeVal}}" />
 						</view>
-						<view class="model-item-name">{{item.name}}</view>
+						<view class="dialog-item-name">{{item.name}}</view>
 					</label>
 					<view style="width:100%;height:1px;background:#eee"></view>
 				</block>
