@@ -36,9 +36,8 @@ Page({
     debugDialogShow: false, // 故障调试对话框
     faultPart: '',
     faultCause: '',
-    alarmStatus: '未设置'
-
-
+    alarmStatus: '未设置',
+    alarmSwitch: false,
   },
 
   /**
@@ -46,6 +45,7 @@ Page({
    */
   onLoad: function (options) {
     let connected = configManager.getCurrentConnected();
+    let alarmSwitch = configManager.showAlarmSwitch();
     let status = this.data.status;
     let faultDebugShow = false;
     if (util.isNotEmptyObject(connected)) {
@@ -60,6 +60,7 @@ Page({
       connected: connected,
       status: status,
       faultDebugShow: faultDebugShow,
+      alarmSwitch:alarmSwitch,
     })
     WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
   },

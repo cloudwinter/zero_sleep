@@ -23,7 +23,7 @@
 			</view>
 
 
-			<view class="shezhi-content shezhi-button-bg" bindtap="alarm">
+			<view class="shezhi-content shezhi-button-bg" bindtap="alarm" hidden="{{!alarmSwitch}}">
 				<view class="shezhi-button-left">闹钟设置</view>
 				<view class="shezhi-button-right">
 					<view class="shezhi-button-name">{{alarmStatus}}</view>

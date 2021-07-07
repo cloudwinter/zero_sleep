@@ -3,6 +3,7 @@ const _SKIP_KEY = 'skip'
 const _LAST_CONNECT_KEY = 'last_connected'
 const _CONNECTED_KEY = 'connected'
 const _ALARM_KEY = 'alarm:'
+const _ALARM_SHOW_KEY = 'show:alarm:'
 const _PROPS = {
   _ID: 'id'
 }
@@ -231,6 +232,31 @@ function getAlarm(deviceId) {
 
 }
 
+/**
+ * 设置闹钟是否显示状态
+ * @param {*} show 
+ * @param {*} deviceId 
+ */
+function putAlarmSwitch(show,deviceId) {
+  let key = _ALARM_SHOW_KEY+deviceId;
+  wx.setStorage({
+    data: show,
+    key: key,
+  })
+}
+
+/**
+ * 是否显示闹钟
+ * @param {*} deviceId 
+ */
+function showAlarmSwitch(deviceId) {
+  var show = wx.getStorageSync(_ALARM_SHOW_KEY+deviceId);
+  if(show) {
+    return true;
+  }
+  return false;
+}
+
 
 
 
@@ -252,4 +278,6 @@ module.exports = {
   getCurrentConnected,
   putAlarm,
   getAlarm,
+  putAlarmSwitch,
+  showAlarmSwitch,
 }

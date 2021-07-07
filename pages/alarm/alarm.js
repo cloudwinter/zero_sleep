@@ -111,7 +111,7 @@ Page({
       // skin:'orange',
       connected: configManager.getCurrentConnected()
     })
-    WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
+    //WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
 
     let connected = this.data.connected;
     if (util.isNotEmptyObject(connected)) {
@@ -125,7 +125,7 @@ Page({
       }
 
 
-      this.sendRequestAlarmCmd();
+      //this.sendRequestAlarmCmd();
     }
   },
 
@@ -133,7 +133,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    WxNotificationCenter.removeNotification("BLUEREPLY", this);
+    //WxNotificationCenter.removeNotification("BLUEREPLY", this);
   },
 
 
