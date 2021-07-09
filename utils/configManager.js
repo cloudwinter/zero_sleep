@@ -201,15 +201,16 @@ function getCurrentConnected() {
  * 存储当前连接的设备
  * @param {*} connected 
  */
-function putAlarm(deviceId, alarm) {
+function putAlarm(alarm,deviceId) {
   var dataVal = JSON.stringify(alarm);
   wx.setStorage({
     data: deviceId,
     key: _ALARM_KEY,
   })
+  let key = _ALARM_KEY+deviceId;
   wx.setStorage({
     data: dataVal,
-    key: _ALARM_KEY+deviceId,
+    key: key,
   })
   console.log("putAlarm", deviceId, dataVal);
 }
@@ -221,7 +222,8 @@ function getAlarm(deviceId) {
   var cacheDeviceId = wx.getStorageSync(_ALARM_KEY);
   var alarm;
   if (deviceId == cacheDeviceId) {
-    var dataVal = wx.getStorageSync(_ALARM_KEY+deviceId);
+    let key = _ALARM_KEY+deviceId;
+    var dataVal = wx.getStorageSync(key);
     if (dataVal) {
       alarm = JSON.parse(dataVal);
     }
@@ -250,7 +252,8 @@ function putAlarmSwitch(show,deviceId) {
  * @param {*} deviceId 
  */
 function showAlarmSwitch(deviceId) {
-  var show = wx.getStorageSync(_ALARM_SHOW_KEY+deviceId);
+  let key = _ALARM_SHOW_KEY+deviceId;
+  var show = wx.getStorageSync(key);
   if(show) {
     return true;
   }

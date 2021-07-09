@@ -27,6 +27,17 @@ function isNotEmptyObject(object) {
   return result;
 }
 
+/**
+ * 判断字符是否为空
+ * @param {*} str 
+ */
+function isNotEmptyStr(str) {
+  if (str != '' && str != null && str != undefined) {
+    return true;
+  }
+  return false;
+}
+
 function showToast(msg) {
   wx.showToast({
     title: msg,
@@ -141,7 +152,7 @@ function hexStringToArrayBuffer(str) {
  */
 function strToArray(str, itemLength) {
   if (!str || str.length % 2 != 0) {
-    console.error('strToArray 字符为空或长度异常', str, length);
+    console.error('strToArray 字符为空或长度异常', str, itemLength);
     return;
   }
   let array = [];
@@ -213,5 +224,6 @@ module.exports = {
   transSpecialChar,
   sendBlueCmd,
   isNotEmptyObject,
+  isNotEmptyStr,
   strToArray,
 }
