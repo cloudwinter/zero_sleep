@@ -106,14 +106,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let connected = configManager.getCurrentConnected();
+    // connected = {
+    //   deviceId:'111'
+    // }
     this.setData({
       skin: app.globalData.skin,
       // skin:'orange',
-      connected: configManager.getCurrentConnected()
+      connected: connected
     })
     //WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
 
-    let connected = this.data.connected;
+    //let connected = this.data.connected;
     if (util.isNotEmptyObject(connected)) {
 
       // 如果缓存中有设置缓存回显
@@ -236,7 +240,7 @@ Page({
         alarm: alarm
       })
 
-      configManager.putAlarm(this.data.connected.deviceId,alarm);
+      configManager.putAlarm(alarm,this.data.connected.deviceId);
 
     }
 
@@ -453,12 +457,11 @@ Page({
     let alarm = this.data.alarm;
     let openAlarm = alarm.isOpenAlarm;
     let time = alarm.time;
-    if (openAlarm && time == '') {
+    if (openAlarm && !util.isNotEmptyStr(time)) {
       util.showToast('请选择时间');
       return;
     }
 
-    //configManager.putAlarm(connected.deviceId, this.data.alarm);
 
     // 前缀
     let sendAlarmCmdPre = 'FFFFFFFF01000219';
@@ -477,7 +480,7 @@ Page({
 
     // 星期
     let period = alarm.period;
-    if (period.length == 0) {
+    if (!util.isNotEmptyStr(period) || period.length == 0) {
       sendAlarmCmdPre += '00000000000000';
     } else {
       for (let i = 1; i <= 7; i++) {
@@ -529,6 +532,8 @@ Page({
     // 发送蓝牙命令
     console.log('saveTap->', cmd);
     util.sendBlueCmd(connected, cmd);
+
+    configManager.putAlarm(this.data.alarm,connected.deviceId);
 
     // 返回上一页
     wx.navigateBack({

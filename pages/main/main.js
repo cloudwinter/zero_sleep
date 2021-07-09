@@ -1,5 +1,6 @@
 const time = require('../../utils/time');
 const configManager = require('../../utils/configManager')
+const crcUtil = require('../../utils/crcUtil')
 const util = require('../../utils/util')
 const WxNotificationCenter = require('../../utils/WxNotificationCenter')
 const app = getApp();
@@ -90,6 +91,12 @@ Page({
    */
   onLoad: function (option) {
     console.info('main.Onshow');
+    // let contectedTest = {
+    //   deviceId:'111'
+    // };
+    // option = {
+    //   connected:JSON.stringify(contectedTest)
+    // }
     if (option && option.connected) {
       console.info("main.onLoad option", option);
       var connected = JSON.parse(option.connected);
@@ -125,7 +132,7 @@ Page({
   /**
    * 初始化发送时间校验闹钟请求
    */
-  sendRequestAlarmCmd: function () {
+  sendRequestAlarmCmd() {
     let cmdPrefix = 'FFFFFFFF01000111';
     let date = time.getDateInfo(new Date());
     let cmdTime = date.hour + date.minute + date.second + date.week + date.year + date.month + date.day;
@@ -271,6 +278,8 @@ Page({
       },
       fail: function (res) {
         console.error("main->notifyBLECharacteristicValueChange error", res);
+        // let received = 'FFFFFFFF0100030B000B04';
+        // that.blueReply(received, connected);
         util.showModal('开启监听失败，请重新进入');
       }
     });
@@ -296,11 +305,12 @@ Page({
    * @param {*} received 
    */
   blueReply: function (received, connected) {
+    console.info('main->blueReply-->received', received,connected);
     if (received) {
       received = received.toUpperCase();
       let deviceId = connected.deviceId;
-      if (received.indexOf('FFFFFFFF0100030B000B04') ||
-        received.indexOf('FFFFFFFF01000419')) {
+      if (received.indexOf('FFFFFFFF0100030B000B04')>=0 ||
+        received.indexOf('FFFFFFFF01000419') >= 0) {
         // 有闹钟功能
         this.setAlarm(received, deviceId);
       }
@@ -309,15 +319,16 @@ Page({
   },
 
   setAlarm: function (cmd, deviceId) {
+    console.error('main->setAlarm-->开启闹钟设置', cmd,deviceId);
     let alarm = {};
-    if (cmd.indexOf('FFFFFFFF0100030B000B04')) {
+    if (cmd.indexOf('FFFFFFFF0100030B000B04') >= 0) {
       // 有闹钟未设置
       configManager.putAlarmSwitch(true, deviceId);
       alarm.isOpenAlarm = false;
       configManager.putAlarm(alarm, deviceId);
-    } else if (cmd.indexOf('FFFFFFFF01000419')) {
+    } else if (cmd.indexOf('FFFFFFFF01000419') >= 0) {
       // 有闹钟已设置
-      configManager.putAlarmSwitch(true, connected)
+      configManager.putAlarmSwitch(true, deviceId)
       let cmdStatus = cmd.substr(16, 2);
       if ('0F' == cmdStatus) {
         // 开启

@@ -45,11 +45,16 @@ Page({
    */
   onLoad: function (options) {
     let connected = configManager.getCurrentConnected();
-    let alarmSwitch = configManager.showAlarmSwitch();
+    // connected = {
+    //   deviceId: "111",
+    //   name:'QMS-IQ-100000'
+    // }
+    let alarmSwitch = false;
     let status = this.data.status;
     let faultDebugShow = false;
     if (util.isNotEmptyObject(connected)) {
       status = '已连接';
+      alarmSwitch = configManager.showAlarmSwitch(connected.deviceId);
       faultDebugShow = this.isShowFaultDebug(connected.name);
     } else {
       status = '未连接';
@@ -60,7 +65,7 @@ Page({
       connected: connected,
       status: status,
       faultDebugShow: faultDebugShow,
-      alarmSwitch:alarmSwitch,
+      alarmSwitch: alarmSwitch,
     })
     WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
   },
@@ -78,20 +83,29 @@ Page({
    */
   onShow: function () {
     let alarmStatus = this.data.alarmStatus;
-    if(util.isNotEmptyObject(this.data.connected)) {
+    if (util.isNotEmptyObject(this.data.connected)) {
       let alarm = configManager.getAlarm(this.data.connected.deviceId);
-      if(util.isNotEmptyObject(alarm)) {
-        alarmStatus = '已连接';
+      if (util.isNotEmptyObject(alarm)) {
+        if(alarm.isOpenAlarm) {
+          alarmStatus = '已开启';
+        } else {
+          if(alarm.time) {
+            alarmStatus = '已关闭';
+          } else {
+            alarmStatus = '未设置';
+          }
+          
+        }
       } else {
-        alarmStatus = '未连接';
+        alarmStatus = '未设置';
       }
     } else {
       alarmStatus = '未连接';
     }
-    
-    
+
+
     this.setData({
-      alarmStatus:alarmStatus
+      alarmStatus: alarmStatus
     })
   },
 
@@ -100,13 +114,15 @@ Page({
   /******----------------->自定义函数 */
 
 
-  isShowFaultDebug: function (name) {
-    if (name.indexOf('QMS-IQ') >= 0 ||
-      name.indexOf('QMS-I06') >= 0 ||
-      name.indexOf('QMS-I06') >= 0 ||
-      name.indexOf('QMS-L04') >= 0 ||
-      name.indexOf('QMS-LQ') >= 0) {
-      return true;
+  isShowFaultDebug(name) {
+    if (name) {
+      if (name.indexOf('QMS-IQ') >= 0 ||
+        name.indexOf('QMS-I06') >= 0 ||
+        name.indexOf('QMS-I06') >= 0 ||
+        name.indexOf('QMS-L04') >= 0 ||
+        name.indexOf('QMS-LQ') >= 0) {
+        return true;
+      }
     }
     return false;
   },
