@@ -16,7 +16,7 @@
 		<button class="dengguang-button-bg {{currentSelected=='8h'?'button-bg-selected':'button-bg'}}" bindtap="click" data-time="8h">8小时</button>
 		<button class="dengguang-button-bg {{currentSelected=='10h'?'button-bg-selected':'button-bg'}}" bindtap="click" data-time="10h">10小时</button>
 		
-		<view class="anmo-content anmo-button-bg button-bg" hidden="true">
+		<view class="anmo-content anmo-button-bg button-bg" hidden="{{!isLightShow}}">
 			<view class="anmo-button-top">
 				<view class="anmo-button-top-left" bindtap="tapMinus" data-type="linght">
 					<image class="anmo-button-icon" src="../../../images/{{skin}}/minus-normal@3x.png"></image>
