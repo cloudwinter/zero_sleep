@@ -32,7 +32,7 @@
 			</view>
 
 
-			<view class="shezhi-content shezhi-button-bg" bindtap="faultDebug" hidden="true">
+			<view class="shezhi-content shezhi-button-bg" bindtap="faultDebug" hidden="{{!faultDebugShow}}">
 				<view class="shezhi-button-left">故障调试</view>
 				<view class="shezhi-button-right">
 					<!-- <view class="shezhi-button-name"></view> -->
