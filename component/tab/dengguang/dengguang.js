@@ -99,31 +99,32 @@ Component({
         return;
       }
 
+      console.info('dengguang->blueReply 收到的蓝牙回复', cmd);
       var level = cmd.substr(14, 16).toUpperCase();
-      if('01' == level) {
+      if ('01' == level) {
         lineItems = [1];
-      } else if('02' == level) {
-        lineItems = [1,1];
-      } else if('03' == level) {
-        lineItems = [1,1,1];
-      } else if('04' == level) {
-        lineItems = [1,1,1,1];
-      } else if('05' == level) {
-        lineItems = [1,1,1,1,1];
-      } else if('06' == level) {
-        lineItems = [1,1,1,1,1,1];
-      } else if('07' == level) {
-        lineItems = [1,1,1,1,1,1,1];
-      } else if('08' == level) {
-        lineItems = [1,1,1,1,1,1,1,1];
-      } else if('09' == level) {
-        lineItems = [1,1,1,1,1,1,1,1,1];
-      } else if('0A' == level) {
-        lineItems = [1,1,1,1,1,1,1,1,1,1];
+      } else if ('02' == level) {
+        lineItems = [1, 1];
+      } else if ('03' == level) {
+        lineItems = [1, 1, 1];
+      } else if ('04' == level) {
+        lineItems = [1, 1, 1, 1];
+      } else if ('05' == level) {
+        lineItems = [1, 1, 1, 1, 1];
+      } else if ('06' == level) {
+        lineItems = [1, 1, 1, 1, 1, 1];
+      } else if ('07' == level) {
+        lineItems = [1, 1, 1, 1, 1, 1, 1];
+      } else if ('08' == level) {
+        lineItems = [1, 1, 1, 1, 1, 1, 1, 1];
+      } else if ('09' == level) {
+        lineItems = [1, 1, 1, 1, 1, 1, 1, 1, 1];
+      } else if ('0A' == level) {
+        lineItems = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
       }
       that.setData({
-        isLightShow:true,
-        lineItems:lineItems
+        isLightShow: true,
+        lineItems: lineItems
       })
     },
 
@@ -176,6 +177,7 @@ Component({
         return;
       }
       lineItems.splice(lineItems.length - 1, 1);
+      this.sendDengguangLevelCmd(lineItems.length);
       this.setData({
         lineItems: lineItems
       })
@@ -192,9 +194,51 @@ Component({
         return;
       }
       lineItems.push(1);
+      this.sendDengguangLevelCmd(lineItems.length);
       this.setData({
         lineItems: lineItems
       })
+    },
+
+
+    sendDengguangLevelCmd(level) {
+      let cmd = sendPrefix;
+      switch (level) {
+        case 0:
+          cmd += '002396D9';
+          break;
+        case 1:
+          cmd += '01239749';
+          break;
+        case 2:
+          cmd += '022397B9';
+          break;
+        case 3:
+          cmd += '03239629';
+          break;
+        case 4:
+          cmd += '04239419';
+          break;
+        case 5:
+          cmd += '05239589';
+          break;
+        case 6:
+          cmd += '06239579';
+          break;
+        case 7:
+          cmd += '072394E9';
+          break;
+        case 8:
+          cmd += '08239119';
+          break;
+        case 9:
+          cmd += '09239089';
+          break;
+        case 10:
+          cmd += 'A0239079';
+          break;
+      }
+      util.sendBlueCmd(this.data.connected,cmd)
     },
 
 

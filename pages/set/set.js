@@ -139,7 +139,7 @@ Page({
       return;
     }
     var faultPart = '';
-    let partVal = cmd.substr(12, 16).toUpperCase();
+    let partVal = cmd.substr(12, 4).toUpperCase();
     if ('6008' == partVal || '4002' == partVal) {
       faultPart = '头部';
     } else if ('6009' == partVal || '4004' == partVal) {
@@ -159,7 +159,7 @@ Page({
     }
 
     var faultCause = '';
-    let causeVal = cmd.substr(16, 20).toUpperCase();
+    let causeVal = cmd.substr(16, 4).toUpperCase();
     if ('000A' == causeVal) {
       faultCause = '电机损坏';
     } else if ('0014' == causeVal) {
@@ -282,7 +282,10 @@ Page({
 
   onModalDebugClick: function (e) {
     this.setData({
-      debugDialogShow: false
+      debugDialogShow: false,
+      faultPart: '',
+      faultCause: ''
+
     })
   }
 })

@@ -4,6 +4,15 @@ const crcUtil = require('../../utils/crcUtil')
 const util = require('../../utils/util')
 const WxNotificationCenter = require('../../utils/WxNotificationCenter')
 const app = getApp();
+const weekArray = [
+  '一',
+  '二',
+  '三',
+  '四',
+  '五',
+  '六',
+  '日',
+];
 
 Page({
   data: {
@@ -46,41 +55,41 @@ Page({
       }
     ],
     periodList: [{
-      id: 1,
-      name: '周一',
-      checked: false
-    },
-    {
-      id: 2,
-      name: '周二',
-      checked: false
-    },
-    {
-      id: 3,
-      name: '周三',
-      checked: false
-    },
-    {
-      id: 4,
-      name: '周四',
-      checked: false
-    },
-    {
-      id: 5,
-      name: '周五',
-      checked: false
-    },
-    {
-      id: 6,
-      name: '周六',
-      checked: false
-    },
-    {
-      id: 7,
-      name: '周日',
-      checked: false
-    },
-  ],
+        id: 1,
+        name: '周一',
+        checked: false
+      },
+      {
+        id: 2,
+        name: '周二',
+        checked: false
+      },
+      {
+        id: 3,
+        name: '周三',
+        checked: false
+      },
+      {
+        id: 4,
+        name: '周四',
+        checked: false
+      },
+      {
+        id: 5,
+        name: '周五',
+        checked: false
+      },
+      {
+        id: 6,
+        name: '周六',
+        checked: false
+      },
+      {
+        id: 7,
+        name: '周日',
+        checked: false
+      },
+    ],
     kuaijieType: '',
     weitiaoType: '',
     connected: {},
@@ -305,11 +314,11 @@ Page({
    * @param {*} received 
    */
   blueReply: function (received, connected) {
-    console.info('main->blueReply-->received', received,connected);
+    console.info('main->blueReply-->received', received, connected);
     if (received) {
       received = received.toUpperCase();
       let deviceId = connected.deviceId;
-      if (received.indexOf('FFFFFFFF0100030B000B04')>=0 ||
+      if (received.indexOf('FFFFFFFF0100030B000B04') >= 0 ||
         received.indexOf('FFFFFFFF01000419') >= 0) {
         // 有闹钟功能
         this.setAlarm(received, deviceId);
@@ -319,7 +328,7 @@ Page({
   },
 
   setAlarm: function (cmd, deviceId) {
-    console.error('main->setAlarm-->开启闹钟设置', cmd,deviceId);
+    console.error('main->setAlarm-->开启闹钟设置', cmd, deviceId);
     let alarm = {};
     if (cmd.indexOf('FFFFFFFF0100030B000B04') >= 0) {
       // 有闹钟未设置
@@ -385,7 +394,7 @@ Page({
       // 响铃
       let cmdRing = cmd.substr(44, 2);
       alarm.ring = '01' == cmdRing ? true : false;
-      configManager.putAlarm(deviceId, alarm);
+      configManager.putAlarm(alarm, deviceId);
     }
   },
 
