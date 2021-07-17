@@ -352,12 +352,12 @@ Page({
       alarm.time = timeHour + ':' + timeMin;
 
       // 星期
-      let cmdWeek = cmd.substr(24, 14);
-      let cmdweekArray = util.strToArray(cmdWeek, 2);
+      let cmdWeek = util.str16To2(cmd.substr(24, 2));
+      let cmdweekArray = util.strToArray(cmdWeek, 1);
       let period = [];
       let periodDesc = '';
-      for (let i = 0; i < cmdweekArray.length; i++) {
-        if (cmdweekArray[i] == '01') {
+      for (let i = 0; i < cmdweekArray.length-1; i++) {
+        if (cmdweekArray[i] == '1') {
           period.push(this.data.periodList[i].id);
         }
       }
@@ -371,11 +371,11 @@ Page({
       alarm.periodDesc = periodDesc;
 
       // 重复
-      let cmdRepeat = cmd.substr(38, 2);
+      let cmdRepeat = cmd.substr(26, 2);
       alarm.repeat = cmdRepeat == '01' ? true : false;
 
       // 模式
-      let cmdMode = cmd.substr(40, 2);
+      let cmdMode = cmd.substr(28, 2);
       if ('01' == cmdMode) {
         alarm.modeVal = 'lingyali';
         alarm.modeName = '零压力';
@@ -388,11 +388,11 @@ Page({
       }
 
       // 按摩
-      let cmdAnmo = cmd.substr(42, 2);
+      let cmdAnmo = cmd.substr(30, 2);
       alarm.anmo = '01' == cmdAnmo ? true : false;
 
       // 响铃
-      let cmdRing = cmd.substr(44, 2);
+      let cmdRing = cmd.substr(32, 2);
       alarm.ring = '01' == cmdRing ? true : false;
       configManager.putAlarm(alarm, deviceId);
     }

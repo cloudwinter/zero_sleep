@@ -145,13 +145,35 @@ function hexStringToArrayBuffer(str) {
 
 
 /**
+ * 16进制字符转2进制字符
+ */
+function str16To2(str16) {
+  console.info('str16To2',str16);
+  let result =  parseInt(str16,16).toString(2);
+  console.info('str16To2',result);
+  return result;
+}
+
+/**
+ * 二进制字符串转化为16进制
+ * @param {}} str2 
+ */
+function str2To16(str2) {
+  console.info('str2To16',str2);
+  let result =  parseInt(str2,2).toString(16);
+  console.info('str2To16',result);
+  return result.toUpperCase();
+}
+
+
+/**
  * 将字符串每隔一定长度切分放入一个数组中
  * @param {*} str 原始字符
  * @param {*} length 每隔几个字符
  * return 返回数组
  */
 function strToArray(str, itemLength) {
-  if (!str || str.length % 2 != 0) {
+  if (!str || str.length % itemLength != 0) {
     console.error('strToArray 字符为空或长度异常', str, itemLength);
     return;
   }
@@ -221,6 +243,8 @@ module.exports = {
   str2ab,
   ab2hex,
   hexStringToArrayBuffer,
+  str16To2,
+  str2To16,
   transSpecialChar,
   sendBlueCmd,
   isNotEmptyObject,

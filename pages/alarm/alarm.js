@@ -115,8 +115,7 @@ Page({
       // skin:'orange',
       connected: connected
     })
-    //WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
-
+  
     //let connected = this.data.connected;
     if (util.isNotEmptyObject(connected)) {
 
@@ -156,95 +155,7 @@ Page({
   },
 
 
-  /**
-   * 蓝牙回复回调
-   * @param {*} cmd 
-   */
-  blueReply(cmd) {
-    cmd = cmd.toUpperCase();
-    var prefix = cmd.substr(0, 12);
-    if (alarmPre != prefix) {
-      return;
-    }
-    console.log('alarm->blueReply :', cmd);
-    if ('FFFFFFFF0100030B000B04' == cmd) {
-      // 无闹钟
-      this.setData({
-        alarm: {
-          isOpenAlarm: false
-        }
-      })
-      return;
-    }
-    // 有闹钟
-    let alarm = this.data.alarm;
-    let hasAlarmPre = 'FFFFFFFF01000419'; //前缀
-    if (cmd.substr(0, 16).toUpperCase() == hasAlarmPre) {
-      let cmdStatus = cmd.substr(16, 2);
-      if ('0F' == cmdStatus) {
-        // 开启
-        alarm.isOpenAlarm = true;
-      } else {
-        // 关闭
-        alarm.isOpenAlarm = false;
-      }
-      // 时间
-      let timeHour = cmd.substr(18, 2);
-      let timeMin = cmd.substr(20, 2);
-      alarm.time = timeHour + ':' + timeMin;
-
-      // 星期
-      let cmdWeek = cmd.substr(24, 14);
-      let cmdweekArray = util.strToArray(cmdWeek, 2);
-      let period = [];
-      let periodDesc = '';
-      for (let i = 0; i < cmdweekArray.length; i++) {
-        if (cmdweekArray[i] == '01') {
-          period.push(this.data.periodList[i].id);
-        }
-      }
-      console.log('alarm->blueReply :period:,'+period);
-      if (period.length > 0) {
-        period.forEach(j => {
-          periodDesc += weekArray[j - 1];
-        });
-      }
-      alarm.period = period;
-      alarm.periodDesc = periodDesc;
-
-      // 重复
-      let cmdRepeat = cmd.substr(38, 2);
-      alarm.repeat = cmdRepeat == '01' ? true : false;
-
-      // 模式
-      let cmdMode = cmd.substr(40, 2);
-      if ('01' == cmdMode) {
-        alarm.modeVal = 'lingyali';
-        alarm.modeName = '零压力';
-      } else if ('02' == cmdMode) {
-        alarm.modeVal = 'jiyi1';
-        alarm.modeName = '记忆一';
-      } else {
-        alarm.modeVal = 'close';
-        alarm.modeName = '不动作';
-      }
-
-      // 按摩
-      let cmdAnmo = cmd.substr(42, 2);
-      alarm.anmo = '01' == cmdAnmo ? true : false;
-
-      // 响铃
-      let cmdRing = cmd.substr(44, 2);
-      alarm.ring = '01' == cmdRing ? true : false;
-      this.setData({
-        alarm: alarm
-      })
-
-      configManager.putAlarm(alarm,this.data.connected.deviceId);
-
-    }
-
-  },
+ 
 
   /**
    * 闹钟开关
@@ -481,15 +392,18 @@ Page({
     // 星期
     let period = alarm.period;
     if (!util.isNotEmptyStr(period) || period.length == 0) {
-      sendAlarmCmdPre += '00000000000000';
+      sendAlarmCmdPre += '00';
     } else {
+      let week2cmd = '';
       for (let i = 1; i <= 7; i++) {
         if (period.includes(i)) {
-          sendAlarmCmdPre += '01';
+          week2cmd += '1';
         } else {
-          sendAlarmCmdPre += '00';
+          week2cmd += '0';
         }
       }
+      week2cmd += '0';
+      sendAlarmCmdPre += util.str2To16(week2cmd);
     }
 
     // 重复
