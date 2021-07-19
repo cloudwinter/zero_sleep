@@ -98,7 +98,9 @@ Component({
       if ('FFFFFFFF050001' != prefix) {
         return;
       }
-
+      that.setData({
+        isLightShow: true,
+      })
       console.info('dengguang->blueReply 收到的蓝牙回复', cmd);
       var level = cmd.substr(14, 16).toUpperCase();
       if ('01' == level) {
@@ -123,7 +125,6 @@ Component({
         lineItems = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
       }
       that.setData({
-        isLightShow: true,
         lineItems: lineItems
       })
     },

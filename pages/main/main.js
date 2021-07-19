@@ -287,7 +287,7 @@ Page({
       },
       fail: function (res) {
         console.error("main->notifyBLECharacteristicValueChange error", res);
-        // let received = 'FFFFFFFF0100030B000B04';
+        // let received = 'FFFFFFFF01000413AF083000C2010301019897';
         // that.blueReply(received, connected);
         util.showModal('开启监听失败，请重新进入');
       }
@@ -318,8 +318,8 @@ Page({
     if (received) {
       received = received.toUpperCase();
       let deviceId = connected.deviceId;
-      if (received.indexOf('FFFFFFFF0100030B000B04') >= 0 ||
-        received.indexOf('FFFFFFFF01000419') >= 0) {
+      if (received.indexOf('FFFFFFFF0100030B00') >= 0 ||
+        received.indexOf('FFFFFFFF01000413') >= 0) {
         // 有闹钟功能
         this.setAlarm(received, deviceId);
       }
@@ -330,12 +330,13 @@ Page({
   setAlarm: function (cmd, deviceId) {
     console.error('main->setAlarm-->开启闹钟设置', cmd, deviceId);
     let alarm = {};
-    if (cmd.indexOf('FFFFFFFF0100030B000B04') >= 0) {
+    if (cmd.indexOf('FFFFFFFF0100030B00') >= 0) {
       // 有闹钟未设置
       configManager.putAlarmSwitch(true, deviceId);
       alarm.isOpenAlarm = false;
       configManager.putAlarm(alarm, deviceId);
-    } else if (cmd.indexOf('FFFFFFFF01000419') >= 0) {
+    } else if (cmd.indexOf('FFFFFFFF01000413') >= 0) {
+
       // 有闹钟已设置
       configManager.putAlarmSwitch(true, deviceId)
       let cmdStatus = cmd.substr(16, 2);
@@ -351,14 +352,16 @@ Page({
       let timeMin = cmd.substr(20, 2);
       alarm.time = timeHour + ':' + timeMin;
 
+ 
+
       // 星期
       let cmdWeek = util.str16To2(cmd.substr(24, 2));
       let cmdweekArray = util.strToArray(cmdWeek, 1);
       let period = [];
       let periodDesc = '';
-      for (let i = 0; i < cmdweekArray.length-1; i++) {
-        if (cmdweekArray[i] == '1') {
-          period.push(this.data.periodList[i].id);
+      for (let i = cmdweekArray.length - 1; i > 0; i--) {
+        if (cmdweekArray[i-1] == '1') {
+          period.push(this.data.periodList[7-i].id);
         }
       }
       console.log('main.alarm->blueReply :period:,' + period);

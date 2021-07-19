@@ -108,25 +108,34 @@ Page({
   onLoad: function (options) {
     let connected = configManager.getCurrentConnected();
     // connected = {
-    //   deviceId:'111'
+    //   deviceId: '111'
     // }
     this.setData({
       skin: app.globalData.skin,
       // skin:'orange',
       connected: connected
     })
-  
+
     //let connected = this.data.connected;
     if (util.isNotEmptyObject(connected)) {
 
       // 如果缓存中有设置缓存回显
       let alarm = configManager.getAlarm(connected.deviceId);
       if (util.isNotEmptyObject(alarm)) {
+        let periodList = this.data.periodList;
+        if (alarm.period.length > 0) {
+          periodList.forEach(item => {
+            if (alarm.period.indexOf(item.id) >= 0) {
+              item.checked = true;
+            }
+          })
+        }
         this.setData({
-          alarm: alarm
+          alarm: alarm,
+          periodList: periodList
         });
-      }
 
+      }
 
       //this.sendRequestAlarmCmd();
     }
@@ -155,7 +164,7 @@ Page({
   },
 
 
- 
+
 
   /**
    * 闹钟开关
@@ -212,6 +221,7 @@ Page({
    */
   onModalPeriodClick: function (e) {
     let cType = e.currentTarget.dataset.ctype;
+    let repeat = this.data.alarm.repeat;
     if (cType == 'cancel') {
       this.setData({
         periodDialogShow: false
@@ -228,6 +238,7 @@ Page({
       }
     });
     if (period.length > 0) {
+      repeat = true;
       period.forEach(j => {
         periodDesc += weekArray[j - 1];
       });
@@ -237,6 +248,7 @@ Page({
     console.log('onModalPeriodClick period=' + period + ' periodDesc=' + periodDesc);
     this.setData({
       periodDialogShow: false,
+      ['alarm.repeat']: repeat,
       ['alarm.period']: period,
       ['alarm.periodDesc']: periodDesc,
     })
@@ -375,7 +387,7 @@ Page({
 
 
     // 前缀
-    let sendAlarmCmdPre = 'FFFFFFFF01000219';
+    let sendAlarmCmdPre = 'FFFFFFFF01000213';
     // 状态
     if (openAlarm) {
       sendAlarmCmdPre += '01';
@@ -395,7 +407,7 @@ Page({
       sendAlarmCmdPre += '00';
     } else {
       let week2cmd = '';
-      for (let i = 1; i <= 7; i++) {
+      for (let i = 7; i >= 1; i--) {
         if (period.includes(i)) {
           week2cmd += '1';
         } else {
@@ -447,7 +459,7 @@ Page({
     console.log('saveTap->', cmd);
     util.sendBlueCmd(connected, cmd);
 
-    configManager.putAlarm(this.data.alarm,connected.deviceId);
+    configManager.putAlarm(this.data.alarm, connected.deviceId);
 
     // 返回上一页
     wx.navigateBack({
