@@ -148,9 +148,15 @@ function hexStringToArrayBuffer(str) {
  * 16进制字符转2进制字符
  */
 function str16To2(str16) {
-  console.info('str16To2',str16);
-  let result =  parseInt(str16,16).toString(2);
-  console.info('str16To2',result);
+  console.info('str16To2', str16);
+  let result = parseInt(str16, 16).toString(2);
+  let preNum = (str16.length * 4 - result.length);
+  if (preNum > 0) {
+    for (let i = 0; i < preNum; i++) {
+      result = '0' + result;
+    }
+  }
+  console.info('str16To2', result);
   return result;
 }
 
@@ -159,9 +165,15 @@ function str16To2(str16) {
  * @param {}} str2 
  */
 function str2To16(str2) {
-  console.info('str2To16',str2);
-  let result =  parseInt(str2,2).toString(16);
-  console.info('str2To16',result);
+  console.info('str2To16', str2);
+  let result = parseInt(str2, 2).toString(16);
+  let preNum = str2.length / 4 - result.length;
+  if (preNum > 0) {
+    for (let i = 0; i < preNum; i++) {
+      result = '0' + result;
+    }
+  }
+  console.info('str2To16', result);
   return result.toUpperCase();
 }
 

@@ -75,6 +75,7 @@ Component({
       that.setData({
         connected: connected,
       })
+      console.info('dengguang ->发送灯光亮度命令');
       that.sendBlueCmd('FF23D729');
     },
 

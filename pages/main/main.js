@@ -101,10 +101,10 @@ Page({
   onLoad: function (option) {
     console.info('main.Onshow');
     // let contectedTest = {
-    //   deviceId:'111'
+    //   deviceId: '111'
     // };
     // option = {
-    //   connected:JSON.stringify(contectedTest)
+    //   connected: JSON.stringify(contectedTest)
     // }
     if (option && option.connected) {
       console.info("main.onLoad option", option);
@@ -115,11 +115,16 @@ Page({
         kuaijieType: option.kuaijieType,
         weitiaoType: option.weitiaoType
       })
+
       this.notifyBLECharacteristicValueChange();
-      // 发送时间校验指令
-      this.sendRequestAlarmCmd();
+
       //this.getBLService(connected.deviceId);
     }
+    // util.str16To2('26');
+    // util.str16To2('C0');
+    // util.str16To2('00');
+    // util.str2To16('00000000');
+    // util.str2To16('01000100');
   },
 
   /**
@@ -284,6 +289,10 @@ Page({
         console.info("notifyBLECharacteristicValueChange->success");
         // 初始化通知
         WxNotificationCenter.postNotificationName('INIT', that.data.connected);
+        // 发送时间校验指令,延时发送
+        setTimeout(function () {
+          that.sendRequestAlarmCmd();
+        }, 100);
       },
       fail: function (res) {
         console.error("main->notifyBLECharacteristicValueChange error", res);
@@ -297,6 +306,7 @@ Page({
       var buffer = res.value;
       var received = util.ab2hex(buffer);
       console.info('main->onBLECharacteristicValueChange-->received', received);
+      //received = 'FFFFFFFF01000413AF08300026010301019897';
       that.blueReply(received, connected);
       WxNotificationCenter.postNotificationName('BLUEREPLY', received);
 
@@ -352,16 +362,16 @@ Page({
       let timeMin = cmd.substr(20, 2);
       alarm.time = timeHour + ':' + timeMin;
 
- 
+
 
       // 星期
       let cmdWeek = util.str16To2(cmd.substr(24, 2));
       let cmdweekArray = util.strToArray(cmdWeek, 1);
       let period = [];
       let periodDesc = '';
-      for (let i = cmdweekArray.length - 1; i > 0; i--) {
-        if (cmdweekArray[i-1] == '1') {
-          period.push(this.data.periodList[7-i].id);
+      for (let i = cmdweekArray.length - 2; i >= 0; i--) {
+        if (cmdweekArray[i] == '1') {
+          period.push(this.data.periodList[6 - i].id);
         }
       }
       console.log('main.alarm->blueReply :period:,' + period);
