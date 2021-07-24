@@ -380,9 +380,17 @@ Page({
     let alarm = this.data.alarm;
     let openAlarm = alarm.isOpenAlarm;
     let time = alarm.time;
-    if (openAlarm && !util.isNotEmptyStr(time)) {
-      util.showToast('请选择时间');
-      return;
+
+    if (openAlarm) {
+      if (!util.isNotEmptyStr(time)) {
+        util.showToast('请选择时间');
+        return;
+      }
+
+      if (alarm.repeat && alarm.period.length <= 0) {
+        util.showToast('请选择星期');
+        return;
+      }
     }
 
 

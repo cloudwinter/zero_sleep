@@ -147,6 +147,7 @@ Page({
    * 初始化发送时间校验闹钟请求
    */
   sendRequestAlarmCmd() {
+    console.info('main->sendInitCmd 发送闹钟指令 time ', new Date().getTime());
     let cmdPrefix = 'FFFFFFFF01000111';
     let date = time.getDateInfo(new Date());
     let cmdTime = date.hour + date.minute + date.second + date.week + date.year + date.month + date.day;
@@ -154,6 +155,12 @@ Page({
     let cmd = cmdPrefix + cmdTime + cmdCrc;
     console.log('sendRequestAlarmCmd:', cmd);
 
+    this.sendBlueCmd(cmd);
+
+  },
+
+
+  sendBlueCmd(cmd) {
     util.sendBlueCmd(this.data.connected, cmd);
   },
 
@@ -288,11 +295,8 @@ Page({
       success: function () {
         console.info("notifyBLECharacteristicValueChange->success");
         // 初始化通知
-        WxNotificationCenter.postNotificationName('INIT', that.data.connected);
-        // 发送时间校验指令,延时发送
-        setTimeout(function () {
-          that.sendRequestAlarmCmd();
-        }, 100);
+        that.sendInitCmd(that.data.connected);
+
       },
       fail: function (res) {
         console.error("main->notifyBLECharacteristicValueChange error", res);
@@ -312,12 +316,37 @@ Page({
 
 
     });
-
-    // setTimeout(function(){
-    //   util.sendBlueCmd(connected,'FFFFFFFF05000500E4C74A');
-    // },1000)
-
   },
+
+
+  /**
+   * 在各个页面发送指令之前发送指令
+   */
+  sendInitCmd: function (connected) {
+    console.info('main->sendInitCmd 发送灯光指令 time', new Date().getTime());
+    let that = this;
+    // 先发送灯光指令
+    that.sendBlueCmd('FFFFFFFF050000FF23D729');
+
+    // 延迟150ms发送时间指令
+    setTimeout(function(){
+      // 发送时间校验指令
+      that.sendRequestAlarmCmd(connected);
+      // 延时150ms发送页面初始化操作
+      setTimeout(that.postInit,150,connected);
+    },150)
+  
+  },
+
+  /**
+   * 页面初始化操作
+   * @param {*} connected 
+   */
+  postInit: function (connected) {
+    console.info('main->sendInitCmd 发送个页面指令 time ', new Date().getTime());
+    WxNotificationCenter.postNotificationName('INIT', connected);
+  },
+
 
   /**
    * 蓝牙回复

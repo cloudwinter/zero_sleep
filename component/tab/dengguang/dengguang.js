@@ -75,8 +75,8 @@ Component({
       that.setData({
         connected: connected,
       })
-      console.info('dengguang ->发送灯光亮度命令');
-      that.sendBlueCmd('FF23D729');
+      // console.info('dengguang ->发送灯光亮度命令');
+      // that.sendBlueCmd('FF23D729');
     },
 
 
@@ -94,7 +94,7 @@ Component({
      */
     blueReply(cmd) {
       var that = this.observer;
-      var lineItems = [];
+      var lineItems = that.data.lineItems;
       var prefix = cmd.substr(0, 14).toUpperCase();
       if ('FFFFFFFF050001' != prefix) {
         return;
@@ -102,8 +102,9 @@ Component({
       that.setData({
         isLightShow: true,
       })
-      console.info('dengguang->blueReply 收到的蓝牙回复', cmd);
-      var level = cmd.substr(14, 16).toUpperCase();
+  
+      var level = cmd.substr(14, 2).toUpperCase();
+      console.info('dengguang->blueReply 收到的蓝牙回复', cmd,level);
       if ('01' == level) {
         lineItems = [1];
       } else if ('02' == level) {
