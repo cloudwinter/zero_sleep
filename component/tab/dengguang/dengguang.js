@@ -102,9 +102,9 @@ Component({
       that.setData({
         isLightShow: true,
       })
-  
+
       var level = cmd.substr(14, 2).toUpperCase();
-      console.info('dengguang->blueReply 收到的蓝牙回复', cmd,level);
+      console.info('dengguang->blueReply 收到的蓝牙回复', cmd, level);
       if ('01' == level) {
         lineItems = [1];
       } else if ('02' == level) {
@@ -125,7 +125,7 @@ Component({
         lineItems = [1, 1, 1, 1, 1, 1, 1, 1, 1];
       } else if ('0A' == level) {
         lineItems = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-      } else if('00' == level) {
+      } else if ('00' == level) {
         lineItems = [];
       }
       that.setData({
@@ -243,7 +243,7 @@ Component({
           cmd += 'A0239079';
           break;
       }
-      util.sendBlueCmd(this.data.connected,cmd)
+      util.sendBlueCmd(this.data.connected, cmd)
     },
 
 
