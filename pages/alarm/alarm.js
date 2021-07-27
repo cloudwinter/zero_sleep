@@ -221,7 +221,6 @@ Page({
    */
   onModalPeriodClick: function (e) {
     let cType = e.currentTarget.dataset.ctype;
-    let repeat = this.data.alarm.repeat;
     if (cType == 'cancel') {
       this.setData({
         periodDialogShow: false
@@ -238,17 +237,15 @@ Page({
       }
     });
     if (period.length > 0) {
-      repeat = true;
       period.forEach(j => {
         periodDesc += weekArray[j - 1];
       });
     } else {
-      periodDesc = '永不';
+      periodDesc = '不重复';
     }
     console.log('onModalPeriodClick period=' + period + ' periodDesc=' + periodDesc);
     this.setData({
       periodDialogShow: false,
-      ['alarm.repeat']: repeat,
       ['alarm.period']: period,
       ['alarm.periodDesc']: periodDesc,
     })
@@ -386,11 +383,6 @@ Page({
         util.showToast('请选择时间');
         return;
       }
-
-      if (alarm.repeat && alarm.period.length <= 0) {
-        util.showToast('请选择星期');
-        return;
-      }
     }
 
 
@@ -427,12 +419,17 @@ Page({
     }
 
     // 重复
-    let repeat = alarm.repeat;
-    if (repeat) {
-      sendAlarmCmdPre += '01';
-    } else {
+    // let repeat = alarm.repeat;
+    if (!util.isNotEmptyStr(period) || period.length == 0) {
       sendAlarmCmdPre += '00';
+    } else {
+      sendAlarmCmdPre += '01';
     }
+    // if (repeat) {
+    //   sendAlarmCmdPre += '01';
+    // } else {
+    //   sendAlarmCmdPre += '00';
+    // }
 
     // 模式
     let mode = alarm.modeVal;

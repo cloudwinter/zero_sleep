@@ -32,12 +32,12 @@
 				</picker>
 
 				<!-- 是否重复 -->
-				<view class="item" style="margin-top:1px;">
+				<!-- <view class="item" style="margin-top:1px;">
 					<view class="item-left">是否重复</view>
 					<view class="item-right">
 						<switch checked="{{alarm.repeat}}" bindchange="repeatSwitch" />
 					</view>
-				</view>
+				</view> -->
 
 
 				<!-- 星期 -->

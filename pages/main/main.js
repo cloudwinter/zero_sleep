@@ -408,13 +408,15 @@ Page({
         period.forEach(j => {
           periodDesc += weekArray[j - 1];
         });
+      } else {
+        periodDesc = '不重复';
       }
       alarm.period = period;
       alarm.periodDesc = periodDesc;
 
       // 重复
-      let cmdRepeat = cmd.substr(26, 2);
-      alarm.repeat = cmdRepeat == '01' ? true : false;
+      // let cmdRepeat = cmd.substr(26, 2);
+      // alarm.repeat = cmdRepeat == '01' ? true : false;
 
       // 模式
       let cmdMode = cmd.substr(28, 2);
