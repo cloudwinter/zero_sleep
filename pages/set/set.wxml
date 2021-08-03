@@ -8,8 +8,8 @@
 				<!-- <button class="shezhi-button-bg"></button> -->
 				<view class="shezhi-button-left">连接设备</view>
 				<view class="shezhi-button-right">
-					<view class="shezhi-button-name">已连接</view>
-					<image class="shezhi-button-icon" src="../../images/{{skin}}/set@3x.png"></image>
+					<view class="shezhi-button-name">{{status}}</view>
+					<image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
 				</view>
 			</view>
 
@@ -18,7 +18,25 @@
 				<view class="shezhi-button-left">模式选择</view>
 				<view class="shezhi-button-right">
 					<view class="shezhi-button-name">{{skin=='dark'?'深黑':'紫色'}}</view>
-					<image class="shezhi-button-icon" src="../../images/{{skin}}/set@3x.png"></image>
+					<image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+				</view>
+			</view>
+
+
+			<view class="shezhi-content shezhi-button-bg" bindtap="alarm" hidden="{{!alarmSwitch}}">
+				<view class="shezhi-button-left">闹钟设置</view>
+				<view class="shezhi-button-right">
+					<view class="shezhi-button-name">{{alarmStatus}}</view>
+					<image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+				</view>
+			</view>
+
+
+			<view class="shezhi-content shezhi-button-bg" bindtap="faultDebug" hidden="{{!faultDebugShow}}">
+				<view class="shezhi-button-left">故障调试</view>
+				<view class="shezhi-button-right">
+					<!-- <view class="shezhi-button-name"></view> -->
+					<image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
 				</view>
 			</view>
 
@@ -51,6 +69,30 @@
 				<view bindtap="onModalClick" data-ctype="cancel" class="modal-box-button" hover-class="modal-box-button-hover" style="flex-grow:1;color:black">取消</view>
 				<view style="width:1rpx;height:100%;background:#eee"></view>
 				<view bindtap="onModalClick" data-ctype="confirm" class="modal-box-button" hover-class="modal-box-button-hover" style="flex-grow:1;color:#59B84D;">确定</view>
+			</view>
+		</view>
+	</view>
+
+	<!-- 故障调试对话框 -->
+	<view class="modal-dialog" hidden="{{!debugDialogShow}}">
+		<view class="modal-box">
+			<text class="modal-box-title" style="margin-bottom:30rpx;margin-top:30rpx;">故障调试</text>
+			<view style="width:100%;height:1px;background:#eee"></view>
+
+			<view class="model-content" style="height:180rpx;">
+				<view class="model-row">
+					<view class="model-title">故障部件</view>
+					<view class="model-title">故障类型</view>
+				</view>
+				<view class="model-row">
+					<view class="model-body">{{faultPart}}</view>
+					<view class="model-body">{{faultCause}}</view>
+				</view>
+			</view>
+
+			<view style="width:100%;height:1px;background:#eee"></view>
+			<view class="modal-box-bottom" style="height:100rpx;">
+				<view bindtap="onModalDebugClick" data-ctype="close" class="modal-box-button" hover-class="modal-box-button-hover" style="flex-grow:1;color:black;">关闭</view>
 			</view>
 		</view>
 	</view>

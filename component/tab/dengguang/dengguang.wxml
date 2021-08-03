@@ -15,6 +15,27 @@
 		<button class="dengguang-button-bg {{currentSelected=='10min'?'button-bg-selected':'button-bg'}}" bindtap="click" data-time="10min">10分钟</button>
 		<button class="dengguang-button-bg {{currentSelected=='8h'?'button-bg-selected':'button-bg'}}" bindtap="click" data-time="8h">8小时</button>
 		<button class="dengguang-button-bg {{currentSelected=='10h'?'button-bg-selected':'button-bg'}}" bindtap="click" data-time="10h">10小时</button>
+		
+		<view class="anmo-content anmo-button-bg button-bg" hidden="{{!isLightShow}}">
+			<view class="anmo-button-top">
+				<view class="anmo-button-top-left" bindtap="tapMinus" data-type="linght">
+					<image class="anmo-button-icon" src="../../../images/{{skin}}/minus-normal@3x.png"></image>
+				</view>
+				<view class="anmo-button-top-middle">
+					<view class="anmo-type-name">灯光亮度</view>
+				</view>
+				<view class="anmo-button-top-right" bindtap="tapPlus" data-type="linght">
+					<image class="anmo-button-icon" src="../../../images/{{skin}}/plus-normal@3x.png"></image>
+				</view>
+
+			</view>
+			<view class="anmo-button-bottom">
+				<block wx:for="{{lineItems}}" wx:key="key">
+					<view class="line10 line-color"></view>
+				</block>
+			</view>
+		</view>
+	
 	</view>
 
 </view>

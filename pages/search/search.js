@@ -473,6 +473,7 @@ Page({
             }
           }
           console.log('device connected:', that.data.connected);
+          configManager.putCurrentConnected(that.data.connected);
           that.turnToMain(true);
         },
         fail: function (res) {
@@ -641,9 +642,6 @@ Page({
       // 默认K1
       return 'W1';
     },
-
-
-
 
   },
 

@@ -22,6 +22,8 @@ Component({
     display: app.globalData.display,
     connected: {},
     currentSelected: '',
+    isLightShow: false,
+    lineItems: [] //灯光亮度
   },
 
 
@@ -40,12 +42,13 @@ Component({
       console.info("dengguang-->created", app.globalData.display);
       var that = this;
       WxNotificationCenter.addNotification("INIT", that.initConnected, that);
+      WxNotificationCenter.addNotification("BLUEREPLY", that.blueReply, that);
     },
     attached: function () {
       // 在组件实例进入页面节点树时执行
       console.info("attached");
       this.setData({
-        display:app.globalData.display
+        display: app.globalData.display
       })
     },
     detached: function () {
@@ -53,6 +56,7 @@ Component({
       console.info("detached");
       var that = this;
       WxNotificationCenter.removeNotification("INIT", that);
+      WxNotificationCenter.removeNotification("BLUEREPLY", that);
     },
   },
 
@@ -71,7 +75,8 @@ Component({
       that.setData({
         connected: connected,
       })
-      //WxNotificationCenter.removeNotification("INIT",that);
+      // console.info('dengguang ->发送灯光亮度命令');
+      // that.sendBlueCmd('FF23D729');
     },
 
 
@@ -81,6 +86,51 @@ Component({
     sendBlueCmd(cmd, options) {
       var connected = this.data.connected;
       util.sendBlueCmd(connected, sendPrefix + cmd, options);
+    },
+
+    /**
+     * 蓝牙回复回调
+     * @param {*} cmd 
+     */
+    blueReply(cmd) {
+      var that = this.observer;
+      var lineItems = that.data.lineItems;
+      var prefix = cmd.substr(0, 14).toUpperCase();
+      if ('FFFFFFFF050001' != prefix) {
+        return;
+      }
+      that.setData({
+        isLightShow: true,
+      })
+
+      var level = cmd.substr(14, 2).toUpperCase();
+      console.info('dengguang->blueReply 收到的蓝牙回复', cmd, level);
+      if ('01' == level) {
+        lineItems = [1];
+      } else if ('02' == level) {
+        lineItems = [1, 1];
+      } else if ('03' == level) {
+        lineItems = [1, 1, 1];
+      } else if ('04' == level) {
+        lineItems = [1, 1, 1, 1];
+      } else if ('05' == level) {
+        lineItems = [1, 1, 1, 1, 1];
+      } else if ('06' == level) {
+        lineItems = [1, 1, 1, 1, 1, 1];
+      } else if ('07' == level) {
+        lineItems = [1, 1, 1, 1, 1, 1, 1];
+      } else if ('08' == level) {
+        lineItems = [1, 1, 1, 1, 1, 1, 1, 1];
+      } else if ('09' == level) {
+        lineItems = [1, 1, 1, 1, 1, 1, 1, 1, 1];
+      } else if ('0A' == level) {
+        lineItems = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+      } else if ('00' == level) {
+        lineItems = [];
+      }
+      that.setData({
+        lineItems: lineItems
+      })
     },
 
 
@@ -119,7 +169,82 @@ Component({
 
         }
       }));
-    }
+    },
+
+    /**
+     * 亮度减小
+     * @param {*} e 
+     */
+    tapMinus(e) {
+      let lineItems = this.data.lineItems;
+      if (lineItems.length == 0) {
+        util.showToast('当前亮度已经调整到最小');
+        return;
+      }
+      lineItems.splice(lineItems.length - 1, 1);
+      this.sendDengguangLevelCmd(lineItems.length);
+      this.setData({
+        lineItems: lineItems
+      })
+    },
+
+    /**
+     * 亮度增加
+     * @param {*} e 
+     */
+    tapPlus(e) {
+      let lineItems = this.data.lineItems;
+      if (lineItems.length == 10) {
+        util.showToast('当前亮度已经调整到最大');
+        return;
+      }
+      lineItems.push(1);
+      this.sendDengguangLevelCmd(lineItems.length);
+      this.setData({
+        lineItems: lineItems
+      })
+    },
+
+
+    sendDengguangLevelCmd(level) {
+      let cmd = sendPrefix;
+      switch (level) {
+        case 0:
+          cmd += '002396D9';
+          break;
+        case 1:
+          cmd += '01239749';
+          break;
+        case 2:
+          cmd += '022397B9';
+          break;
+        case 3:
+          cmd += '03239629';
+          break;
+        case 4:
+          cmd += '04239419';
+          break;
+        case 5:
+          cmd += '05239589';
+          break;
+        case 6:
+          cmd += '06239579';
+          break;
+        case 7:
+          cmd += '072394E9';
+          break;
+        case 8:
+          cmd += '08239119';
+          break;
+        case 9:
+          cmd += '09239089';
+          break;
+        case 10:
+          cmd += 'A0239079';
+          break;
+      }
+      util.sendBlueCmd(this.data.connected, cmd)
+    },
 
 
   }

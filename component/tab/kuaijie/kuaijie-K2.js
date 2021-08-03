@@ -174,7 +174,7 @@ Component({
     blueReply(cmd) {
       var that = this.observer;
       var prefix = cmd.substr(0, 14).toUpperCase();
-      console.info('kuaijie-k2->askBack', cmd, prefix);
+      console.info('kuaijie-k2->blueReply', cmd, prefix);
       var askType = that.data.askType;
       if (askType == '1') {
         if (prefix == askReply1Prefix) {

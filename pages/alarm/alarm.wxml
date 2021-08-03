@@ -1,0 +1,180 @@
+<!--pages/alarm/alarm.wxml-->
+<!--pages/set.wxml-->
+<view class="page-{{skin}}">
+	<navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}"
+		background="{{navbar.background}}" title="闹钟"></navbar>
+
+	<view class="{{skin}}">
+		<view class="content">
+
+			<!-- 闹钟开关 -->
+			<view class="item">
+				<!-- <button class="shezhi-button-bg"></button> -->
+				<view class="item-left">闹钟开关</view>
+				<view class="item-right">
+					<switch checked="{{alarm.isOpenAlarm}}" bindchange="alarmSwitch" />
+				</view>
+			</view>
+
+			<view hidden="{{!alarm.isOpenAlarm}}" style="width:100%;margin-top:40rpx;">
+
+				<!-- 时间 -->
+				<picker mode="time" value="{{alarm.time}}" start="00:00" end="23:59" bindchange="bindTimeChange"
+					style="width:100%">
+					<view class="item">
+						<view class="item-left">时间</view>
+						<view class="item-right">
+							<view class="weui-input item-right-name">{{alarm.time}}</view>
+							<image class="item-right-icon" src="../../images/{{skin}}/row@3x.png"></image>
+						</view>
+
+					</view>
+				</picker>
+
+				<!-- 是否重复 -->
+				<!-- <view class="item" style="margin-top:1px;">
+					<view class="item-left">是否重复</view>
+					<view class="item-right">
+						<switch checked="{{alarm.repeat}}" bindchange="repeatSwitch" />
+					</view>
+				</view> -->
+
+
+				<!-- 星期 -->
+				<view class="item" style="margin-top:1rpx;" bindtap="periodTap">
+					<view class="item-left">星期</view>
+					<view class="item-right">
+						<view class=".item-right-name">{{alarm.periodDesc}}</view>
+						<image class="item-right-icon" src="../../images/{{skin}}/row@3x.png"></image>
+					</view>
+				</view>
+
+				<!-- 备注 -->
+				<!-- <view class="item" style="margin-top:1px;" bindtap="remarkTap">
+					<view class="item-left">备注</view>
+					<view class="item-right">
+						<view class=".item-right-name">{{alarm.remark}}</view>
+						<image class="item-right-icon" src="../../images/{{skin}}/row@3x.png"></image>
+					</view>
+				</view> -->
+
+
+				<!-- 模式 -->
+				<view class="item" style="margin-top:1px;" bindtap="modeTap">
+					<view class="item-left">模式</view>
+					<view class="item-right">
+						<view class=".item-right-name">{{alarm.modeName}}</view>
+						<image class="item-right-icon" src="../../images/{{skin}}/row@3x.png"></image>
+					</view>
+				</view>
+
+
+				<!-- 按摩 -->
+				<view class="item" style="margin-top:1px;">
+					<view class="item-left">按摩</view>
+					<view class="item-right">
+						<switch checked="{{alarm.anmo}}" bindchange="anmoSwitch" />
+					</view>
+				</view>
+
+
+				<!-- 响铃 -->
+				<view class="item" style="margin-top:1px;">
+					<view class="item-left">响铃</view>
+					<view class="item-right">
+						<switch checked="{{alarm.ring}}" bindchange="ringSwitch" />
+					</view>
+				</view>
+			</view>
+
+
+			<!-- 保存 -->
+			<view class="item item-right-name" style="margin-top:10px;justify-content: center;" bindtap="saveTap">
+				<image class="button-icon" src="../../images/{{skin}}/alarm@2x.png"></image>
+				<view class="button-name">保存</view>
+			</view>
+
+
+		</view>
+	</view>
+
+</view>
+
+
+<!-- 周期选择对话框 -->
+<view class="modal-dialog" hidden="{{!periodDialogShow}}">
+	<view class="modal-box">
+		<text class="modal-box-title" style="margin-bottom:30rpx;">星期</text>
+		<view class="model-line"></view>
+		<view class="modal-box-body">
+			<view wx:for="{{periodList}}" wx:key="key" wo:for-item='item' style="width: 100%;">
+				<view class="dialog-item" hover-class="item-hover" data-index="{{index}}" data-name="{{item.id}}"
+					bindtap='periodItemSelect'>
+					<checkbox class="checkbox" checked="{{item.checked}}" />
+					<view class="dialog-item-name">{{item.name}}</view>
+				</view>
+				<view class="model-line"></view>
+			</view>
+		</view>
+		<view class="model-line"></view>
+		<view class="modal-box-bottom" style="height:100rpx;">
+			<view bindtap="onModalPeriodClick" data-ctype="cancel" class="modal-box-button"
+				hover-class="modal-box-button-hover" style="flex-grow:1;color:#000">取消</view>
+			<view style="width:1rpx;height:100%;background:#eee"></view>
+			<view bindtap="onModalPeriodClick" data-ctype="confirm" class="modal-box-button sure"
+				hover-class="modal-box-button-hover" style="flex-grow:1;">确定</view>
+		</view>
+	</view>
+</view>
+
+
+<!-- 备注对话框 -->
+<view class="modal-dialog" hidden="{{!remarkDialogShow}}">
+	<view class="modal-box">
+		<text class="modal-box-title">提示</text>
+		<text class="modal-box-desc">备注名称</text>
+		<input class="modal-box-input" bindinput="remarkInputChange" type="text" maxlength="10" value="{{remarkInputValue}}"
+			placeholder="请输入备注" cursor-spacing="100"></input>
+		<view style="width:100%;height:1rpx;background:#eee"></view>
+		<view class="modal-box-bottom" style="height:100rpx;">
+			<view bindtap="onModalRemarkClick" data-ctype="cancel" class="modal-box-button"
+				hover-class="modal-box-button-hover" style="flex-grow:1;color:#000;">取消</view>
+			<view style="width:1rpx;height:100%;background:#eee"></view>
+			<view bindtap="onModalRemarkClick" data-ctype="confirm" class="modal-box-button sure"
+				hover-class="modal-box-button-hover" style="flex-grow:1;">确定</view>
+		</view>
+	</view>
+</view>
+
+
+
+<!-- 模式对话框 -->
+<view class="modal-dialog" hidden="{{!modeDialogShow}}">
+	<view class="modal-box">
+		<text class="modal-box-title" style="margin-bottom:30rpx;margin-top:30rpx;">模式选择</text>
+		<view style="width:100%;height:1px;background:#eee"></view>
+
+		<view class="model-content" style="width:100%;display:flex;justify-content:center">
+			<radio-group bindchange="modeRadioChange" class="radio-group" style="width:100%">
+				<block wx:for="{{modeItems}}" wx:key="key">
+					<label class="model-label">
+						<view>
+							<radio class="radio" value="{{item.value}}" checked="{{item.value==alarm.modeVal}}" />
+						</view>
+						<view class="dialog-item-name">{{item.name}}</view>
+					</label>
+					<view style="width:100%;height:1px;background:#eee"></view>
+				</block>
+			</radio-group>
+		</view>
+
+		<view style="width:100%;height:1px;background:#eee"></view>
+		<view class="modal-box-bottom" style="height:100rpx;">
+			<view bindtap="onModalModeClick" data-ctype="cancel" class="modal-box-button" hover-class="modal-box-button-hover"
+				style="flex-grow:1;color:black">取消</view>
+			<view style="width:1rpx;height:100%;background:#eee"></view>
+			<view bindtap="onModalModeClick" data-ctype="confirm" class="modal-box-button sure"
+				hover-class="modal-box-button-hover" style="flex-grow:1;">确定</view>
+		</view>
+	</view>
+</view>
