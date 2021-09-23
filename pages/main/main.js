@@ -326,7 +326,7 @@ Page({
     console.info('main->sendInitCmd 发送灯光指令 time', new Date().getTime());
     let that = this;
     // 先发送灯光指令
-    that.sendBlueCmd('FFFFFFFF050000FF23D729');
+    that.sendBlueCmd('FFFFFFFF050005FF23C728');
 
     // 延迟150ms发送时间指令
     setTimeout(function(){
