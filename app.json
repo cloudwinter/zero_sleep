@@ -4,7 +4,8 @@
     "pages/search/search",
     "pages/main/main",
     "pages/set/set",
-    "pages/alarm/alarm"
+    "pages/alarm/alarm",
+    "pages/induction/induction"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,0 +1,57 @@
+<!--pages/induction/induction.wxml-->
+<view class="page-{{skin}}">
+  <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}"
+    background="{{navbar.background}}" title="睡眠报告"></navbar>
+
+  <view class="{{skin}}">
+    <view class="content">
+
+      <!-- 智能睡眠设置 -->
+      <!-- <view class="item" bindtap="smartSet">
+        <view class="item-left">智能睡眠设置</view>
+        <view class="item-right">
+          <image class="item-right-icon" src="../../images/{{skin}}/row@3x.png"></image>
+        </view>
+      </view> -->
+
+
+      <!-- 实时在床数据 -->
+      <view class="item" bindtap="report" data-type="0" style="width:100%;margin-top:60rpx;">
+        <view class="item-left">实时在床数据</view>
+        <view class="item-right">
+          <!-- <image class="item-right-icon" src="../../images/{{skin}}/row@3x.png"></image> -->
+        </view>
+      </view>
+
+      <view class="headline">睡眠报告</view>
+      <!-- 日报告 -->
+      <view class="item" bindtap="report" data-type="1" style="width:100%;margin-top:17rpx;">
+        <view class="item-left">日报告</view>
+        <view class="item-right">
+          <!-- <image class="item-right-icon" src="../../images/{{skin}}/row@3x.png"></image> -->
+        </view>
+      </view>
+
+
+      <!-- 周报告 -->
+      <view class="item" bindtap="wmreport" data-type="week" style="width:100%;margin-top:1px;">
+        <view class="item-left">周报告</view>
+        <view class="item-right">
+          <!-- <image class="item-right-icon" src="../../images/{{skin}}/row@3x.png"></image> -->
+        </view>
+      </view>
+
+
+      <!-- 月报告 -->
+      <view class="item" bindtap="report" bindtap="wmreport" data-type="month"  style="width:100%;margin-top:1px;">
+        <view class="item-left">月报告</view>
+        <view class="item-right">
+          <!-- <image class="item-right-icon" src="../../images/{{skin}}/row@3x.png"></image> -->
+        </view>
+      </view>
+
+
+    </view>
+  </view>
+
+</view>
