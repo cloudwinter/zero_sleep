@@ -1,11 +1,13 @@
 {
   "pages": [
+    "pages/induction/induction",
     "pages/index/index",
     "pages/search/search",
     "pages/main/main",
     "pages/set/set",
     "pages/alarm/alarm",
-    "pages/induction/induction"
+ 
+    "pages/report/report"
   ],
   "window": {
     "backgroundTextStyle": "light",
