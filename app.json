@@ -1,15 +1,15 @@
 {
   "pages": [
-    "pages/dataentry/dataentry",
-    "pages/induction/induction",
+    "pages/sleepadjust/sleepadjust",
     "pages/index/index",
     "pages/search/search",
     "pages/main/main",
     "pages/set/set",
     "pages/alarm/alarm",
     "pages/report/report",
-    "pages/wmreport/wmreport"
-
+    "pages/wmreport/wmreport",
+    "pages/induction/induction",
+    "pages/dataentry/dataentry"
   ],
   "window": {
     "backgroundTextStyle": "light",

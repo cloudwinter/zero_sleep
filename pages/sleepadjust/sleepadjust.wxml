@@ -1,0 +1,73 @@
+<!--pages/sleepadjust/sleepadjust.wxml-->
+<view class="page-{{skin}}">
+  <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}"
+    background="{{navbar.background}}" title=""></navbar>
+
+
+
+  <view class="{{skin}}">
+    <view class="content">
+
+      <view class="title-content">
+        <view class="title">{{navbar.navTitle}}</view>
+      </view>
+
+      <view class="tips">
+        <view class="tips-text" style="margin-top:30rpx;">说明：</view>
+        <view class="tips-text" style="margin-top:10rpx;">1.请在平躺状态，调整背部角度，完成后按平躺键。</view>
+        <view class="tips-text" style="margin-top:10rpx;">2.请在侧躺状态，调整背部角度，完成后按侧躺键。</view>
+        <view class="tips-text" style="margin-top:10rpx;">3.完成上述操作后，请按保存键。</view>
+      </view>
+
+      <view class="anjianqu">
+
+        <view class="tips-text">{{topParam}}</view>
+        <view class="oval-button" style="margin-top:30rpx;" bindtouchstart="touchStart" bindtouchend="touchEnd"
+          data-type="top">
+          <image class="sanjiao-icon" src="../../images/{{skin}}/sanjiao_top@2x.png"></image>
+        </view>
+        <image class="xiaoren-icon" src="../../animation/{{skin}}/beibutiaozheng-1@3x.png"></image>
+        <view class="oval-button" bindtouchstart="touchStart" bindtouchend="touchEnd" data-type="bottom">
+          <image class="sanjiao-icon" src="../../images/{{skin}}/sanjiao_bottom@2x.png"></image>
+        </view>
+
+        <view class="param" style="margin-top:30rpx;" hidden="true">
+          <view class="anjianqu-left">
+            <view class="tips-text">{{pingtangParam}}</view>
+          </view>
+          <view class="anjianqu-right tips-text">
+            <view class="tips-text">{{cetangParam}}</view>
+          </view>
+        </view>
+        <view class="anjian">
+          <view class="anjianqu-left">
+            <view class="oval-button {{selectedPingtang?'selected':''}}" bindtap="pingtangTap">平躺</view>
+          </view>
+          <view class="anjianqu-left">
+            <view class="oval-button {{selectedCetang?'selected':''}}" 
+            bindtap="cetangTap">侧躺</view>
+          </view>
+        </view>
+        <view class="save">
+          <view class="oval-button" bindtap="saveTap">保存</view>
+        </view>
+      </view>
+
+    </view>
+  </view>
+</view>
+
+
+<!-- 通信失败 -->
+<view class="modal-dialog" hidden="{{!failedDialogShow}}">
+  <view class="modal-box">
+    <view class="model-content">
+      您设置的位置过高，建议您将床板降低到20以下再设置。
+    </view>
+    <view style="width:100%;height:1px;background:#000000;margin-top:10rpx"></view>
+    <view class="modal-box-bottom" style="height:100rpx;">
+      <view bindtap="onFailedModalClick" class="modal-box-button" hover-class="modal-box-button-hover"
+        style="flex-grow:1;color:#5EA2D7;">确定</view>
+    </view>
+  </view>
+</view>
