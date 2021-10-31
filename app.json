@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/dataentry/dataentry",
     "pages/induction/induction",
     "pages/index/index",
     "pages/search/search",
@@ -8,6 +9,7 @@
     "pages/alarm/alarm",
     "pages/report/report",
     "pages/wmreport/wmreport"
+
   ],
   "window": {
     "backgroundTextStyle": "light",
