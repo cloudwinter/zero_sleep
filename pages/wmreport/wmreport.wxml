@@ -1,0 +1,121 @@
+<!--pages/wmreport/wmreport.wxml-->
+<view class="page-{{skin}}">
+  <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}"
+    background="{{navbar.background}}" title="{{pageData.navTitle}}"></navbar>
+
+  <view class="{{skin}}">
+    <view class="content">
+      <view class="title">{{pageData.dataTitle}}</view>
+      <!-- 在床数据 -->
+      <view class="item">
+        <view class="item-title">
+          <image class="item-title-icon" src="../../images/{{skin}}/time_fansheng@3x.png"></image>
+          <view class="item-title-desc">在床数据</view>
+        </view>
+
+        <view class="row-line"></view>
+
+        <view class="item-data">
+          <view class="column">
+            <view class="column-title">平均在床时间</view>
+            <view class="column-body">
+              <view class="column-body-content">{{zaichuang.pingjunTime}}</view>
+              <view class="column-body-desc">小时/天</view>
+            </view>
+          </view>
+          <view class="column-line"></view>
+          <view class="column">
+            <view class="column-title">最长在床时间</view>
+            <view class="column-body">
+              <view class="column-body-content">{{zaichuang.maxTime}}</view>
+              <view class="column-body-desc">小时/天</view>
+            </view>
+          </view>
+          <view class="column-line"></view>
+          <view class="column">
+            <view class="column-title">最短在床时间</view>
+            <view class="column-body">
+              <view class="column-body-content">{{zaichuang.minTime}}</view>
+              <view class="column-body-desc">小时/天</view>
+            </view>
+          </view>
+        </view>
+
+      </view>
+
+
+      <!-- 翻身数据 -->
+      <view class="item">
+        <view class="item-title">
+          <image class="item-title-icon" src="../../images/{{skin}}/time_fansheng@3x.png"></image>
+          <view class="item-title-desc">翻身数据</view>
+        </view>
+
+        <view class="row-line"></view>
+
+        <view class="item-data">
+          <view class="column">
+            <view class="column-title">平均翻身次数</view>
+            <view class="column-body">
+              <view class="column-body-content">{{fansheng.pingjunNum}}</view>
+              <view class="column-body-desc">次/天</view>
+            </view>
+          </view>
+          <view class="column-line"></view>
+          <view class="column">
+            <view class="column-title">最多翻身次数</view>
+            <view class="column-body">
+              <view class="column-body-content">{{fansheng.maxNum}}</view>
+              <view class="column-body-desc">次/天</view>
+            </view>
+          </view>
+          <view class="column-line"></view>
+          <view class="column">
+            <view class="column-title">最少翻身次数</view>
+            <view class="column-body">
+              <view class="column-body-content">{{fansheng.minNum}}</view>
+              <view class="column-body-desc">次/天</view>
+            </view>
+          </view>
+        </view>
+
+      </view>
+
+
+
+      <!-- 平躺/侧躺时间 -->
+      <view class="item">
+        <view class="item-title">
+          <image class="item-title-icon" src="../../images/{{skin}}/time_cetang@3x.png"></image>
+          <view class="item-title-desc">平躺/侧躺时间</view>
+        </view>
+
+        <view class="row-line"></view>
+
+        <view class="item-data">
+          <view class="column">
+            <view class="column-title">平均平躺时间</view>
+            <view class="column-body">
+              <view class="column-body-content">{{pingcetang.pingTime}}</view>
+              <view class="column-body-desc">小时/天</view>
+            </view>
+          </view>
+          <view class="column-line"></view>
+          <view class="column">
+            <view class="column-title">平均侧躺时间</view>
+            <view class="column-body">
+              <view class="column-body-content">{{pingcetang.ceTime}}</view>
+              <view class="column-body-desc">小时/天</view>
+            </view>
+          </view>
+        </view>
+
+      </view>
+
+
+
+
+    </view>
+  </view>
+
+</view>

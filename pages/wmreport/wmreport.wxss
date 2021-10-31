@@ -1,0 +1,114 @@
+/* pages/wmreport/wmreport.wxss */
+.title {
+  width: 100%;
+  font-size: 40rpx;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-top: 50rpx;
+  margin-left: 30rpx;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.item {
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  margin-top: 30rpx;
+  background: #1E1F24;
+border-radius: 32px;
+}
+
+.item-title {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 74rpx;
+  background: #2B2D36;
+  border-radius: 32rpx 32rpx 0rpx 0rpx;
+  justify-content: center;
+  align-items: center;
+}
+
+.item-title-icon {
+  width: 35rpx;
+  height: 35rpx;
+  display: flex;
+  margin-left: 35rpx;
+}
+
+.item-title-desc {
+  display: flex;
+  font-size: 28rpx;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 600;
+  color: #FFFFFF;
+  line-height: 40px;
+  margin-left: 15rpx;
+  flex: 1;
+}
+
+
+
+.item-data {
+  margin-top: 16rpx;
+  width: 100%;
+  height: 195rpx;
+  display: flex;
+  flex-direction: row;
+}
+
+
+.row-line {
+  height: 1rpx;
+  background-color: #121316;
+}
+
+.column {
+  flex: 1;
+  padding-top: 20rpx;
+}
+
+.column-line {
+  background-color: #121316;
+  width: 1rpx;
+}
+
+.column-title {
+  font-size: 28rpx;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 600;
+  color: #6D707B;
+  margin-left: 12rpx;
+  display: flex;
+  justify-content: center;
+
+}
+
+.column-body {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 15rpx;
+}
+
+.column-body-content {
+  font-size: 52rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #FFFFFF;
+}
+
+.column-body-desc {
+  font-size: 24rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #6D707B;
+  margin-left: 12rpx;
+  display: flex;
+  align-items: center;
+}

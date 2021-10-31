@@ -6,8 +6,8 @@
     "pages/main/main",
     "pages/set/set",
     "pages/alarm/alarm",
- 
-    "pages/report/report"
+    "pages/report/report",
+    "pages/wmreport/wmreport"
   ],
   "window": {
     "backgroundTextStyle": "light",
