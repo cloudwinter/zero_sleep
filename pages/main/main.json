@@ -22,7 +22,8 @@
     "weitiao-W10":"/component/tab/weitiao/weitiao-W10",
     "weitiao-W11":"/component/tab/weitiao/weitiao-W11",
     "anmo":"/component/tab/anmo/anmo",
-    "dengguang":"/component/tab/dengguang/dengguang"
+    "dengguang":"/component/tab/dengguang/dengguang",
+    "smartsleep":"/component/tab/smartsleep/smartsleep"
   },
   "disableScroll": true
   

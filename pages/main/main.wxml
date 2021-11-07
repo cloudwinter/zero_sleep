@@ -1,19 +1,21 @@
 <!--main.wxml-->
 <view class="page-{{skin}}">
-<navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}" background="{{navbar.background}}"  back="{{true}}" set="{{true}}"></navbar>
+	<navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}"
+		background="{{navbar.background}}" back="{{true}}" set="{{true}}"></navbar>
 
 
-<!-- 底部切换菜单 -->
-<view class="tab-bar">
-	<block wx:for="{{tabBar}}" wx:for-item="item" wx:key="index">
-		<view class="tab-item {{index==nowIndex?'active':''}}" bindtap="{{item.tapFunction}}">
-			<!-- <view style="position: relative;display:inline-block;"> -->
+	<!-- 底部切换菜单 -->
+	<view class="tab-bar">
+		<block wx:for="{{tabBar}}" wx:for-item="item" wx:key="index">
+			<view class="tab-item {{index==nowIndex?'active':''}}" bindtap="{{item.tapFunction}}"
+				style="display:{{item.show?'flex':'none'}}">
+				<!-- <view style="position: relative;display:inline-block;"> -->
 				<image src="{{nowIndex === index ? item.selectedIconPath : item.iconPath}}" class="tabbar_icon"></image>
-			<!-- </view> -->
-			<text class="icon-text">{{item.text}}</text>
-		</view>
-	</block>
-</view>
+				<!-- </view> -->
+				<text class="icon-text">{{item.text}}</text>
+			</view>
+		</block>
+	</view>
 
 	<!-- 页面容器 -->
 	<view class="container">
@@ -47,6 +49,9 @@
 		<view class="tab-container" hidden="{{nowPage!='dengguang'}}">
 			<dengguang></dengguang>
 		</view>
+		<view class="tab-container" hidden="{{nowPage!='smartsleep'}}">
+			<smartsleep></smartsleep>
+		</view>
 	</view>
 
-	</view>
+</view>

@@ -63,7 +63,7 @@ Page({
         "text": "智能睡眠",
         "tapFunction": "toSmartSleep",
         "active": "",
-        "show": false
+        "show": true
       }
     ],
     periodList: [{
@@ -197,6 +197,37 @@ Page({
       nowPage: "dengguang",
       nowIndex: 3
     })
+  },
+  toSmartSleep() {
+    let smartSleepClickTime = this.data.smartSleepClickTime;
+    let currentTime = new Date().getTime();
+    if (currentTime - smartSleepClickTime > 1000) {
+      WxNotificationCenter.postNotificationName('TAB_SMARTSLEEP');
+    }
+    this.setData({
+      nowPage: "smartsleep",
+      nowIndex: 4,
+      smartSleepClickTime: currentTime
+    })
+  },
+
+  /**
+   * 设置压力带显示的tab
+   */
+  showStressBeltTab() {
+    let tabbar = this.data.tabBar;
+    tabbar[4].show = true;
+    this.setData({
+      tabBar: tabbar,
+    })
+  },
+
+  /**
+   * 设置默认显示的tab
+   */
+  showDefaultTab() {
+    let tabbar = this.data.tabBar;
+    tabbar[4].show = false;
   },
 
   /******------>tab切换 end */
@@ -336,13 +367,13 @@ Page({
     that.sendBlueCmd('FFFFFFFF050005FF23C728');
 
     // 延迟150ms发送时间指令
-    setTimeout(function(){
+    setTimeout(function () {
       // 发送时间校验指令
       that.sendRequestAlarmCmd(connected);
       // 延时150ms发送页面初始化操作
-      setTimeout(that.postInit,150,connected);
-    },150)
-  
+      setTimeout(that.postInit, 150, connected);
+    }, 150)
+
   },
 
   /**
@@ -368,9 +399,25 @@ Page({
         received.indexOf('FFFFFFFF01000413') >= 0) {
         // 有闹钟功能
         this.setAlarm(received, deviceId);
+      } else if (received.indexOf('FFFFFFFF02000E0B') >= 0) {
+        // 有智能睡眠感应
+        this.showStressBeltTab();
+        this.setTimer(received, deviceId);
       }
-
     }
+  },
+
+
+  /**
+   * 设置智能睡眠感应
+   * @param {*} cmd 
+   * @param {*} deviceId 
+   */
+  setTimer: function (cmd, deviceId) {
+    console.error('main->setSmart-->设置智能睡眠定时', cmd, deviceId);
+    app.globalData.hasSleepInduction = true;
+    app.globalData.sleepTimer = cmd.substr(16, 2);
+    WxNotificationCenter.postNotificationName('VIEWSHOW');
   },
 
   setAlarm: function (cmd, deviceId) {
