@@ -64,6 +64,7 @@ Component({
     timerDialogShow: false,
     sleepTimer: '00',
     sleepTimerDesc: '无定时',
+    shuizitz: '01' // 01,02,03,04
   },
 
 
@@ -175,11 +176,13 @@ Component({
       cmd = cmd.toUpperCase();
       var sleepPrefix = cmd.substr(0, 16);
       if (sleepPrefix == 'FFFFFFFF02000A14') {
+        let shuizitz = cmd.substr(24,2);
         let zhinengShuimian = cmd.substr(32, 2);
         let zhinengYedeng = cmd.substr(34, 2);
         that.setData({
           smartSleep: zhinengShuimian == '01' ? true : false,
-          smartLight: zhinengYedeng == '01' ? true : false
+          smartLight: zhinengYedeng == '01' ? true : false,
+          shuizitz:shuizitz
         })
         return;
       }

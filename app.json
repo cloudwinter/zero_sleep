@@ -2,9 +2,9 @@
   "pages": [
     "pages/main/main",
     "pages/sleepadjust/sleepadjust",
+
     "pages/index/index",
     "pages/search/search",
-
     "pages/set/set",
     "pages/alarm/alarm",
     "pages/report/report",
