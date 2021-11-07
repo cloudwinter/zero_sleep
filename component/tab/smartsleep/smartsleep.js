@@ -56,6 +56,7 @@ Component({
     skin: app.globalData.skin,
     display: app.globalData.display,
     connected: {},
+    smartSleep: false, // 智能睡眠开关
     smartLight: false, // 智能夜灯
     timerList: timerList,
     currentSelectedTimerId: '', // 当前选中的id
@@ -174,8 +175,10 @@ Component({
       cmd = cmd.toUpperCase();
       var sleepPrefix = cmd.substr(0, 16);
       if (sleepPrefix == 'FFFFFFFF02000A14') {
+        let zhinengShuimian = cmd.substr(32, 2);
         let zhinengYedeng = cmd.substr(34, 2);
         that.setData({
+          smartSleep: zhinengShuimian == '01' ? true : false,
           smartLight: zhinengYedeng == '01' ? true : false
         })
         return;
@@ -203,8 +206,8 @@ Component({
           sleepTimerDesc = '23:30';
         }
         that.setData({
-          sleepTimerDesc:sleepTimerDesc,
-          sleepTimer:sleepTimer
+          sleepTimerDesc: sleepTimerDesc,
+          sleepTimer: sleepTimer
         })
         app.globalData.sleepTimer = sleepTimer
       }
@@ -265,7 +268,24 @@ Component({
       this.setData({
         smartLight: !smartLight
       })
+    },
 
+
+    /**
+     * 智能睡眠
+     */
+    sleep() {
+      let smartSleep = this.data.smartSleep;
+      if (smartSleep) {
+        // 关闭
+        this.sendFullBlueCmd('FFFFFFFF0200110B001A04')
+      } else {
+        // 开启
+        this.sendFullBlueCmd('FFFFFFFF050000FF3FD6E0')
+      }
+      this.setData({
+        smartSleep: !smartSleep
+      })
     },
 
 

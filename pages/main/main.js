@@ -363,17 +363,21 @@ Page({
   sendInitCmd: function (connected) {
     console.info('main->sendInitCmd 发送灯光指令 time', new Date().getTime());
     let that = this;
-    // 先发送灯光指令
-    that.sendBlueCmd('FFFFFFFF050005FF23C728');
+    // 发送压力板指令
+    console.info('main->sendInitCmd 发送压力指令 time', new Date().getTime());
+    that.sendBlueCmd('FFFFFFFF02000E0B001704');
+    setTimeout(() => {
+      // 先发送灯光指令
+      that.sendBlueCmd('FFFFFFFF050005FF23C728');
 
-    // 延迟150ms发送时间指令
-    setTimeout(function () {
-      // 发送时间校验指令
-      that.sendRequestAlarmCmd(connected);
-      // 延时150ms发送页面初始化操作
-      setTimeout(that.postInit, 150, connected);
-    }, 150)
-
+      // 延迟150ms发送时间指令
+      setTimeout(function () {
+        // 发送时间校验指令
+        that.sendRequestAlarmCmd(connected);
+        // 延时150ms发送页面初始化操作
+        setTimeout(that.postInit, 150, connected);
+      }, 150)
+    }, 300);
   },
 
   /**

@@ -32,6 +32,16 @@
 		</view>
 
 
+    <view class="shezhi-min-content shezhi-button-bg" style="width: 48% !important;" bindtap="sleep">
+			<view style="display:flex;flex-direction:column;align-items:center">
+				<image style="width:20rpx;height:20rpx;margin-bottom:10rpx;"
+					src="../../../images/{{skin}}/dian_{{smartSleep?'selected':'normal'}}@2x.png">
+				</image>
+				<view class="color-59B84D">智能睡眠{{smartSleep?'开':'关'}}</view>
+			</view>
+		</view>
+
+
 		<view class="shezhi-min-content shezhi-button-bg" style="width: 48% !important;" bindtap="nightLight">
 			<view style="display:flex;flex-direction:column;align-items:center">
 				<image style="width:20rpx;height:20rpx;margin-bottom:10rpx;"
