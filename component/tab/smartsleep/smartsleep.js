@@ -64,7 +64,7 @@ Component({
     timerDialogShow: false,
     sleepTimer: '00',
     sleepTimerDesc: '无定时',
-    shuizitz: '01' // 01,02,03,04
+    shuizitz: '02' // 01,02,03,04
   },
 
 
@@ -233,8 +233,9 @@ Component({
      * 睡姿调整
      */
     sleepAdjust() {
+      let pageType = this.data.shuizitz
       wx.navigateTo({
-        url: '/pages/sleepadjust/sleepadjust'
+        url: '/pages/sleepadjust/sleepadjust?pageType='+pageType
       })
     },
 

@@ -35,12 +35,13 @@
 
 .tips {
   width: 90%;
-  height: 238rpx;
+  height: auto;
   background: #1E1F24;
   border-radius: 16rpx;
   opacity: 0.88;
   margin-top: 30rpx;
   padding-left: 30rpx;
+  padding-bottom: 20rpx;
 }
 
 .tips-text {
