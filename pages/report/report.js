@@ -57,7 +57,7 @@ Page({
     let pageType = options.pageType;
     console.log('pageType:' + pageType);
     let connected = configManager.getCurrentConnected();
-    let date = time.getDateInfo(new Date());
+    let date = time.getDateInfo(new Date(new Date().getTime() - 24 * 60 * 60 * 1000));
     let preDay = date.day - 1; // TODO 待确认问题如果日期是个位数的问题
     let pageData = {};
     let unit;

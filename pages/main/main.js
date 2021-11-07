@@ -30,28 +30,40 @@ Page({
         "iconPath": "../../images/" + app.globalData.skin + "/tab_kuaijie_normal@2x.png",
         "text": "快捷",
         "tapFunction": "toKuaijie",
-        "active": "active"
+        "active": "active",
+        "show": true
       },
       {
         "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_weitiao_selected@2x.png",
         "iconPath": "../../images/" + app.globalData.skin + "/tab_weitiao_normal@2x.png",
         "text": "微调",
         "tapFunction": "toWeitiao",
-        "active": ""
+        "active": "",
+        "show": true
       },
       {
         "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_anno_selected@2x.png",
         "iconPath": "../../images/" + app.globalData.skin + "/tab_anno_normal@2x.png",
         "text": "按摩",
         "tapFunction": "toAnmo",
-        "active": "active"
+        "active": "active",
+        "show": true
       },
       {
         "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_dengguang_selected@2x.png",
         "iconPath": "../../images/" + app.globalData.skin + "/tab_dengguang_normal@2x.png",
         "text": "灯光",
         "tapFunction": "toDengguang",
-        "active": ""
+        "active": "",
+        "show": true
+      },
+      {
+        "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_sleep_selected@2x.png",
+        "iconPath": "../../images/" + app.globalData.skin + "/tab_sleep_normal@2x.png",
+        "text": "智能睡眠",
+        "tapFunction": "toSmartSleep",
+        "active": "",
+        "show": false
       }
     ],
     periodList: [{
@@ -120,11 +132,6 @@ Page({
 
       //this.getBLService(connected.deviceId);
     }
-    // util.str16To2('26');
-    // util.str16To2('C0');
-    // util.str16To2('00');
-    // util.str2To16('00000000');
-    // util.str2To16('01000100');
   },
 
   /**
