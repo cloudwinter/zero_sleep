@@ -63,7 +63,7 @@ Page({
         "text": "智能睡眠",
         "tapFunction": "toSmartSleep",
         "active": "",
-        "show": true
+        "show": false
       }
     ],
     periodList: [{
