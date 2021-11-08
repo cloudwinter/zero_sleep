@@ -119,8 +119,7 @@ Page({
    */
   blueReply(cmd) {
     cmd = cmd.toUpperCase();
-    if (cmd.indexOf('FFFFFFFF02000F0E') >= 0) {
-      let topParamCmd = cmd.substr(20, 2);
+    if (cmd.indexOf('FFFFFFFF02000F0E') >= 0 && cmd.length > 20) {
       let AZ = util.str16To10(cmd.substr(16, 2));
       let BZ = util.str16To10(cmd.substr(18, 2));
       let CZ = util.str16To10(cmd.substr(20, 2));
@@ -135,7 +134,7 @@ Page({
       })
       return;
     }
-    if (cmd.indexOf('FFFFFFFF02001012') >= 0) {
+    if (cmd.indexOf('FFFFFFFF02001012') >= 0 && cmd.length > 30) {
       let AX = util.str16To10(cmd.substr(16, 2));
       let BX = util.str16To10(cmd.substr(18, 2));
       let CX = util.str16To10(cmd.substr(20, 2));
@@ -172,7 +171,7 @@ Page({
    */
   pingtangTap() {
     let topZ = this.data.topZ;
-    console.info('pingtangTap',topZ);
+    console.info('pingtangTap', topZ);
     this.setData({
       pingtangX: {
         AX: topZ.AZ,
@@ -198,7 +197,7 @@ Page({
    */
   cetangTap() {
     let topZ = this.data.topZ;
-    console.info('cetangTap',topZ);
+    console.info('cetangTap', topZ);
     this.setData({
       cetangY: {
         AY: topZ.AZ,
@@ -225,7 +224,7 @@ Page({
   saveTap() {
     let cmd = 'FFFFFFFF02001012';
     let pingtangX = this.data.pingtangX;
-    console.info('saveTap',this.data);
+    console.info('saveTap', this.data);
     let AXcmd = util.str10To16(pingtangX.AX);
     let BXcmd = util.str10To16(pingtangX.BX);
     let CXcmd = util.str10To16(pingtangX.CX);

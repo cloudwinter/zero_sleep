@@ -105,6 +105,7 @@ Page({
     kuaijieType: '',
     weitiaoType: '',
     connected: {},
+    smartSleepClickTime: 0,
   },
 
   /**
