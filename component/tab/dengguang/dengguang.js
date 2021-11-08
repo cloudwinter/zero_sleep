@@ -127,6 +127,9 @@ Component({
         lineItems = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
       } else if ('00' == level) {
         lineItems = [];
+        that.setData({
+          currentSelected: ''
+        })
       }
       that.setData({
         lineItems: lineItems

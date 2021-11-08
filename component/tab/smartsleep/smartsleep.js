@@ -282,10 +282,10 @@ Component({
       let smartSleep = this.data.smartSleep;
       if (smartSleep) {
         // 关闭
-        this.sendFullBlueCmd('FFFFFFFF0200110B001A04')
+        this.sendFullBlueCmd('FFFFFFFF050000F03FD310')
       } else {
         // 开启
-        this.sendFullBlueCmd('FFFFFFFF050000FF3FD6E0')
+        this.sendFullBlueCmd('FFFFFFFF050000003F9710')
       }
       this.setData({
         smartSleep: !smartSleep
