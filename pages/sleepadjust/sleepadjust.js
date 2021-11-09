@@ -40,7 +40,7 @@ Page({
     endTime: '',
     startTop: false,
     startBottom: false,
-    failedDialogShow: false, // 通信失败的对话框
+    failedDialogShow: true, // 通信失败的对话框
     pingtangX: {
       AX: '0', // 头部平躺
       BX: '0', // 腿部平躺
@@ -236,6 +236,17 @@ Page({
     let CYcmd = util.str10To16(cetangY.CY);
     let DYcmd = util.str10To16(cetangY.DY);
 
+    let pageType = this.data.pageType;
+    if(pageType == '02') {
+      AXcmd = '00';
+      AYcmd = '00';
+      DXcmd = '00';
+      DYcmd = '00';
+    } else if(pageType == '03') {
+      AXcmd = '00';
+      AYcmd = '00';
+    }
+
     cmd = cmd + AXcmd + BXcmd + CXcmd + DXcmd;
     cmd = cmd + AYcmd + BYcmd + CYcmd + DYcmd;
     cmd = cmd + crcUtil.HexToCSU16(cmd);
@@ -306,7 +317,7 @@ Page({
       } else if (type == 'beiBTop') {
         this.sendFullBlueCmd('FFFFFFFF05000002039661');
       } else if (type == 'yaoBTop') {
-        this.sendFullBlueCmd('FFFFFFFF050000000D16C5');
+        this.sendFullBlueCmd('FFFFFFFF050000020D17A5');
       } else if (type == 'tuiBTop') {
         this.sendFullBlueCmd('FFFFFFFF05000002065662');
       }
@@ -320,11 +331,11 @@ Page({
       if (type == 'touBBottom') {
         this.sendFullBlueCmd('FFFFFFFF050000000256C1');
       } else if (type == 'beiBBottom') {
-        this.sendFullBlueCmd('FFFFFFFF0500000004D6C3');
+        this.sendFullBlueCmd('FFFFFFFF0500000204D7A3');
       } else if (type == 'yaoBBottom') {
-        this.sendFullBlueCmd('FFFFFFFF050000000E56C4');
+        this.sendFullBlueCmd('FFFFFFFF050000020E57A4');
       } else if (type == 'tuiBBottom') {
-        this.sendFullBlueCmd('FFFFFFFF050000000796C2');
+        this.sendFullBlueCmd('FFFFFFFF050000020797A2');
       }
       setTimeout(() => {
         that.timerSendBottomCmd(that);

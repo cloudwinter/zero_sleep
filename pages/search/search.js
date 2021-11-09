@@ -538,7 +538,7 @@ Page({
           name.indexOf('QMS-443') >= 0 ||
           name.indexOf('S3-2') >= 0 ||
           name.indexOf('S3-3') >= 0 ||
-          name.indexOf('S3-4') >= 0)  {
+          name.indexOf('S3-4') >= 0) {
           return true;
         }
       }
@@ -570,9 +570,7 @@ Page({
           name.indexOf('QMS-K12') >= 0) {
           return 'K6';
         } else if (name.indexOf('QMS-KQ') >= 0 ||
-          name.indexOf('QMS-K01') >= 0 ||
-          name.indexOf('QMS-KQ-H') >= 0 ||
-          name.indexOf('QMS-H02') >= 0) {
+          name.indexOf('QMS-K01') >= 0) {
           return 'K3';
         } else if (name.indexOf('QMS-DFQ') >= 0 ||
           name.indexOf('QMS-430') >= 0 ||
@@ -587,6 +585,9 @@ Page({
           return 'K8';
         } else if (name.indexOf('S3-4') >= 0) {
           return 'K9';
+        } else if (name.indexOf('QMS-KQ-H') >= 0 ||
+          name.indexOf('QMS-H02') >= 0) {
+            return 'K10';
         }
       }
       // 默认K1
@@ -603,7 +604,7 @@ Page({
         if (name.indexOf('QMS-IQ') >= 0 ||
           name.indexOf('QMS-I06') >= 0 ||
           name.indexOf('QMS-I06') >= 0 ||
-          name.indexOf('QMS-L04') >= 0 || 
+          name.indexOf('QMS-L04') >= 0 ||
           name.indexOf('QMS-LQ') >= 0) {
           return 'W1';
         } else if (name.indexOf('QMS-JQ-D') >= 0 ||
