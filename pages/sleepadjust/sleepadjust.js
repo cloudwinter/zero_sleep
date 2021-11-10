@@ -40,7 +40,7 @@ Page({
     endTime: '',
     startTop: false,
     startBottom: false,
-    failedDialogShow: true, // 通信失败的对话框
+    failedDialogShow: false, // 通信失败的对话框
     pingtangX: {
       AX: '0', // 头部平躺
       BX: '0', // 腿部平躺
@@ -250,7 +250,16 @@ Page({
     cmd = cmd + AXcmd + BXcmd + CXcmd + DXcmd;
     cmd = cmd + AYcmd + BYcmd + CYcmd + DYcmd;
     cmd = cmd + crcUtil.HexToCSU16(cmd);
-    this.sendFullBlueCmd(cmd);
+    let that = this;
+    this.sendFullBlueCmd(cmd,({
+      success: (res) => {
+        console.info('saveTap->发送成功');
+        that.sendFullBlueCmd('FFFFFFFF02000A0A1204');
+      },
+      fail: (res) => {
+        console.error('saveTap->发送失败', res);
+      }
+    }));
     wx.navigateBack({
       delta: 1,
     })
