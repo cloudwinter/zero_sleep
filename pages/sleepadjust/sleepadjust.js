@@ -121,9 +121,29 @@ Page({
     cmd = cmd.toUpperCase();
     if (cmd.indexOf('FFFFFFFF02000F0E') >= 0 && cmd.length > 20) {
       let AZ = util.str16To10(cmd.substr(16, 2));
+      if(AZ == 'AF') {
+        AZ = '位置过高';
+      } else if(AZ == 'BF') {
+        AZ = '位置过低';
+      }
       let BZ = util.str16To10(cmd.substr(18, 2));
+      if(BZ == 'AF') {
+        BZ = '位置过高';
+      } else if(BZ == 'BF') {
+        BZ = '位置过低';
+      }
       let CZ = util.str16To10(cmd.substr(20, 2));
+      if(CZ == 'AF') {
+        CZ = '位置过高';
+      } else if(CZ == 'BF') {
+        CZ = '位置过低';
+      }
       let DZ = util.str16To10(cmd.substr(22, 2));
+      if(DZ == 'AF') {
+        DZ = '位置过高';
+      } else if(DZ == 'BF') {
+        DZ = '位置过低';
+      }
       this.setData({
         topZ: {
           AZ: AZ,
