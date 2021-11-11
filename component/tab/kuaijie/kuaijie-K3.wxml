@@ -54,7 +54,7 @@
 		</view> -->
 
 
-		<view class="anjian-middle">
+		<view class="anjian-left">
 			<image class="anjian-bg" wx:if="{{kandianshi}}" src="../../../images/{{skin}}/anjian-yuan-seleced@3x.png"></image>
 			<image class="anjian-bg" wx:else src="../../../images/{{skin}}/anjian-yuan-normal@3x.png"></image>
 			<view class="anjiian-content" catchtap="tapKandianshi" bindtouchstart="touchStart" bindtouchend="touchEnd">
@@ -89,7 +89,7 @@
 		</view> -->
 
 
-		<view class="anjian-middle">
+		<view class="anjian-left">
 			<image class="anjian-bg" wx:if="{{zhihan}}" src="../../../images/{{skin}}/anjian-yuan-seleced@3x.png"></image>
 			<image class="anjian-bg" wx:else src="../../../images/{{skin}}/anjian-yuan-normal@3x.png"></image>
 			<view class="anjiian-content" catchtap="tapDingyao" bindtouchstart="touchStart" bindtouchend="touchEnd">

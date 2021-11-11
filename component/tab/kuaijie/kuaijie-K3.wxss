@@ -93,6 +93,7 @@
   height: 160rpx;
   display: flex;
   position: relative;
+  justify-content: center;
 }
 
 .anjianqu .anjian-middle {
@@ -110,6 +111,7 @@
   display: flex;
   align-items: center;
   flex-direction: row-reverse;
+  justify-content: center;
 }
 
 .anjian-bg {
