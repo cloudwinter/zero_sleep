@@ -7,6 +7,14 @@
   background: #1E1F24;
 }
 
+.orange .shezhi-button-bg {
+  
+  width: 90% !important;
+  height: 120rpx;
+  border-radius: 120rpx;
+  background: #6E269A;
+}
+
 
 
 .content {
@@ -34,14 +42,26 @@
   justify-content: center;
 }
 
-.color-59B84D {
+.dark .color-59B84D {
   color: #59B84D;
   font-size: 28rpx;
 }
 
-.shezhi-button-left {
+.orange .color-59B84D {
+  color: #FF9704 ;
+  font-size: 28rpx;
+}
+
+.dark .shezhi-button-left {
   flex: 1;
   color: #59B84D;
+  font-size: 28rpx;
+  margin-left: 62rpx;
+}
+
+.orange .shezhi-button-left {
+  flex: 1;
+  color: #FF9704;
   font-size: 28rpx;
   margin-left: 62rpx;
 }
@@ -52,8 +72,13 @@
   margin-right: 50rpx;
 }
 
-.shezhi-button-name {
+.dark .shezhi-button-name {
   color: #59B84D;
+  font-size: 28rpx;
+}
+
+.orange .shezhi-button-name {
+  color: #FF9704;
   font-size: 28rpx;
 }
 
