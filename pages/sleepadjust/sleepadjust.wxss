@@ -12,7 +12,7 @@
   margin-top: 40rpx;
 }
 
-.title {
+.dark .title {
   flex: 1;
   display: flex;
   justify-content: center;
@@ -20,6 +20,17 @@
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
   color: #59B84D;
+  line-height: 40rpx;
+}
+
+.orange .title {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  font-size: 34rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #FF9704;
   line-height: 40rpx;
 }
 
@@ -44,11 +55,19 @@
   padding-bottom: 20rpx;
 }
 
-.tips-text {
+.dark .tips-text {
   font-size: 28rpx;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
   color: #59B84D;
+  line-height: 40rpx;
+}
+
+.orange .tips-text {
+  font-size: 28rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #FF9704;
   line-height: 40rpx;
 }
 
@@ -100,7 +119,7 @@
   margin-top: 10rpx;
 }
 
-.oval-button {
+.dark .oval-button {
   width: 140rpx;
   height: 140rpx;
   background: #1E1F24 ;
@@ -111,17 +130,44 @@
   color: #59B84D;
 }
 
-.anjian .selected {
+.orange .oval-button {
+  width: 140rpx;
+  height: 140rpx;
+  background: #1E1F24 ;
+  border-radius: 70rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #FF9704;
+}
+
+.dark .anjian .selected {
   border-radius: 140px;
   border: 1px solid #59B84D;
 }
 
-.hint {
+.orange .anjian .selected {
+  border-radius: 140px;
+  border: 1px solid #FF9704;
+}
+
+.dark .hint {
   width: 70%;
   height: 243rpx;
   background: rgba(216, 216, 216, 0);
   border-radius: 24rpx;
   border: 3rpx solid #59B84D;
+  margin-top: 124rpx;
+  display: flex;
+  align-items: center;
+}
+
+.orange .hint {
+  width: 70%;
+  height: 243rpx;
+  background: rgba(216, 216, 216, 0);
+  border-radius: 24rpx;
+  border: 3rpx solid #FF9704;
   margin-top: 124rpx;
   display: flex;
   align-items: center;
