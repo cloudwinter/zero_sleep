@@ -271,20 +271,13 @@ Page({
     cmd = cmd + AYcmd + BYcmd + CYcmd + DYcmd;
     cmd = cmd + crcUtil.HexToCSU16(cmd);
     let that = this;
-    this.sendFullBlueCmd(cmd,({
-      success: (res) => {
-        console.info('saveTap->发送成功');
-        that.sendFullBlueCmd('FFFFFFFF02000A0A1204');
-      },
-      fail: (res) => {
-        console.error('saveTap->发送失败', res);
-      }
-    }));
+    this.sendFullBlueCmd(cmd);
+    setTimeout(() => {
+      that.sendFullBlueCmd('FFFFFFFF02000A0A1204');
+    }, 300);
     wx.navigateBack({
       delta: 1,
     })
-
-
   },
 
   /**
