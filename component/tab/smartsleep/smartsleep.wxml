@@ -64,7 +64,7 @@
 				<view class="dialog-item" hover-class="item-hover" data-index="{{index}}" data-cid="{{item.id}}"
 					data-cname="{{item.name}}" bindtap='timerItemSelect'>
 					<view class="dialog-item-name" style="margin-left:32rpx;flex:1">{{item.name}}</view>
-					<icon class="item-right-icon" type="success_no_circle" color="#59B84D" size="18" style="margin-right:30rpx"
+					<icon class="item-right-icon" type="success_no_circle" color="{{skin=='orange'?'#FF9704':'#59B84D'}}" size="18" style="margin-right:30rpx"
 						hidden="{{item.id != currentSelectedTimerId}}"></icon>
 				</view>
 				<view class="model-line"></view>
@@ -76,7 +76,7 @@
 				hover-class="modal-box-button-hover" style="flex-grow:1;color:#FFF">取消</view>
 			<view style="width:1rpx;height:100%;background:#000"></view>
 			<view bindtap="onTimerModalClick" data-ctype="confirm" class="modal-box-button sure"
-				hover-class="modal-box-button-hover" style="flex-grow:1;color:#59B84D;">确定</view>
+				hover-class="modal-box-button-hover" style="flex-grow:1;color:{{skin=='orange'?'#FF9704':'#59B84D'}};">确定</view>
 		</view>
 	</view>
 </view>
