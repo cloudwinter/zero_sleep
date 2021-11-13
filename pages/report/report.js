@@ -301,16 +301,17 @@ Page({
     let width = app.globalData.screenWidth;
     console.info('onLoadlineChart->width', width);
     var simulationData = this.createSimulationData();
+    let skin = this.data.skin
     lineChart = new wxCharts({
       canvasId: 'lineCanvas',
       type: 'line',
       categories: simulationData.categories,
       animation: true,
-      background: '#1E1F24',
+      background: skin=='orange'?'#36035C':'#1E1F24',
       series: [{
         name: '翻身（次数）',
         data: simulationData.data,
-        color: '#5EA2D7',
+        color: skin == 'orange'?'#FF9704':'#5EA2D7',
         format: function (val, name) {
           return val + '次';
         }

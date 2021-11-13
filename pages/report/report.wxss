@@ -15,11 +15,19 @@
   height: 100%;
 }
 
-.data {
+.dark .data {
   margin-top: 30rpx;
   margin-left: 30rpx;
   margin-right: 30rpx;
   background: #1E1F24;
+  border-radius: 32rpx;
+}
+
+.orange .data {
+  margin-top: 30rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  background: #36035C;
   border-radius: 32rpx;
 }
 
@@ -30,19 +38,31 @@
   flex-direction: row;
 }
 
-.row-line {
+.dark .row-line {
   height: 1rpx;
   margin-left: 30rpx;
   margin-right: 30rpx;
   background-color: #121316;
 }
 
+.orange .row-line {
+  height: 1rpx;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  background-color: #4E1277;
+}
+
 .column {
   flex: 1;
 }
 
-.column-line {
+.dark .column-line {
   background-color: #121316;
+  width: 1rpx;
+}
+
+.orange .column-line {
+  background-color: #4E1277;
   width: 1rpx;
 }
 
@@ -58,13 +78,20 @@
   height: 35rpx;
 }
 
-.column-title-content {
+.dark .column-title-content {
   font-size: 28rpx;
   font-family: PingFangSC-Semibold, PingFang SC;
   font-weight: 600;
   color: #6D707B;
   margin-left: 12rpx;
+}
 
+.orange .column-title-content {
+  font-size: 28rpx;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 600;
+  color: #663C98;
+  margin-left: 12rpx;
 }
 
 .column-body {
@@ -92,11 +119,21 @@
 }
 
 
-.graph {
+.dark .graph {
   width: 100%;
   height: auto;
   margin-top: 36rpx;
   background: #1E1F24;
+  padding-bottom: 30rpx;
+  padding-top: 34rpx;
+  flex: 1;
+}
+
+.orange .graph {
+  width: 100%;
+  height: auto;
+  margin-top: 36rpx;
+  background: #36035C;
   padding-bottom: 30rpx;
   padding-top: 34rpx;
   flex: 1;
@@ -119,7 +156,7 @@
   flex: 1;
 }
 
-.graph-sub {
+.dark .graph-sub {
   height: 30rpx;
   font-size: 24rpx;
   font-family: PingFangSC-Medium, PingFang SC;
@@ -131,10 +168,31 @@
   margin-top: 30rpx;
 }
 
-.graph-tips {
+.orange .graph-sub {
+  height: 30rpx;
+  font-size: 24rpx;
+  font-family: PingFangSC-Medium, PingFang SC;
+  font-weight: 500;
+  color: #663C98;
+  line-height: 30rpx;
+  text-align: right;
+  margin-right: 30rpx;
+  margin-top: 30rpx;
+}
+
+.dark .graph-tips {
   font-size: 24rpx;
   font-family: PingFangSC-Regular, PingFang SC;
   color: #6D707B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orange .graph-tips {
+  font-size: 24rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  color: #514665;
   display: flex;
   align-items: center;
   justify-content: center;
