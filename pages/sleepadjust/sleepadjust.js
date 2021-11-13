@@ -22,6 +22,10 @@ Page({
       navTitle: '睡姿角度调整',
     },
     pageType: '02', // 睡姿调整的类型
+    UV: '00',
+    fuweiDialogShow: false,
+    nextDialogShow: false,
+    currentTimeOutName: '', // 当前定时器的name
     tips1: '1.请在平躺状态，调整背部角度，完成后按平躺键。',
     tips2: '2.请在侧躺状态，调整背部角度，完成后按侧躺键。',
     showTouB: false,
@@ -66,6 +70,7 @@ Page({
    */
   onLoad: function (options) {
     let connected = configManager.getCurrentConnected();
+    let UV = options.UV;
     let pageType = options.pageType;
     let tips1 = this.data.tips1;
     let tips2 = this.data.tips2;
@@ -83,6 +88,8 @@ Page({
       skin: app.globalData.skin,
       connected: connected,
       pageType: pageType,
+      UV: UV,
+      fuweiDialogShow: UV == '01' ? true : false,
       showTouB: pageType == '04' ? true : false,
       showBeiB: true,
       showYaoB: (pageType == '03' || pageType == '04') ? true : false,
@@ -121,27 +128,27 @@ Page({
     cmd = cmd.toUpperCase();
     if (cmd.indexOf('FFFFFFFF02000F0E') >= 0 && cmd.length > 20) {
       let AZ = util.str16To10(cmd.substr(16, 2));
-      if(AZ == 'AF') {
+      if (AZ == 'AF') {
         AZ = '位置过高';
-      } else if(AZ == 'BF') {
+      } else if (AZ == 'BF') {
         AZ = '位置过低';
       }
       let BZ = util.str16To10(cmd.substr(18, 2));
-      if(BZ == 'AF') {
+      if (BZ == 'AF') {
         BZ = '位置过高';
-      } else if(BZ == 'BF') {
+      } else if (BZ == 'BF') {
         BZ = '位置过低';
       }
       let CZ = util.str16To10(cmd.substr(20, 2));
-      if(CZ == 'AF') {
+      if (CZ == 'AF') {
         CZ = '位置过高';
-      } else if(CZ == 'BF') {
+      } else if (CZ == 'BF') {
         CZ = '位置过低';
       }
       let DZ = util.str16To10(cmd.substr(22, 2));
-      if(DZ == 'AF') {
+      if (DZ == 'AF') {
         DZ = '位置过高';
-      } else if(DZ == 'BF') {
+      } else if (DZ == 'BF') {
         DZ = '位置过低';
       }
       this.setData({
@@ -182,6 +189,23 @@ Page({
         that.sendFullBlueCmd('FFFFFFFF02000F0B001804');
       }, 100);
     }
+
+    if (cmd == 'FFFFFFFF0500000208D7A6') {
+      let timeOutName = this.startCurrentTimeOut('复位中...', 100);
+      this.setData({
+        currentTimeOutName: timeOutName
+      })
+      return;
+    }
+    if (cmd == 'FFFFFFFF0500008208B666') {
+      this.clearCurrentTimeOut();
+      this.setData({
+        nextDialogShow: true,
+        currentTimeOutName: ''
+      })
+      return;
+    }
+
 
   },
 
@@ -257,12 +281,12 @@ Page({
     let DYcmd = util.str10To16(cetangY.DY);
 
     let pageType = this.data.pageType;
-    if(pageType == '02') {
+    if (pageType == '02') {
       AXcmd = '00';
       AYcmd = '00';
       DXcmd = '00';
       DYcmd = '00';
-    } else if(pageType == '03') {
+    } else if (pageType == '03') {
       AXcmd = '00';
       AYcmd = '00';
     }
@@ -432,6 +456,37 @@ Page({
     this.setData({
       failedDialogShow: false
     })
-  }
+  },
+
+
+  /**
+   * 复位对话框按钮点击事件
+   * @param {*} e 
+   */
+  onFwModalClick: function (e) {
+    var that = this;
+    var ctype = e.target.dataset.ctype;
+    console.info('onFwModalClick:', ctype, e.target.dataset);
+    var connected = this.data.connected;
+    this.setData({
+      fuweiDialogShow: false
+    })
+    if (ctype == 'confirm') {
+      // 一键复位
+      util.sendBlueCmd(connected, "FFFFFFFF0500000208D7A6");
+
+    }
+  },
+
+  /**
+   * 下一步跳转到睡眠设置页面
+   */
+  onNextModalClick: function () {
+    this.setData({
+      nextDialogShow: false
+    })
+    let cmd = 'FFFFFFFF0200100B001904';
+    this.sendFullBlueCmd(cmd);
+  },
 
 })

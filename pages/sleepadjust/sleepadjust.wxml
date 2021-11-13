@@ -124,6 +124,39 @@
 </view>
 
 
+  <!--一键复位对话框 -->
+  <view class="modal-dialog" hidden="{{!fuweiDialogShow}}">
+    <view class="modal-box">
+      <view class="model-content">
+        请先执行一键复位，然后开始学习您的个性设置
+      </view>
+      <view style="width:100%;height:1px;background:#000000;margin-top:10rpx"></view>
+      <view class="modal-box-bottom" style="height:100rpx;">
+        <view bindtap="onFwModalClick" data-ctype="cancel" class="modal-box-button" hover-class="modal-box-button-hover"
+          style="flex-grow:1;color:#FFFFFF">取消</view>
+        <view style="width:1rpx;height:100%;background:#000000"></view>
+        <view bindtap="onFwModalClick" data-ctype="confirm" class="modal-box-button"
+          hover-class="modal-box-button-hover" style="flex-grow:1;color:#59B84D;">一键复位</view>
+      </view>
+    </view>
+  </view>
+
+
+  <!--下一步 -->
+  <view class="modal-dialog" hidden="{{!nextDialogShow}}">
+    <view class="modal-box">
+      <view class="model-content">
+        请确认电动床已恢复水平，点击下一步
+      </view>
+      <view style="width:100%;height:1px;background:#000000;margin-top:10rpx"></view>
+      <view class="modal-box-bottom" style="height:100rpx;">
+        <view bindtap="onNextModalClick" class="modal-box-button" hover-class="modal-box-button-hover"
+          style="flex-grow:1;color:#59B84D;">下一步</view>
+      </view>
+    </view>
+  </view>
+
+
 <!-- 通信失败 -->
 <view class="modal-dialog" hidden="{{!failedDialogShow}}">
   <view class="modal-box">
