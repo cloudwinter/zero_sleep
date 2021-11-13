@@ -128,27 +128,27 @@ Page({
     cmd = cmd.toUpperCase();
     if (cmd.indexOf('FFFFFFFF02000F0E') >= 0 && cmd.length > 20) {
       let AZ = util.str16To10(cmd.substr(16, 2));
-      if (AZ == 'AF') {
+      if (AZ == '175') {  // 16进制AF
         AZ = '位置过高';
-      } else if (AZ == 'BF') {
+      } else if (AZ == '191') { // 16进制BF
         AZ = '位置过低';
       }
       let BZ = util.str16To10(cmd.substr(18, 2));
-      if (BZ == 'AF') {
+      if (BZ == '175') {
         BZ = '位置过高';
-      } else if (BZ == 'BF') {
+      } else if (BZ == '191') {
         BZ = '位置过低';
       }
       let CZ = util.str16To10(cmd.substr(20, 2));
-      if (CZ == 'AF') {
+      if (CZ == '175') {
         CZ = '位置过高';
-      } else if (CZ == 'BF') {
+      } else if (CZ == '191') {
         CZ = '位置过低';
       }
       let DZ = util.str16To10(cmd.substr(22, 2));
-      if (DZ == 'AF') {
+      if (DZ == '175') {
         DZ = '位置过高';
-      } else if (DZ == 'BF') {
+      } else if (DZ == '191') {
         DZ = '位置过低';
       }
       this.setData({
