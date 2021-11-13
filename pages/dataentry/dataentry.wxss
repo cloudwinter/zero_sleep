@@ -29,7 +29,7 @@
   margin-top: 40rpx;
 }
 
-.title {
+.dark .title {
   flex: 1;
   display: flex;
   justify-content: center;
@@ -40,7 +40,18 @@
   line-height: 40rpx;
 }
 
-.tips {
+.orange .title {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  font-size: 34rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #FF9704;
+  line-height: 40rpx;
+}
+
+.dark .tips {
   width: 90%;
   height: 300rpx;
   background: #1E1F24;
@@ -50,11 +61,29 @@
   padding-left: 30rpx;
 }
 
-.tips-text {
+.orange .tips {
+  width: 90%;
+  height: 300rpx;
+  background: #4E1277;
+  border-radius: 16rpx;
+  opacity: 0.88;
+  margin-top: 20rpx;
+  padding-left: 30rpx;
+}
+
+.dark .tips-text {
   font-size: 28rpx;
   font-family: PingFangSC-Regular, PingFang SC;
   font-weight: 400;
   color: #59B84D;
+  line-height: 40rpx;
+}
+
+.orange .tips-text {
+  font-size: 28rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #FF9704;
   line-height: 40rpx;
 }
 
@@ -89,16 +118,21 @@
   margin-top: 45rpx;
 }
 
-.anjian .selected {
+.dark .anjian .selected {
   border-radius: 140rpx;
   border: 1px solid #59B84D;
+}
+
+.orange .anjian .selected {
+  border-radius: 140rpx;
+  border: 1px solid #FF9704;
 }
 
 .save {
   margin-top: 10rpx;
 }
 
-.oval-button {
+.dark .oval-button {
   width: 140rpx;
   height: 140rpx;
   background: #1E1F24;
@@ -107,6 +141,18 @@
   justify-content: center;
   align-items: center;
   color: #59B84D;
+}
+
+
+.orange .oval-button {
+  width: 140rpx;
+  height: 140rpx;
+  background: #6E269A;
+  border-radius: 70rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #FF9704;
 }
 
 .hint {
@@ -126,10 +172,18 @@
   margin-left: 14rpx;
 }
 
-.rectangle {
+.dark .rectangle {
   width: 66rpx;
   height: 100%;
   background-color: #59B84D;
+  margin-left: 260rpx;
+  align-items: center;
+}
+
+.orange .rectangle {
+  width: 66rpx;
+  height: 100%;
+  background-color: #FF9704;
   margin-left: 260rpx;
   align-items: center;
 }
@@ -157,8 +211,13 @@
   width: 60rpx;
 }
 
-.anjianqu .text {
+.dark .anjianqu .text {
   color: #59B84D ;
+  font-size: 28rpx;
+}
+
+.orange .anjianqu .text {
+  color: #FF9704 ;
   font-size: 28rpx;
 }
 
