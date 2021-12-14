@@ -76,7 +76,7 @@ Component({
       var that = this;
       WxNotificationCenter.addNotification("INIT", that.initConnected, that);
       WxNotificationCenter.addNotification("BLUEREPLY", that.blueReply, that);
-      WxNotificationCenter.addNotification("TAB_SMARTSLEEP", that.viewShow, that);
+      // WxNotificationCenter.addNotification("TAB_SMARTSLEEP", that.viewShow, that);
     },
     attached: function () {
       // 在组件实例进入页面节点树时执行
@@ -116,6 +116,7 @@ Component({
       var that = this;
       WxNotificationCenter.removeNotification("INIT", that);
       WxNotificationCenter.removeNotification("BLUEREPLY", that);
+      // WxNotificationCenter.removeNotification("TAB_SMARTSLEEP", that);
     },
   },
 
@@ -136,20 +137,19 @@ Component({
       //WxNotificationCenter.removeNotification("INIT",that);
     },
 
-    viewShow() {
-      var that = this.observer;
-      console.info('smartsleep->viewShow:', this.observer);
-      let hasSleepInduction = app.globalData.hasSleepInduction;
-      that.setData({
-        hasSleepInduction: hasSleepInduction,
-      })
-      var connected = that.data.connected;
-      util.sendBlueCmd(connected, 'FFFFFFFF02000A0A1204');
-      setTimeout(() => {
-        util.sendBlueCmd(connected, 'FFFFFFFF02000E0B001704');
-      }, 400);
-
-    },
+    // viewShow() {
+    //   var that = this.observer;
+    //   console.info('smartsleep->viewShow:', this.observer);
+    //   let hasSleepInduction = app.globalData.hasSleepInduction;
+    //   that.setData({
+    //     hasSleepInduction: hasSleepInduction,
+    //   })
+    //   var connected = that.data.connected;
+    //   util.sendBlueCmd(connected, 'FFFFFFFF02000A0A1204');
+    //   setTimeout(() => {
+    //     util.sendBlueCmd(connected, 'FFFFFFFF02000E0B001704');
+    //   }, 400);
+    // },
 
 
     /**

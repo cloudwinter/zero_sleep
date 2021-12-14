@@ -202,13 +202,19 @@ Page({
   toSmartSleep() {
     let smartSleepClickTime = this.data.smartSleepClickTime;
     let currentTime = new Date().getTime();
-    if (currentTime - smartSleepClickTime > 1000) {
-      WxNotificationCenter.postNotificationName('TAB_SMARTSLEEP');
+    if (currentTime - smartSleepClickTime > 2000) {
+      this.sendBlueCmd('FFFFFFFF02000A0A1204');
+      let that = this;
+      setTimeout(() => {
+        that.sendBlueCmd('FFFFFFFF02000E0B001704');
+      }, 400);
+      this.setData({
+        smartSleepClickTime: currentTime
+      })
     }
     this.setData({
       nowPage: "smartsleep",
-      nowIndex: 4,
-      smartSleepClickTime: currentTime
+      nowIndex: 4
     })
   },
 
