@@ -69,6 +69,16 @@ Component({
   },
 
 
+  pageLifetimes: {
+    show: function () {
+      // 设置当前的皮肤样式
+      this.setData({
+        skin: app.globalData.skin
+      })
+    }
+  },
+
+
   lifetimes: {
     created: function () {
       // 在组件实例刚刚被创建时执行

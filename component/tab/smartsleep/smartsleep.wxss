@@ -9,7 +9,7 @@
 
 .orange .shezhi-button-bg {
   
-  width: 90% !important;
+  width: 68% !important;
   height: 120rpx;
   border-radius: 120rpx;
   background: #6E269A;
