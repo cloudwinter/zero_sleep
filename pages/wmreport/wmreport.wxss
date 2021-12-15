@@ -15,7 +15,7 @@
   height: 100%;
 }
 
-.drak .item {
+.dark .item {
   margin-left: 30rpx;
   margin-right: 30rpx;
   margin-top: 30rpx;
@@ -31,7 +31,7 @@ border-radius: 32px;
 border-radius: 32px;
 }
 
-.drak .item-title {
+.dark .item-title {
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -98,7 +98,7 @@ border-radius: 32px;
   width: 1rpx;
 }
 
-.drak .column-title {
+.dark .column-title {
   font-size: 28rpx;
   font-family: PingFangSC-Semibold, PingFang SC;
   font-weight: 600;
@@ -132,7 +132,7 @@ border-radius: 32px;
   color: #FFFFFF;
 }
 
-.drak .column-body-desc {
+.dark .column-body-desc {
   font-size: 24rpx;
   font-family: PingFangSC-Medium, PingFang SC;
   font-weight: 500;
