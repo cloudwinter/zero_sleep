@@ -33,14 +33,61 @@
 
 
 .dark .item-right-name {
-  color: #5EA2D7;
+  color: #59B84D;
   font-size: 28rpx;
 }
 
 
 .orange .item-right-name {
-  color: #FF9704;
+  color: #6E269A;
   font-size: 28rpx;
+}
+
+
+
+.shezhi-content {
+  width: 80%;
+  height: 90rpx;
+  margin-top: 36rpx;
+  display: flex;
+  align-items: center;
+}
+
+
+.dark .shezhi-button-left {
+  flex: 1;
+  color: #59B84D;
+  font-size: 28rpx;
+  margin-left: 62rpx;
+}
+
+.orange .shezhi-button-left {
+  flex: 1;
+  color: #6E269A;
+  font-size: 28rpx;
+  margin-left: 62rpx;
+}
+
+.shezhi-button-right {
+  display: flex;
+  align-items: center;
+  margin-right: 50rpx;
+}
+
+.dark .shezhi-button-name {
+  color: #59B84D;
+  font-size: 28rpx;
+}
+
+.orange .shezhi-button-name {
+  color: #6E269A;
+  font-size: 28rpx;
+}
+
+.shezhi-button-icon {
+  width: 32rpx;
+  height: 32rpx;
+  margin-left: 20rpx;
 }
 
 

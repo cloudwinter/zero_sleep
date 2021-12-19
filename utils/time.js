@@ -23,7 +23,36 @@ function getDateInfo(currentDate) {
   return date;
 }
 
+/**
+ * 获取当前日期
+ * yyyy-MM-dd
+ */
+function getCurrentDate() {
+  let currentDate = new Date();
+  let dateInfo = getDateInfo(new Date());
+  return currentDate.getFullYear()+'-'+dateInfo.month+'-'+dateInfo.day;
+}
+
+/**
+ * 两个日期相差的天数
+ * @param {*} firstDate 
+ * @param {*} secondDate 
+ */
+function getDifferDate(firstDate, secondDate) {
+  //1)将两个日期字符串转化为日期对象
+  var startDate = new Date(firstDate);
+  var endDate = new Date(secondDate);
+  //2)计算两个日期相差的毫秒数
+  var msecNum = endDate.getTime() - startDate.getTime();
+  //3)计算两个日期相差的天数
+  var differScale = parseFloat(24 * 60 * 60 * 1000);
+  var dayNum = Math.floor(msecNum / differScale);
+  return dayNum;
+}
+
 
 module.exports = {
   getDateInfo,
+  getDifferDate,
+  getCurrentDate
 }

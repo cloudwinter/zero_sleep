@@ -2,6 +2,8 @@
 const util = require('../../utils/util');
 const crcUtil = require('../../utils/crcUtil');
 const configManager = require('../../utils/configManager')
+const WxNotificationCenter = require('../../utils/WxNotificationCenter');
+const time = require('../../utils/time')
 const app = getApp();
 const preCMD = 'FFFFFFFF050000';
 Page({
@@ -19,7 +21,38 @@ Page({
       show: true,
       animated: false,
     },
-    openSmart: false
+    OZItems: [{
+        key: '00',
+        value: '20:00'
+      },
+      {
+        key: '01',
+        value: '21:00'
+      },
+      {
+        key: '02',
+        value: '22:00'
+      },
+      {
+        key: '03',
+        value: '23:00'
+      },
+      {
+        key: '04',
+        value: '24:00'
+      },
+    ],
+    OZ: {
+      key: '00',
+      value: '20:00'
+    },
+    rushuiSelectRadio: '',
+    rushuiDialogShow: false,
+    openSmart: false,
+  },
+
+  onReady: function (options) {
+
   },
 
   /**
@@ -31,6 +64,8 @@ Page({
       skin: app.globalData.skin,
       connected: connected
     })
+    WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
+    this.sendInitCmd();
   },
 
 
@@ -48,9 +83,53 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
+    WxNotificationCenter.removeNotification("BLUEREPLY", this);
   },
 
+
+  /**
+   * 发送初始化命令
+   */
+  sendInitCmd() {
+    let cmd = '';
+    let end = '';
+    cmd = 'FFFFFFFF0200160B00';
+    end = crcUtil.HexToCSU16(cmd);
+    this.sendBlueCmd(cmd + end);
+  },
+
+  /**
+   * 蓝牙回复回调
+   * @param {*} cmd 
+   */
+  blueReply(cmd) {
+    cmd = cmd.toUpperCase();
+    if (cmd.indexOf('FFFFFFFF0200160B') >= 0) {
+      let OZkey = cmd.substr(16,2);
+      let rushuiSelectRadio = OZkey;
+      let rushuiSelectValue;
+      this.data.OZItems.forEach(obj => {
+        if (rushuiSelectRadio == obj.key) {
+          rushuiSelectValue = obj.value;
+        }
+      });
+      this.setData({
+        rushuiDialogShow: false,
+        ['OZ.value']: rushuiSelectValue,
+        ['OZ.key']: rushuiSelectRadio,
+      })
+    }
+  },
+
+
+  /**
+   * 发送蓝牙命令
+   * @param {*} cmd 
+   */
+  sendBlueCmd(cmd) {
+    var connected = this.data.connected;
+    util.sendBlueCmd(connected, cmd);
+  },
 
   /**
    * 智能睡眠感应开关
@@ -70,6 +149,8 @@ Page({
     })
   },
 
+
+
   /**
    * 跳转到睡眠报告页面
    */
@@ -81,7 +162,7 @@ Page({
     })
   },
 
-  smartSet:function(e) {
+  smartSet: function (e) {
     wx.navigateTo({
       url: '/pages/smart/smart'
     })
@@ -95,6 +176,82 @@ Page({
     console.log('wmreport:' + pageType);
     wx.navigateTo({
       url: '/pages/wmreport/wmreport?pageType=' + pageType
+    })
+  },
+
+  /**
+   * 点击入睡时间
+   */
+  rushui: function () {
+    this.setData({
+      rushuiDialogShow: true
+    })
+  },
+
+
+  /**
+   * 模式选择
+   * @param {*} e 
+   */
+  rushuiRadioChange: function (e) {
+    this.setData({
+      rushuiSelectRadio: e.detail.value
+    })
+  },
+
+  /**
+   * 模式选择点击
+   * @param {*} e 
+   */
+  onModalRushuiClick: function (e) {
+    let cType = e.currentTarget.dataset.ctype;
+    if (cType == 'cancel') {
+      this.setData({
+        rushuiDialogShow: false
+      })
+      return;
+    }
+    let rushuiSelectRadio = this.data.rushuiSelectRadio;
+    let rushuiSelectValue;
+    this.data.OZItems.forEach(obj => {
+      if (rushuiSelectRadio == obj.key) {
+        rushuiSelectValue = obj.value;
+      }
+    });
+    this.setData({
+      rushuiDialogShow: false,
+      ['OZ.value']: rushuiSelectValue,
+      ['OZ.key']: rushuiSelectRadio,
+    })
+    let cmd = 'FFFFFFFF0200150B' + this.data.OZ.key;
+    let end = crcUtil.HexToCSU16(cmd);
+    this.sendBlueCmd(cmd + end);
+  },
+
+
+
+  /**
+   * 点击日期时候触发的事件
+   * bind:getdate
+   */
+  getdate(e) {
+    let currentDate = time.getCurrentDate();
+    let selectedDate = e.detail.datestr;
+    let differDays = time.getDifferDate(selectedDate, currentDate) - 1;
+    if (differDays > 30) {
+      util.showToast('您选择的日期暂无数据');
+      return;
+    }
+    let UV = '00';
+    if (differDays < 10) {
+      UV = '0' + differDays;
+    } else {
+      UV = '' + differDays;
+    }
+    console.log(currentDate, e.detail, differDays);
+    let OZkey = this.data.OZ.key;
+    wx.navigateTo({
+      url: '/pages/report/report?pageType=1&UV=' + UV + '&OZ=' + OZkey + '&selectedDate=' + selectedDate
     })
   },
 
