@@ -21,7 +21,7 @@ Component({
   data: {
     skin: app.globalData.skin,
     display: app.globalData.display,
-    containerHeight: '', 
+    containerHeight: '',
     connected: {},
     currentAnjian: {
       anjian: 'kandianshi', // kandianshi,lingyali,zhihan,tingyinyue,fuyuan,tuibufangsong
@@ -63,11 +63,11 @@ Component({
     },
     attached: function () {
       // 在组件实例进入页面节点树时执行
-      console.info("attached"+app.globalData.screenHeight+"-"+app.globalData.navHeight);
+      console.info("attached" + app.globalData.screenHeight + "-" + app.globalData.navHeight);
       this.setData({
         display: app.globalData.display,
         // 屏幕高度-顶部高度-tab高度-预留5px底部距离
-        containerHeight:app.globalData.screenHeight-app.globalData.navHeight-52-5
+        containerHeight: app.globalData.screenHeight - app.globalData.navHeight - 52 - 5
       })
     },
     detached: function () {
@@ -589,6 +589,51 @@ Component({
       this.sendFullBlueCmd('FFFFFFFF05000500E6468B');
     },
 
+
+    /**
+     * 一键升起
+     */
+    tapShenQi() {
+      this.setData({
+        currentAnjian: {
+          anjian: 'yijianshengqi',
+          name: '整体上升'
+        }
+      })
+      // 单击
+      this.sendBlueCmd('00211718');
+    },
+
+    /**
+     * 一键降下
+     */
+    tapJiangXia() {
+      this.setData({
+        currentAnjian: {
+          anjian: 'yijianjiangxia',
+          name: '整体下降'
+        }
+      })
+      // 单击
+      this.sendBlueCmd('00225719');
+    },
+
+  },
+
+
+  /**
+   * 复原的点击事件
+   */
+  tapZhengtiFuyuan() {
+    console.info("tapZhengtiFuyuan");
+    this.setData({
+      currentAnjian: {
+        anjian: 'fuyuan',
+        name: '整体复原'
+      }
+    })
+    // 单击
+    this.sendBlueCmd('002A56DF');
   },
 
 })

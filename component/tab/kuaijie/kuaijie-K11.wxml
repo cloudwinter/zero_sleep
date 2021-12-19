@@ -1,8 +1,8 @@
 <!--component/tab/kuaijie/kuaijie-K11.wxml-->
 <!--component/kuaijie/kuaijie-K1.wxml-->
 
-<scroll-view scroll-y="true" class="{{skin}}" bindtap="tapBlank" data-blank="blank"
-enhanced="true" showScrollbar="false" style="height:{{containerHeight}}px">
+<scroll-view scroll-y="true" class="{{skin}}" bindtap="tapBlank" data-blank="blank" enhanced="true"
+	showScrollbar="false" style="height:{{containerHeight}}px">
 
 	<view class="top" style="margin-top:{{display=='high'?90:0}}rpx;">
 		<view class="donghuaqu">
@@ -34,19 +34,27 @@ enhanced="true" showScrollbar="false" style="height:{{containerHeight}}px">
 				<block wx:if="{{currentAnjian.anjian=='tunbuxunhuan'}}">
 					<image class="dh-icon" src="../../../images/{{skin}}/tunbuxunhuan-da@3x.png"></image>
 				</block>
+				<block wx:if="{{currentAnjian.anjian=='yijianshengqi'}}">
+					<image class="dh-icon" src="../../../images/{{skin}}/yijianshengqi-da@3x.png"></image>
+				</block>
+				<block wx:if="{{currentAnjian.anjian=='yijianjiangxia'}}">
+					<image class="dh-icon" src="../../../images/{{skin}}/yijianjiangxia-da@3x.png"></image>
+				</block>
 				<view class="dh-name">{{currentAnjian.name}}</view>
 			</view>
 		</view>
 	</view>
 
 	<view class="jiyi">
-		<view class="button left {{jiyi1?'button-bg-selected':'button-bg'}}" catchtap="tapJiyi1" bindtouchstart="touchStart" bindtouchend="touchEnd">
+		<view class="button left {{jiyi1?'button-bg-selected':'button-bg'}}" catchtap="tapJiyi1" bindtouchstart="touchStart"
+			bindtouchend="touchEnd">
 			<image class="dian" wx:if="{{jiyi1}}" src="../../../images/{{skin}}/dian-green@3x.png"></image>
-			<image class="dian" wx:else src="../../../images/{{skin}}/dian-black@3x.png"></image> 
+			<image class="dian" wx:else src="../../../images/{{skin}}/dian-black@3x.png"></image>
 			<view class="name">记忆一</view>
 		</view>
 		<view class="middle"></view>
-		<view class="button right {{jiyi2?'button-bg-selected':'button-bg'}}" catchtap="tapJiyi2" bindtouchstart="touchStart" bindtouchend="touchEnd">
+		<view class="button right {{jiyi2?'button-bg-selected':'button-bg'}}" catchtap="tapJiyi2"
+			bindtouchstart="touchStart" bindtouchend="touchEnd">
 			<image class="dian" wx:if="{{jiyi2}}" src="../../../images/{{skin}}/dian-green@3x.png"></image>
 			<image class="dian" wx:else src="../../../images/{{skin}}/dian-black@3x.png"></image>
 			<view class="name">记忆二</view>
@@ -85,9 +93,9 @@ enhanced="true" showScrollbar="false" style="height:{{containerHeight}}px">
 	<view class="anjianqu">
 		<view class="anjian-left">
 			<image class="anjian-bg" src="../../../images/{{skin}}/anjian-yuan-normal@3x.png"></image>
-			<view class="anjiian-content" catchtap="tapFuyuan">
-				<image class="anjian-icon" src="../../../images/{{skin}}/fuyuan-xiao@3x.png"></image>
-				<view class="name">复原</view>
+			<view class="anjiian-content" catchtap="tapShenQi">
+				<image class="anjian-icon" src="../../../images/{{skin}}/yijianshengqi-xiao@3x.png"></image>
+				<view class="name">整体上升</view>
 			</view>
 		</view>
 		<view class="anjian-middle">
@@ -99,9 +107,9 @@ enhanced="true" showScrollbar="false" style="height:{{containerHeight}}px">
 		</view>
 		<view class="anjian-right">
 			<image class="anjian-bg" src="../../../images/{{skin}}/anjian-yuan-normal@3x.png"></image>
-			<view class="anjiian-content" catchtap="tapTuibufangsong">
-				<image class="anjian-icon" src="../../../images/{{skin}}/tuibufangsong-xiao@3x.png"></image>
-				<view class="name">后倾</view>
+			<view class="anjiian-content" catchtap="tapFuyuan">
+				<image class="anjian-icon" src="../../../images/{{skin}}/fuyuan-xiao@3x.png"></image>
+				<view class="name">复原</view>
 			</view>
 		</view>
 	</view>
@@ -110,23 +118,23 @@ enhanced="true" showScrollbar="false" style="height:{{containerHeight}}px">
 	<view class="anjianqu">
 		<view class="anjian-left">
 			<image class="anjian-bg" src="../../../images/{{skin}}/anjian-yuan-normal@3x.png"></image>
-			<view class="anjiian-content" catchtap="tapQuanshengxunhuan">
-				<image class="anjian-icon" src="../../../images/{{skin}}/quanshengxunhuan-xiao@3x.png"></image>
-				<view class="name">全身循环</view>
+			<view class="anjiian-content" catchtap="tapJiangXia">
+				<image class="anjian-icon" src="../../../images/{{skin}}/yijianjiangxia-xiao@3x.png"></image>
+				<view class="name">整体下降</view>
 			</view>
 		</view>
 		<view class="anjian-middle">
 			<image class="anjian-bg" src="../../../images/{{skin}}/anjian-yuan-normal@3x.png"></image>
-			<view class="anjiian-content" catchtap="tapYujia">
-				<image class="anjian-icon" src="../../../images/{{skin}}/yujia-xiao@3x.png"></image>
-				<view class="name">瑜伽</view>
+			<view class="anjiian-content" catchtap="tapTuibufangsong">
+				<image class="anjian-icon" src="../../../images/{{skin}}/tuibufangsong-xiao@3x.png"></image>
+				<view class="name">后倾</view>
 			</view>
 		</view>
 		<view class="anjian-right">
 			<image class="anjian-bg" src="../../../images/{{skin}}/anjian-yuan-normal@3x.png"></image>
-			<view class="anjiian-content" catchtap="tapTunbuxunhuan">
-				<image class="anjian-icon" src="../../../images/{{skin}}/tunbuxunhuan-xiao@3x.png"></image>
-				<view class="name">臀部循环</view>
+			<view class="anjiian-content" catchtap="tapZhengtiFuyuan">
+				<image class="anjian-icon" src="../../../images/{{skin}}/fuyuan-xiao@3x.png"></image>
+				<view class="name">整体复原</view>
 			</view>
 		</view>
 	</view>
