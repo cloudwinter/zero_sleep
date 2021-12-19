@@ -587,7 +587,10 @@ Page({
           return 'K9';
         } else if (name.indexOf('QMS-KQ-H') >= 0 ||
           name.indexOf('H02') >= 0) {
-            return 'K10';
+          return 'K10';
+        } else if (name.indexOf('S4-Y') >= 0 ||
+          name.indexOf('S5-Y') >= 0 || name.indexOf('S6-Y') >= 0) {
+          return 'K11';
         }
       }
       // 默认K1
@@ -638,6 +641,12 @@ Page({
         } else if (name.indexOf('S3-3') >= 0 ||
           name.indexOf('S3-4') >= 0) {
           return 'W11';
+        } else if (name.indexOf('S4-Y') >= 0) {
+          return 'W12';
+        } else if (name.indexOf('S5-Y') >= 0) {
+          return 'W13';
+        } else if (name.indexOf('S6-Y') >= 0) {
+          return 'W14';
         }
       }
       // 默认K1
