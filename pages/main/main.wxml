@@ -45,6 +45,7 @@
 			<weitiao-W10 wx:if="{{weitiaoType=='W10'}}"></weitiao-W10>
 			<weitiao-W11 wx:if="{{weitiaoType=='W11'}}"></weitiao-W11>
 			<weitiao-W12 wx:if="{{weitiaoType=='W12'}}"></weitiao-W12>
+			<weitiao-W13 wx:if="{{weitiaoType=='W13'}}"></weitiao-W13>
 		</view>
 		<view class="tab-container" hidden="{{nowPage!='anmo'}}">
 			<anmo></anmo>
