@@ -586,7 +586,7 @@ Page({
         } else if (name.indexOf('S3-4') >= 0) {
           return 'K9';
         } else if (name.indexOf('QMS-KQ-H') >= 0 ||
-          name.indexOf('QMS-H02') >= 0) {
+          name.indexOf('H021') >= 0) {
             return 'K10';
         }
       }
@@ -618,7 +618,7 @@ Page({
           return 'W9';
         } else if (
           name.indexOf('QMS-KQ-H') >= 0 ||
-          name.indexOf('QMS-H02') >= 0) {
+          name.indexOf('H021') >= 0) {
           return 'W6';
         } else if (name.indexOf('QMS-KQ2') >= 0 ||
           name.indexOf('QMS-K12') >= 0) {
