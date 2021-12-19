@@ -30,12 +30,15 @@ Page({
       animated: false,
     },
     pageType: '0', // 0 表示实时在床数据，1表示睡眠日报告
+    UV: '00',
+    OZ: '00',
+    selectedDate: '',
     pageData: {
       navTitle: '实时在床数据', // 顶部标题
       dataTitle: '实时在床数据', // 数据标题
       graphTitle: '', // 曲线标题
     },
-    unit:'分钟',
+    unit: '分钟',
     timeShuimian: '489',
     timePingtang: '489',
     timeCetang: '489',
@@ -44,6 +47,7 @@ Page({
     preData: [],
     middleData: [],
     nextData: [],
+    graphHidden: true,
     preDisable: true,
     nextDisable: true,
     currentGraphType: 'middle' // 当前曲线类型
@@ -58,18 +62,27 @@ Page({
     console.log('pageType:' + pageType);
     let connected = configManager.getCurrentConnected();
     let date = time.getDateInfo(new Date(new Date().getTime() - 24 * 60 * 60 * 1000));
-    let preDay = date.day - 1; // TODO 待确认问题如果日期是个位数的问题
+    let preDay = date.day;
+    let UV = this.data.UV;
+    let OZ = this.data.OZ;
+    let graphHidden = this.data.graphData;
+    let selectedDate = this.data.selectedDate;
     let pageData = {};
     let unit;
     if (pageType == 1) {
+      UV = options.UV;
+      OZ = options.OZ;
+      graphHidden = true;
+      selectedDate = options.selectedDate;
       pageData.navTitle = '日睡眠报告';
-      pageData.dataTitle = '20' + date.year + '年' + date.month + '月' + preDay + '日睡眠报告';
+      pageData.dataTitle = selectedDate.substr(0, 4) + '年' + selectedDate.substr(5, 2) + '月' + selectedDate.substr(8, 2) + '日睡眠报告';
       pageData.graphTitle = '';
       unit = '小时';
     } else {
+      graphHidden = false;
       pageData.navTitle = '实时在床数据';
       pageData.dataTitle = '实时在床数据';
-      pageData.graphTitle = '20' + date.year + '年' + date.month + '月' + preDay + '日睡眠报告';
+      pageData.graphTitle = '20' + date.year + '年' + date.month + '月' + preDay + '日翻身统计';
       unit = '分钟';
     }
     this.setData({
@@ -77,11 +90,37 @@ Page({
       connected: connected,
       pageData: pageData,
       pageType: pageType,
-      unit:unit
+      unit: unit,
+      UV: UV,
+      OZ: OZ,
+      graphHidden: graphHidden,
+      selectedDate: selectedDate
     })
+    this.setCategories();
     this.onLoadlineChart();
     WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
     this.sendInitCmd();
+  },
+
+
+  /**
+   * 设置曲线底部
+   */
+  setCategories() {
+    let OZ = this.data.OZ;
+    let middleCate = [];
+    if (OZ == '00') {
+      middleCate = ['20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00'];
+    } else if (OZ == '01') {
+      middleCate = ['21:00', '22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00'];
+    } else if (OZ == '02') {
+      middleCate = ['22:00', '23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00'];
+    } else if (OZ == '03') {
+      middleCate = ['23:00', '00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00'];
+    } else if (OZ == '04') {
+      middleCate = ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00'];
+    }
+    middleCategories = middleCate;
   },
 
 
@@ -113,9 +152,9 @@ Page({
     let end = '';
     if (pageType == 1) {
       // 日报告
-      cmd = 'FFFFFFFF0200030BF1'
+      let UV = this.data.UV;
+      cmd = 'FFFFFFFF0200130B' + UV
       end = crcUtil.HexToCSU16(cmd);
-
     } else {
       // 实时在床数据
       cmd = 'FFFFFFFF0200030B01'
@@ -155,34 +194,42 @@ Page({
       return;
     }
     var askType = cmd.substr(12, 2);
-    if (askType != '04' && askType != '05') {
+    if (!(askType == '04' || askType == '05' || askType == '14')) {
       console.error('report->askBack 返回码非当日或实时返回码', cmd);
       return;
     }
     var frameNo = cmd.substr(16, 2);
-    if (frameNo == '01') {
+    if (frameNo == '01' || frameNo == '06' || frameNo == '3C') {
       // TODO 时间和测试超过限制处理
-
       let pingtangTime;
+      let cetangTime;
+      let unit = this.data.unit;
       let pageType = this.data.pageType;
       if (pageType == 1) {
         // 单位6分钟计1个单位
         pingtangTime = (util.str16To10(cmd.substr(18, 2)) * 0.1).toFixed(1);
-      } else {
-        pingtangTime = util.str16To10(cmd.substr(18, 2));
-      }
-
-      // 单位6分钟计1个单位
-      let cetangTime;
-      if (pageType == 1) {
         cetangTime = (util.str16To10(cmd.substr(20, 2)) * 0.1).toFixed(1);
       } else {
-        cetangTime = util.str16To10(cmd.substr(20, 2));
+        if (frameNo == '01') {
+          pingtangTime = util.str16To10(cmd.substr(18, 2));
+          cetangTime = util.str16To10(cmd.substr(20, 2));
+          unit = '分钟';
+        } else if (frameNo == '06') {
+          pingtangTime = (util.str16To10(cmd.substr(18, 2)) * 0.1).toFixed(1);
+          cetangTime = (util.str16To10(cmd.substr(20, 2)) * 0.1).toFixed(1);
+          unit = '小时';
+        } else if (frameNo == '3C') {
+          pingtangTime = util.str16To10(cmd.substr(18, 2));
+          cetangTime = util.str16To10(cmd.substr(20, 2));
+          unit = '小时';
+        }
       }
+
       let shuimianTime = (parseFloat(pingtangTime) + parseFloat(cetangTime)).toFixed(1);
       // 获取翻身次数
       let fanshenNum = util.str16To10(cmd.substr(22, 2));
       this.setData({
+        unit: unit,
         timeShuimian: shuimianTime,
         timePingtang: pingtangTime,
         timeCetang: cetangTime,
@@ -255,8 +302,6 @@ Page({
 
       // 分割数据
       this.splitDataByTime(data);
-      console.info('blueReply 曲线对象：', data);
-      this.updateData(this.data.middleData, middleCategories);
     }
   },
 
@@ -271,26 +316,65 @@ Page({
     let preData = [];
     let middleData = [];
     let nextData = [];
-    for (let i = 0; i < data.length; i++) {
-      if (i < 12) {
-        preData.push(data[i]);
+    let pageType = this.data.pageType;
+    if (pageType == 1) {
+      // 日报告
+      let OZ = this.data.OZ;
+      let prei = 7;
+      let endi = 20;
+      if (OZ == '00') {
+        prei = 7;
+        endi = 20;
+      } else if (OZ == '01') {
+        prei = 8;
+        endi = 21;
+      } else if (OZ == '02') {
+        prei = 9;
+        endi = 22;
+      } else if (OZ == '03') {
+        prei = 10;
+        endi = 23;
+      } else if (OZ == '04') {
+        prei = 10;
+        endi = 24;
       }
-      if (i > 7 && i < 20) {
-        middleData.push(data[i]);
+      for (let i = 0; i < data.length; i++) {
+        if (i > prei && i < endi) {
+          middleData.push(data[i]);
+        }
       }
-      if (i > 11) {
-        nextData.push(data[i]);
+      this.setData({
+        graphData: data,
+        preData: preData,
+        middleData: middleData,
+        nextData: nextData,
+        graphHidden: true,
+        currentGraphType: 'middle'
+      })
+    } else {
+      for (let i = 0; i < data.length; i++) {
+        if (i < 12) {
+          preData.push(data[i]);
+        }
+        if (i > 7 && i < 20) {
+          middleData.push(data[i]);
+        }
+        if (i > 11) {
+          nextData.push(data[i]);
+        }
       }
+      this.setData({
+        graphData: data,
+        preData: preData,
+        middleData: middleData,
+        nextData: nextData,
+        preDisable: false,
+        nextDisable: false,
+        currentGraphType: 'middle'
+      })
+      console.info('blueReply 曲线对象：', data);
     }
-    this.setData({
-      graphData: data,
-      preData: preData,
-      middleData: middleData,
-      nextData: nextData,
-      preDisable: false,
-      nextDisable: false,
-      currentGraphType: 'middle'
-    })
+    this.updateData(this.data.middleData, middleCategories);
   },
 
 
@@ -301,17 +385,16 @@ Page({
     let width = app.globalData.screenWidth;
     console.info('onLoadlineChart->width', width);
     var simulationData = this.createSimulationData();
-    let skin = this.data.skin
     lineChart = new wxCharts({
       canvasId: 'lineCanvas',
       type: 'line',
       categories: simulationData.categories,
       animation: true,
-      background: skin=='orange'?'#36035C':'#1E1F24',
+      background: '#1E1F24',
       series: [{
         name: '翻身（次数）',
         data: simulationData.data,
-        color: skin == 'orange'?'#FF9704':'#5EA2D7',
+        color: '#5EA2D7',
         format: function (val, name) {
           return val + '次';
         }
@@ -373,7 +456,7 @@ Page({
     lineChart.showToolTip(e, {
       // background: '#7cb5ec',
       format: function (item, category) {
-        console.log('touchHandler',category,item.name,item.data);
+        console.log('touchHandler', category, item.name, item.data);
         return item.name + '：' + item.data
       }
     });

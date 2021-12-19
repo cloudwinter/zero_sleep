@@ -72,11 +72,12 @@
           <view class="graph-sub">翻身（次数)</view>
         </view>
         <canvas canvas-id="lineCanvas" disable-scroll="true" class="canvas" bindtouchstart="touchHandler"></canvas>
-        <view class="graph-bottom">
-          <button class="graph-button"  disabled="{{preDisable}}" bindtap="pre">前一页</button>
+        <view class="graph-bottom" hidden="{{graphHidden}}">
+          <button class="graph-button" disabled="{{preDisable}}" bindtap="pre">前一页</button>
           <view class="graph-tips">tip:睡眠时间小于3小时无法生成曲线</view>
-          <button class="graph-button"  disabled="{{nextDisable}}" bindtap="next">后一页</button>
+          <button class="graph-button" disabled="{{nextDisable}}" bindtap="next" >后一页</button>
         </view>
+        <view class="graph-tips" hidden="{{!graphHidden}}">tip:睡眠时间小于3小时无法生成曲线</view>
 
       </view>
 
