@@ -270,7 +270,7 @@ Component({
         this.setData({
           yaobutzBottom: false
         });
-        this.tapYapbutz(false, false);
+        this.tapYaobutz(false, false);
       } else if (type == 'toubutzTop') {
         this.setData({
           toubutzTop: false

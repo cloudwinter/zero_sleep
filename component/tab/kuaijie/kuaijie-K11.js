@@ -618,22 +618,21 @@ Component({
       this.sendBlueCmd('00225719');
     },
 
-  },
+    /**
+     * 复原的点击事件
+     */
+    tapZhengtiFuyuan() {
+      console.info("tapZhengtiFuyuan");
+      this.setData({
+        currentAnjian: {
+          anjian: 'fuyuan',
+          name: '整体复原'
+        }
+      })
+      // 单击
+      this.sendBlueCmd('002A56DF');
+    },
 
-
-  /**
-   * 复原的点击事件
-   */
-  tapZhengtiFuyuan() {
-    console.info("tapZhengtiFuyuan");
-    this.setData({
-      currentAnjian: {
-        anjian: 'fuyuan',
-        name: '整体复原'
-      }
-    })
-    // 单击
-    this.sendBlueCmd('002A56DF');
   },
 
 })

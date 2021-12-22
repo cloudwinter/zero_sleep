@@ -259,6 +259,10 @@ Component({
         this.tabZtsj(true, false);
       } else if (type == 'ztsjBottom') {
         this.tabZtsj(false, false);
+      } else if (type == 'ztqxTop') {
+        this.tabZtqx(true, false);
+      } else if (type == 'ztqxBottom') {
+        this.tabZtqx(false, false);
       }
     },
 
