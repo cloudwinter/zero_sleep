@@ -108,13 +108,14 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+    this.sendFullBlueCmd('FFFFFFFF02000A0A1204');
     WxNotificationCenter.removeNotification("BLUEREPLY", this);
   },
 
   /**
    * 发送完整蓝牙命令
    */
-  sendFullBlueCmd(cmd, options) {
+   sendFullBlueCmd(cmd, options) {
     var connected = this.data.connected;
     util.sendBlueCmd(connected, cmd, options);
   },
