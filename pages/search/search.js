@@ -514,10 +514,14 @@ Page({
     isValidBlueName(name) {
       if (name) {
         if (name.indexOf('QMS-IQ') >= 0 ||
-          name.indexOf('QMS-I06') >= 0 ||
-          name.indexOf('QMS-I06') >= 0 ||
+          name.indexOf('QMS-I06') >= 0 || name.indexOf('QMS-I16') >= 0 || name.indexOf('QMS-I26') >= 0 || name.indexOf('QMS-I36') >= 0 ||
+          name.indexOf('QMS-I46') >= 0 ||
+          name.indexOf('QMS-I56') >= 0 || name.indexOf('QMS-I66') >= 0 || name.indexOf('QMS-I76') >= 0 || name.indexOf('QMS-I86') >= 0 ||
+          name.indexOf('QMS-I96') >= 0 ||
+          name.indexOf('QMS-L04') >= 0 || name.indexOf('QMS-L14') >= 0 || name.indexOf('QMS-L24') >= 0 || name.indexOf('QMS-L34') >= 0 ||
+          name.indexOf('QMS-L44') >= 0 || name.indexOf('QMS-L54') >= 0 || name.indexOf('QMS-L64') >= 0 || name.indexOf('QMS-L74') >= 0 ||
+          name.indexOf('QMS-L84') >= 0 || name.indexOf('QMS-L94') >= 0 ||
           name.indexOf('QMS-LQ') >= 0 ||
-          name.indexOf('QMS-L04') >= 0 ||
           name.indexOf('QMS-JQ-D') >= 0 ||
           name.indexOf('QMS-NQ') >= 0 ||
           name.indexOf('QMS-MQ') >= 0 ||
@@ -556,9 +560,13 @@ Page({
     getKuaijieType(name) {
       if (name) {
         if (name.indexOf('QMS-IQ') >= 0 ||
-          name.indexOf('QMS-I06') >= 0 ||
-          name.indexOf('QMS-I06') >= 0 ||
-          name.indexOf('QMS-L04') >= 0 ||
+          name.indexOf('QMS-I06') >= 0 || name.indexOf('QMS-I16') >= 0 || name.indexOf('QMS-I26') >= 0 || name.indexOf('QMS-I36') >= 0 ||
+          name.indexOf('QMS-I46') >= 0 ||
+          name.indexOf('QMS-I56') >= 0 || name.indexOf('QMS-I66') >= 0 || name.indexOf('QMS-I76') >= 0 || name.indexOf('QMS-I86') >= 0 ||
+          name.indexOf('QMS-I96') >= 0 ||
+          name.indexOf('QMS-L04') >= 0 || name.indexOf('QMS-L14') >= 0 || name.indexOf('QMS-L24') >= 0 || name.indexOf('QMS-L34') >= 0 ||
+          name.indexOf('QMS-L44') >= 0 || name.indexOf('QMS-L54') >= 0 || name.indexOf('QMS-L64') >= 0 || name.indexOf('QMS-L74') >= 0 ||
+          name.indexOf('QMS-L84') >= 0 || name.indexOf('QMS-L94') >= 0 ||
           name.indexOf('QMS-LQ') >= 0) {
           return 'K1';
         } else if (name.indexOf('QMS-JQ-D') >= 0 ||
@@ -592,7 +600,7 @@ Page({
         } else if (name.indexOf('S3-4') >= 0) {
           return 'K9';
         } else if (name.indexOf('S4-Y') >= 0 ||
-          name.indexOf('S5-Y') >= 0 || 
+          name.indexOf('S5-Y') >= 0 ||
           name.indexOf('S6-Y') >= 0) {
           return 'K11';
         }
@@ -609,10 +617,13 @@ Page({
     getWeitiaoType(name) {
       if (name) {
         if (name.indexOf('QMS-IQ') >= 0 ||
-          name.indexOf('QMS-I06') >= 0 ||
-          name.indexOf('QMS-I06') >= 0 ||
-          name.indexOf('QMS-L04') >= 0 ||
-          name.indexOf('QMS-LQ') >= 0) {
+          name.indexOf('QMS-I06') >= 0 || name.indexOf('QMS-I16') >= 0 || name.indexOf('QMS-I26') >= 0 || name.indexOf('QMS-I36') >= 0 ||
+          name.indexOf('QMS-I46') >= 0 ||
+          name.indexOf('QMS-I56') >= 0 || name.indexOf('QMS-I66') >= 0 || name.indexOf('QMS-I76') >= 0 || name.indexOf('QMS-I86') >= 0 ||
+          name.indexOf('QMS-I96') >= 0 ||
+          name.indexOf('QMS-L04') >= 0 || name.indexOf('QMS-L14') >= 0 || name.indexOf('QMS-L24') >= 0 || name.indexOf('QMS-L34') >= 0 ||
+          name.indexOf('QMS-L44') >= 0 || name.indexOf('QMS-L54') >= 0 || name.indexOf('QMS-L64') >= 0 || name.indexOf('QMS-L74') >= 0 ||
+          name.indexOf('QMS-L84') >= 0 || name.indexOf('QMS-L94') >= 0 || name.indexOf('QMS-LQ') >= 0) {
           return 'W1';
         } else if (name.indexOf('QMS-JQ-D') >= 0 ||
           name.indexOf('QMS4') >= 0) {

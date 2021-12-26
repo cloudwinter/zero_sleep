@@ -302,7 +302,7 @@ Component({
         this.setData({
           yaobutzBottom: false
         });
-        this.tapYapbutz(false, false);
+        this.tapYaobutz(false, false);
       } else if (type == 'toubutzTop') {
         this.setData({
           toubutzTop: false
@@ -327,6 +327,10 @@ Component({
         this.tabZtsj(true, false);
       } else if (type == 'ztsjBottom') {
         this.tabZtsj(false, false);
+      }else if (type == 'ztqxTop') {
+        this.tabZtqx(true, false);
+      } else if (type == 'ztqxBottom') {
+        this.tabZtqx(false, false);
       }
     },
 
