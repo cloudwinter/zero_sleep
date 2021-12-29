@@ -1,7 +1,7 @@
 <!--pages/induction/induction.wxml-->
 <view class="page-{{skin}}">
   <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}"
-    background="{{navbar.background}}" title="睡眠报告"></navbar>
+    background="{{navbar.background}}" title="睡眠报告" bind:long5Tap="longTap"></navbar>
 
   <view class="{{skin}}">
     <view class="content">
@@ -11,7 +11,7 @@
           bind:getdate="getdate" multiple="{{false}}" ></calendar>
       </view>
 
-      <view class="shezhi-content shezhi-button-bg" bindtap="report" data-type="0">
+      <view class="shezhi-content shezhi-button-bg" bindtap="report" data-type="0" hidden="{{!showShishishuju}}">
 				<view class="shezhi-button-left">实时在床数据</view>
 				<view class="shezhi-button-right">
 					<view class="shezhi-button-name"></view>

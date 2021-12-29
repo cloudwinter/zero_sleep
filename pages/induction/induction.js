@@ -49,6 +49,7 @@ Page({
     rushuiSelectRadio: '',
     rushuiDialogShow: false,
     openSmart: false,
+    showShishishuju: false,
   },
 
   onReady: function (options) {
@@ -105,7 +106,7 @@ Page({
   blueReply(cmd) {
     cmd = cmd.toUpperCase();
     if (cmd.indexOf('FFFFFFFF0200160B') >= 0) {
-      let OZkey = cmd.substr(16,2);
+      let OZkey = cmd.substr(16, 2);
       let rushuiSelectRadio = OZkey;
       let rushuiSelectValue;
       this.data.OZItems.forEach(obj => {
@@ -252,6 +253,16 @@ Page({
     let OZkey = this.data.OZ.key;
     wx.navigateTo({
       url: '/pages/report/report?pageType=1&UV=' + UV + '&OZ=' + OZkey + '&selectedDate=' + selectedDate
+    })
+  },
+
+  /**
+   * 点击标题顶部
+   */
+  longTap() {
+    let showShishishuju = this.data.showShishishuju;
+    this.setData({
+      showShishishuju: !showShishishuju
     })
   },
 

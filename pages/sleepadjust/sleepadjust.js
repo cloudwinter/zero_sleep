@@ -84,6 +84,19 @@ Page({
       tips1 = '1.请在平躺状态，调整头部，背部，腰部，腿部角度，完成后按平躺键。';
       tips2 = '2.请在侧躺状态，调整头部，背部，腰部，腿部角度，完成后按侧躺键。';
     }
+    let name = connected.name;
+    if (name.indexOf('QMS-I06') >= 0 || name.indexOf('QMS-I16') >= 0 || name.indexOf('QMS-I26') >= 0 || name.indexOf('QMS-I36') >= 0 ||
+      name.indexOf('QMS-I46') >= 0 ||
+      name.indexOf('QMS-I56') >= 0 || name.indexOf('QMS-I66') >= 0 || name.indexOf('QMS-I76') >= 0 || name.indexOf('QMS-I86') >= 0 ||
+      name.indexOf('QMS-I96') >= 0 ||
+      name.indexOf('QMS-L04') >= 0 || name.indexOf('QMS-L14') >= 0 || name.indexOf('QMS-L24') >= 0 || name.indexOf('QMS-L34') >= 0 ||
+      name.indexOf('QMS-L44') >= 0 || name.indexOf('QMS-L54') >= 0 || name.indexOf('QMS-L64') >= 0 || name.indexOf('QMS-L74') >= 0 ||
+      name.indexOf('QMS-L84') >= 0 || name.indexOf('QMS-L94') >= 0 || name.indexOf('QMS4') >= 0 || name.indexOf('QMS3') >= 0) {
+      pageType = '03';
+    }
+    if (name.indexOf('S4-N') >= 0) {
+      pageType = '04';
+    }
     this.setData({
       skin: app.globalData.skin,
       connected: connected,
@@ -115,7 +128,7 @@ Page({
   /**
    * 发送完整蓝牙命令
    */
-   sendFullBlueCmd(cmd, options) {
+  sendFullBlueCmd(cmd, options) {
     var connected = this.data.connected;
     util.sendBlueCmd(connected, cmd, options);
   },
@@ -129,7 +142,7 @@ Page({
     cmd = cmd.toUpperCase();
     if (cmd.indexOf('FFFFFFFF02000F0E') >= 0 && cmd.length > 20) {
       let AZ = util.str16To10(cmd.substr(16, 2));
-      if (AZ == '175') {  // 16进制AF
+      if (AZ == '175') { // 16进制AF
         AZ = '位置过高';
       } else if (AZ == '191') { // 16进制BF
         AZ = '位置过低';
