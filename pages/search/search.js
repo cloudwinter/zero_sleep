@@ -527,6 +527,7 @@ Page({
           name.indexOf('QMS-MQ') >= 0 ||
           name.indexOf('QMS-U700') >= 0 ||
           name.indexOf('QMS4') >= 0 ||
+          name.indexOf('S4-N') >= 0 ||
           name.indexOf('QMS3') >= 0 ||
           name.indexOf('QMS2') >= 0 ||
           name.indexOf('QMS-KQ2') >= 0 ||
@@ -574,6 +575,7 @@ Page({
           name.indexOf('QMS-MQ') >= 0 ||
           name.indexOf('QMS-U700') >= 0 ||
           name.indexOf('QMS4') >= 0 ||
+          name.indexOf('S4-N') >= 0 ||
           name.indexOf('QMS3') >= 0 ||
           name.indexOf('QMS2') >= 0) {
           return 'K2';
@@ -626,7 +628,8 @@ Page({
           name.indexOf('QMS-L84') >= 0 || name.indexOf('QMS-L94') >= 0 || name.indexOf('QMS-LQ') >= 0) {
           return 'W1';
         } else if (name.indexOf('QMS-JQ-D') >= 0 ||
-          name.indexOf('QMS4') >= 0) {
+          name.indexOf('QMS4') >= 0 ||
+          name.indexOf('S4-N') >= 0) {
           return 'W2'
         } else if (name.indexOf('QMS-NQ') >= 0 || name.indexOf('QMS3') >= 0) {
           return 'W3'

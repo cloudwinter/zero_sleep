@@ -61,10 +61,13 @@ Page({
    */
   onLoad: function (options) {
     let connected = configManager.getCurrentConnected();
+    let showShishishuju = configManager.getShishiSwitch();
     this.setData({
       skin: app.globalData.skin,
-      connected: connected
+      connected: connected,
+      showShishishuju: showShishishuju
     })
+
     WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
     this.sendInitCmd();
   },
@@ -261,9 +264,11 @@ Page({
    */
   longTap() {
     let showShishishuju = this.data.showShishishuju;
+    configManager.putShishiSwitch(!showShishishuju);
     this.setData({
       showShishishuju: !showShishishuju
     })
+    
   },
 
 })
