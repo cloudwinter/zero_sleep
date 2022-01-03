@@ -34,7 +34,7 @@ Component({
     /**
      * 是否多选日期
      */
-    multiple:{
+    multiple: {
       type: Boolean,
       value: true
     },
@@ -55,7 +55,7 @@ Component({
     /**
      * 使用mini样式
      */
-    mini:{
+    mini: {
       type: Boolean,
       value: false
     }
@@ -73,12 +73,12 @@ Component({
       "weeks": []
     },
     currentMonth: null,
-    nowMonth: new Date().getMonth()+1,
+    nowMonth: new Date().getMonth() + 1,
     nowDate: new Date().getDate()
   },
   ready() {
     let sdays = this.data.selected;
-    sdays.forEach(v=>{
+    sdays.forEach(v => {
       this.data.selectDays.push(v);
     })
     this.getWeek(new Date());
@@ -93,8 +93,8 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    open: function(date) {
-      if(date && date!=''){
+    open: function (date) {
+      if (date && date != '') {
         this.data.selectDays = []; //打开时候显示一个
         this.data.selectDays.push(date);
         this.setData({
@@ -104,23 +104,23 @@ Component({
       }
       this.dateSelection();
     },
-    close: function() {
+    close: function () {
       this.packup();
     },
-    clear: function(){
+    clear: function () {
       this.setData({
         selectDays: []
       })
       let m;
-      if(this.data.currentMonth == null){
+      if (this.data.currentMonth == null) {
         m = this.data.canlender.month
-      }else{
+      } else {
         m = this.data.currentMonth
       }
       let year = this.data.canlender.year + "-" + m + "-" + this.data.canlender.date
       let _date = this.getDate(year, 0);
       this.getWeek(_date);
-      this.triggerEvent("clear",{})
+      this.triggerEvent("clear", {})
     },
     dateSelection() {
       if (this.data.isOpen) {
@@ -159,17 +159,23 @@ Component({
     },
     //选择日期
     selectDay(e) {
-      if(this.data.readonly){
+      if (this.data.readonly) {
         return
       }
       let index = e.currentTarget.dataset.index;
       let week = e.currentTarget.dataset.week;
       let ischeck = e.currentTarget.dataset.ischeck;
       let canlender = this.data.canlender;
+      let year = canlender.year;
+      console.info(e.currentTarget, canlender);
       if (!ischeck) return false;
       let month = canlender.weeks[week][index].month < 10 ? "0" + canlender.weeks[week][index].month : canlender.weeks[week][index].month
+      if (month == 0) {
+        month = 12;
+        year = year - 1;
+      }
       let date = canlender.weeks[week][index].date < 10 ? "0" + canlender.weeks[week][index].date : canlender.weeks[week][index].date
-      let datestr = canlender.year + "-" + month + "-" + date;
+      let datestr = year + "-" + month + "-" + date;
       // let selectDays = this.data.selectDays;
       // if (selectDays.indexOf(datestr)==-1) {
       //   if(this.data.multiple){
@@ -191,7 +197,7 @@ Component({
       //   return d1-d2;
       // });
       // this.data.selectDays = selectDays;
-      //this.getWeek(datestr);
+      // this.getWeek(datestr);
       this.triggerEvent('getdate', {
         datestr
       })
@@ -225,14 +231,14 @@ Component({
     /**
      * 页面通过事件选中日期后调用refresh方法刷新日历组件
      */
-    refresh: function (num){
+    refresh: function (num) {
       this.setData({
         selectDays: num
       })
       let m;
-      if(this.data.currentMonth == null){
+      if (this.data.currentMonth == null) {
         m = this.data.canlender.month
-      }else{
+      } else {
         m = this.data.currentMonth
       }
 
@@ -242,7 +248,7 @@ Component({
     },
     // 返回今天
     backtoday() {
-      if(!this.data.readonly){
+      if (!this.data.readonly) {
         let datestr = this.dateStr(new Date());
         this.data.selectDays = [];
         this.data.selectDays.push(datestr);
@@ -267,9 +273,10 @@ Component({
       }
       let year = this.data.canlender.year + "-" + this.data.canlender.month + "-" + this.data.canlender.date
       let _date = this.getDate(year, num, types === 'month' ? "month" : "day");
+      console.info(year, _date);
       this.getWeek(_date);
     },
-     
+
     // 获取日历内容
     getWeek(dateData) {
       let selected = this.data.selected
@@ -284,7 +291,7 @@ Component({
       let date = _date.getDate(); //日
       let day = _date.getDay(); // 天
       let canlender = [];
-      
+
       let dates = {
         firstDay: new Date(year, month - 1, 1).getDay(),
         lastMonthDays: [], // 上个月末尾几天
@@ -295,7 +302,7 @@ Component({
       }
       // 循环上个月末尾几天添加到数组
       for (let i = dates.firstDay; i > 0; i--) {
-        let dd = new Date(year, month-1, -(i-1));
+        let dd = new Date(year, month - 1, -(i - 1));
         let checked = false;
         selectDays.forEach(v => {
           let selDate = v.split('-');
@@ -368,13 +375,13 @@ Component({
       //   localstr
       // })
     },
-    checkall(){
+    checkall() {
       let date = new Date();
       let m, d, day, dayNum;
       let days = [];
-      if(this.data.currentMonth == null){
+      if (this.data.currentMonth == null) {
         m = parseInt(this.data.nowMonth)
-      }else{
+      } else {
         m = parseInt(this.data.currentMonth)
       }
 
@@ -406,11 +413,11 @@ Component({
         date.setMonth(m - 1, d);
         day = date.getDay();
         let str = this.format(date);
-        if(date.getMonth() == new Date().getMonth()){
-          if(date.getDate() - new Date().getDate() >= 0){
+        if (date.getMonth() == new Date().getMonth()) {
+          if (date.getDate() - new Date().getDate() >= 0) {
             days.push(str);
           }
-        }else if(date.getMonth() > new Date().getMonth()){
+        } else if (date.getMonth() > new Date().getMonth()) {
           days.push(str);
         }
       }
@@ -447,16 +454,16 @@ Component({
       return y + '-' + m + '-' + d
     },
     //日期转字符串
-    dateStr(calendar){
+    dateStr(calendar) {
       let year = calendar.getFullYear();
-      let month = calendar.getMonth()+1;
+      let month = calendar.getMonth() + 1;
       let date = calendar.getDate();
       month = month < 10 ? "0" + month : month;
       date = date < 10 ? "0" + date : date;
       let datestr = year + "-" + month + "-" + date;
       return datestr;
     },
-    format(dd){
+    format(dd) {
       let y = dd.getFullYear()
       let m = (dd.getMonth() + 1) < 10 ? '0' + (dd.getMonth() + 1) : (dd.getMonth() + 1)
       let d = dd.getDate() < 10 ? '0' + dd.getDate() : dd.getDate()
