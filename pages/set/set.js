@@ -86,15 +86,15 @@ Page({
     if (util.isNotEmptyObject(this.data.connected)) {
       let alarm = configManager.getAlarm(this.data.connected.deviceId);
       if (util.isNotEmptyObject(alarm)) {
-        if(alarm.isOpenAlarm) {
+        if (alarm.isOpenAlarm) {
           alarmStatus = '已开启';
         } else {
-          if(alarm.time) {
+          if (alarm.time) {
             alarmStatus = '已关闭';
           } else {
             alarmStatus = '未设置';
           }
-          
+
         }
       } else {
         alarmStatus = '未设置';
@@ -117,9 +117,13 @@ Page({
   isShowFaultDebug(name) {
     if (name) {
       if (name.indexOf('QMS-IQ') >= 0 ||
-        name.indexOf('QMS-I06') >= 0 ||
-        name.indexOf('QMS-I06') >= 0 ||
-        name.indexOf('QMS-L04') >= 0 ||
+        name.indexOf('QMS-I06') >= 0 || name.indexOf('QMS-I16') >= 0 || name.indexOf('QMS-I26') >= 0 || name.indexOf('QMS-I36') >= 0 ||
+        name.indexOf('QMS-I46') >= 0 ||
+        name.indexOf('QMS-I56') >= 0 || name.indexOf('QMS-I66') >= 0 || name.indexOf('QMS-I76') >= 0 || name.indexOf('QMS-I86') >= 0 ||
+        name.indexOf('QMS-I96') >= 0 ||
+        name.indexOf('QMS-L04') >= 0 || name.indexOf('QMS-L14') >= 0 || name.indexOf('QMS-L24') >= 0 || name.indexOf('QMS-L34') >= 0 ||
+        name.indexOf('QMS-L44') >= 0 || name.indexOf('QMS-L54') >= 0 || name.indexOf('QMS-L64') >= 0 || name.indexOf('QMS-L74') >= 0 ||
+        name.indexOf('QMS-L84') >= 0 || name.indexOf('QMS-L94') >= 0 ||
         name.indexOf('QMS-LQ') >= 0) {
         return true;
       }
