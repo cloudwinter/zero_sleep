@@ -22,17 +22,22 @@ cover-view{
 
 .calendar-wrapper {
   width: 100%;
-  border-top: 1px #f5f5f5 solid;
-  border-bottom: 1px #f5f5f5 solid; 
+  border: 1px #59B84D solid;
   box-sizing: border-box;
   font-size: 26rpx;
-  background: #fff;
+  /* background: #fff; */
   transition: all 0.3s;
   transform: translateY(-100%);
 }
 
+
+
 .calendar-wrapper.active {
   transform: translateY(0%);
+}
+
+.calendar-wrapper.orange {
+  border: 1px #fff solid;
 }
 
 .header {
@@ -154,6 +159,7 @@ cover-view{
 
 .calendar-panel-box {
   display: flex;
+  color: white;
 }
 
 .calendar-header {
@@ -180,15 +186,15 @@ cover-view{
 .calender-body-date-week {
   display: flex;
   width: 100%;
-  border-bottom: 1px #f5f5f5 solid;
+  /* border-bottom: 1px #f5f5f5 solid; */
 }
 
 .date {
   position: relative;
   width: 100%;
   text-align: center;
-  color: #1c1c1c;
-  background: #fff;
+  color: #fff;
+  /* background: #fff; */
   line-height: 100rpx;
 }
 .date.mini{

@@ -1,4 +1,5 @@
 // components/calendar/calendar.js
+const app = getApp();
 Component({
   options: {
     styleIsolation: 'apply-shared'
@@ -65,6 +66,7 @@ Component({
    * 组件的初始数据
    */
   data: {
+    skin: 'dark',
     calShow: true, // 日历组件是否打开
     dateShow: false, // 日期是否选择
     selectDay: '', // 当前选择日期
@@ -85,7 +87,8 @@ Component({
     if (this.data.isOpen) {
       this.setData({
         calShow: false,
-        dateShow: true
+        dateShow: true,
+        skin: app.globalData.skin,
       })
     }
   },

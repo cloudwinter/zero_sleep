@@ -32,7 +32,7 @@
   </view>
 </view>
 <view wx:if='{{!calShow}}' class="{{isOpen?'':'calendar-box'}} {{dateShow?'active':''}}">
-  <view class="calendar-wrapper {{dateShow?'active':''}}">
+  <view class="calendar-wrapper {{dateShow?'active':''}} {{skin=='dark'?'':'orange'}}">
     <view class="calendar-panel">
       <view class='checkalllbtn' bindtap='checkall' hidden="true">
         全选
