@@ -246,12 +246,7 @@ Page({
       util.showToast('您选择的日期暂无数据');
       return;
     }
-    let UV = '00';
-    if (differDays < 10) {
-      UV = '0' + differDays;
-    } else {
-      UV = '' + differDays;
-    }
+    let UV = util.str10To16(differDays);
     console.log(currentDate, e.detail, differDays);
     let OZkey = this.data.OZ.key;
     wx.navigateTo({
