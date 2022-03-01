@@ -98,7 +98,13 @@ Page({
     remarkDialogShow: false,
     remarkInputValue: '',
     modeDialogShow: false,
+    mode2DialogShow: false,
     modeSelectRadio: '',
+    isMode2: true, // 是否是模式2
+    tempLeftLingyaliChecked: false,
+    tempRightLingyaliChecked: false,
+    leftLingyaliChecked: false,
+    rightLingyaliChecked: false,
 
   },
 
@@ -107,13 +113,15 @@ Page({
    */
   onLoad: function (options) {
     let connected = configManager.getCurrentConnected();
-    // connected = {
-    //   deviceId: '111'
-    // }
+    let isMode2 = this.data.isMode2;
+    if (connect.name.indexOf('QMS-DFQ') >= 0 || onnect.name.indexOf('QMS-430') >= 0 || connect.name.indexOf('QMS-444') >= 0) {
+      isMode2 = true;
+    }
     this.setData({
       skin: app.globalData.skin,
       // skin:'orange',
-      connected: connected
+      connected: connected,
+      isMode2: isMode2
     })
 
     //let connected = this.data.connected;
@@ -302,9 +310,32 @@ Page({
    * @param {*} e 
    */
   modeTap: function (e) {
-    this.setData({
-      modeDialogShow: true
-    });
+    let isMode2 = this.data.isMode2;
+    if (isMode2) {
+      let leftLingyaliChecked = this.data.leftLingyaliChecked;
+      let rightLingyaliChecked = this.data.rightLingyaliChecked;
+      let modeVal = this.data.alarm.modeVal;
+      if (modeVal == 'lingyaliALL') {
+        leftLingyaliChecked = true;
+        rightLingyaliChecked = true;
+      } else if (modeVal == 'lingyaliLeft') {
+        leftLingyaliChecked = true;
+        rightLingyaliChecked = false;
+      } else if (modeVal == 'lingyaliRight') {
+        leftLingyaliChecked = false;
+        rightLingyaliChecked = true;
+      }
+
+      this.setData({
+        mode2DialogShow: true,
+        tempLeftLingyaliChecked: leftLingyaliChecked,
+        tempRightLingyaliChecked: rightLingyaliChecked
+      });
+    } else {
+      this.setData({
+        modeDialogShow: true
+      });
+    }
   },
 
   /**
@@ -340,6 +371,59 @@ Page({
       modeDialogShow: false,
       ['alarm.modeVal']: modeSelectRadio,
       ['alarm.modeName']: modeSelectName,
+    })
+  },
+
+
+  /**
+   * 模式2的零压力
+   * @param {*} e 
+   */
+  mode2LingyaliCheck: function (e) {
+    let cType = e.currentTarget.dataset.ctype;
+    if (cType == 'left') {
+      let tempLeftLingyaliChecked = this.data.tempLeftLingyaliChecked;
+      this.setData({
+        tempLeftLingyaliChecked: !tempLeftLingyaliChecked
+      })
+    } else if (cType == 'right') {
+      let tempRightLingyaliChecked = this.data.tempRightLingyaliChecked;
+      this.setData({
+        tempRightLingyaliChecked: !tempRightLingyaliChecked
+      })
+    }
+
+  },
+
+  onModal2ModeClick: function (e) {
+    let cType = e.currentTarget.dataset.ctype;
+    if (cType == 'cancel') {
+      this.setData({
+        mode2DialogShow: false
+      })
+      return;
+    }
+    let modeVal = this.data.alarm.modeVal;
+    let modeName = this.data.alarm.modeName;
+    if (this.data.tempLeftLingyaliChecked && this.data.tempRightLingyaliChecked) {
+      modeVal = 'lingyaliALL'
+      modeName = '零压力';
+    } else if (this.data.tempLeftLingyaliChecked && !this.data.tempRightLingyaliChecked) {
+      modeVal = 'lingyaliLeft'
+      modeName = '零压力';
+    } else if (!this.data.tempLeftLingyaliChecked && this.data.tempRightLingyaliChecked) {
+      modeVal = 'lingyaliRight'
+      modeName = '零压力';
+    } else {
+      modeVal = 'close'
+      modeName = '不动作';
+    }
+    this.setData({
+      mode2DialogShow: false,
+      leftLingyaliChecked: this.data.tempLeftLingyaliChecked,
+      rightLingyaliChecked: this.data.tempRightLingyaliChecked,
+      ['alarm.modeVal']: modeVal,
+      ['alarm.modeName']: modeName,
     })
   },
 
@@ -437,6 +521,14 @@ Page({
       sendAlarmCmdPre += '01';
     } else if ('jiyi1' == mode) {
       sendAlarmCmdPre += '02';
+    } else if ('close' == mode) {
+      sendAlarmCmdPre += '03';
+    } else if ('lingyaliLeft' == mode) {
+      sendAlarmCmdPre += '04';
+    } else if ('lingyaliRight' == mode) {
+      sendAlarmCmdPre += '05';
+    } else if ('lingyaliALL' == mode) {
+      sendAlarmCmdPre += '06';
     } else {
       sendAlarmCmdPre += '03';
     }

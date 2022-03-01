@@ -491,6 +491,15 @@ Page({
       } else if ('02' == cmdMode) {
         alarm.modeVal = 'jiyi1';
         alarm.modeName = '记忆一';
+      } else if ('04' == cmdMode) {
+        alarm.modeVal = 'lingyaliLeft';
+        alarm.modeName = '零压力';
+      } else if ('05' == cmdMode) {
+        alarm.modeVal = 'lingyaliRight';
+        alarm.modeName = '零压力';
+      } else if ('06' == cmdMode) {
+        alarm.modeVal = 'lingyaliAll';
+        alarm.modeName = '零压力';
       } else {
         alarm.modeVal = 'close';
         alarm.modeName = '不动作';
