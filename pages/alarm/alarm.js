@@ -114,7 +114,7 @@ Page({
   onLoad: function (options) {
     let connected = configManager.getCurrentConnected();
     let isMode2 = this.data.isMode2;
-    if (connect.name.indexOf('QMS-DFQ') >= 0 || onnect.name.indexOf('QMS-430') >= 0 || connect.name.indexOf('QMS-444') >= 0) {
+    if (connected.name.indexOf('QMS-DFQ') >= 0 || connected.name.indexOf('QMS-430') >= 0 || connected.name.indexOf('QMS-444') >= 0) {
       isMode2 = true;
     }
     this.setData({
@@ -410,10 +410,10 @@ Page({
       modeName = '零压力';
     } else if (this.data.tempLeftLingyaliChecked && !this.data.tempRightLingyaliChecked) {
       modeVal = 'lingyaliLeft'
-      modeName = '零压力';
+      modeName = '左侧零压力';
     } else if (!this.data.tempLeftLingyaliChecked && this.data.tempRightLingyaliChecked) {
       modeVal = 'lingyaliRight'
-      modeName = '零压力';
+      modeName = '右侧零压力';
     } else {
       modeVal = 'close'
       modeName = '不动作';
@@ -454,10 +454,10 @@ Page({
    */
   saveTap: function (e) {
     let connected = this.data.connected;
-    if (!util.isNotEmptyObject(connected)) {
-      util.showToast('当前设备未连接');
-      return;
-    }
+    // if (!util.isNotEmptyObject(connected)) {
+    //   util.showToast('当前设备未连接');
+    //   return;
+    // }
     let alarm = this.data.alarm;
     let openAlarm = alarm.isOpenAlarm;
     let time = alarm.time;
