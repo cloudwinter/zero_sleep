@@ -49,6 +49,14 @@ Page({
     })
     WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
     this.sendFullBlueCmd('FFFFFFFF02000A0A1204')
+
+    let startDataEntry = configManager.getStartDataEntrySwitch();
+    this.setData({
+      startDataEntry: startDataEntry
+    })
+    if(startDataEntry) {
+      this.getDataEntry(0);
+    }
   },
 
 
@@ -57,6 +65,9 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+    this.setData({
+      startDataEntry: false
+    })
     WxNotificationCenter.removeNotification("BLUEREPLY", this);
   },
 
@@ -195,23 +206,25 @@ Page({
    * 数据录入点击事件
    */
   dataentryTap() {
-    var that = this;
+    var longClick = this.longClick();
+    if (!longClick) {
+      console.info('长按时间不足5s不做处理');
+      return;
+    }
+
     let startDataEntry = this.data.startDataEntry;
     if (startDataEntry) {
       console.info('关闭数据录入实时获取');
       this.setData({
         startDataEntry: false
       })
+      configManager.putStartDataEntrySwitch(false);
       return;
     } else {
-      var longClick = this.longClick();
-      if (!longClick) {
-        console.info('长按时间不足5s不做处理');
-        return;
-      }
       this.setData({
         startDataEntry: true
       })
+      configManager.putStartDataEntrySwitch(true);
       this.getDataEntry(0);
     }
   },
@@ -225,8 +238,8 @@ Page({
       console.info('startDataEntry 停止获取实时数据录入');
       return;
     }
-    if (count > 30) {
-      console.info('startDataEntry 循环最多不能超过30次');
+    if (count > 150) {
+      console.info('startDataEntry 循环最多不能超过150次');
       this.setData({
         startDataEntry: false
       })
@@ -298,13 +311,13 @@ Page({
     let val = e.detail.value;
     let dataType = e.currentTarget.dataset.type;
     console.info("inputChange", dataType, val);
-    if(dataType == 'pingtangParam') {
+    if (dataType == 'pingtangParam') {
       this.setData({
-        pingtangParam:val
+        pingtangParam: val
       })
-    } else if(dataType == 'cetangParam') {
+    } else if (dataType == 'cetangParam') {
       this.setData({
-        cetangParam:val
+        cetangParam: val
       })
     }
   },
