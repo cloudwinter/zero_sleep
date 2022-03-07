@@ -100,7 +100,7 @@ Page({
     modeDialogShow: false,
     mode2DialogShow: false,
     modeSelectRadio: '',
-    isMode2: true, // 是否是模式2
+    isMode2: false, // 是否是模式2
     tempLeftLingyaliChecked: false,
     tempRightLingyaliChecked: false,
     leftLingyaliChecked: false,
@@ -116,6 +116,8 @@ Page({
     let isMode2 = this.data.isMode2;
     if (connected.name.indexOf('QMS-DFQ') >= 0 || connected.name.indexOf('QMS-430') >= 0 || connected.name.indexOf('QMS-444') >= 0) {
       isMode2 = true;
+    } else {
+      isMode2 = false;
     }
     this.setData({
       skin: app.globalData.skin,

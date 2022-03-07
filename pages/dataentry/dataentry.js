@@ -105,10 +105,13 @@ Page({
     if (cmd.indexOf('FFFFFFFF0200090F03') >= 0) {
       let AAAA = cmd.substr(20, 2) + cmd.substr(18, 2);
       let KKKK = cmd.substr(24, 2) + cmd.substr(22, 2);
-      this.setData({
-        AA: util.str16To10(AAAA),
-        KK: util.str16To10(KKKK),
-      })
+      let startDataEntry = this.data.startDataEntry;
+      if(startDataEntry) {
+        this.setData({
+          AA: util.str16To10(AAAA),
+          KK: util.str16To10(KKKK),
+        })
+      }
       return;
     }
     if (cmd.indexOf('FFFFFFFF0500000208D7A6') >= 0) {
@@ -235,6 +238,10 @@ Page({
   getDataEntry(count) {
     let startDataEntry = this.data.startDataEntry;
     if (!startDataEntry) {
+      this.setData({
+        AA:'',
+        KK:''
+      })
       console.info('startDataEntry 停止获取实时数据录入');
       return;
     }
