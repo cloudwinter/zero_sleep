@@ -590,7 +590,8 @@ Page({
           return 'K3';
         } else if (name.indexOf('QMS-DFQ') >= 0 ||
           name.indexOf('QMS-430') >= 0 ||
-          name.indexOf('QMS-444') >= 0) {
+          name.indexOf('QMS-444') >= 0 ||
+          name.indexOf('S4-HL') >= 0) {
           return 'K4';
         } else if (name.indexOf('QMS-DQ') >= 0 ||
           name.indexOf('QMS-443') >= 0) {
@@ -649,7 +650,8 @@ Page({
           return 'W5'
         } else if (name.indexOf('QMS-DFQ') >= 0 ||
           name.indexOf('QMS-430') >= 0 ||
-          name.indexOf('QMS-444') >= 0) {
+          name.indexOf('QMS-444') >= 0 ||
+          name.indexOf('S4-HL') >= 0) {
           return 'W7';
         } else if (name.indexOf('QMS-DQ') >= 0 ||
           name.indexOf('QMS-443') >= 0) {

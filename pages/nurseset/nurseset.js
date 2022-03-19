@@ -41,6 +41,11 @@ Page({
       skin: 'dark',
       connected: connected
     })
+    WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
+    let cmd = 'FFFFFFFF0100060B00';
+    let cmdCrc = crcUtil.HexToCSU16(cmd);
+    cmd = cmd + cmdCrc;
+    this.sendFullBlueCmd(cmd);
   },
 
 
@@ -48,7 +53,65 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
+    WxNotificationCenter.removeNotification("BLUEREPLY", this);
+  },
 
+  /**
+   * 蓝牙回复回调
+   * @param {*} cmd 
+   */
+  blueReply(cmd) {
+    cmd = cmd.toUpperCase();
+    if (cmd.indexOf('FFFFFFFF01000611') >= 0) {
+      let ammoCmd = cmd.substr(16, 2);
+      let anmoChecked = ammoCmd == '01' ? true : false;
+      let xuhuanCmd = cmd.substr(18, 2);
+      let bbxhChecked = false;
+      let tbxhChecked = false;
+      let btxhChecked = false;
+      if (xuhuanCmd == '03') {
+        btxhChecked = true;
+      } else if (xuhuanCmd == '02') {
+        tbxhChecked = true;
+      } else if (xuhuanCmd == '01') {
+        bbxhChecked = true;
+      }
+      let time0700Cmd = cmd.substr(20, 2);
+      let time0700Checked = time0700Cmd == '01' ? true : false;
+
+      let time1000Cmd = cmd.substr(22, 2);
+      let time1000Checked = time1000Cmd == '01' ? true : false;
+
+      let time1400Cmd = cmd.substr(24, 2);
+      let time1400Checked = time1400Cmd == '01' ? true : false;
+
+      let time1700Cmd = cmd.substr(24, 2);
+      let time1700Checked = time1700Cmd == '01' ? true : false;
+
+      let time2000Cmd = cmd.substr(26, 2);
+      let time2000Checked = time2000Cmd == '01' ? true : false;
+
+      this.setData({
+        anmoChecked: anmoChecked,
+        bbxhChecked: bbxhChecked,
+        tbxhChecked: tbxhChecked,
+        btxhChecked: btxhChecked,
+        time0700Checked: time0700Checked,
+        time1000Checked: time1000Checked,
+        time1400Checked: time1400Checked,
+        time1700Checked: time1700Checked,
+        time2000Checked: time2000Checked
+      })
+    }
+  },
+
+
+  /**
+   * 发送完整蓝牙命令
+   */
+  sendFullBlueCmd(cmd, options) {
+    var connected = this.data.connected;
+    util.sendBlueCmd(connected, cmd, options);
   },
 
 

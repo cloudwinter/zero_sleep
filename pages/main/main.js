@@ -42,6 +42,14 @@ Page({
         "show": true
       },
       {
+        "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_nurse_selected@2x.png",
+        "iconPath": "../../images/" + app.globalData.skin + "/tab_nurse_normal@2x.png",
+        "text": "护理",
+        "tapFunction": "toNurse",
+        "active": "",
+        "show": false
+      },
+      {
         "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_anno_selected@2x.png",
         "iconPath": "../../images/" + app.globalData.skin + "/tab_anno_normal@2x.png",
         "text": "按摩",
@@ -128,7 +136,9 @@ Page({
         kuaijieType: option.kuaijieType,
         weitiaoType: option.weitiaoType
       })
-
+      if (connected.name.indexOf('S4-HL') >= 0) {
+        this.showNurseTab();
+      }
       this.notifyBLECharacteristicValueChange();
 
       //this.getBLService(connected.deviceId);
@@ -145,7 +155,7 @@ Page({
     this.setData({
       skin: skin
     })
-
+    //this.showNurseTab();
     //WxNotificationCenter.postNotificationName('INIT',this.data.connected);
   },
 
@@ -187,16 +197,22 @@ Page({
       nowIndex: 1
     })
   },
+  toNurse() {
+    this.setData({
+      nowPage: "nurse",
+      nowIndex: 2
+    })
+  },
   toAnmo() {
     this.setData({
       nowPage: "anmo",
-      nowIndex: 2
+      nowIndex: 3
     })
   },
   toDengguang() {
     this.setData({
       nowPage: "dengguang",
-      nowIndex: 3
+      nowIndex: 4
     })
   },
   toSmartSleep() {
@@ -214,7 +230,20 @@ Page({
     }
     this.setData({
       nowPage: "smartsleep",
-      nowIndex: 4
+      nowIndex: 5
+    })
+  },
+
+  /**
+   * 设置显示护理tab
+   */
+  showNurseTab() {
+    console.info('showNurseTab');
+    let tabbar = this.data.tabBar;
+    tabbar[1].show = false;
+    tabbar[2].show = true;
+    this.setData({
+      tabBar: tabbar,
     })
   },
 
@@ -223,7 +252,7 @@ Page({
    */
   showStressBeltTab() {
     let tabbar = this.data.tabBar;
-    tabbar[4].show = true;
+    tabbar[5].show = true;
     this.setData({
       tabBar: tabbar,
     })
@@ -234,7 +263,7 @@ Page({
    */
   showDefaultTab() {
     let tabbar = this.data.tabBar;
-    tabbar[4].show = false;
+    tabbar[5].show = false;
   },
 
   /******------>tab切换 end */
