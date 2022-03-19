@@ -1,0 +1,150 @@
+<!--component/tab/nurse/nurse.wxml-->
+
+<view class="{{skin}}">
+
+  <view class="top" style="margin-top:{{display=='high'?90:0}}rpx;">
+    <view class="donghuaqu">
+      <view class="dh-content">
+        <!-- 调整 -->
+        <block wx:if="{{currentAnjian.anjian=='beibutz'}}">
+          <image wx:if="{{animationPosition==1}}" class="dh-icon"
+            src="../../../animation/{{skin}}/beibutiaozheng-1@3x.png"></image>
+          <image wx:if="{{animationPosition==2}}" class="dh-icon"
+            src="../../../animation/{{skin}}/beibutiaozheng-2@3x.png"></image>
+          <image wx:if="{{animationPosition==3}}" class="dh-icon"
+            src="../../../animation/{{skin}}/beibutiaozheng-3@3x.png"></image>
+        </block>
+        <block wx:if="{{currentAnjian.anjian=='tuibutz'}}">
+          <image wx:if="{{animationPosition==1}}" class="dh-icon"
+            src="../../../animation/{{skin}}/tuibutiaozheng-1@3x.png"></image>
+          <image wx:if="{{animationPosition==2}}" class="dh-icon"
+            src="../../../animation/{{skin}}/tuibutiaozheng-2@3x.png"></image>
+          <image wx:if="{{animationPosition==3}}" class="dh-icon"
+            src="../../../animation/{{skin}}/tuibutiaozheng-3@3x.png"></image>
+        </block>
+        <view class="dh-name">{{currentAnjian.name}}</view>
+      </view>
+    </view>
+  </view>
+
+
+  <!-- 分体 -->
+  <view class="tiaozheng-type" hidden="{{currentType!='fenti'}}">
+    <view class="fenti">
+      <view class="button middle button-bg" catchtap="tapChannelType" bindtouchstart="touchStart"
+        bindtouchend="touchEnd">
+        <image class="dian" src="../../../images/{{skin}}/dian-black@3x.png"></image>
+        <view class="name">分体</view>
+      </view>
+    </view>
+
+    <view class="tiaozheng-row">
+
+      <view class="tiaozheng-content tiaozheng-button-bg button-bg">
+        <view class="tiaozheng-row-button-top-left" bindtouchstart="touchStart" bindtouchend="touchEnd"
+          data-type="beibutzLeftTop">
+          <image class="tiaozheng-button-icon"
+            src="{{beibutzLeftTop?imgSanjiao.imgSanjiaoTopSelected:imgSanjiao.imgSanjiaoTopNormal}}"></image>
+        </view>
+        <view class="tiaozheng-button-top-middle">
+          <image class="tiaozheng-type-icon" src="../../../images/{{skin}}/zhihan-xiao@3x.png"></image>
+          <view class="tiaozheng-type-name">背部调整</view>
+        </view>
+        <view class="tiaozheng-row-button-top-right" bindtouchstart="touchStart" bindtouchend="touchEnd"
+          data-type="beibutzLeftBottom">
+          <image class="tiaozheng-button-icon"
+            src="{{beibutzLeftBottom?imgSanjiao.imgSanjiaoBottomSelected:imgSanjiao.imgSanjiaoBottomNormal}}"></image>
+        </view>
+      </view>
+
+      <view class="tiaozheng-row-middle"></view>
+
+      <view class="tiaozheng-content tiaozheng-button-bg button-bg">
+        <view class="tiaozheng-row-button-top-left" bindtouchstart="touchStart" bindtouchend="touchEnd"
+          data-type="beibutzRightTop">
+          <image class="tiaozheng-button-icon"
+            src="{{beibutzRightTop?imgSanjiao.imgSanjiaoTopSelected:imgSanjiao.imgSanjiaoTopNormal}}"></image>
+        </view>
+        <view class="tiaozheng-button-top-middle">
+          <image class="tiaozheng-type-icon" src="../../../images/{{skin}}/zhihan-xiao@3x.png"></image>
+          <view class="tiaozheng-type-name">背部调整</view>
+        </view>
+        <view class="tiaozheng-row-button-top-right" bindtouchstart="touchStart" bindtouchend="touchEnd"
+          data-type="beibutzRightBottom">
+          <image class="tiaozheng-button-icon"
+            src="{{beibutzRightBottom?imgSanjiao.imgSanjiaoBottomSelected:imgSanjiao.imgSanjiaoBottomNormal}}"></image>
+        </view>
+      </view>
+
+    </view>
+
+
+    <view class="tiaozheng-row">
+
+      <view class="tiaozheng-content tiaozheng-button-bg button-bg">
+        <!-- <button class="tiaozheng-button-bg"></button> -->
+        <view class="tiaozheng-row-button-top-left" bindtouchstart="touchStart" bindtouchend="touchEnd"
+          data-type="tuibutzLeftTop">
+          <image class="tiaozheng-button-icon"
+            src="{{tuibutzLeftTop?imgSanjiao.imgSanjiaoTopSelected:imgSanjiao.imgSanjiaoTopNormal}}"></image>
+        </view>
+        <view class="tiaozheng-button-top-middle">
+          <image class="tiaozheng-type-icon" src="../../../images/{{skin}}/tuibuxunhuan-xiao@3x.png"></image>
+          <view class="tiaozheng-type-name">腿部调整</view>
+        </view>
+        <view class="tiaozheng-row-button-top-right" bindtouchstart="touchStart" bindtouchend="touchEnd"
+          data-type="tuibutzLeftBottom">
+          <image class="tiaozheng-button-icon"
+            src="{{tuibutzLeftBottom?imgSanjiao.imgSanjiaoBottomSelected:imgSanjiao.imgSanjiaoBottomNormal}}"></image>
+        </view>
+      </view>
+
+      <view class="tiaozheng-row-middle"></view>
+
+      <view class="tiaozheng-content tiaozheng-button-bg button-bg">
+        <!-- <button class="tiaozheng-button-bg"></button> -->
+        <view class="tiaozheng-row-button-top-left" bindtouchstart="touchStart" bindtouchend="touchEnd"
+          data-type="tuibutzRightTop">
+          <image class="tiaozheng-button-icon"
+            src="{{tuibutzRightTop?imgSanjiao.imgSanjiaoTopSelected:imgSanjiao.imgSanjiaoTopNormal}}"></image>
+        </view>
+        <view class="tiaozheng-button-top-middle">
+          <image class="tiaozheng-type-icon" src="../../../images/{{skin}}/tuibuxunhuan-xiao@3x.png"></image>
+          <view class="tiaozheng-type-name">腿部调整</view>
+        </view>
+        <view class="tiaozheng-row-button-top-right" bindtouchstart="touchStart" bindtouchend="touchEnd"
+          data-type="tuibutzRightBottom">
+          <image class="tiaozheng-button-icon"
+            src="{{tuibutzRightBottom?imgSanjiao.imgSanjiaoBottomSelected:imgSanjiao.imgSanjiaoBottomNormal}}"></image>
+        </view>
+      </view>
+
+    </view>
+
+    <view class="xunhuan-type">
+      <view class="xunhuan-content xunhuan-button-bg button-bg" bindtap="tapXH" data-xhtype="beibuxh"
+        data-xhname="背部循环">
+        <view class="xunhuan-type-name">背部循环</view>
+      </view>
+      <view class="tiaozheng-row-middle"></view>
+      <view class="xunhuan-content xunhuan-button-bg button-bg" bindtap="tapXH" data-xhtype="tuibuxh"
+        data-xhname="腿部循环">
+        <view class="xunhuan-type-name">腿部循环</view>
+      </view>
+      <view class="tiaozheng-row-middle"></view>
+      <view class="xunhuan-content xunhuan-button-bg button-bg" bindtap="tapXH" data-xhtype="beituixh"
+        data-xhname="背腿循环">
+        <view class="xunhuan-type-name">背部循环</view>
+      </view>
+    </view>
+
+    <view class="xunhuan-content xunhuan-button-bg button-bg" style="height:100rpx;margin-top:30rpx;" bindtap="nurseSet">
+      <view class="xunhuan-type-name">定时护理设置</view>
+    </view>
+
+  </view>
+
+
+
+
+</view>

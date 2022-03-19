@@ -1,0 +1,196 @@
+/* component/tab/nurse/nurse.wxss */
+
+@import './../../../common/tab.wxss';
+
+/********common************** */
+.dark .button-bg {
+  background: #1E1F24;
+}
+
+.dark .button-bg-selected {
+  background-color: #1E1F24;
+  border:3rpx solid #5A9927;
+}
+
+
+.orange .button-bg {
+  background: #6E269A;
+}
+
+.orange .button-bg-selected {
+  background-color: #6E269A;
+  border:3rpx solid #FF9704;
+}
+
+
+/* .button-bg {
+  background: #1E1F24;
+  position: absolute;
+}
+
+.button-bg-selected {
+  background-color: #1E1F24;
+  border:3rpx solid #5A9927;
+} */
+
+
+/********** 记忆区 **************/
+
+.fenti {
+  display: flex;
+  height: 120rpx;
+  padding-top: 30rpx;
+  margin-bottom: 20rpx;
+  width: 100%;
+  justify-content: center;
+}
+
+.fenti .button {
+  width: 324rpx !important;
+  height: 120rpx;
+  border-radius: 120rpx;
+  display: flex;
+  align-items: center;
+}
+
+
+.fenti .button .dian {
+  width: 28rpx;
+  height: 28rpx;
+  padding-left: 52rpx;
+}
+
+.fenti .button .name {
+  color: white;
+  padding-left: 60rpx;
+}
+
+
+
+/********调整************** */
+.tiaozheng-type {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tiaozheng-row {
+  display: flex;
+}
+
+.tiaozheng-row-middle {
+  width: 40rpx;
+}
+
+.tiaozheng-content {
+  width: 90%;
+  height: 120rpx;
+  margin-top: 30rpx;
+  display: flex;
+  align-items: center;
+}
+
+.tiaozheng-button-bg {
+  width: 90% !important;
+  height: 120rpx;
+  border-radius: 120rpx;
+  /* background: #1E1F24; */
+  /* position: absolute;
+  z-index: -1; */
+}
+
+.tiaozheng-row-button-top-left {
+  width: 64rpx;
+  height: 120rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tiaozheng-button-top-left {
+  width: 64rpx;
+  height: 120rpx;
+  padding-left: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tiaozheng-row-button-top-right {
+  width: 64rpx;
+  height: 120rpx;
+  display: flex;
+  padding-left: 5rpx ;
+  align-items: center;
+  justify-content: center;
+}
+
+.tiaozheng-button-top-right {
+  width: 64rpx;
+  height: 120rpx;
+  padding-right: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tiaozheng-button-top-middle {
+  flex: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tiaozheng-button-icon {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.tiaozheng-type-icon{
+  width: 100rpx;
+  height: 80rpx;
+}
+
+.tiaozheng-type-name {
+  color: white;
+  font-size: 24rpx;
+}
+
+
+/********循环************** */
+.xunhuan-type {
+  width: 90% !important;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+}
+
+.xunhuan-content {
+  width: 90%;
+  height: 120rpx;
+  margin-top: 36rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.xunhuan-button-bg {
+  width: 90% !important;
+  height: 120rpx;
+  border-radius: 120rpx;
+  /* background: #1E1F24; */
+  /* position: absolute;
+  z-index: -1; */
+}
+
+.xunhuan-type-icon{
+  width: 100rpx;
+  height: 80rpx;
+}
+
+.xunhuan-type-name {
+  color: white;
+  font-size: 24rpx;
+}
