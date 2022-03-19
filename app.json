@@ -1,6 +1,6 @@
 {
   "pages": [
-    "pages/nurseset/nurseset",
+ 
     "pages/index/index",
     "pages/search/search",
     "pages/main/main",
@@ -10,7 +10,8 @@
     "pages/wmreport/wmreport",
     "pages/induction/induction",
     "pages/dataentry/dataentry",
-    "pages/sleepadjust/sleepadjust"
+    "pages/sleepadjust/sleepadjust",
+    "pages/nurseset/nurseset"
   ],
   "window": {
     "backgroundTextStyle": "light",
