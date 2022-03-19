@@ -1,0 +1,86 @@
+<!--pages/report/report.wxml-->
+<view class="page-{{skin}}">
+  <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}"
+    background="{{navbar.background}}" title="{{pageData.navTitle}}"></navbar>
+
+  <view class="{{skin}}">
+    <view class="content">
+      <view class="title">{{pageData.dataTitle}}</view>
+
+      <!-- 数据展示 -->
+      <view class="data">
+        <!-- 第一行 -->
+        <view class="row">
+          <view class="column">
+            <view class="column-title">
+              <image class="column-title-icon" src="../../images/{{skin}}/time_shuimian@3x.png"></image>
+              <view class="column-title-content">在床时间</view>
+            </view>
+            <view class="column-body">
+              <view class="column-body-content">{{timeShuimian}}</view>
+              <view class="column-body-desc">{{unit}}</view>
+            </view>
+          </view>
+          <view class="column-line" style="margin-top: 30rpx;"></view>
+
+          <view class="column">
+            <view class="column-title">
+              <image class="column-title-icon" src="../../images/{{skin}}/time_fansheng@3x.png"></image>
+              <view class="column-title-content">翻身次数</view>
+            </view>
+            <view class="column-body">
+              <view class="column-body-content">{{timeFanshen}}</view>
+              <view class="column-body-desc">次</view>
+            </view>
+          </view>
+
+
+        </view>
+
+        <view class="row-line"></view>
+
+        <!-- 第二行 -->
+        <view class="row">
+          <view class="column">
+            <view class="column-title">
+              <image class="column-title-icon" src="../../images/{{skin}}/time_cetang@3x.png"></image>
+              <view class="column-title-content">侧躺时间</view>
+            </view>
+            <view class="column-body">
+              <view class="column-body-content">{{timeCetang}}</view>
+              <view class="column-body-desc">{{unit}}</view>
+            </view>
+          </view>
+          <view class="column-line" style="margin-bottom: 30rpx;"></view>
+          <view class="column">
+            <view class="column-title">
+              <image class="column-title-icon" src="../../images/{{skin}}/time_pingtang@3x.png"></image>
+              <view class="column-title-content">平躺时间</view>
+            </view>
+            <view class="column-body">
+              <view class="column-body-content">{{timePingtang}}</view>
+              <view class="column-body-desc">{{unit}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+
+      <view class="graph">
+        <view class="graph-title">
+          <view class="graph-main">{{pageData.graphTitle}}</view>
+          <view class="graph-sub">翻身（次数)</view>
+        </view>
+        <canvas canvas-id="lineCanvas" disable-scroll="true" class="canvas" bindtouchstart="touchHandler"></canvas>
+        <view class="graph-bottom" hidden="{{graphHidden}}">
+          <button class="graph-button" disabled="{{preDisable}}" bindtap="pre">前一页</button>
+          <view class="graph-tips">tip:睡眠时间小于3小时无法生成曲线</view>
+          <button class="graph-button" disabled="{{nextDisable}}" bindtap="next" >后一页</button>
+        </view>
+        <view class="graph-tips" hidden="{{!graphHidden}}">tip:睡眠时间小于3小时无法生成曲线</view>
+
+      </view>
+
+    </view>
+  </view>
+</view>

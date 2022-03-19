@@ -1,0 +1,75 @@
+<!--pages/induction/induction.wxml-->
+<view class="page-{{skin}}">
+  <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}"
+    background="{{navbar.background}}" title="睡眠报告" bind:long5Tap="longTap"></navbar>
+
+  <view class="{{skin}}">
+    <view class="content">
+
+      <view style="margin-left:40rpx;margin-right:40rpx;">
+        <calendar id="calendar" isOpen="{{true}}" selected="{{selectedDays}}" lockDay="{{lockday}}"
+          bind:getdate="getdate" multiple="{{false}}" ></calendar>
+      </view>
+
+      <view class="shezhi-content shezhi-button-bg" bindtap="report" data-type="0" hidden="{{!showShishishuju}}">
+				<view class="shezhi-button-left">实时在床数据</view>
+				<view class="shezhi-button-right">
+					<view class="shezhi-button-name"></view>
+					<image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+				</view>
+			</view>
+
+
+      <view class="shezhi-content shezhi-button-bg" bindtap="wmreport" data-type="month">
+				<view class="shezhi-button-left">月报告</view>
+				<view class="shezhi-button-right">
+					<view class="shezhi-button-name"></view>
+					<image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+				</view>
+			</view>
+
+
+      <view class="shezhi-content shezhi-button-bg" bindtap="rushui" data-type="1">
+				<view class="shezhi-button-left">入睡时间</view>
+				<view class="shezhi-button-right">
+					<view class="shezhi-button-name">{{OZ.value}}</view>
+					<image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+				</view>
+			</view>
+
+    </view>
+  </view>
+
+</view>
+
+
+<!-- 入睡时间对话框 -->
+<view class="modal-dialog" hidden="{{!rushuiDialogShow}}">
+	<view class="modal-box">
+		<text class="modal-box-title" style="margin-bottom:30rpx;margin-top:30rpx;">入睡选择</text>
+		<view style="width:100%;height:1px;background:#000000"></view>
+
+		<view class="model-content" style="width:100%;display:flex;justify-content:center">
+			<radio-group bindchange="rushuiRadioChange" class="radio-group" style="width:100%">
+				<block wx:for="{{OZItems}}" wx:key="key">
+					<label class="model-label">
+						<view>
+							<radio class="radio" value="{{item.key}}" checked="{{item.key==OZ.key}}" />
+						</view>
+						<view class="dialog-item-name">{{item.value}}</view>
+					</label>
+					<view style="width:100%;height:1px;background:#OOO"></view>
+				</block>
+			</radio-group>
+		</view>
+
+		<view style="width:100%;height:1px;background:#000000"></view>
+		<view class="modal-box-bottom" style="height:100rpx;">
+			<view bindtap="onModalRushuiClick" data-ctype="cancel" class="modal-box-button" hover-class="modal-box-button-hover"
+				style="flex-grow:1;color:white">取消</view>
+			<view style="width:1rpx;height:100%;background:#000000"></view>
+			<view bindtap="onModalRushuiClick" data-ctype="confirm" class="modal-box-button sure"
+				hover-class="modal-box-button-hover" style="flex-grow:1;color:#59B84D;">确定</view>
+		</view>
+	</view>
+</view>

@@ -10,6 +10,8 @@
     "kuaijie-K7":"/component/tab/kuaijie/kuaijie-K7",
     "kuaijie-K8":"/component/tab/kuaijie/kuaijie-K8",
     "kuaijie-K9":"/component/tab/kuaijie/kuaijie-K9",
+    "kuaijie-K10":"/component/tab/kuaijie/kuaijie-K10",
+    "kuaijie-K11":"/component/tab/kuaijie/kuaijie-K11",
     "weitiao-W1":"/component/tab/weitiao/weitiao-W1",
     "weitiao-W2":"/component/tab/weitiao/weitiao-W2",
     "weitiao-W3":"/component/tab/weitiao/weitiao-W3",
@@ -21,8 +23,12 @@
     "weitiao-W9":"/component/tab/weitiao/weitiao-W9",
     "weitiao-W10":"/component/tab/weitiao/weitiao-W10",
     "weitiao-W11":"/component/tab/weitiao/weitiao-W11",
+    "weitiao-W12":"/component/tab/weitiao/weitiao-W12",
+    "weitiao-W13":"/component/tab/weitiao/weitiao-W13",
+    "weitiao-W14":"/component/tab/weitiao/weitiao-W14",
     "anmo":"/component/tab/anmo/anmo",
-    "dengguang":"/component/tab/dengguang/dengguang"
+    "dengguang":"/component/tab/dengguang/dengguang",
+    "smartsleep":"/component/tab/smartsleep/smartsleep"
   },
   "disableScroll": true
   

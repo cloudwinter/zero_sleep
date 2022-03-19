@@ -1,0 +1,82 @@
+<!--component/tab/smartsleep/smartsleep.wxml-->
+<view class="{{skin}}">
+	<view class="content">
+		<view class="shezhi-content shezhi-button-bg" bindtap="dataEntry">
+			<view class="shezhi-button-left">睡姿特征数据录入</view>
+			<view class="shezhi-button-right">
+				<image class="shezhi-button-icon" src="../../../images/{{skin}}/row_blue@2x.png"></image>
+			</view>
+		</view>
+
+		<view class="shezhi-content shezhi-button-bg" bindtap="sleepAdjust">
+			<view class="shezhi-button-left">睡姿角度调整</view>
+			<view class="shezhi-button-right">
+				<image class="shezhi-button-icon" src="../../../images/{{skin}}/row_blue@2x.png"></image>
+			</view>
+		</view>
+
+		<view class="shezhi-content shezhi-button-bg" bindtap="sleepTimer">
+			<view class="shezhi-button-left">智能睡眠定时</view>
+			<view class="shezhi-button-right">
+				<view class="shezhi-button-name">{{sleepTimerDesc}}</view>
+				<image class="shezhi-button-icon" src="../../../images/{{skin}}/row_blue@2x.png"></image>
+			</view>
+		</view>
+
+
+		<view class="shezhi-content shezhi-button-bg" bindtap="sleepReport">
+			<view class="shezhi-button-left">睡眠报告</view>
+			<view class="shezhi-button-right">
+				<image class="shezhi-button-icon" src="../../../images/{{skin}}/row_blue@2x.png"></image>
+			</view>
+		</view>
+
+
+    <view class="shezhi-min-content shezhi-button-bg" style="width: 48% !important;" bindtap="sleep">
+			<view style="display:flex;flex-direction:column;align-items:center">
+				<image style="width:20rpx;height:20rpx;margin-bottom:10rpx;"
+					src="../../../images/{{skin}}/dian_{{smartSleep?'normal':'selected'}}@2x.png">
+				</image>
+				<view class="color-59B84D">智能睡眠{{smartSleep?'开':'关'}}</view>
+			</view>
+		</view>
+
+
+		<view class="shezhi-min-content shezhi-button-bg" style="width: 48% !important;" bindtap="nightLight">
+			<view style="display:flex;flex-direction:column;align-items:center">
+				<image style="width:20rpx;height:20rpx;margin-bottom:10rpx;"
+					src="../../../images/{{skin}}/dian_{{smartLight?'normal':'selected'}}@2x.png">
+				</image>
+				<view class="color-59B84D">智能夜灯{{smartLight?'开':'关'}}</view>
+			</view>
+		</view>
+
+	</view>
+</view>
+
+<!-- 定时选择对话框 -->
+<view class="modal-dialog" hidden="{{!timerDialogShow}}">
+	<view class="modal-box">
+		<text class="modal-box-title" style="margin-bottom:30rpx;">定时开启</text>
+		<view class="model-line"></view>
+		<view class="modal-box-body">
+			<view wx:for="{{timerList}}" wx:key="key" wo:for-item='item' style="width: 100%;">
+				<view class="dialog-item" hover-class="item-hover" data-index="{{index}}" data-cid="{{item.id}}"
+					data-cname="{{item.name}}" bindtap='timerItemSelect'>
+					<view class="dialog-item-name" style="margin-left:32rpx;flex:1">{{item.name}}</view>
+					<icon class="item-right-icon" type="success_no_circle" color="{{skin=='orange'?'#FF9704':'#59B84D'}}" size="18" style="margin-right:30rpx"
+						hidden="{{item.id != currentSelectedTimerId}}"></icon>
+				</view>
+				<view class="model-line"></view>
+			</view>
+		</view>
+		<view class="model-line"></view>
+		<view class="modal-box-bottom" style="height:100rpx;">
+			<view bindtap="onTimerModalClick" data-ctype="cancel" class="modal-box-button"
+				hover-class="modal-box-button-hover" style="flex-grow:1;color:#FFF">取消</view>
+			<view style="width:1rpx;height:100%;background:#000"></view>
+			<view bindtap="onTimerModalClick" data-ctype="confirm" class="modal-box-button sure"
+				hover-class="modal-box-button-hover" style="flex-grow:1;color:{{skin=='orange'?'#FF9704':'#59B84D'}};">确定</view>
+		</view>
+	</view>
+</view>

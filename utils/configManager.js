@@ -4,6 +4,9 @@ const _LAST_CONNECT_KEY = 'last_connected'
 const _CONNECTED_KEY = 'connected'
 const _ALARM_KEY = 'alarm:'
 const _ALARM_SHOW_KEY = 'show:alarm:'
+const _SHISHI_KEY = 'shishi:flag:'
+const _STARTDATAENTRY_KEY = 'startDataEntry:flag:'
+
 const _PROPS = {
   _ID: 'id'
 }
@@ -263,6 +266,59 @@ function showAlarmSwitch(deviceId) {
 
 
 
+/**
+ * 设置实时睡眠是否显示状态
+ * @param {*} show 
+ */
+function putShishiSwitch(open) {
+  let key = _SHISHI_KEY;
+  wx.setStorage({
+    data: open,
+    key: key,
+  })
+}
+
+
+/**
+ * 获取实时睡眠是否显示状态
+ */
+function getShishiSwitch() {
+  let key = _SHISHI_KEY;
+  var show = wx.getStorageSync(key);
+  if(show) {
+    return true;
+  }
+  return false;
+}
+
+
+/**
+ * 设置睡姿特征数据录入实时数值状态
+ * @param {*} open 
+ */
+function putStartDataEntrySwitch(open) {
+  let key = _STARTDATAENTRY_KEY;
+  wx.setStorage({
+    data: open,
+    key: key,
+  })
+}
+
+
+/**
+ * 获取睡姿特征数据录入实时数值状态
+ */
+function getStartDataEntrySwitch() {
+  let key = _STARTDATAENTRY_KEY;
+  var open = wx.getStorageSync(key);
+  if(open) {
+    return true;
+  }
+  return false;
+}
+
+
+
 
 
 module.exports = {
@@ -283,4 +339,8 @@ module.exports = {
   getAlarm,
   putAlarmSwitch,
   showAlarmSwitch,
+  putShishiSwitch,
+  getShishiSwitch,
+  putStartDataEntrySwitch,
+  getStartDataEntrySwitch
 }

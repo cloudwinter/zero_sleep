@@ -1,19 +1,21 @@
 <!--main.wxml-->
 <view class="page-{{skin}}">
-<navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}" background="{{navbar.background}}"  back="{{true}}" set="{{true}}"></navbar>
+	<navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}"
+		background="{{navbar.background}}" back="{{true}}" set="{{true}}"></navbar>
 
 
-<!-- 底部切换菜单 -->
-<view class="tab-bar">
-	<block wx:for="{{tabBar}}" wx:for-item="item" wx:key="index">
-		<view class="tab-item {{index==nowIndex?'active':''}}" bindtap="{{item.tapFunction}}">
-			<!-- <view style="position: relative;display:inline-block;"> -->
+	<!-- 底部切换菜单 -->
+	<view class="tab-bar">
+		<block wx:for="{{tabBar}}" wx:for-item="item" wx:key="index">
+			<view class="tab-item {{index==nowIndex?'active':''}}" bindtap="{{item.tapFunction}}"
+				style="display:{{item.show?'flex':'none'}}">
+				<!-- <view style="position: relative;display:inline-block;"> -->
 				<image src="{{nowIndex === index ? item.selectedIconPath : item.iconPath}}" class="tabbar_icon"></image>
-			<!-- </view> -->
-			<text class="icon-text">{{item.text}}</text>
-		</view>
-	</block>
-</view>
+				<!-- </view> -->
+				<text class="icon-text">{{item.text}}</text>
+			</view>
+		</block>
+	</view>
 
 	<!-- 页面容器 -->
 	<view class="container">
@@ -27,6 +29,8 @@
 			<kuaijie-K7 wx:if="{{kuaijieType=='K7'}}"></kuaijie-K7>
 			<kuaijie-K8 wx:if="{{kuaijieType=='K8'}}"></kuaijie-K8>
 			<kuaijie-K9 wx:if="{{kuaijieType=='K9'}}"></kuaijie-K9>
+			<kuaijie-K10 wx:if="{{kuaijieType=='K10'}}"></kuaijie-K10>
+			<kuaijie-K11 wx:if="{{kuaijieType=='K11'}}"></kuaijie-K11>
 		</view>
 		<view class="tab-container" hidden="{{nowPage!='weitiao'}}">
 			<weitiao-W1 wx:if="{{weitiaoType=='W1'}}"></weitiao-W1>
@@ -40,6 +44,9 @@
 			<weitiao-W9 wx:if="{{weitiaoType=='W9'}}"></weitiao-W9>
 			<weitiao-W10 wx:if="{{weitiaoType=='W10'}}"></weitiao-W10>
 			<weitiao-W11 wx:if="{{weitiaoType=='W11'}}"></weitiao-W11>
+			<weitiao-W12 wx:if="{{weitiaoType=='W12'}}"></weitiao-W12>
+			<weitiao-W13 wx:if="{{weitiaoType=='W13'}}"></weitiao-W13>
+			<weitiao-W14 wx:if="{{weitiaoType=='W14'}}"></weitiao-W14>
 		</view>
 		<view class="tab-container" hidden="{{nowPage!='anmo'}}">
 			<anmo></anmo>
@@ -47,6 +54,9 @@
 		<view class="tab-container" hidden="{{nowPage!='dengguang'}}">
 			<dengguang></dengguang>
 		</view>
+		<view class="tab-container" hidden="{{nowPage!='smartsleep'}}">
+			<smartsleep></smartsleep>
+		</view>
 	</view>
 
-	</view>
+</view>

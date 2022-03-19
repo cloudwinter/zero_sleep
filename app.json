@@ -1,10 +1,17 @@
 {
   "pages": [
+ 
     "pages/index/index",
     "pages/search/search",
     "pages/main/main",
     "pages/set/set",
-    "pages/alarm/alarm"
+    "pages/alarm/alarm",
+    "pages/report/report",
+    "pages/wmreport/wmreport",
+    "pages/induction/induction",
+    "pages/dataentry/dataentry",
+    "pages/sleepadjust/sleepadjust",
+    "pages/nurseset/nurseset"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -14,6 +21,5 @@
     "backgroundColor": "#1E1F24",
     "navigationStyle": "custom"
   },
-  "style": "v2",
   "sitemapLocation": "sitemap.json"
 }

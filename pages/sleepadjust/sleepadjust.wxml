@@ -1,0 +1,172 @@
+<!--pages/sleepadjust/sleepadjust.wxml-->
+<view class="page-{{skin}}">
+  <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}"
+    background="{{navbar.background}}" title=""></navbar>
+
+
+
+  <view class="{{skin}}">
+    <view class="content">
+
+      <view class="title-content">
+        <view class="title">{{navbar.navTitle}}</view>
+      </view>
+
+      <view class="tips">
+        <view class="tips-text" style="margin-top:30rpx;">说明：</view>
+        <view class="tips-text" style="margin-top:10rpx;">{{tips1}}</view>
+        <view class="tips-text" style="margin-top:10rpx;">{{tips2}}</view>
+        <view class="tips-text" style="margin-top:10rpx;">3.完成上述操作后，请按保存键。</view>
+      </view>
+
+      <view class="anjianqu">
+
+        <view class="item-row">
+          <view class="item-row-column tips-text" hidden="{{!showTouB}}">{{topZ.AZ}}</view>
+          <view class="item-row-column tips-text" hidden="{{!showBeiB}}">{{topZ.CZ}}</view>
+          <view class="item-row-column tips-text" hidden="{{!showYaoB}}">{{topZ.DZ}}</view>
+          <view class="item-row-column tips-text" hidden="{{!showTuiB}}">{{topZ.BZ}}</view>
+        </view>
+
+        <view class="item-row">
+          <view class="item-row-column" hidden="{{!showTouB}}">
+            <view class="oval-button" style="margin-top:30rpx;" bindtouchstart="touchStart" bindtouchend="touchEnd"
+              data-type="touBTop" data-open-gid="top">
+              <image class="sanjiao-icon" src="../../images/{{skin}}/sanjiao_top@2x.png"></image>
+            </view>
+          </view>
+          <view class="item-row-column" hidden="{{!showBeiB}}">
+            <view class="oval-button" style="margin-top:30rpx;" bindtouchstart="touchStart" bindtouchend="touchEnd"
+              data-type="beiBTop" data-open-gid="top">
+              <image class="sanjiao-icon" src="../../images/{{skin}}/sanjiao_top@2x.png"></image>
+            </view>
+          </view>
+          <view class="item-row-column" hidden="{{!showYaoB}}">
+            <view class="oval-button" style="margin-top:30rpx;" bindtouchstart="touchStart" bindtouchend="touchEnd"
+              data-type="yaoBTop" data-open-gid="top">
+              <image class="sanjiao-icon" src="../../images/{{skin}}/sanjiao_top@2x.png"></image>
+            </view>
+          </view>
+          <view class="item-row-column" hidden="{{!showTuiB}}">
+            <view class="oval-button" style="margin-top:30rpx;" bindtouchstart="touchStart" bindtouchend="touchEnd"
+              data-type="tuiBTop" data-open-gid="top">
+              <image class="sanjiao-icon" src="../../images/{{skin}}/sanjiao_top@2x.png"></image>
+            </view>
+          </view>
+        </view>
+
+        <view class="item-row">
+          <view class="item-row-column" hidden="{{!showTouB}}">
+            <image class="xiaoren-icon" src="../../animation/{{skin}}/toubutiaozheng-1@3x.png"></image>
+          </view>
+          <view class="item-row-column" hidden="{{!showBeiB}}">
+            <image class="xiaoren-icon" src="../../animation/{{skin}}/beibutiaozheng-1@3x.png"></image>
+          </view>
+          <view class="item-row-column" hidden="{{!showYaoB}}">
+            <image class="xiaoren-icon" src="../../animation/{{skin}}/tunbutiaozheng-1@3x.png"></image>
+          </view>
+          <view class="item-row-column" hidden="{{!showTuiB}}">
+            <image class="xiaoren-icon" src="../../animation/{{skin}}/tuibutiaozheng-1@3x.png"></image>
+          </view>
+        </view>
+
+
+        <view class="item-row">
+          <view class="item-row-column" hidden="{{!showTouB}}">
+            <view class="oval-button" bindtouchstart="touchStart" bindtouchend="touchEnd" data-type="touBBottom"
+              data-open-gid="bottom">
+              <image class="sanjiao-icon" src="../../images/{{skin}}/sanjiao_bottom@2x.png"></image>
+            </view>
+          </view>
+          <view class="item-row-column" hidden="{{!showBeiB}}">
+            <view class="oval-button" bindtouchstart="touchStart" bindtouchend="touchEnd" data-type="beiBBottom"
+              data-open-gid="bottom">
+              <image class="sanjiao-icon" src="../../images/{{skin}}/sanjiao_bottom@2x.png"></image>
+            </view>
+          </view>
+          <view class="item-row-column" hidden="{{!showYaoB}}">
+            <view class="oval-button" bindtouchstart="touchStart" bindtouchend="touchEnd" data-type="yaoBBottom"
+              data-open-gid="bottom">
+              <image class="sanjiao-icon" src="../../images/{{skin}}/sanjiao_bottom@2x.png"></image>
+            </view>
+          </view>
+          <view class="item-row-column" hidden="{{!showTuiB}}">
+            <view class="oval-button" bindtouchstart="touchStart" bindtouchend="touchEnd" data-type="tuiBBottom"
+              data-open-gid="bottom">
+              <image class="sanjiao-icon" src="../../images/{{skin}}/sanjiao_bottom@2x.png"></image>
+            </view>
+          </view>
+        </view>
+
+        <view class="param" style="margin-top:30rpx;" hidden="true">
+          <view class="anjianqu-left">
+            <view class="tips-text">{{pingtangParam}}</view>
+          </view>
+          <view class="anjianqu-right tips-text">
+            <view class="tips-text">{{cetangParam}}</view>
+          </view>
+        </view>
+        <view class="anjian">
+          <view class="anjianqu-left">
+            <view class="oval-button {{selectedPingtang?'selected':''}}" bindtap="pingtangTap">平躺</view>
+          </view>
+          <view class="anjianqu-left">
+            <view class="oval-button {{selectedCetang?'selected':''}}" bindtap="cetangTap">侧躺</view>
+          </view>
+        </view>
+        <view class="save">
+          <view class="oval-button" bindtap="saveTap">保存</view>
+        </view>
+      </view>
+
+    </view>
+  </view>
+</view>
+
+
+  <!--一键复位对话框 -->
+  <view class="modal-dialog" hidden="{{!fuweiDialogShow}}">
+    <view class="modal-box">
+      <view class="model-content">
+        请先执行一键复位，然后开始学习您的个性设置
+      </view>
+      <view style="width:100%;height:1px;background:#000000;margin-top:10rpx"></view>
+      <view class="modal-box-bottom" style="height:100rpx;">
+        <view bindtap="onFwModalClick" data-ctype="cancel" class="modal-box-button" hover-class="modal-box-button-hover"
+          style="flex-grow:1;color:#FFFFFF">取消</view>
+        <view style="width:1rpx;height:100%;background:#000000"></view>
+        <view bindtap="onFwModalClick" data-ctype="confirm" class="modal-box-button"
+          hover-class="modal-box-button-hover" style="flex-grow:1;color:{{skin=='dark'?'#59B84D':'#FF9704'}};">一键复位</view>
+      </view>
+    </view>
+  </view>
+
+
+  <!--下一步 -->
+  <view class="modal-dialog" hidden="{{!nextDialogShow}}">
+    <view class="modal-box">
+      <view class="model-content">
+        请确认电动床已恢复水平，点击下一步
+      </view>
+      <view style="width:100%;height:1px;background:#000000;margin-top:10rpx"></view>
+      <view class="modal-box-bottom" style="height:100rpx;">
+        <view bindtap="onNextModalClick" class="modal-box-button" hover-class="modal-box-button-hover"
+          style="flex-grow:1;color:{{skin=='dark'?'#59B84D':'#FF9704'}};">下一步</view>
+      </view>
+    </view>
+  </view>
+
+
+<!-- 通信失败 -->
+<view class="modal-dialog" hidden="{{!failedDialogShow}}">
+  <view class="modal-box">
+    <view class="model-content">
+      您设置的位置过高，建议您将床板降低到20以下再设置。
+    </view>
+    <view style="width:100%;height:1px;background:#000000;margin-top:10rpx"></view>
+    <view class="modal-box-bottom" style="height:100rpx;">
+      <view bindtap="onFailedModalClick" class="modal-box-button" hover-class="modal-box-button-hover"
+        style="flex-grow:1;color:{{skin=='dark'?'#59B84D':'#FF9704'}};">确定</view>
+    </view>
+  </view>
+</view>

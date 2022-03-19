@@ -242,6 +242,30 @@ function transSpecialChar(name) {
   return name;
 }
 
+/**
+ * 16进制转10进制
+ * @param {}} str16 
+ */
+function str16To10(str16) {
+  console.info('str16To10', str16);
+  let result = parseInt(str16, 16).toString(10);
+  return result;
+}
+
+/**
+ * 10进制转16进制
+ * @param {} str10 
+ */
+function str10To16(str10) {
+  console.info('str10To16 参数', str10);
+  let result = parseInt(str10,10).toString(16).toUpperCase();
+  if (result.length == 1) {
+    result = '0' + result;
+  }
+  console.info('str10To16 结果', result);
+  return result;
+}
+
 
 
 
@@ -257,6 +281,8 @@ module.exports = {
   hexStringToArrayBuffer,
   str16To2,
   str2To16,
+  str16To10,
+  str10To16,
   transSpecialChar,
   sendBlueCmd,
   isNotEmptyObject,

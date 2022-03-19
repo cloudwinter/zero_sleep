@@ -15,6 +15,7 @@ App({
         // 设备品
         var brand = res.brand;
         var screenHeight = res.screenHeight;
+        var screenWidth = res.screenWidth;
         var display = 'normal';
         if (brand.toLowerCase().indexOf('huawei') >= 0 ||
           brand.toLowerCase().indexOf('vivo') >= 0 ||
@@ -25,7 +26,8 @@ App({
         }
         this.globalData.display = display
         this.globalData.screenHeight = screenHeight;
-        console.info("app onShow->屏幕高度：" + screenHeight, this.globalData.display);
+        this.globalData.screenWidth = screenWidth;
+        console.info("app onShow->屏幕高度宽度：" + screenHeight, this.globalData.display, screenWidth);
       },
     })
   },
@@ -33,6 +35,11 @@ App({
     skin: 'dark',
     display: 'normal',
     screenHeight: '',
+    screenWidth: '',
     navHeight:'',
+    connected: {}, // 当前已连接的设备信息
+    hasSleepInduction: false, // 智能睡眠感应开关
+    zhinengShuimian:'00', // 智能睡眠状态
+    sleepTimer: '00', // 智能睡眠定时
   }
 })

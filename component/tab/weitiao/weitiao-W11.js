@@ -448,9 +448,9 @@ Component({
       } else {
         // 按下
         if (top) {
-          cmd = '000116C0';
+          cmd = '000D16C5';
         } else {
-          cmd = '000256C1';
+          cmd = '000E56C4';
         }
         this.sendBlueCmd(cmd);
       }

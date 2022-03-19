@@ -20,7 +20,7 @@
       </block>
     </view>
 
-    <view class='weui-navigation-bar__center'>
+    <view class='weui-navigation-bar__center' bindtouchstart="touchStart" bindtouchend="touchEnd" bindtap="pressTitle">
       <view wx:if="{{loading}}" class="weui-navigation-bar__loading">
         <view class="weui-loading" style="width:{{size.width}}rpx;height:{{size.height}}rpx;"></view>
       </view>

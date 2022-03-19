@@ -1,0 +1,121 @@
+<!--pages/dataentry/dataentry.wxml-->
+<view class="page-{{skin}}">
+  <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}"
+    background="{{navbar.background}}" title=""></navbar>
+
+
+
+  <view class="{{skin}}">
+    <view class="content">
+
+      <view class="title-content">
+        <view class="tips-text">{{AA}}</view>
+        <view class="title" bindtouchstart="touchStart" bindtouchend="touchEnd" catchtap="dataentryTap">
+          {{navbar.navTitle}}</view>
+        <view class="tips-text">{{KK}}</view>
+      </view>
+
+      <view class="tips">
+        <view class="tips-text" style="margin-top:10rpx;">说明：</view>
+        <view class="tips-text" style="margin-top:10rpx;">1.请先将电动床放平，再进行数据录入操作。</view>
+        <view class="tips-text" style="margin-top:10rpx;">2.请平躺，完全放松身体后，按平躺键。</view>
+        <view class="tips-text" style="margin-top:10rpx;">3.请侧躺，完全放松身体后，按侧躺键。</view>
+        <view class="tips-text" style="margin-top:10rpx;">4.完成上述操作后，请按保存键。</view>
+      </view>
+
+      <view class="anjianqu">
+        <view class="param">
+          <view class="anjianqu-left">
+            <view class="tips-text" bindtouchstart="touchStart" bindtouchend="touchEnd" catchtap="pingtangTap">平躺参数：</view>
+            <input type="number" class="input {{canPingtangParamEdit?'inputtext':'text'}}" value="{{pingtangParam}}"
+              disabled="{{!canPingtangParamEdit}}" maxlength="3" data-type="pingtangParam" bindinput="inputChange" />
+          </view>
+          <view class="anjianqu-right tips-text">
+            <view class="tips-text" bindtouchstart="touchStart" bindtouchend="touchEnd" catchtap="cetangTap">侧躺参数：</view>
+            <input type="number" class="input {{canCetangParamEdit?'inputtext':'text'}}" value="{{cetangParam}}"
+              disabled="{{!canCetangParamEdit}}" maxlength="3" data-type="cetangParam" bindinput="inputChange" />
+          </view>
+        </view>
+        <view class="anjian">
+          <view class="anjianqu-left">
+            <view class="oval-button {{selectedPingtang?'selected':''}}" bindtap="pingtangClick">平躺</view>
+          </view>
+          <view class="anjianqu-left">
+            <view class="oval-button {{selectedCetang?'selected':''}}" bindtap="cetangClick">侧躺</view>
+          </view>
+        </view>
+        <view class="save">
+          <view class="oval-button" bindtap="saveTap">保存</view>
+        </view>
+
+        <view class="shezhi-content shezhi-button-bg" bindtap="reset">
+          <view class="tips-text">恢复出厂设置</view>
+        </view>
+
+      </view>
+
+      <view class="hint">
+        <image class="zhengtou" src="../../images/{{skin}}/ic_zhengtou@2x.png"></image>
+        <view class="rectangle">
+          <view class="rectangle-text" style="margin-top:50rpx">智</view>
+          <view class="rectangle-text">能</view>
+          <view class="rectangle-text">带</view>
+        </view>
+        <view class="hint-right">
+          <view class="tips-text" style="width:100%;display:flex;justify-content:center">70厘米</view>
+          <image class="line-jiantou" src="../../images/{{skin}}/ic_line_row@2x.png"></image>
+        </view>
+      </view>
+
+      <view class="tips-text" style="margin-top:40rpx">智能带与床垫固定示意</view>
+    </view>
+  </view>
+</view>
+
+
+  <!--一键复位对话框 -->
+  <view class="modal-dialog" hidden="{{!fuweiDialogShow}}">
+    <view class="modal-box">
+      <view class="model-content">
+        请先执行一键复位，然后开始学习您的个性设置
+      </view>
+      <view style="width:100%;height:1px;background:#000000;margin-top:10rpx"></view>
+      <view class="modal-box-bottom" style="height:100rpx;">
+        <view bindtap="onFwModalClick" data-ctype="cancel" class="modal-box-button" hover-class="modal-box-button-hover"
+          style="flex-grow:1;color:#FFFFFF">取消</view>
+        <view style="width:1rpx;height:100%;background:#000000"></view>
+        <view bindtap="onFwModalClick" data-ctype="confirm" class="modal-box-button"
+          hover-class="modal-box-button-hover" style="flex-grow:1;color:#5EA2D7;">一键复位</view>
+      </view>
+    </view>
+  </view>
+
+
+  <!--下一步 -->
+  <view class="modal-dialog" hidden="{{!nextDialogShow}}">
+    <view class="modal-box">
+      <view class="model-content">
+        请确认电动床已恢复水平，点击下一步
+      </view>
+      <view style="width:100%;height:1px;background:#000000;margin-top:10rpx"></view>
+      <view class="modal-box-bottom" style="height:100rpx;">
+        <view bindtap="onNextModalClick" class="modal-box-button" hover-class="modal-box-button-hover"
+          style="flex-grow:1;color:#5EA2D7;">下一步</view>
+      </view>
+    </view>
+  </view>
+
+
+    <!-- 通信失败 -->
+    <view class="modal-dialog" hidden="{{!failedDialogShow}}">
+    <view class="modal-box">
+      <view class="model-content">
+        通讯不成功，请检查硬件连接
+      </view>
+      <view style="width:100%;height:1px;background:#000000;margin-top:10rpx"></view>
+      <view class="modal-box-bottom" style="height:100rpx;">
+        <view bindtap="onFailedModalClick" class="modal-box-button" hover-class="modal-box-button-hover"
+          style="flex-grow:1;color:#5EA2D7;">确定</view>
+      </view>
+    </view>
+  </view>

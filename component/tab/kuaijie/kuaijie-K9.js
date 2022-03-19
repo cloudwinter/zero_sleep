@@ -515,7 +515,7 @@ Component({
         }
       })
       // 单击
-      this.sendBlueCmd('000116C0');
+      this.sendBlueCmd('000D16C5');
     },
 
     /**
@@ -530,7 +530,7 @@ Component({
         }
       })
       // 单击
-      this.sendBlueCmd('000256C1');
+      this.sendBlueCmd('000E56C4');
     },
   },
 

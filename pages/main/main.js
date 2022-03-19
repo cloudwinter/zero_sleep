@@ -30,28 +30,40 @@ Page({
         "iconPath": "../../images/" + app.globalData.skin + "/tab_kuaijie_normal@2x.png",
         "text": "快捷",
         "tapFunction": "toKuaijie",
-        "active": "active"
+        "active": "active",
+        "show": true
       },
       {
         "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_weitiao_selected@2x.png",
         "iconPath": "../../images/" + app.globalData.skin + "/tab_weitiao_normal@2x.png",
         "text": "微调",
         "tapFunction": "toWeitiao",
-        "active": ""
+        "active": "",
+        "show": true
       },
       {
         "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_anno_selected@2x.png",
         "iconPath": "../../images/" + app.globalData.skin + "/tab_anno_normal@2x.png",
         "text": "按摩",
         "tapFunction": "toAnmo",
-        "active": "active"
+        "active": "active",
+        "show": true
       },
       {
         "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_dengguang_selected@2x.png",
         "iconPath": "../../images/" + app.globalData.skin + "/tab_dengguang_normal@2x.png",
         "text": "灯光",
         "tapFunction": "toDengguang",
-        "active": ""
+        "active": "",
+        "show": true
+      },
+      {
+        "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_sleep_selected@2x.png",
+        "iconPath": "../../images/" + app.globalData.skin + "/tab_sleep_normal@2x.png",
+        "text": "智能睡眠",
+        "tapFunction": "toSmartSleep",
+        "active": "",
+        "show": false
       }
     ],
     periodList: [{
@@ -93,6 +105,7 @@ Page({
     kuaijieType: '',
     weitiaoType: '',
     connected: {},
+    smartSleepClickTime: 0,
   },
 
   /**
@@ -120,11 +133,6 @@ Page({
 
       //this.getBLService(connected.deviceId);
     }
-    // util.str16To2('26');
-    // util.str16To2('C0');
-    // util.str16To2('00');
-    // util.str2To16('00000000');
-    // util.str2To16('01000100');
   },
 
   /**
@@ -190,6 +198,43 @@ Page({
       nowPage: "dengguang",
       nowIndex: 3
     })
+  },
+  toSmartSleep() {
+    let smartSleepClickTime = this.data.smartSleepClickTime;
+    let currentTime = new Date().getTime();
+    if (currentTime - smartSleepClickTime > 2000) {
+      this.sendBlueCmd('FFFFFFFF02000A0A1204');
+      let that = this;
+      setTimeout(() => {
+        that.sendBlueCmd('FFFFFFFF02000E0B001704');
+      }, 400);
+      this.setData({
+        smartSleepClickTime: currentTime
+      })
+    }
+    this.setData({
+      nowPage: "smartsleep",
+      nowIndex: 4
+    })
+  },
+
+  /**
+   * 设置压力带显示的tab
+   */
+  showStressBeltTab() {
+    let tabbar = this.data.tabBar;
+    tabbar[4].show = true;
+    this.setData({
+      tabBar: tabbar,
+    })
+  },
+
+  /**
+   * 设置默认显示的tab
+   */
+  showDefaultTab() {
+    let tabbar = this.data.tabBar;
+    tabbar[4].show = false;
   },
 
   /******------>tab切换 end */
@@ -325,17 +370,21 @@ Page({
   sendInitCmd: function (connected) {
     console.info('main->sendInitCmd 发送灯光指令 time', new Date().getTime());
     let that = this;
-    // 先发送灯光指令
-    that.sendBlueCmd('FFFFFFFF050005FF23C728');
+    // 发送压力板指令
+    console.info('main->sendInitCmd 发送压力指令 time', new Date().getTime());
+    that.sendBlueCmd('FFFFFFFF02000E0B001704');
+    setTimeout(() => {
+      // 先发送灯光指令
+      that.sendBlueCmd('FFFFFFFF050005FF23C728');
 
-    // 延迟150ms发送时间指令
-    setTimeout(function(){
-      // 发送时间校验指令
-      that.sendRequestAlarmCmd(connected);
-      // 延时150ms发送页面初始化操作
-      setTimeout(that.postInit,150,connected);
-    },150)
-  
+      // 延迟150ms发送时间指令
+      setTimeout(function () {
+        // 发送时间校验指令
+        that.sendRequestAlarmCmd(connected);
+        // 延时150ms发送页面初始化操作
+        setTimeout(that.postInit, 150, connected);
+      }, 150)
+    }, 300);
   },
 
   /**
@@ -361,9 +410,25 @@ Page({
         received.indexOf('FFFFFFFF01000413') >= 0) {
         // 有闹钟功能
         this.setAlarm(received, deviceId);
+      } else if (received.indexOf('FFFFFFFF02000E0B') >= 0) {
+        // 有智能睡眠感应
+        this.showStressBeltTab();
+        this.setTimer(received, deviceId);
       }
-
     }
+  },
+
+
+  /**
+   * 设置智能睡眠感应
+   * @param {*} cmd 
+   * @param {*} deviceId 
+   */
+  setTimer: function (cmd, deviceId) {
+    console.error('main->setSmart-->设置智能睡眠定时', cmd, deviceId);
+    app.globalData.hasSleepInduction = true;
+    app.globalData.sleepTimer = cmd.substr(16, 2);
+    WxNotificationCenter.postNotificationName('VIEWSHOW');
   },
 
   setAlarm: function (cmd, deviceId) {
@@ -426,6 +491,15 @@ Page({
       } else if ('02' == cmdMode) {
         alarm.modeVal = 'jiyi1';
         alarm.modeName = '记忆一';
+      } else if ('04' == cmdMode) {
+        alarm.modeVal = 'lingyaliLeft';
+        alarm.modeName = '左侧零压力';
+      } else if ('05' == cmdMode) {
+        alarm.modeVal = 'lingyaliRight';
+        alarm.modeName = '右侧零压力';
+      } else if ('06' == cmdMode) {
+        alarm.modeVal = 'lingyaliAll';
+        alarm.modeName = '零压力';
       } else {
         alarm.modeVal = 'close';
         alarm.modeName = '不动作';

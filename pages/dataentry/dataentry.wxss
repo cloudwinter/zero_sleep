@@ -1,0 +1,314 @@
+/* pages/dataentry/dataentry.wxss */
+.content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
+}
+
+
+.dark .shezhi-button-bg {
+  width: 40% !important;
+  height: 120rpx;
+  border-radius: 120rpx;
+  background: #1E1F24;
+}
+
+.orange .shezhi-button-bg {
+  width: 40% !important;
+  height: 120rpx;
+  border-radius: 120rpx;
+  background: #6E269A;
+}
+
+.shezhi-content {
+  width: 90%;
+  height: 120rpx;
+  margin-top: 36rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title-content{
+  display: flex;
+  width: 90%;
+  margin-top: 40rpx;
+}
+
+.dark .title {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  font-size: 34rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #59B84D;
+  line-height: 40rpx;
+}
+
+.orange .title {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  font-size: 34rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #FF9704;
+  line-height: 40rpx;
+}
+
+.dark .tips {
+  width: 90%;
+  height: 300rpx;
+  background: #1E1F24;
+  border-radius: 16rpx;
+  opacity: 0.88;
+  margin-top: 20rpx;
+  padding-left: 30rpx;
+}
+
+.orange .tips {
+  width: 90%;
+  height: 300rpx;
+  background: #4E1277;
+  border-radius: 16rpx;
+  opacity: 0.88;
+  margin-top: 20rpx;
+  padding-left: 30rpx;
+}
+
+.dark .tips-text {
+  font-size: 28rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #59B84D;
+  line-height: 40rpx;
+}
+
+.orange .tips-text {
+  font-size: 28rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #FF9704;
+  line-height: 40rpx;
+}
+
+.anjianqu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 71rpx;
+}
+
+.param {
+  display: flex;
+  width: 100%;
+}
+
+.anjianqu-left {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.anjianqu-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.anjian {
+  display: flex;
+  width: 100%;
+  margin-top: 45rpx;
+}
+
+.dark .anjian .selected {
+  border-radius: 140rpx;
+  border: 1px solid #59B84D;
+}
+
+.orange .anjian .selected {
+  border-radius: 140rpx;
+  border: 1px solid #FF9704;
+}
+
+.save {
+  margin-top: 10rpx;
+}
+
+.dark .oval-button {
+  width: 140rpx;
+  height: 140rpx;
+  background: #1E1F24;
+  border-radius: 70rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #59B84D;
+}
+
+
+.orange .oval-button {
+  width: 140rpx;
+  height: 140rpx;
+  background: #6E269A;
+  border-radius: 70rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #FF9704;
+}
+
+.hint {
+  width: 70%;
+  height: 243rpx;
+  background: rgba(216, 216, 216, 0);
+  border-radius: 24rpx;
+  border: 3rpx solid #59B84D;
+  margin-top: 40rpx;
+  display: flex;
+  align-items: center;
+}
+
+.zhengtou {
+  width: 60rpx;
+  height: 120rpx;
+  margin-left: 14rpx;
+}
+
+.dark .rectangle {
+  width: 66rpx;
+  height: 100%;
+  background-color: #59B84D;
+  margin-left: 260rpx;
+  align-items: center;
+}
+
+.orange .rectangle {
+  width: 66rpx;
+  height: 100%;
+  background-color: #FF9704;
+  margin-left: 260rpx;
+  align-items: center;
+}
+
+.rectangle-text {
+  font-size: 36rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #FFFFFF;
+  line-height: 50rpx;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.line-jiantou {
+  height: 23rpx;
+  width: 144rpx;
+  display: flex;
+  justify-content: center;
+  padding: 4rpx;
+}
+
+.input {
+  width: 60rpx;
+}
+
+.dark .anjianqu .text {
+  color: #59B84D ;
+  font-size: 28rpx;
+}
+
+.orange .anjianqu .text {
+  color: #FF9704 ;
+  font-size: 28rpx;
+}
+
+.anjianqu .inputtext {
+  color: #FFFFFF ;
+  font-size: 28rpx;
+}
+
+
+
+/** 对话框 */
+.sure {
+  color: green;
+}
+
+
+.model-line {
+  width: 100%;
+  height: 1px;
+  background: #000000;
+}
+
+.modal-box-body {
+  background: #2B2D36;
+  width: 100%;
+}
+
+.dialog-item {
+  height: 80rpx;
+  width: 100%;
+  background: #2B2D36;
+  display: flex;
+  align-items: center;
+  color: #FFFFFF;
+}
+
+.dialog-item .checkbox {
+  margin-left: 20rpx;
+}
+
+.dialog-item-name {
+  margin-left: 10rpx;
+}
+
+.model-label {
+  display: flex;
+  align-items: center;
+  height: 120rpx;
+}
+
+.radio {
+  display: block;
+  padding: 5px;
+  width: 100%;
+}
+
+.row-line {
+  height: 1px;
+  background-color: #121316;
+}
+
+.button {
+  width: 100%;
+  height: 90rpx;
+  background: #1E1F24;
+  display: flex;
+  justify-content: center;
+  margin-top: 48rpx;
+  color: #59B84D;
+  font-size: 28rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  align-items: center;
+}
+
+.model-content {
+  font-size: 36rpx;
+  font-family: PingFangSC-Regular, PingFang SC;
+  color: #FFFFFF;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin-top: 47rpx;
+  margin-bottom: 47rpx;
+  margin-left: 40rpx;
+  margin-right: 40rpx;
+  text-align: center;
+}
