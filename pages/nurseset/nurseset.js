@@ -85,10 +85,10 @@ Page({
       let time1400Cmd = cmd.substr(24, 2);
       let time1400Checked = time1400Cmd == '01' ? true : false;
 
-      let time1700Cmd = cmd.substr(24, 2);
+      let time1700Cmd = cmd.substr(26, 2);
       let time1700Checked = time1700Cmd == '01' ? true : false;
 
-      let time2000Cmd = cmd.substr(26, 2);
+      let time2000Cmd = cmd.substr(28, 2);
       let time2000Checked = time2000Cmd == '01' ? true : false;
 
       this.setData({

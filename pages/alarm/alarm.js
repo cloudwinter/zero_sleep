@@ -114,7 +114,8 @@ Page({
   onLoad: function (options) {
     let connected = configManager.getCurrentConnected();
     let isMode2 = this.data.isMode2;
-    if (connected.name.indexOf('QMS-DFQ') >= 0 || connected.name.indexOf('QMS-430') >= 0 || connected.name.indexOf('QMS-444') >= 0) {
+    if (connected.name.indexOf('QMS-DFQ') >= 0 || connected.name.indexOf('QMS-430') >= 0 
+    || connected.name.indexOf('QMS-444') >= 0 || connected.name.indexOf('S4-HL') >= 0) {
       isMode2 = true;
     } else {
       isMode2 = false;

@@ -1,6 +1,7 @@
 // component/kuaijie/kuaijie-K4.js
 const util = require('../../../utils/util')
 const WxNotificationCenter = require('../../../utils/WxNotificationCenter')
+const crcUtil = require('../../../utils/crcUtil');
 const app = getApp();
 const askPrefix = 'FFFFFFFF0300'; // 询问码前缀
 const askReplyPrefix = 'FFFFFFFF031200'; // 询问码回复前缀
@@ -21,17 +22,21 @@ Component({
   data: {
     skin: app.globalData.skin,
     display: app.globalData.display,
+    containerHeight: '',
     connected: {},
     currentAnjian: {
       anjian: 'kandianshi', // kandianshi,lingyali,dingyao,fuyuan
       name: '看电视' // 看电视，零压力，顶腰，复原，
     },
-    currentType: 'fenti',
+    currentType: 'fenti', //fenti/tongbu
+    xunhuanShow: true,
+    timeXHSwitch: false,
     kandianshiLeft: false,
     kandianshiRight: false,
     lingyaliLeft: false,
     lingyaliRight: false,
   },
+
 
 
   /**
@@ -61,8 +66,12 @@ Component({
     attached: function () {
       // 在组件实例进入页面节点树时执行
       console.info("attached");
+      // 在组件实例进入页面节点树时执行
+      console.info("attached" + app.globalData.screenHeight + "-" + app.globalData.navHeight);
       this.setData({
-        display: app.globalData.display
+        display: app.globalData.display,
+        // 屏幕高度-顶部高度-tab高度-预留5px底部距离
+        containerHeight: app.globalData.screenHeight - app.globalData.navHeight - 52 - 5
       })
     },
     detached: function () {
@@ -84,22 +93,27 @@ Component({
     initConnected(connected) {
       var that = this.observer;
       console.info('kuaijie-K4->initConnected:', connected, this.observer);
+      let xunhuanShow = false;
+      if (connected.name.indexOf('S4-HL') >= 0) {
+        xunhuanShow = true;
+      }
       that.setData({
         connected: connected,
+        xunhuanShow: xunhuanShow
       })
-      WxNotificationCenter.removeNotification("INIT",that);
-      that.askJiyiStatus(connected,that);
+      WxNotificationCenter.removeNotification("INIT", that);
+      that.askJiyiStatus(connected, that);
     },
 
     /**
      * 询问记忆状态
      */
-    askJiyiStatus(connected,cur) {
+    askJiyiStatus(connected, cur) {
       // 看电视左
       setTimeout(() => {
         cur.sendAskBlueCmd('640009DED9')
       }, 200);
-      
+
       // 看电视右
       setTimeout(() => {
         cur.sendAskBlueCmd('6D00090EDB')
@@ -114,7 +128,7 @@ Component({
       setTimeout(() => {
         cur.sendAskBlueCmd('7F0009AEDE')
       }, 800);
-    
+
     },
 
     /**
@@ -165,6 +179,15 @@ Component({
     sendBlueCmd(cmd, options) {
       var connected = this.data.connected;
       util.sendBlueCmd(connected, sendPrefix + cmd, options);
+    },
+
+
+    /**
+     * 发送蓝牙命令
+     */
+    sendFullBlueCmd(cmd, options) {
+      var connected = this.data.connected;
+      util.sendBlueCmd(connected, cmd, options);
     },
 
 
@@ -479,15 +502,15 @@ Component({
 
 
     /**
-   * 同步点击事件
-   * @param {*} e 
-   */
+     * 同步点击事件
+     * @param {*} e 
+     */
     tapTB(e) {
       console.info('tabTB', e);
       var that = this;
       var anjian = e.currentTarget.dataset.anjian
       var name = e.currentTarget.dataset.name
-      console.info('tapTB',anjian,name)
+      console.info('tapTB', anjian, name)
       this.setData({
         currentAnjian: {
           anjian: anjian,
@@ -507,6 +530,35 @@ Component({
       }
     },
 
+
+
+    tapBbXH(e) {
+      this.sendFullBlueCmd('FFFFFFFF05000500E7874B');
+    },
+
+    tapTbXH(e) {
+      this.sendFullBlueCmd('FFFFFFFF05000500E5068A');
+    },
+
+    tapBtXH(e) {
+      this.sendFullBlueCmd('FFFFFFFF05000500E8C74F');
+    },
+
+    tapTimeXH(e) {
+      let timeXHSwitch = this.data.timeXHSwitch;
+      let cmd = 'FFFFFFFF0100070B';
+      if (timeXHSwitch) {
+        cmd = cmd + '00';
+      } else {
+        cmd = cmd + '01';
+      }
+      let cmdCrc = crcUtil.HexToCSU16(cmd);
+      cmd = cmd + cmdCrc;
+      this.sendFullBlueCmd(cmd);
+      this.setData({
+        timeXHSwitch: !timeXHSwitch
+      })
+    }
 
 
     // ***********此处是方法结束处

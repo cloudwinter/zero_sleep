@@ -53,10 +53,14 @@ Page({
     let alarmSwitch = false;
     let status = this.data.status;
     let faultDebugShow = false;
+    let xunhuanModeItemShow = this.data.xunhuanModeItemShow;
     if (util.isNotEmptyObject(connected)) {
       status = '已连接';
       alarmSwitch = configManager.showAlarmSwitch(connected.deviceId);
       faultDebugShow = this.isShowFaultDebug(connected.name);
+      if (connected.name.indexOf('S4-HL') >= 0) {
+        xunhuanModeItemShow = true;
+      }
     } else {
       status = '未连接';
     }
@@ -67,6 +71,7 @@ Page({
       status: status,
       faultDebugShow: faultDebugShow,
       alarmSwitch: alarmSwitch,
+      xunhuanModeItemShow: xunhuanModeItemShow
     })
     WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
   },
@@ -238,7 +243,7 @@ Page({
    * 循环item
    * @param {*} e 
    */
-  xunhuanModeItemTap:function(e) {
+  xunhuanModeItemTap: function (e) {
     wx.navigateTo({
       url: '/pages/nurseset/nurseset',
     })

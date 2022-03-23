@@ -126,3 +126,53 @@
   height: 80rpx;
   margin-left: 0rpx;
 }
+
+
+
+.anjianqu-oval {
+  display: flex;
+  margin-left: 39rpx;
+  margin-right: 39rpx;
+  margin-top: 35rpx;
+  align-items: center;
+  height: 120rpx;
+}
+
+
+
+.anjianqu-oval .anjian-oval-middle {
+  width: auto;
+  height: 160rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+.anjian-oval-bg {
+  width: 160rpx;
+  height: 160rpx;
+  /* position: absolute;
+  z-index: -1; */
+}
+
+.anjiian-oval-content {
+  display: flex;
+  height: 160rpx;
+  width: 160rpx;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+}
+
+.anjiian-oval-content .anjian-oval-icon{
+  width: 100rpx;
+  height: 80rpx;
+  margin-top: 20rpx;
+}
+
+.anjiian-oval-content .name{
+  color: white;
+  font-size: 24rpx;
+}

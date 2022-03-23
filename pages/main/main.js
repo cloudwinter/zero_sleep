@@ -42,14 +42,6 @@ Page({
         "show": true
       },
       {
-        "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_nurse_selected@2x.png",
-        "iconPath": "../../images/" + app.globalData.skin + "/tab_nurse_normal@2x.png",
-        "text": "护理",
-        "tapFunction": "toNurse",
-        "active": "",
-        "show": false
-      },
-      {
         "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_anno_selected@2x.png",
         "iconPath": "../../images/" + app.globalData.skin + "/tab_anno_normal@2x.png",
         "text": "按摩",
@@ -110,8 +102,8 @@ Page({
         checked: false
       },
     ],
-    kuaijieType: '',
-    weitiaoType: '',
+    kuaijieType: 'K4',
+    weitiaoType: 'W7',
     connected: {},
     smartSleepClickTime: 0,
   },
@@ -137,7 +129,7 @@ Page({
         weitiaoType: option.weitiaoType
       })
       if (connected.name.indexOf('S4-HL') >= 0) {
-        this.showNurseTab();
+        //this.showNurseTab();
       }
       this.notifyBLECharacteristicValueChange();
 
@@ -155,7 +147,6 @@ Page({
     this.setData({
       skin: skin
     })
-    //this.showNurseTab();
     //WxNotificationCenter.postNotificationName('INIT',this.data.connected);
   },
 
@@ -197,22 +188,16 @@ Page({
       nowIndex: 1
     })
   },
-  toNurse() {
-    this.setData({
-      nowPage: "nurse",
-      nowIndex: 2
-    })
-  },
   toAnmo() {
     this.setData({
       nowPage: "anmo",
-      nowIndex: 3
+      nowIndex: 2
     })
   },
   toDengguang() {
     this.setData({
       nowPage: "dengguang",
-      nowIndex: 4
+      nowIndex: 3
     })
   },
   toSmartSleep() {
@@ -230,29 +215,17 @@ Page({
     }
     this.setData({
       nowPage: "smartsleep",
-      nowIndex: 5
+      nowIndex: 4
     })
   },
 
-  /**
-   * 设置显示护理tab
-   */
-  showNurseTab() {
-    console.info('showNurseTab');
-    let tabbar = this.data.tabBar;
-    tabbar[1].show = false;
-    tabbar[2].show = true;
-    this.setData({
-      tabBar: tabbar,
-    })
-  },
 
   /**
    * 设置压力带显示的tab
    */
   showStressBeltTab() {
     let tabbar = this.data.tabBar;
-    tabbar[5].show = true;
+    tabbar[4].show = true;
     this.setData({
       tabBar: tabbar,
     })
@@ -263,7 +236,7 @@ Page({
    */
   showDefaultTab() {
     let tabbar = this.data.tabBar;
-    tabbar[5].show = false;
+    tabbar[4].show = false;
   },
 
   /******------>tab切换 end */

@@ -1,5 +1,4 @@
 <!--component/tab/kuaijie/kuaijie-K7.wxml-->
-<!--component/kuaijie/kuaijie-K2.wxml-->
 <view class="{{skin}}" bindtap="tapBlank" data-blank="blank">
 
 <view class="top" style="margin-top:{{display=='high'?90:0}}rpx;">
@@ -65,7 +64,7 @@
 </view>
 
 
-<view class="anjianqu" style="margin-top:110rpx">
+<view class="" style="margin-top:110rpx">
 
   <view class="anjian-left">
     <image class="anjian-bg" wx:if="{{zhihan}}" src="../../../images/{{skin}}/anjian-yuan-seleced@3x.png"></image>

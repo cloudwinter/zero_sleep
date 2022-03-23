@@ -9,6 +9,7 @@ App({
 
   },
   onShow: function () {
+    let menuButtonObject = wx.getMenuButtonBoundingClientRect();
     wx.getSystemInfo({
       success: (res) => {
         console.info("app onShow->当前的设备信息：", res);
@@ -16,6 +17,7 @@ App({
         var brand = res.brand;
         var screenHeight = res.screenHeight;
         var screenWidth = res.screenWidth;
+        var navHeight = res.statusBarHeight+menuButtonObject.height+(menuButtonObject.top - res.statusBarHeight)*2;
         var display = 'normal';
         if (brand.toLowerCase().indexOf('huawei') >= 0 ||
           brand.toLowerCase().indexOf('vivo') >= 0 ||
@@ -27,7 +29,8 @@ App({
         this.globalData.display = display
         this.globalData.screenHeight = screenHeight;
         this.globalData.screenWidth = screenWidth;
-        console.info("app onShow->屏幕高度宽度：" + screenHeight, this.globalData.display, screenWidth);
+        this.globalData.navHeight = navHeight;
+        console.info("app onShow->屏幕高度宽度：" + screenHeight, this.globalData.display, screenWidth,navHeight);
       },
     })
   },
