@@ -31,6 +31,14 @@
 				</view>
 			</view>
 
+			<view class="shezhi-content shezhi-button-bg" bindtap="xunhuanModeItemTap" hidden="{{!xunhuanModeItemShow}}">
+				<view class="shezhi-button-left">循环模式</view>
+				<view class="shezhi-button-right">
+					<!-- <view class="shezhi-button-name"></view> -->
+					<image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+				</view>
+			</view>
+
 
 			<view class="shezhi-content shezhi-button-bg" bindtap="faultDebug" hidden="{{!faultDebugShow}}">
 				<view class="shezhi-button-left">故障调试</view>

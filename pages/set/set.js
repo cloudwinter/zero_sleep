@@ -32,6 +32,7 @@ Page({
     ],
     dialogShow: false, // 模式对话框
     selectedRadio: 'drak',
+    xunhuanModeItemShow: true, // 循环模式item
     faultDebugShow: false,
     debugDialogShow: false, // 故障调试对话框
     faultPart: '',
@@ -229,6 +230,17 @@ Page({
   alarm: function (e) {
     wx.navigateTo({
       url: '/pages/alarm/alarm',
+    })
+  },
+
+
+  /**
+   * 循环item
+   * @param {*} e 
+   */
+  xunhuanModeItemTap:function(e) {
+    wx.navigateTo({
+      url: '/pages/nurseset/nurseset',
     })
   },
 

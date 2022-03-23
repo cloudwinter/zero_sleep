@@ -546,7 +546,8 @@ Page({
           name.indexOf('S3-4') >= 0 ||
           name.indexOf('S4-Y') >= 0 ||
           name.indexOf('S5-Y') >= 0 ||
-          name.indexOf('S6-Y') >= 0) {
+          name.indexOf('S6-Y') >= 0 ||
+          name.indexOf('S4-HL') >= 0) {
           return true;
         }
       }
