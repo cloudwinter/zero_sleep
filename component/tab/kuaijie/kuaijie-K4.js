@@ -129,6 +129,13 @@ Component({
         cur.sendAskBlueCmd('7F0009AEDE')
       }, 800);
 
+      // 零压力右
+      setTimeout(() => {
+        let cmd = 'FFFFFFFF0100080B0F';
+        let cmdCrc = crcUtil.HexToCSU16(cmd);
+        cmd = cmd + cmdCrc;
+        cur.sendFullBlueCmd(cmd);
+      }, 1000);
     },
 
     /**
@@ -137,6 +144,13 @@ Component({
      */
     blueReply(cmd) {
       var that = this.observer;
+      if (cmd.toUpperCase().indexOf('FFFFFFFF0100080B') > 0) {
+        var timeXHSwitchCmd = cmd.substr(16, 2).toUpperCase();
+        that.setData({
+          timeXHSwitch: timeXHSwitchCmd == '01' ? true : false
+        })
+        return;
+      }
       var prefix = cmd.substr(0, 14).toUpperCase();
       console.info('kuaijie-k4->askBack', cmd, prefix);
       if (prefix == askReplyPrefix) {

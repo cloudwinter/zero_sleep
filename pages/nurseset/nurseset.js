@@ -38,7 +38,7 @@ Page({
   onLoad: function (options) {
     let connected = configManager.getCurrentConnected();
     this.setData({
-      skin: 'dark',
+      skin: app.globalData.skin, //当前皮肤样式
       connected: connected
     })
     WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);

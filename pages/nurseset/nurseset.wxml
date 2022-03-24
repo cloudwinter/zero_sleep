@@ -1,7 +1,7 @@
 <!--pages/alarm/alarm.wxml-->
 <view class="page-{{skin}}">
   <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}"
-    background="{{navbar.background}}" title="定时护理设置"></navbar>
+    background="{{navbar.background}}" title="循环模式设置设置"></navbar>
 
   <view class="{{skin}}">
     <view class="content">
