@@ -144,11 +144,18 @@ Component({
      */
     blueReply(cmd) {
       var that = this.observer;
-      if (cmd.toUpperCase().indexOf('FFFFFFFF0100080B') > 0) {
+      if (cmd.toUpperCase().indexOf('FFFFFFFF0100080B') >= 0) {
         var timeXHSwitchCmd = cmd.substr(16, 2).toUpperCase();
-        that.setData({
-          timeXHSwitch: timeXHSwitchCmd == '01' ? true : false
-        })
+        if(timeXHSwitchCmd == '01') {
+          that.setData({
+            timeXHSwitch: true
+          })
+        } else {
+          that.setData({
+            timeXHSwitch: false
+          })
+        }
+        
         return;
       }
       var prefix = cmd.substr(0, 14).toUpperCase();
