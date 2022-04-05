@@ -135,7 +135,7 @@ Component({
         let cmdCrc = crcUtil.HexToCSU16(cmd);
         cmd = cmd + cmdCrc;
         cur.sendFullBlueCmd(cmd);
-      }, 1000);
+      }, 1300);
     },
 
     /**
