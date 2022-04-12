@@ -116,21 +116,24 @@ Component({
         var lingyali = '2000031ECB';
         // 止鼾
         var zhihan = '3800039ECC';
+
+
         setTimeout(() => {
           cur.sendAskBlueCmd(jiyi1)
+          setTimeout(() => {
+            cur.sendAskBlueCmd(jiyi2)
+            setTimeout(() => {
+              cur.sendAskBlueCmd(kandianshi)
+              setTimeout(() => {
+                cur.sendAskBlueCmd(lingyali)
+                setTimeout(() => {
+                  cur.sendAskBlueCmd(zhihan)
+                }, 500);
+              }, 400);
+            }, 300);
+          }, 200);
         }, 100);
-        setTimeout(() => {
-          this.sendAskBlueCmd(jiyi2)
-        }, 200);
-        setTimeout(() => {
-          this.sendAskBlueCmd(kandianshi)
-        }, 300);
-        setTimeout(() => {
-          this.sendAskBlueCmd(lingyali)
-        }, 400);
-        setTimeout(() => {
-          this.sendAskBlueCmd(zhihan)
-        }, 500);
+
       } else {
         cur.setData({
           askType: '1'
@@ -147,19 +150,19 @@ Component({
         var zhihan = '3A0009BF0B';
         setTimeout(() => {
           cur.sendAskBlueCmd(jiyi1)
+          setTimeout(() => {
+            cur.sendAskBlueCmd(jiyi2)
+            setTimeout(() => {
+              cur.sendAskBlueCmd(kandianshi)
+              setTimeout(() => {
+                cur.sendAskBlueCmd(lingyali)
+                setTimeout(() => {
+                  cur.sendAskBlueCmd(zhihan)
+                }, 500);
+              }, 400);
+            }, 300);
+          }, 200);
         }, 100);
-        setTimeout(() => {
-          this.sendAskBlueCmd(jiyi2)
-        }, 200);
-        setTimeout(() => {
-          this.sendAskBlueCmd(kandianshi)
-        }, 300);
-        setTimeout(() => {
-          this.sendAskBlueCmd(lingyali)
-        }, 400);
-        setTimeout(() => {
-          this.sendAskBlueCmd(zhihan)
-        }, 500);
       }
 
     },
@@ -243,6 +246,7 @@ Component({
      * @param {}} cmd 
      */
     sendAskBlueCmd(cmd) {
+      console.error('K2 -> sendAskBlueCmd ',cmd,new Date().getTime());
       var connected = this.data.connected;
       util.sendBlueCmd(connected, askPrefix + cmd);
     },
