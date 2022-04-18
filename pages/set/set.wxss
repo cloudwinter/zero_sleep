@@ -56,6 +56,31 @@
   margin-left: 20rpx;
 }
 
+/** 复选框 */
+.dark .wx-switch-input{
+  width:88rpx !important;
+  height:44rpx !important;
+  background: #59B84D !important;
+  border: #59B84D !important; /* 2018-07-18 重置开关边框颜色 */
+}
+
+.orange .wx-switch-input{
+  width:88rpx !important;
+  height:44rpx !important;
+  background: #FF9704 !important;
+  border: #FF9704 !important; /* 2018-07-18 重置开关边框颜色 */
+}
+
+/*白色样式（false的样式）*/
+.wx-switch-input::before{
+  width:88rpx !important;
+  height: 44rpx !important;
+}
+/*绿色样式（true的样式）*/
+.wx-switch-input::after{
+  width: 48rpx !important;
+  height: 44rpx !important;
+}
 
 
 

@@ -39,6 +39,8 @@ Page({
     faultCause: '',
     alarmStatus: '未设置',
     alarmSwitch: false,
+    tongbukongzhiItemShow: true, // 同步控制的item
+    tongbukongzhiSWitch: true // 同步控制的开关
   },
 
   /**
@@ -74,6 +76,7 @@ Page({
       xunhuanModeItemShow: xunhuanModeItemShow
     })
     WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
+    this.sendInitCmd();
   },
 
 
@@ -119,6 +122,17 @@ Page({
 
   /******----------------->自定义函数 */
 
+  sendInitCmd() {
+    let connected = this.data.connected;
+    if (!util.isNotEmptyObject(connected)) {
+      util.showToast('当前设备未连接');
+      return;
+    }
+    // 发送同步控制指令码
+    let cmd = 'FFFFFFFF01000A0BOFAABB';
+    util.sendBlueCmd(connected, cmd);
+  },
+
 
   isShowFaultDebug(name) {
     if (name) {
@@ -143,7 +157,18 @@ Page({
    * @param {*} cmd 
    */
   blueReply(cmd) {
-    var prefix = cmd.substr(0, 12).toUpperCase();
+    cmd = cmd.toUpperCase();
+    if (cmd.indexOf('FFFFFFFF01000A0B') >= 0) {
+      // 同步控制回码
+      let tongbukongzhiItemShow = this.data.tongbukongzhiItemShow;
+      let tongbukongzhiSWitch = cmd.substr(16, 2) == '01' ? true : false;
+      this.setData({
+        tongbukongzhiItemShow: tongbukongzhiItemShow,
+        tongbukongzhiSWitch: tongbukongzhiSWitch
+      })
+      return;
+    }
+    var prefix = cmd.substr(0, 12);
     console.info('set->askBack', cmd, prefix);
     if (prefix != 'FFFFFFFF0304') {
       return;
@@ -246,6 +271,30 @@ Page({
   xunhuanModeItemTap: function (e) {
     wx.navigateTo({
       url: '/pages/nurseset/nurseset',
+    })
+  },
+
+
+  /**
+   * 同步控制开关
+   * @param {}} e 
+   */
+  tongbuItemSwitch: function (e) {
+    let connected = this.data.connected;
+    if (!util.isNotEmptyObject(connected)) {
+      util.showToast('当前设备未连接');
+      return;
+    }
+    var tongbukongzhiSWitch = this.data.tongbukongzhiSWitch;
+    let cmd;
+    if (tongbukongzhiSWitch) {
+      cmd = 'FFFFFFFF0100090B00AABB';
+    } else {
+      cmd = 'FFFFFFFF0100090B01AABB';
+    }
+    util.sendBlueCmd(connected, cmd);
+    this.setData({
+      tongbukongzhiSWitch: !tongbukongzhiSWitch
     })
   },
 
