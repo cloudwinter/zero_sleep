@@ -64,7 +64,7 @@
 </view>
 
 
-<view class="" style="margin-top:110rpx">
+<view class="anjianqu" style="margin-top:110rpx">
 
   <view class="anjian-left">
     <image class="anjian-bg" wx:if="{{zhihan}}" src="../../../images/{{skin}}/anjian-yuan-seleced@3x.png"></image>
