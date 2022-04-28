@@ -1,6 +1,7 @@
 // pages/set.js
 const configManager = require('../../utils/configManager');
 const util = require('../../utils/util');
+const crcUtil = require('../../utils/crcUtil');
 const WxNotificationCenter = require('../../utils/WxNotificationCenter');
 const app = getApp();
 
@@ -39,8 +40,8 @@ Page({
     faultCause: '',
     alarmStatus: '未设置',
     alarmSwitch: false,
-    tongbukongzhiItemShow: true, // 同步控制的item
-    tongbukongzhiSWitch: true // 同步控制的开关
+    tongbukongzhiItemShow: false, // 同步控制的item
+    tongbukongzhiSWitch: false // 同步控制的开关
   },
 
   /**
@@ -76,7 +77,7 @@ Page({
       xunhuanModeItemShow: xunhuanModeItemShow
     })
     WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
-    this.sendInitCmd();
+
   },
 
 
@@ -91,6 +92,7 @@ Page({
    * 
    */
   onShow: function () {
+    this.sendInitCmd();
     let alarmStatus = this.data.alarmStatus;
     if (util.isNotEmptyObject(this.data.connected)) {
       let alarm = configManager.getAlarm(this.data.connected.deviceId);
@@ -124,12 +126,12 @@ Page({
 
   sendInitCmd() {
     let connected = this.data.connected;
-    if (!util.isNotEmptyObject(connected)) {
-      util.showToast('当前设备未连接');
-      return;
-    }
+    // if (!util.isNotEmptyObject(connected)) {
+    //   util.showToast('当前设备未连接');
+    //   return;
+    // }
     // 发送同步控制指令码
-    let cmd = 'FFFFFFFF01000A0BOFAABB';
+    let cmd = 'FFFFFFFF01000A0BOF2104';
     util.sendBlueCmd(connected, cmd);
   },
 
@@ -160,10 +162,9 @@ Page({
     cmd = cmd.toUpperCase();
     if (cmd.indexOf('FFFFFFFF01000A0B') >= 0) {
       // 同步控制回码
-      let tongbukongzhiItemShow = this.data.tongbukongzhiItemShow;
       let tongbukongzhiSWitch = cmd.substr(16, 2) == '01' ? true : false;
       this.setData({
-        tongbukongzhiItemShow: tongbukongzhiItemShow,
+        tongbukongzhiItemShow: true,
         tongbukongzhiSWitch: tongbukongzhiSWitch
       })
       return;
@@ -281,21 +282,22 @@ Page({
    */
   tongbuItemSwitch: function (e) {
     let connected = this.data.connected;
-    if (!util.isNotEmptyObject(connected)) {
-      util.showToast('当前设备未连接');
-      return;
-    }
+    // if (!util.isNotEmptyObject(connected)) {
+    //   util.showToast('当前设备未连接');
+    //   return;
+    // }
     var tongbukongzhiSWitch = this.data.tongbukongzhiSWitch;
     let cmd;
     if (tongbukongzhiSWitch) {
-      cmd = 'FFFFFFFF0100090B00AABB';
+      cmd = 'FFFFFFFF0100090B00';
     } else {
-      cmd = 'FFFFFFFF0100090B01AABB';
+      cmd = 'FFFFFFFF0100090B01';
     }
-    util.sendBlueCmd(connected, cmd);
     this.setData({
-      tongbukongzhiSWitch: !tongbukongzhiSWitch
+      tongbukongzhiSWitch: tongbukongzhiSWitch
     })
+    cmd = cmd + crcUtil.HexToCSU16(cmd);
+    util.sendBlueCmd(connected, cmd);
   },
 
 
