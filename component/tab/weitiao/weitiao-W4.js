@@ -3,6 +3,7 @@
 
 const app = getApp();
 const util = require('../../../utils/util')
+const configManager = require('../../../utils/configManager')
 const WxNotificationCenter = require('../../../utils/WxNotificationCenter')
 const sendPrefix = 'FFFFFFFF050000'; // 发送码前缀
 const sendXHPrefix = 'FFFFFFFF050005'; // 循环发送码前缀
@@ -46,6 +47,8 @@ Component({
     beibutzBottom: false,
     tuibutzTop: false,
     tuibutzBottom: false,
+    tongbukzShow: false, // 同步控制显示
+    tongbukzStatus: false // 同步控制状态
   },
 
 
@@ -63,6 +66,13 @@ Component({
           imgSanjiaoTopSelected: '../../../images/' + app.globalData.skin + '/sanjiao-top-selected@3x.png',
           imgSanjiaoTopNormal: '../../../images/' + app.globalData.skin + '/sanjiao-top-normal@3x.png'
         },
+      })
+      let connected = this.data.connected;
+      let tongbukzShow = configManager.getTongbukzShow(connected.deviceId);
+      let tongbukzStatus = configManager.getTongbukzSwitch(connected.deviceId);
+      this.setData({
+        tongbukzShow:tongbukzShow,
+        tongbukzStatus:tongbukzStatus
       })
     }
   },

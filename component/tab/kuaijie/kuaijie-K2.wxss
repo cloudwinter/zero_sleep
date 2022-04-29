@@ -22,6 +22,34 @@
 }
 
 
+.layer {
+  display: flex;
+  height: 120rpx;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.layer .button {
+  width: 324rpx;
+  height: 120rpx;
+  border-radius: 120rpx;
+  display: flex;
+  align-items: center;
+}
+
+.layer .button .dian{
+  width: 28rpx;
+  height: 28rpx;
+  padding-left: 52rpx;
+}
+
+.layer .button .name {
+  color: white;
+  padding-left: 40rpx;
+}
+
 
 
 .jiyi {
@@ -38,6 +66,8 @@
   display: flex;
   align-items: center;
 }
+
+
 
 .jiyi .left {
   width: 324rpx;

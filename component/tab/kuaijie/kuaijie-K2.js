@@ -1,5 +1,6 @@
 // component/kuaijie/kuaijie-K2.js
 const util = require('../../../utils/util')
+const configManager = require('../../../utils/configManager')
 const WxNotificationCenter = require('../../../utils/WxNotificationCenter')
 const app = getApp();
 const askPrefix = 'FFFFFFFF0300'; // 询问码前缀
@@ -34,7 +35,9 @@ Component({
     lingyali: false,
     zhihan: false,
     startTime: '',
-    endTime: ''
+    endTime: '',
+    tongbukzShow: false, // 同步控制显示
+    tongbukzStatus: false // 同步控制状态
   },
 
 
@@ -43,9 +46,17 @@ Component({
    */
   pageLifetimes: {
     show: function () {
+      console.info('K2->show');
       // 设置当前的皮肤样式
       this.setData({
         skin: app.globalData.skin
+      })
+      let connected = this.data.connected;
+      let tongbukzShow = configManager.getTongbukzShow(connected.deviceId);
+      let tongbukzStatus = configManager.getTongbukzSwitch(connected.deviceId);
+      this.setData({
+        tongbukzShow:tongbukzShow,
+        tongbukzStatus:tongbukzStatus
       })
     }
   },
@@ -91,7 +102,7 @@ Component({
       that.setData({
         connected: connected,
       })
-      WxNotificationCenter.removeNotification("INIT",that);
+      WxNotificationCenter.removeNotification("INIT", that);
       that.askJiyiStatus(connected, that);
     },
 
@@ -100,9 +111,9 @@ Component({
      */
     askJiyiStatus(connected, cur) {
       var name = connected.name;
-      if (name.indexOf('QMS-MQ') >= 0 
-      || name.indexOf('QMS2') >= 0 
-      || name.indexOf('QMS3') >= 0) {
+      if (name.indexOf('QMS-MQ') >= 0 ||
+        name.indexOf('QMS2') >= 0 ||
+        name.indexOf('QMS3') >= 0) {
         cur.setData({
           askType: '2'
         })
@@ -168,7 +179,7 @@ Component({
     },
 
 
-  
+
 
     /**
      * 蓝牙回复回调
@@ -246,7 +257,7 @@ Component({
      * @param {}} cmd 
      */
     sendAskBlueCmd(cmd) {
-      console.error('K2 -> sendAskBlueCmd ',cmd,new Date().getTime());
+      console.error('K2 -> sendAskBlueCmd ', cmd, new Date().getTime());
       var connected = this.data.connected;
       util.sendBlueCmd(connected, askPrefix + cmd);
     },

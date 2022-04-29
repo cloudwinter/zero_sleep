@@ -1,7 +1,15 @@
 <!--component/kuaijie/kuaijie-K2.wxml-->
 <view class="{{skin}}" bindtap="tapBlank" data-blank="blank">
+	<view class="layer" wx:if="{{tongbukzShow}}">
+		<view class="button title {{tongbukzStatus?'button-bg-selected':'button-bg'}}">
+			<image class="dian" wx:if="{{tongbukzStatus}}" src="../../../images/{{skin}}/dian-green@3x.png"></image>
+			<image class="dian" wx:else src="../../../images/{{skin}}/dian-black@3x.png"></image>
+			<view class="name">同步控制</view>
+		</view>
+	</view>
+	<view wx:else style="margin-top:{{display=='high'?90:0}}rpx;"></view>
 
-	<view class="top" style="margin-top:{{display=='high'?90:0}}rpx;">
+	<view class="top">
 		<view class="donghuaqu">
 			<view class="dh-content">
 				<block wx:if="{{currentAnjian.anjian=='kandianshi'}}">
@@ -28,13 +36,15 @@
 	</view>
 
 	<view class="jiyi">
-		<view class="button left {{jiyi1?'button-bg-selected':'button-bg'}}" catchtap="tapJiyi1" bindtouchstart="touchStart" bindtouchend="touchEnd">
+		<view class="button left {{jiyi1?'button-bg-selected':'button-bg'}}" catchtap="tapJiyi1" bindtouchstart="touchStart"
+			bindtouchend="touchEnd">
 			<image class="dian" wx:if="{{jiyi1}}" src="../../../images/{{skin}}/dian-green@3x.png"></image>
-			<image class="dian" wx:else src="../../../images/{{skin}}/dian-black@3x.png"></image> 
+			<image class="dian" wx:else src="../../../images/{{skin}}/dian-black@3x.png"></image>
 			<view class="name">记忆一</view>
 		</view>
 		<view class="middle"></view>
-		<view class="button right {{jiyi2?'button-bg-selected':'button-bg'}}" catchtap="tapJiyi2" bindtouchstart="touchStart" bindtouchend="touchEnd">
+		<view class="button right {{jiyi2?'button-bg-selected':'button-bg'}}" catchtap="tapJiyi2"
+			bindtouchstart="touchStart" bindtouchend="touchEnd">
 			<image class="dian" wx:if="{{jiyi2}}" src="../../../images/{{skin}}/dian-green@3x.png"></image>
 			<image class="dian" wx:else src="../../../images/{{skin}}/dian-black@3x.png"></image>
 			<view class="name">记忆二</view>
@@ -82,7 +92,7 @@
 				<view class="name">复原</view>
 			</view>
 		</view>
-	
+
 	</view>
 
 </view>

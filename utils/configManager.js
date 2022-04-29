@@ -6,6 +6,8 @@ const _ALARM_KEY = 'alarm:'
 const _ALARM_SHOW_KEY = 'show:alarm:'
 const _SHISHI_KEY = 'shishi:flag:'
 const _STARTDATAENTRY_KEY = 'startDataEntry:flag:'
+const _TONGBUKZ_SHOW_KEY = 'tongbukz:show'
+const _TONGBUKZ_STATUS_KEY = 'tongbukz:status'
 
 const _PROPS = {
   _ID: 'id'
@@ -317,7 +319,60 @@ function getStartDataEntrySwitch() {
   return false;
 }
 
+/**
+ * 设置同步控制是否显示状态
+ * @param {*} show 
+ * @param {*} deviceId 
+ */
+function putTongbukzShow(show,deviceId) {
+  let key = _TONGBUKZ_SHOW_KEY+deviceId;
+  wx.setStorage({
+    data: show,
+    key: key,
+  })
+}
 
+/**
+ * 获取同步控制是否显示状态
+ * @param {*} show 
+ * @param {*} deviceId 
+ */
+function getTongbukzShow(deviceId) {
+  let key = _TONGBUKZ_SHOW_KEY+deviceId;
+  var show = wx.getStorageSync(key);
+  if(show) {
+    return true;
+  }
+  return false;
+}
+
+
+/**
+ * 设置同步控制是否显示状态
+ * @param {*} show 
+ * @param {*} deviceId 
+ */
+function putTongbukzSwitch(open,deviceId) {
+  let key = _TONGBUKZ_STATUS_KEY+deviceId;
+  wx.setStorage({
+    data: open,
+    key: key,
+  })
+}
+
+/**
+ * 获取同步控制是否显示状态
+ * @param {*} show 
+ * @param {*} deviceId 
+ */
+function getTongbukzSwitch(deviceId) {
+  let key = _TONGBUKZ_STATUS_KEY+deviceId;
+  var open = wx.getStorageSync(key);
+  if(open) {
+    return true;
+  }
+  return false;
+}
 
 
 
@@ -342,5 +397,9 @@ module.exports = {
   putShishiSwitch,
   getShishiSwitch,
   putStartDataEntrySwitch,
-  getStartDataEntrySwitch
+  getStartDataEntrySwitch,
+  putTongbukzShow,
+  getTongbukzShow,
+  putTongbukzSwitch,
+  getTongbukzSwitch,
 }

@@ -126,12 +126,12 @@ Page({
 
   sendInitCmd() {
     let connected = this.data.connected;
-    // if (!util.isNotEmptyObject(connected)) {
-    //   util.showToast('当前设备未连接');
-    //   return;
-    // }
+    if (!util.isNotEmptyObject(connected)) {
+      util.showToast('当前设备未连接');
+      return;
+    }
     // 发送同步控制指令码
-    let cmd = 'FFFFFFFF01000A0BOF2104';
+    let cmd = 'FFFFFFFF01000A0B0F2104';
     util.sendBlueCmd(connected, cmd);
   },
 
@@ -160,13 +160,16 @@ Page({
    */
   blueReply(cmd) {
     cmd = cmd.toUpperCase();
-    if (cmd.indexOf('FFFFFFFF01000A0B') >= 0) {
+    if (cmd.indexOf('FFFFFFFF01000A0B') >= 0 || cmd.indexOf('FFFFFFFF0100090B') >= 0) {
       // 同步控制回码
       let tongbukongzhiSWitch = cmd.substr(16, 2) == '01' ? true : false;
       this.setData({
         tongbukongzhiItemShow: true,
         tongbukongzhiSWitch: tongbukongzhiSWitch
       })
+      let connected = this.data.connected;
+      configManager.putTongbukzShow(true,connected.deviceId);
+      configManager.putTongbukzSwitch(tongbukongzhiSWitch,connected.deviceId);
       return;
     }
     var prefix = cmd.substr(0, 12);
@@ -282,10 +285,10 @@ Page({
    */
   tongbuItemSwitch: function (e) {
     let connected = this.data.connected;
-    // if (!util.isNotEmptyObject(connected)) {
-    //   util.showToast('当前设备未连接');
-    //   return;
-    // }
+    if (!util.isNotEmptyObject(connected)) {
+      util.showToast('当前设备未连接');
+      return;
+    }
     var tongbukongzhiSWitch = this.data.tongbukongzhiSWitch;
     let cmd;
     if (tongbukongzhiSWitch) {
