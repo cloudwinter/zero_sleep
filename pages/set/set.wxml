@@ -48,7 +48,7 @@
 				</view>
 			</view>
 
-			<view class="shezhi-content shezhi-button-bg"  hidden="{{!tongbukongzhiItemShow}}">
+			<view class="shezhi-content shezhi-button-bg"  hidden="true">
 				<view class="shezhi-button-left">同步控制</view>
 				<view class="shezhi-button-right">
 					<!-- <view class="shezhi-button-name"></view> -->

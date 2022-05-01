@@ -114,7 +114,8 @@ Page({
   onLoad: function (option) {
     console.info('main.Onshow');
     // let contectedTest = {
-    //   deviceId: '111'
+    //   deviceId: '111',
+    //   name:''
     // };
     // option = {
     //   connected: JSON.stringify(contectedTest)
@@ -135,6 +136,7 @@ Page({
 
       //this.getBLService(connected.deviceId);
     }
+    
   },
 
   /**
@@ -168,9 +170,21 @@ Page({
 
   },
 
-
+  /**
+   * 发送蓝牙命令
+   * @param {*} cmd 
+   */
   sendBlueCmd(cmd) {
     util.sendBlueCmd(this.data.connected, cmd);
+  },
+
+  /**
+   * 发送蓝牙命令并回调
+   * @param {*} cmd 
+   * @param {*} callBack 
+   */
+  sendBlueCmdCallBack(cmd, callBack) {
+    util.sendBlueCmd(this.data.connected, cmd, callBack);
   },
 
 
@@ -370,21 +384,29 @@ Page({
    * 在各个页面发送指令之前发送指令
    */
   sendInitCmd: function (connected) {
-    console.info('main->sendInitCmd 发送灯光指令 time', new Date().getTime());
     let that = this;
+    let currentTime = new Date().getTime();
     // 发送压力板指令
-    console.info('main->sendInitCmd 发送压力指令 time', new Date().getTime());
+    console.error('main->sendInitCmd 发送压力指令','延时：'+time.getCurrentDifferMs(currentTime)+'ms');
     that.sendBlueCmd('FFFFFFFF02000E0B001704');
     setTimeout(() => {
+      console.error("main->sendInitCmd 发送灯光初始化指令 ",'延时：'+time.getCurrentDifferMs(currentTime)+'ms');
       // 先发送灯光指令
       that.sendBlueCmd('FFFFFFFF050005FF23C728');
-
       // 延迟150ms发送时间指令
       setTimeout(function () {
+        console.error("main->sendInitCmd 发送时间校验初始化指令",'延时：'+time.getCurrentDifferMs(currentTime)+'ms');
         // 发送时间校验指令
         that.sendRequestAlarmCmd(connected);
         // 延时150ms发送页面初始化操作
-        setTimeout(that.postInit, 150, connected);
+        setTimeout(function () {
+          console.error("main->sendInitCmd 发送页面初始化指令",'延时：'+time.getCurrentDifferMs(currentTime)+'ms');
+          that.postInit(connected);
+          setTimeout(function () {
+            console.error("main->sendInitCmd 发送同步控制的初始化指令",'延时：'+time.getCurrentDifferMs(currentTime)+'ms');
+            that.sendBlueCmd('FFFFFFFF01000A0B0F2104');
+          }, 1000);
+        }, 150)
       }, 150)
     }, 300);
   },

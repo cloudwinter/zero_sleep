@@ -5,6 +5,7 @@ const app = getApp();
 const util = require('../../../utils/util')
 const configManager = require('../../../utils/configManager')
 const WxNotificationCenter = require('../../../utils/WxNotificationCenter')
+const crcUtil = require('../../../utils/crcUtil');
 const sendPrefix = 'FFFFFFFF050000'; // 发送码前缀
 const sendXHPrefix = 'FFFFFFFF050005'; // 循环发送码前缀
 const imgSanjiaoBottomSelected = '../../../images/' + app.globalData.skin + '/sanjiao-bottom-selected@3x.png';
@@ -136,6 +137,23 @@ Component({
 
 
     /***************** 点击事件 */
+
+    /**
+     * 同步控制的点击事件
+     */
+    tongbukzTab() {
+      var tongbukzStatus = this.data.tongbukzStatus;
+      let cmd;
+      if (tongbukzStatus) {
+        cmd = 'FFFFFFFF0100090B00';
+      } else {
+        cmd = 'FFFFFFFF0100090B01';
+      }
+      cmd = cmd + crcUtil.HexToCSU16(cmd);
+      this.sendFullSendCmd(cmd);
+    },
+
+
     /**
      * 按下事件
      * @param {*} e 

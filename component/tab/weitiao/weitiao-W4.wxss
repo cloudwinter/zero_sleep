@@ -33,9 +33,9 @@
 
 
 .layer .button {
-  width: 324rpx;
-  height: 120rpx;
-  border-radius: 120rpx;
+  width: 400rpx;
+  height: 90rpx;
+  border-radius: 90rpx;
   display: flex;
   align-items: center;
 }
@@ -49,6 +49,28 @@
 .layer .button .name {
   color: white;
   padding-left: 40rpx;
+}
+
+.layer .button-left {
+  flex: 1;
+  color: #ffffff;
+  margin-left: 62rpx;
+}
+
+.layer .button-right {
+  display: flex;
+  align-items: center;
+  margin-right: 50rpx;
+}
+
+.layer .button-name {
+  color: #ffffff;
+}
+
+.layer .button-icon {
+  width: 32rpx;
+  height: 32rpx;
+  margin-left: 20rpx;
 }
 
 

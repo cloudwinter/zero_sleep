@@ -50,9 +50,19 @@ function getDifferDate(firstDate, secondDate) {
   return dayNum;
 }
 
+/**
+ * 计算距离现在多少ms
+ * @param {} startTime 
+ */
+function getCurrentDifferMs(startTime) {
+  let endTime = new Date().getTime();
+  return endTime - startTime;
+}
+
 
 module.exports = {
   getDateInfo,
   getDifferDate,
-  getCurrentDate
+  getCurrentDate,
+  getCurrentDifferMs,
 }

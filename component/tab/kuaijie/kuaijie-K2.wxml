@@ -1,10 +1,12 @@
 <!--component/kuaijie/kuaijie-K2.wxml-->
 <view class="{{skin}}" bindtap="tapBlank" data-blank="blank">
-	<view class="layer" wx:if="{{tongbukzShow}}">
-		<view class="button title {{tongbukzStatus?'button-bg-selected':'button-bg'}}">
-			<image class="dian" wx:if="{{tongbukzStatus}}" src="../../../images/{{skin}}/dian-green@3x.png"></image>
-			<image class="dian" wx:else src="../../../images/{{skin}}/dian-black@3x.png"></image>
-			<view class="name">同步控制</view>
+	<view class="layer" wx:if="{{tongbukzShow}}" bindtap="tongbukzTab">
+		<view class="button title button-bg">
+			<view class="button-left">同步控制</view>
+      <view class="button-right">
+        <view class="button-name">{{tongbukzStatus?'开启':'关闭'}}</view>
+        <image style="width:20rpx;height:20rpx;margin-left:10rpx;" src="../../../images/{{skin}}/dian_{{tongbukzStatus?'normal':'selected'}}@2x.png"></image>
+      </view>
 		</view>
 	</view>
 	<view wx:else style="margin-top:{{display=='high'?90:0}}rpx;"></view>
