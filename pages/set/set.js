@@ -61,7 +61,7 @@ Page({
       status = '已连接';
       alarmSwitch = configManager.showAlarmSwitch(connected.deviceId);
       faultDebugShow = this.isShowFaultDebug(connected.name);
-      if (connected.name.indexOf('S4-HL') >= 0) {
+      if (connected.name.indexOf('S4-HL') >= 0 || connected.name.indexOf('S5-Y2') >= 0) {
         xunhuanModeItemShow = true;
       }
     } else {

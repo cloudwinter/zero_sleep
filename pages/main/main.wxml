@@ -31,6 +31,7 @@
 			<kuaijie-K9 wx:if="{{kuaijieType=='K9'}}"></kuaijie-K9>
 			<kuaijie-K10 wx:if="{{kuaijieType=='K10'}}"></kuaijie-K10>
 			<kuaijie-K11 wx:if="{{kuaijieType=='K11'}}"></kuaijie-K11>
+			<kuaijie-K12 wx:if="{{kuaijieType=='K12'}}"></kuaijie-K12>
 		</view>
 		<view class="tab-container" hidden="{{nowPage!='weitiao'}}">
 			<weitiao-W1 wx:if="{{weitiaoType=='W1'}}"></weitiao-W1>

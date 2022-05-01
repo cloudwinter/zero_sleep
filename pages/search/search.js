@@ -607,6 +607,8 @@ Page({
           name.indexOf('S5-Y') >= 0 ||
           name.indexOf('S6-Y') >= 0) {
           return 'K11';
+        } else if (name.indexOf('S5-Y2') >= 0) {
+          return 'K12';
         }
       }
       // 默认K1
@@ -664,7 +666,7 @@ Page({
           return 'W11';
         } else if (name.indexOf('S4-Y') >= 0) {
           return 'W12';
-        } else if (name.indexOf('S5-Y') >= 0) {
+        } else if (name.indexOf('S5-Y') >= 0 || name.indexOf('S5-Y2') >= 0 ) {
           return 'W13';
         } else if (name.indexOf('S6-Y') >= 0) {
           return 'W14';
