@@ -1,6 +1,8 @@
 // component/kuaijie/kuaijie-K1.js
 const util = require('../../../utils/util')
+const configManager = require('../../../utils/configManager')
 const WxNotificationCenter = require('../../../utils/WxNotificationCenter')
+const crcUtil = require('../../../utils/crcUtil');
 const app = getApp();
 const askPrefix = 'FFFFFFFF0300'; // 询问码前缀
 const askReplyPrefix = 'FFFFFFFF031200'; // 询问码回复前缀
@@ -33,7 +35,9 @@ Component({
     lingyali: false,
     zhihan: false,
     startTime: '',
-    endTime: ''
+    endTime: '',
+    tongbukzShow: false, // 同步控制显示
+    tongbukzStatus: false // 同步控制状态
   },
 
 
@@ -45,6 +49,12 @@ Component({
       // 设置当前的皮肤样式
       this.setData({
         skin: app.globalData.skin
+      })
+      let tongbukzShow = configManager.getTongbukzShow(connected.deviceId);
+      let tongbukzStatus = configManager.getTongbukzSwitch(connected.deviceId);
+      this.setData({
+        tongbukzShow: tongbukzShow,
+        tongbukzStatus: tongbukzStatus
       })
     }
   },
@@ -139,6 +149,21 @@ Component({
      */
     blueReply(cmd) {
       var that = this.observer;
+      cmd = cmd.toUpperCase();
+      if (cmd.indexOf('FFFFFFFF01000A0B') >= 0 || cmd.indexOf('FFFFFFFF0100090B') >= 0) {
+        // 同步控制回码
+        let tongbukzStatus = cmd.substr(16, 2) == '01' ? true : false;
+        that.setData({
+          tongbukzShow: true,
+          tongbukzStatus: tongbukzStatus
+        })
+        let connected = that.data.connected;
+        configManager.putTongbukzShow(true, connected.deviceId);
+        configManager.putTongbukzSwitch(tongbukzStatus, connected.deviceId);
+        return;
+      }
+
+
       var prefix = cmd.substr(0, 14).toUpperCase();
       console.info('kuaijie-K1->askBack', cmd, prefix);
       if (prefix == askReplyPrefix) {
@@ -229,6 +254,21 @@ Component({
     tapBlank(e) {
       console.info('tapBlank', e);
       this.sendBlueCmd('0000D700');
+    },
+
+        /**
+     * 同步控制的点击事件
+     */
+    tongbukzTab() {
+      var tongbukzStatus = this.data.tongbukzStatus;
+      let cmd;
+      if (tongbukzStatus) {
+        cmd = 'FFFFFFFF0100090B00';
+      } else {
+        cmd = 'FFFFFFFF0100090B01';
+      }
+      cmd = cmd + crcUtil.HexToCSU16(cmd);
+      this.sendFullBlueCmd(cmd);
     },
 
 

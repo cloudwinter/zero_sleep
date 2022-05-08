@@ -58,6 +58,7 @@ Component({
    */
   pageLifetimes: {
     show: function () {
+      console.info('weitiao-W4');
       // 设置当前的皮肤样式
       this.setData({
         skin: app.globalData.skin,
@@ -72,8 +73,8 @@ Component({
       let tongbukzShow = configManager.getTongbukzShow(connected.deviceId);
       let tongbukzStatus = configManager.getTongbukzSwitch(connected.deviceId);
       this.setData({
-        tongbukzShow:tongbukzShow,
-        tongbukzStatus:tongbukzStatus
+        tongbukzShow: tongbukzShow,
+        tongbukzStatus: tongbukzStatus
       })
     }
   },
@@ -84,6 +85,7 @@ Component({
       console.info("weitiao-W4-->created");
       var that = this;
       WxNotificationCenter.addNotification("INIT", that.initConnected, that);
+      WxNotificationCenter.addNotification("BLUEREPLY", that.blueReply, that);
     },
     attached: function () {
       // 在组件实例进入页面节点树时执行
@@ -95,6 +97,7 @@ Component({
     detached: function () {
       // 在组件实例被从页面节点树移除时执行
       console.info("detached");
+      WxNotificationCenter.removeNotification("BLUEREPLY", that);
     },
   },
 
@@ -102,6 +105,27 @@ Component({
    * 组件的方法列表
    */
   methods: {
+
+    /**
+     * 蓝牙回复回调
+     * @param {*} cmd 
+     */
+    blueReply(cmd) {
+      var that = this.observer;
+      cmd = cmd.toUpperCase();
+      if (cmd.indexOf('FFFFFFFF01000A0B') >= 0 || cmd.indexOf('FFFFFFFF0100090B') >= 0) {
+        // 同步控制回码
+        let tongbukzStatus = cmd.substr(16, 2) == '01' ? true : false;
+        that.setData({
+          tongbukzShow: true,
+          tongbukzStatus: tongbukzStatus
+        })
+        let connected = that.data.connected;
+        configManager.putTongbukzShow(true, connected.deviceId);
+        configManager.putTongbukzSwitch(tongbukzStatus, connected.deviceId);
+        return;
+      }
+    },
 
     /**
      * 连接后初始化
@@ -134,6 +158,17 @@ Component({
       var connected = this.data.connected;
       util.sendBlueCmd(connected, sendXHPrefix + cmd, options);
     },
+
+    /**
+     * 发送完整的蓝牙命令
+     * @param {} cmd 
+     * @param {*} options 
+     */
+    sendFullBlueCmd(cmd, options) {
+      var connected = this.data.connected;
+      util.sendBlueCmd(connected, cmd, options);
+    },
+
 
 
     /***************** 点击事件 */

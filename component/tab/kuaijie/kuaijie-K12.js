@@ -53,14 +53,14 @@ Component({
   lifetimes: {
     created: function () {
       // 在组件实例刚刚被创建时执行
-      console.info("kuaijie-K1-->created");
+      console.info("kuaijie-K12-->created");
       var that = this;
       WxNotificationCenter.addNotification("INIT", that.initConnected, that);
       WxNotificationCenter.addNotification("BLUEREPLY", that.blueReply, that);
     },
     ready: function () {
       // 在组件在视图层布局完成后执行
-      console.info("kuaijie-K1-->ready");
+      console.info("kuaijie-K12-->ready");
     },
     attached: function () {
       // 在组件实例进入页面节点树时执行
@@ -73,7 +73,7 @@ Component({
     },
     detached: function () {
       // 在组件实例被从页面节点树移除时执行
-      console.info("kuaijie-K1-->detached");
+      console.info("kuaijie-K12-->detached");
       var that = this;
       WxNotificationCenter.removeNotification("BLUEREPLY", that);
     },
@@ -89,7 +89,7 @@ Component({
      */
     initConnected(connected) {
       var that = this.observer;
-      console.info('kuaijie-K1->initConnected:', connected, this.observer);
+      console.info('kuaijie-K12->initConnected:', connected, this.observer);
       that.setData({
         connected: connected,
       })
@@ -141,7 +141,7 @@ Component({
     blueReply(cmd) {
       var that = this.observer;
       var prefix = cmd.substr(0, 14).toUpperCase();
-      console.info('kuaijie-K1->askBack', cmd, prefix);
+      console.info('kuaijie-K12->askBack', cmd, prefix);
       if (prefix == askReplyPrefix) {
         var status = cmd.substr(14, 2).toUpperCase();
         if ('AA' == status) {

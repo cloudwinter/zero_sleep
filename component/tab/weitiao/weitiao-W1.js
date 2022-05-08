@@ -3,6 +3,8 @@
 const app = getApp();
 const util = require('../../../utils/util')
 const WxNotificationCenter = require('../../../utils/WxNotificationCenter')
+const crcUtil = require('../../../utils/crcUtil');
+const configManager = require('../../../utils/configManager')
 const sendPrefix = 'FFFFFFFF050000'; // 发送码前缀
 const sendXHPrefix = 'FFFFFFFF050005'; // 循环发送码前缀
 const imgSanjiaoBottomSelected = '../../../images/' + app.globalData.skin + '/sanjiao-bottom-selected@3x.png';
@@ -54,6 +56,8 @@ Component({
     toubutzBottom: false,
     tuibutzTop: false,
     tuibutzBottom: false,
+    tongbukzShow: false, // 同步控制显示
+    tongbukzStatus: false // 同步控制状态
   },
 
 
@@ -72,6 +76,12 @@ Component({
           imgSanjiaoTopNormal: '../../../images/' + app.globalData.skin + '/sanjiao-top-normal@3x.png'
         },
       })
+      let tongbukzShow = configManager.getTongbukzShow(connected.deviceId);
+      let tongbukzStatus = configManager.getTongbukzSwitch(connected.deviceId);
+      this.setData({
+        tongbukzShow: tongbukzShow,
+        tongbukzStatus: tongbukzStatus
+      })
     }
   },
 
@@ -81,12 +91,13 @@ Component({
       console.info("weitiao-w1-->created");
       var that = this;
       WxNotificationCenter.addNotification("INIT", that.initConnected, that);
+      WxNotificationCenter.addNotification("BLUEREPLY", that.blueReply, that);
     },
     attached: function () {
       // 在组件实例进入页面节点树时执行
       console.info("attached");
       this.setData({
-        display:app.globalData.display
+        display: app.globalData.display
       })
     },
     detached: function () {
@@ -94,6 +105,7 @@ Component({
       console.info("detached");
       var that = this;
       WxNotificationCenter.removeNotification("INIT", that);
+      WxNotificationCenter.removeNotification("BLUEREPLY", that);
     },
   },
 
@@ -101,6 +113,27 @@ Component({
    * 组件的方法列表
    */
   methods: {
+
+    /**
+     * 蓝牙回复回调
+     * @param {*} cmd 
+     */
+    blueReply(cmd) {
+      var that = this.observer;
+      cmd = cmd.toUpperCase();
+      if (cmd.indexOf('FFFFFFFF01000A0B') >= 0 || cmd.indexOf('FFFFFFFF0100090B') >= 0) {
+        // 同步控制回码
+        let tongbukzStatus = cmd.substr(16, 2) == '01' ? true : false;
+        that.setData({
+          tongbukzShow: true,
+          tongbukzStatus: tongbukzStatus
+        })
+        let connected = that.data.connected;
+        configManager.putTongbukzShow(true, connected.deviceId);
+        configManager.putTongbukzSwitch(tongbukzStatus, connected.deviceId);
+        return;
+      }
+    },
 
     /**
      * 连接后初始化
@@ -134,8 +167,35 @@ Component({
       util.sendBlueCmd(connected, sendXHPrefix + cmd, options);
     },
 
+    /**
+     * 发送完整的蓝牙命令
+     * @param {} cmd 
+     * @param {*} options 
+     */
+    sendFullBlueCmd(cmd, options) {
+      var connected = this.data.connected;
+      util.sendBlueCmd(connected, cmd, options);
+    },
+
+
 
     /***************** 点击事件 */
+
+    /**
+     * 同步控制的点击事件
+     */
+    tongbukzTab() {
+      var tongbukzStatus = this.data.tongbukzStatus;
+      let cmd;
+      if (tongbukzStatus) {
+        cmd = 'FFFFFFFF0100090B00';
+      } else {
+        cmd = 'FFFFFFFF0100090B01';
+      }
+      cmd = cmd + crcUtil.HexToCSU16(cmd);
+      this.sendFullSendCmd(cmd);
+    },
+
     /**
      * 按下事件
      * @param {*} e 
