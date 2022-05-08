@@ -2,7 +2,9 @@
 
 const app = getApp();
 const util = require('../../../utils/util')
+const configManager = require('../../../utils/configManager')
 const WxNotificationCenter = require('../../../utils/WxNotificationCenter')
+const crcUtil = require('../../../utils/crcUtil');
 const sendPrefix = 'FFFFFFFF050000'; // 发送码前缀
 
 
@@ -23,7 +25,9 @@ Component({
     connected: {},
     currentSelected: '',
     isLightShow: false,
-    lineItems: [] //灯光亮度
+    lineItems: [], //灯光亮度
+    tongbukzShow: false, // 同步控制显示
+    tongbukzStatus: false // 同步控制状态
   },
 
 
@@ -32,6 +36,12 @@ Component({
       // 设置当前的皮肤样式
       this.setData({
         skin: app.globalData.skin
+      })
+      let tongbukzShow = configManager.getTongbukzShow(connected.deviceId);
+      let tongbukzStatus = configManager.getTongbukzSwitch(connected.deviceId);
+      this.setData({
+        tongbukzShow: tongbukzShow,
+        tongbukzStatus: tongbukzStatus
       })
     }
   },
@@ -89,11 +99,37 @@ Component({
     },
 
     /**
+     * 发送完整的蓝牙命令
+     * @param {} cmd 
+     * @param {*} options 
+     */
+    sendFullBlueCmd(cmd, options) {
+      var connected = this.data.connected;
+      util.sendBlueCmd(connected, cmd, options);
+    },
+
+
+    /**
      * 蓝牙回复回调
      * @param {*} cmd 
      */
     blueReply(cmd) {
       var that = this.observer;
+      cmd = cmd.toUpperCase();
+      if (cmd.indexOf('FFFFFFFF01000A0B') >= 0 || cmd.indexOf('FFFFFFFF0100090B') >= 0) {
+        // 同步控制回码
+        let tongbukzStatus = cmd.substr(16, 2) == '01' ? true : false;
+        that.setData({
+          tongbukzShow: true,
+          tongbukzStatus: tongbukzStatus
+        })
+        let connected = that.data.connected;
+        configManager.putTongbukzShow(true, connected.deviceId);
+        configManager.putTongbukzSwitch(tongbukzStatus, connected.deviceId);
+        return;
+      }
+
+
       var lineItems = that.data.lineItems;
       var prefix = cmd.substr(0, 14).toUpperCase();
       if ('FFFFFFFF050001' != prefix) {
@@ -142,6 +178,22 @@ Component({
 
 
     /**********************点击事件************* */
+    /**
+     * 同步控制的点击事件
+     */
+    tongbukzTab() {
+      var tongbukzStatus = this.data.tongbukzStatus;
+      let cmd;
+      if (tongbukzStatus) {
+        cmd = 'FFFFFFFF0100090B00';
+      } else {
+        cmd = 'FFFFFFFF0100090B01';
+      }
+      cmd = cmd + crcUtil.HexToCSU16(cmd);
+      this.sendFullBlueCmd(cmd);
+    },
+
+
     click(e) {
       var that = this;
       var currentSelected = this.data.currentSelected;

@@ -2,7 +2,19 @@
 
 <view class="{{skin}}">
 
-	<view class="top" style="margin-top:{{display=='high'?90:0}}rpx;">
+
+	<view class="layer" wx:if="{{tongbukzShow}}" bindtap="tongbukzTab">
+		<view class="button title button-bg">
+			<view class="button-left">同步控制</view>
+      <view class="button-right">
+        <view class="button-name">{{tongbukzStatus?'开启':'关闭'}}</view>
+        <image style="width:20rpx;height:20rpx;margin-left:10rpx;" src="../../../images/{{skin}}/dian_{{tongbukzStatus?'normal':'selected'}}@2x.png"></image>
+      </view>
+		</view>
+	</view>
+	<view wx:else style="margin-top:{{display=='high'?90:0}}rpx;"></view>
+
+	<view class="top">
 		<view class="donghuaqu">
 			<view class="dh-content">
 				<image class="dh-icon" src="../../../images/{{skin}}/dengguang@3x.png"></image>
