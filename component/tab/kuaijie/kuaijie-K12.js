@@ -132,6 +132,14 @@ Component({
       setTimeout(() => {
         cur.sendAskBlueCmd(zhihan)
       }, 1000);
+
+      // 循环记忆码
+      setTimeout(() => {
+        let cmd = 'FFFFFFFF0100080B0F';
+        let cmdCrc = crcUtil.HexToCSU16(cmd);
+        cmd = cmd + cmdCrc;
+        cur.sendFullBlueCmd(cmd);
+      }, 1300);
     },
 
     /**
@@ -140,6 +148,19 @@ Component({
      */
     blueReply(cmd) {
       var that = this.observer;
+      if (cmd.toUpperCase().indexOf('FFFFFFFF0100080B') >= 0) {
+        var timeXHSwitchCmd = cmd.substr(16, 2).toUpperCase();
+        if(timeXHSwitchCmd == '01') {
+          that.setData({
+            timeXHSwitch: true
+          })
+        } else {
+          that.setData({
+            timeXHSwitch: false
+          })
+        }
+        return;
+      }
       var prefix = cmd.substr(0, 14).toUpperCase();
       console.info('kuaijie-K12->askBack', cmd, prefix);
       if (prefix == askReplyPrefix) {

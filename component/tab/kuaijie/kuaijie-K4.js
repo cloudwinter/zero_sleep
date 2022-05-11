@@ -129,7 +129,7 @@ Component({
         cur.sendAskBlueCmd('7F0009AEDE')
       }, 800);
 
-      // 零压力右
+      // 循环记忆码
       setTimeout(() => {
         let cmd = 'FFFFFFFF0100080B0F';
         let cmdCrc = crcUtil.HexToCSU16(cmd);

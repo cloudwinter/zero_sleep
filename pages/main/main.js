@@ -371,8 +371,9 @@ Page({
       var buffer = res.value;
       var received = util.ab2hex(buffer);
       console.info('main->onBLECharacteristicValueChange-->received', received);
-      //received = 'FFFFFFFF01000413AF08300026010301019897';
       that.blueReply(received, connected);
+      //received = 'FFFFFFFF01000413AF08300026010301019897';
+      //received = 'FFFFFFFF01000A0B011304';
       WxNotificationCenter.postNotificationName('BLUEREPLY', received);
 
 
@@ -405,7 +406,7 @@ Page({
           setTimeout(function () {
             console.error("main->sendInitCmd 发送同步控制的初始化指令",'延时：'+time.getCurrentDifferMs(currentTime)+'ms');
             that.sendBlueCmd('FFFFFFFF01000A0B0F2104');
-          }, 1000);
+          }, 1500);
         }, 150)
       }, 150)
     }, 300);

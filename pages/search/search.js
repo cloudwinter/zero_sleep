@@ -164,7 +164,7 @@ Page({
       var firstAutoConnected = this.data.firstAutoConnected;
       console.log('onBluetoothDeviceFound 启动', lastConnectedDeviceId, firstAutoConnected);
       wx.onBluetoothDeviceFound(function (res) {
-        console.log("onBluetoothDeviceFound 搜索到", res);
+        //console.log("onBluetoothDeviceFound 搜索到", res);
         if (res.devices[0]) {
           var mac = util.ab2hex(res.devices[0].advertisData);
           var sn = mac.slice(4, 8);
@@ -417,13 +417,13 @@ Page({
       wx.getBLEDeviceServices({
         deviceId: deviceId,
         success: function (res) {
-          console.log('device services:', JSON.stringify(res.services));
+          //console.log('device services:', JSON.stringify(res.services));
           var services = res.services;
           if (services && services.length > 0) {
             for (let i = 0; i < services.length; i++) {
               if (services[i].isPrimary) {
                 // 获取 主serviceId 
-                console.log('getBLEDeviceServices:[' + i + "]", services[i])
+                //console.log('getBLEDeviceServices:[' + i + "]", services[i])
                 that.setData({
                   ['connected.serviceId']: services[i].uuid
                 })

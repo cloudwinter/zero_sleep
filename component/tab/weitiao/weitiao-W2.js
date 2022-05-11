@@ -77,12 +77,13 @@ Component({
           imgSanjiaoTopNormal: '../../../images/' + app.globalData.skin + '/sanjiao-top-normal@3x.png'
         },
       })
-      let tongbukzShow = configManager.getTongbukzShow(connected.deviceId);
-      let tongbukzStatus = configManager.getTongbukzSwitch(connected.deviceId);
-      this.setData({
-        tongbukzShow: tongbukzShow,
-        tongbukzStatus: tongbukzStatus
-      })
+      // let connected = configManager.getCurrentConnected();
+      // let tongbukzShow = configManager.getTongbukzShow(connected.deviceId);
+      // let tongbukzStatus = configManager.getTongbukzSwitch(connected.deviceId);
+      // this.setData({
+      //   tongbukzShow: tongbukzShow,
+      //   tongbukzStatus: tongbukzStatus
+      // })
     }
   },
 
@@ -136,6 +137,7 @@ Component({
      */
     blueReply(cmd) {
       var that = this.observer;
+      console.error('weitiao-W2->blueReply',cmd);
       cmd = cmd.toUpperCase();
       if (cmd.indexOf('FFFFFFFF01000A0B') >= 0 || cmd.indexOf('FFFFFFFF0100090B') >= 0) {
         // 同步控制回码
@@ -196,7 +198,7 @@ Component({
         cmd = 'FFFFFFFF0100090B01';
       }
       cmd = cmd + crcUtil.HexToCSU16(cmd);
-      this.sendFullSendCmd(cmd);
+      this.sendFullBlueCmd(cmd);
     },
 
 

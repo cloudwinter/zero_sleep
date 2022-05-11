@@ -52,13 +52,13 @@ Component({
       this.setData({
         skin: app.globalData.skin
       })
-      let connected = this.data.connected;
-      let tongbukzShow = configManager.getTongbukzShow(connected.deviceId);
-      let tongbukzStatus = configManager.getTongbukzSwitch(connected.deviceId);
-      this.setData({
-        tongbukzShow: tongbukzShow,
-        tongbukzStatus: tongbukzStatus
-      })
+      // let connected = configManager.getCurrentConnected();
+      // let tongbukzShow = configManager.getTongbukzShow(connected.deviceId);
+      // let tongbukzStatus = configManager.getTongbukzSwitch(connected.deviceId);
+      // this.setData({
+      //   tongbukzShow: tongbukzShow,
+      //   tongbukzStatus: tongbukzStatus
+      // })
     }
   },
 
@@ -188,7 +188,7 @@ Component({
      */
     blueReply(cmd) {
       var that = this.observer;
-
+      console.error('kuaijie-K2->blueReply',cmd);
       cmd = cmd.toUpperCase();
       if (cmd.indexOf('FFFFFFFF01000A0B') >= 0 || cmd.indexOf('FFFFFFFF0100090B') >= 0) {
         // 同步控制回码
@@ -290,7 +290,7 @@ Component({
     /**
      * 发送完整指令的蓝牙命令
      */
-    sendFullSendCmd(fullCmd, options) {
+    sendFullBlueCmd(fullCmd, options) {
       var connected = this.data.connected;
       util.sendBlueCmd(connected, fullCmd, options);
     },
@@ -340,7 +340,7 @@ Component({
         cmd = 'FFFFFFFF0100090B01';
       }
       cmd = cmd + crcUtil.HexToCSU16(cmd);
-      this.sendFullSendCmd(cmd);
+      this.sendFullBlueCmd(cmd);
     },
 
 
