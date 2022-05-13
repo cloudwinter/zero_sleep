@@ -78,7 +78,7 @@ Component({
   lifetimes: {
     created: function () {
       // 在组件实例刚刚被创建时执行
-      console.info("weitiao-W7-->created");
+      console.info("nurse-->created");
       var that = this;
       WxNotificationCenter.addNotification("INIT", that.initConnected, that);
     },
@@ -106,7 +106,7 @@ Component({
      */
     initConnected(connected) {
       var that = this.observer;
-      console.info('weitiao-W7->initConnected:', connected, this.observer);
+      console.info('nurse->initConnected:', connected, this.observer);
       that.setData({
         connected: connected,
       })

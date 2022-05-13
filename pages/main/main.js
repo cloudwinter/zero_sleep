@@ -102,8 +102,8 @@ Page({
         checked: false
       },
     ],
-    kuaijieType: 'K1',
-    weitiaoType: 'W2',
+    kuaijieType: '',   // 这边不能添加默认值
+    weitiaoType: '',   // 这边不能添加默认值
     connected: {},
     smartSleepClickTime: 0,
   },
@@ -149,7 +149,7 @@ Page({
     this.setData({
       skin: skin
     })
-    //WxNotificationCenter.postNotificationName('INIT',this.data.connected);
+    // WxNotificationCenter.postNotificationName('INIT',this.data.connected);
   },
 
 

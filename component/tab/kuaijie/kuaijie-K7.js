@@ -87,7 +87,7 @@ Component({
      */
     initConnected(connected) {
       var that = this.observer;
-      console.info('kuaijie-K2->initConnected:', connected, this.observer);
+      console.info('kuaijie-K7->initConnected:', connected, this.observer);
       that.setData({
         connected: connected,
       })

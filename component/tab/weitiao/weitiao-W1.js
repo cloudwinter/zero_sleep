@@ -103,7 +103,7 @@ Component({
     },
     detached: function () {
       // 在组件实例被从页面节点树移除时执行
-      console.info("detached");
+      console.info("weitiao-w1->detached");
       var that = this;
       WxNotificationCenter.removeNotification("INIT", that);
       WxNotificationCenter.removeNotification("BLUEREPLY", that);
