@@ -93,8 +93,7 @@ Page({
       name.indexOf('QMS-L44') >= 0 || name.indexOf('QMS-L54') >= 0 || name.indexOf('QMS-L64') >= 0 || name.indexOf('QMS-L74') >= 0 ||
       name.indexOf('QMS-L84') >= 0 || name.indexOf('QMS-L94') >= 0 || name.indexOf('QMS4') >= 0 || name.indexOf('QMS3') >= 0) {
       pageType = '03';
-    }
-    if (name.indexOf('S4-N') >= 0) {
+    } else if (name.indexOf('S4-N') >= 0) {
       pageType = '04';
     }
     this.setData({
