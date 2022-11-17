@@ -151,7 +151,7 @@
 }
 
 .modal-box {
-  width: 80%;
+  width: 75%;
   background: #2B2D36;
   box-shadow: 0 2px 25px 0 rgba(0, 0, 0, 0.06);
   border-radius: 32rpx;

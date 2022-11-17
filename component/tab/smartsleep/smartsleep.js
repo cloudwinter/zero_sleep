@@ -66,6 +66,14 @@ Component({
     sleepTimerDesc: '无定时',
     shuizitz: '02', // 01,02,03,04
     shuizitzUV: '00',
+    network: { // 配网信息
+      show: false,
+      GH: '53',
+      title: '',
+      desc: ''
+    },
+    networkDialogShow: false,
+    networkDialogTitle: '',
   },
 
 
@@ -86,7 +94,6 @@ Component({
       var that = this;
       WxNotificationCenter.addNotification("INIT", that.initConnected, that);
       WxNotificationCenter.addNotification("BLUEREPLY", that.blueReply, that);
-      // WxNotificationCenter.addNotification("TAB_SMARTSLEEP", that.viewShow, that);
     },
     attached: function () {
       // 在组件实例进入页面节点树时执行
@@ -147,20 +154,6 @@ Component({
       //WxNotificationCenter.removeNotification("INIT",that);
     },
 
-    // viewShow() {
-    //   var that = this.observer;
-    //   console.info('smartsleep->viewShow:', this.observer);
-    //   let hasSleepInduction = app.globalData.hasSleepInduction;
-    //   that.setData({
-    //     hasSleepInduction: hasSleepInduction,
-    //   })
-    //   var connected = that.data.connected;
-    //   util.sendBlueCmd(connected, 'FFFFFFFF02000A0A1204');
-    //   setTimeout(() => {
-    //     util.sendBlueCmd(connected, 'FFFFFFFF02000E0B001704');
-    //   }, 400);
-    // },
-
 
     /**
      * 发送蓝牙命令
@@ -187,15 +180,53 @@ Component({
       cmd = cmd.toUpperCase();
       var sleepPrefix = cmd.substr(0, 16);
       if (sleepPrefix == 'FFFFFFFF02000A14') {
-        let shuizitz = cmd.substr(24,2);
-        let shuizitzUV = cmd.substr(26,2);
+        let shuizitz = cmd.substr(24, 2);
+        let shuizitzUV = cmd.substr(26, 2);
+        let networkGH = cmd.substr(28, 2);
+        let networkShow = false;
+        let networkTitle;
+        let networkDesc;
+        let networkDialogShow = false;
+        let networkDialogTitle = '';
+        if (networkGH == '00') {
+          networkShow = true;
+          networkTitle = '网络未连接';
+          networkDesc = '配置WIFI';
+          networkDialogShow = true;
+          networkDialogTitle = '设备未联网，请先给设备配置WIFI网络';
+        } else if (networkGH == '01') {
+          networkShow = true;
+          networkTitle = '网络未连接';
+          networkDesc = '更换WIFI';
+          networkDialogShow = true;
+          networkDialogTitle = '当前网络未连接，请确认您的WIFI网络能否上网，或更换WIFI网络';
+        } else if (networkGH == '0A') {
+          networkShow = true;
+          networkTitle = '网络不稳定';
+          networkDesc = '更换WIFI';
+          networkDialogShow = true;
+          networkDialogTitle = '当前网络不稳定，请将路由器放在离设备更近的位置或更换WIFI网络';
+        } else if (networkGH == '0F') {
+          networkShow = true;
+          networkTitle = '网络已连接';
+          networkDesc = '更换WIFI';
+        }
         let zhinengShuimian = cmd.substr(32, 2);
         let zhinengYedeng = cmd.substr(34, 2);
         that.setData({
           smartSleep: zhinengShuimian == '01' ? true : false,
           smartLight: zhinengYedeng == '01' ? true : false,
-          shuizitz:shuizitz,
-          shuizitzUV:shuizitzUV
+          shuizitz: shuizitz,
+          shuizitzUV: shuizitzUV,
+          networkGH:networkGH,
+          network:{
+            show:networkShow,
+            GH:networkGH,
+            title:networkTitle,
+            desc:networkDesc
+          },
+          networkDialogShow:networkDialogShow,
+          networkDialogTitle:networkDialogTitle
         })
         return;
       }
@@ -237,6 +268,9 @@ Component({
      * 睡眠特征数据录入
      */
     dataEntry() {
+      if(this.checkNeedNetwork()) {
+        return;
+      }
       wx.navigateTo({
         url: '/pages/dataentry/dataentry'
       })
@@ -246,10 +280,13 @@ Component({
      * 睡姿调整
      */
     sleepAdjust() {
+      if(this.checkNeedNetwork()) {
+        return;
+      }
       let pageType = this.data.shuizitz
       let UV = this.data.shuizitzUV;
       wx.navigateTo({
-        url: '/pages/sleepadjust/sleepadjust?pageType='+pageType+'&UV='+UV
+        url: '/pages/sleepadjust/sleepadjust?pageType=' + pageType + '&UV=' + UV
       })
     },
 
@@ -257,6 +294,9 @@ Component({
      * 智能睡眠定时
      */
     sleepTimer() {
+      if(this.checkNeedNetwork()) {
+        return;
+      }
       this.setData({
         timerDialogShow: true
       })
@@ -266,6 +306,9 @@ Component({
      * 睡眠报告
      */
     sleepReport() {
+      if(this.checkNeedNetwork()) {
+        return;
+      }
       wx.navigateTo({
         url: '/pages/induction/induction'
       })
@@ -275,6 +318,9 @@ Component({
      * 智能夜灯
      */
     nightLight() {
+      if(this.checkNeedNetwork()) {
+        return;
+      }
       let smartLight = this.data.smartLight;
       if (smartLight) {
         // 关闭
@@ -293,6 +339,9 @@ Component({
      * 智能睡眠
      */
     sleep() {
+      if(this.checkNeedNetwork()) {
+        return;
+      }
       let smartSleep = this.data.smartSleep;
       if (smartSleep) {
         // 关闭
@@ -303,6 +352,45 @@ Component({
       }
       this.setData({
         smartSleep: !smartSleep
+      })
+    },
+
+    /**
+     * 进入配网界面
+     */
+    networkClick() {
+      if(this.checkNeedNetwork()) {
+        return;
+      }
+      wx.navigateTo({
+        url: '/pages/network/network'
+      })
+    },
+
+
+    /**
+     * 检查是否需要配网
+     */
+    checkNeedNetwork() {
+      let GH = this.data.network.GH;
+      let result = false;
+      if(GH == '00' || GH == '01') {
+        result = true;
+        this.showHideNetworkDialog(true);
+      } else if(GH == '5F') {
+        result = true;
+        util.showToast('请检查黑色通讯盒是否上电');
+      }
+      return result;
+    },
+
+    /**
+     * 显示隐藏配网对话框
+     * @param {*} show 
+     */
+    showHideNetworkDialog(show) {
+      this.setData({
+        networkDialogShow:show
       })
     },
 
@@ -344,6 +432,31 @@ Component({
         })
       }
     },
+
+    /**
+     * 配网连接
+     * @param {*} e 
+     */
+    networkConnect:function(e) {
+      this.setData({
+        networkDialogShow: false
+      })
+      wx.navigateTo({
+        url: '/pages/network/network'
+      })
+    },
+
+
+    /**
+     * 配网取消对话框
+     * @param {*} e 
+     */
+    networkCancel:function(e) {
+      this.setData({
+        networkDialogShow: false
+      })
+    },
+
 
   }
 })
