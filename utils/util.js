@@ -258,12 +258,86 @@ function str16To10(str16) {
  */
 function str10To16(str10) {
   console.info('str10To16 参数', str10);
-  let result = parseInt(str10,10).toString(16).toUpperCase();
+  let result = parseInt(str10, 10).toString(16).toUpperCase();
   if (result.length == 1) {
     result = '0' + result;
   }
   console.info('str10To16 结果', result);
   return result;
+}
+
+/**
+ * 
+ * @param {字符串转换UTF8字节} str 
+ */
+function strToUtf8Bytes(str) {
+  const utf8 = [];
+  for (let ii = 0; ii < str.length; ii++) {
+    let charCode = str.charCodeAt(ii);
+    if (charCode < 0x80) utf8.push(charCode);
+    else if (charCode < 0x800) {
+      utf8.push(0xc0 | (charCode >> 6), 0x80 | (charCode & 0x3f));
+    } else if (charCode < 0xd800 || charCode >= 0xe000) {
+      utf8.push(0xe0 | (charCode >> 12), 0x80 | ((charCode >> 6) & 0x3f), 0x80 | (charCode & 0x3f));
+    } else {
+      ii++;
+      charCode = 0x10000 + (((charCode & 0x3ff) << 10) | (str.charCodeAt(ii) & 0x3ff));
+      utf8.push(
+        0xf0 | (charCode >> 18),
+        0x80 | ((charCode >> 12) & 0x3f),
+        0x80 | ((charCode >> 6) & 0x3f),
+        0x80 | (charCode & 0x3f),
+      );
+    }
+  }
+  //兼容汉字，ASCII码表最大的值为127，大于127的值为特殊字符
+  for (let jj = 0; jj < utf8.length; jj++) {
+    var code = utf8[jj];
+    if (code > 127) {
+      utf8[jj] = code - 256;
+    }
+  }
+  return utf8;
+}
+
+/**
+ * 
+ * @param {根据返回字节码进行16进制转换} str 
+ */
+function strToHexCharCode(str) {
+  var hexCharCode = [];
+  var chars = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"];
+  for (var i = 0; i < str.length; i++) {
+    var bit = (str[i] & 0x0f0) >> 4;
+    hexCharCode.push(chars[bit]);
+    var bit = str[i] & 0x0f;
+    hexCharCode.push(chars[bit]);
+  }
+  return hexCharCode.join("");
+}
+
+
+/**
+ * 
+ * @param {字符串转16进制} str 
+ */
+function strTo16Hex(str) {
+  return strToHexCharCode(strToUtf8Bytes(str));
+}
+
+
+const getHex = i => ('00' + i.toString(16)).slice(-2);
+
+function floatTo16Hex(floatParam) {
+  var view = new DataView(new ArrayBuffer(4));
+  view.setFloat32(0, floatParam);
+  var result =  Array
+    .apply(null, {
+      length: 4
+    })
+    .map((_, i) => getHex(view.getUint8(i)))
+    .join('');
+  return result.toUpperCase();
 }
 
 
@@ -288,4 +362,6 @@ module.exports = {
   isNotEmptyObject,
   isNotEmptyStr,
   strToArray,
+  strTo16Hex,
+  floatTo16Hex,
 }

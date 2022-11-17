@@ -9,6 +9,7 @@ const _STARTDATAENTRY_KEY = 'startDataEntry:flag:'
 const _TONGBUKZ_SHOW_KEY = 'tongbukz:show'
 const _TONGBUKZ_STATUS_KEY = 'tongbukz:status'
 
+
 const _PROPS = {
   _ID: 'id'
 }
@@ -375,6 +376,19 @@ function getTongbukzSwitch(deviceId) {
 }
 
 
+function putWifiPwd(ssid,pwd) {
+  wx.setStorage({
+    data: pwd,
+    key: ssid,
+  })
+}
+
+function getWifiPwd(ssid) {
+  let pwd = wx.getStorageSync(ssid)
+  return pwd;
+}
+
+
 
 module.exports = {
   _PROPS,
@@ -402,4 +416,6 @@ module.exports = {
   getTongbukzShow,
   putTongbukzSwitch,
   getTongbukzSwitch,
+  putWifiPwd,
+  getWifiPwd
 }
