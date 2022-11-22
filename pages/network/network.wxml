@@ -8,23 +8,23 @@
         <view class="shezhi-content shezhi-button-bg" bindtap="getConnected">
           <view class="shezhi-button-left">当前连接WI-FI</view>
           <view class="shezhi-button-right">
-            <view class="shezhi-button-name">{{wifiSSID}}</view>
-            <image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+            <input class="shezhi-button-name" style="text-align: right;height: 100%;" value="{{wifiSSID}}" type="text"></input>
+            <image bindtap="getConnected" class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
           </view>
         </view>
 
         <view class="shezhi-content shezhi-button-bg" bindtap="changeSkip">
           <view class="shezhi-button-left">密码</view>
           <view class="shezhi-button-right">
-            <input class="shezhi-button-name" style="text-align: right;" value="{{wifiPwd}}" type="text" password="{{wifiShow}}"></input>
+            <input class="shezhi-button-name" style="text-align: right;height: 100%;" value="{{wifiPwd}}" type="text" password="{{wifiShow}}"></input>
             <image class="shezhi-button-icon" src="../../images/{{skin}}/icon_eye@2x.png" bindtap="showHide"></image>
           </view>
         </view>
 
         <view class="shezhi-content" style="margin-top: 0rpx;">
           <image class="shezhi-button-icon" bindtap="remeberPwd" src="../../images/{{skin}}/icon_ro_{{hasRemeberPwd?'selected':'unselected'}}@2x.png"></image>
-          <view bindtap="remeberPwd" style="flex: 1;color: white;margin-left: 8rpx;">记住密码</view>
-          <view style="display: flex;color: white;">此设备只支持2.4GWi-Fi连接使用</view>
+          <view bindtap="remeberPwd" style="flex: 1;color: white;margin-left: 8rpx;font-size: 24rpx;">记住密码</view>
+          <view style="display: flex;color: white;font-size: 24rpx;">此设备只支持2.4GWi-Fi连接使用</view>
         </view>
 
         <view class="next-button" bindtap="next">下一步</view>

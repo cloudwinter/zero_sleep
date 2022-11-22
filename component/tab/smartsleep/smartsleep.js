@@ -359,9 +359,9 @@ Component({
      * 进入配网界面
      */
     networkClick() {
-      if(this.checkNeedNetwork()) {
-        return;
-      }
+      // if(this.checkNeedNetwork()) {
+      //   return;
+      // }
       wx.navigateTo({
         url: '/pages/network/network'
       })

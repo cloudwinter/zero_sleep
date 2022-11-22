@@ -119,6 +119,14 @@ Page({
    */
   getConnected() {
     let that = this;
+    wx.startWifi({
+      success(res) {
+        console.log(res.errMsg, 'wifi初始化成功')
+      },
+      fail: function(res){
+        console.log(res.errMsg, 'wifi初始化失败')
+      }
+    })
     wx.getConnectedWifi({
       success: function (e) {
         let pwd = configManager.getWifiPwd(e.wifi.SSID);
