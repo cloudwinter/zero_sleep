@@ -49,6 +49,8 @@ Page({
     WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
     this.getConnected();
     this.getLocation();
+
+    //console.info('B3ACF142',util.changeEndianness('B3ACF142'))
   },
 
   /**
@@ -63,9 +65,9 @@ Page({
    * @param {*} cmd 
    */
   blueReply(cmd) {
-    console.info('blueReply',cmd);
-    if(cmd == undefined) {
-        return;
+    console.info('blueReply', cmd);
+    if (cmd == undefined) {
+      return;
     }
     let cmdCopy = cmd.toUpperCase();
     if (cmdCopy.indexOf('FFFFFFFF02001913') >= 0) {
@@ -123,7 +125,7 @@ Page({
       success(res) {
         console.log(res.errMsg, 'wifi初始化成功')
       },
-      fail: function(res){
+      fail: function (res) {
         console.log(res.errMsg, 'wifi初始化失败')
       }
     })
@@ -139,6 +141,19 @@ Page({
       fail: function (e) {
         console.log(e, 'wifi获取失败')
       }
+    })
+  },
+
+  wifiSSIDInputChange(e) {
+    this.setData({
+      wifiSSID: e.detail.value
+    })
+  },
+
+
+  wifiPasswordInputChange(e) {
+    this.setData({
+      wifiPwd: e.detail.value
     })
   },
 
@@ -168,6 +183,7 @@ Page({
     // TODO
     let wifiSSID = this.data.wifiSSID;
     let wifiPwd = this.data.wifiPwd;
+    console.info('next',wifiSSID,wifiPwd);
     if (wifiSSID == '' || wifiPwd == '') {
       util.showToast('WI-FI或密码不能为空');
       return;
@@ -197,6 +213,7 @@ Page({
     let wifiSSIDhex = util.strTo16Hex(this.data.wifiSSID);
     let wifiPwdHex = util.strTo16Hex(this.data.wifiPwd);
     let locationHex = util.floatTo16Hex(this.data.location.longitude) + util.floatTo16Hex(this.data.location.latitude);
+    console.info('locationHex',locationHex);
     let cmdWifiSSID01 = cmdPre + "01";
     let cmdWifiSSID02 = cmdPre + "02";
     let cmdWifiSSID03 = cmdPre + "03";

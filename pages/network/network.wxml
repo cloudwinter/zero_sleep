@@ -8,7 +8,7 @@
         <view class="shezhi-content shezhi-button-bg" bindtap="getConnected">
           <view class="shezhi-button-left">当前连接WI-FI</view>
           <view class="shezhi-button-right">
-            <input class="shezhi-button-name" style="text-align: right;height: 100%;" value="{{wifiSSID}}" type="text"></input>
+            <input class="shezhi-button-name" style="text-align: right;height: 100%;" bindinput="wifiSSIDInputChange" placeholder="请输入wifi账号" value="{{wifiSSID}}" type="text"></input>
             <image bindtap="getConnected" class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
           </view>
         </view>
@@ -16,7 +16,7 @@
         <view class="shezhi-content shezhi-button-bg" bindtap="changeSkip">
           <view class="shezhi-button-left">密码</view>
           <view class="shezhi-button-right">
-            <input class="shezhi-button-name" style="text-align: right;height: 100%;" value="{{wifiPwd}}" type="text" password="{{wifiShow}}"></input>
+            <input class="shezhi-button-name" style="text-align: right;height: 100%;" bindinput="wifiPasswordInputChange" placeholder="请输入wifi密码" value="{{wifiPwd}}" type="text" password="{{wifiShow}}"></input>
             <image class="shezhi-button-icon" src="../../images/{{skin}}/icon_eye@2x.png" bindtap="showHide"></image>
           </view>
         </view>

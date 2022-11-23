@@ -331,13 +331,28 @@ const getHex = i => ('00' + i.toString(16)).slice(-2);
 function floatTo16Hex(floatParam) {
   var view = new DataView(new ArrayBuffer(4));
   view.setFloat32(0, floatParam);
-  var result =  Array
+  var result = Array
     .apply(null, {
       length: 4
     })
     .map((_, i) => getHex(view.getUint8(i)))
     .join('');
-  return result.toUpperCase();
+
+  return changeEndianness(result.toUpperCase());
+}
+
+/**
+ * 
+ * @param {*交互字节顺序} string 
+ */
+function changeEndianness(string) {
+  const result = [];
+  let len = string.length - 2;
+  while (len >= 0) {
+    result.push(string.substr(len, 2));
+    len -= 2;
+  }
+  return result.join('');
 }
 
 
@@ -364,4 +379,5 @@ module.exports = {
   strToArray,
   strTo16Hex,
   floatTo16Hex,
+  changeEndianness,
 }
