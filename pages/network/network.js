@@ -29,7 +29,8 @@ Page({
     location: {
       latitude: '',
       longitude: '',
-    }
+    },
+    askRetryTimes: 0, // 配网询问政策
   },
 
   /**
@@ -65,6 +66,7 @@ Page({
    * @param {*} cmd 
    */
   blueReply(cmd) {
+    let that = this;
     console.info('blueReply', cmd);
     if (cmd == undefined) {
       return;
@@ -73,20 +75,57 @@ Page({
     if (cmdCopy.indexOf('FFFFFFFF02001913') >= 0) {
       let status = cmdCopy.substr(18, 2);
       let connectStatus = 1;
-      if (status == '00') {
-        connectStatus = 2;
-      } else if (status == '01') {
-        connectStatus = 4;
-      } else if (status == '0F') {
+      if (status != '01') {
+        if (status == '00') {
+          connectStatus = 2;
+        } else if (status == '0F') {
+          connectStatus = 3;
+        }
+        this.setData({
+          connectStatus: connectStatus
+        })
+        this.sendNetworkAskReply();
+      } else {
+        let askRetryTimes = this.data.askRetryTimes;
+        setTimeout(() => {
+          that.sendNetworkAskReply();
+          that.setData({
+            askRetryTimes: askRetryTimes + 1
+          })
+        }, 6000);
+      }
+    } else if (cmdCopy.indexOf('FFFFFFFF02000A14') >= 0) {
+      let statusCmd = cmdCopy.substr(26, 2);
+      let askRetryTimes = this.data.askRetryTimes;
+      let connectStatus = this.data.connectStatus;
+      if (statusCmd == '01') {
+        if (askRetryTimes >= 10) {
+          connectStatus = 2;
+        } else {
+          setTimeout(() => {
+            that.sendNetworkAskReply();
+            that.setData({
+              askRetryTimes: askRetryTimes + 1
+            })
+          }, 6000);
+        }
+      } else if (statusCmd == '0F') {
         connectStatus = 3;
       }
       this.setData({
         connectStatus: connectStatus
       })
-      let sendCmd = 'FFFFFFFF02000A0A1204';
-      let connected = this.data.connected;
-      util.sendBlueCmd(connected, sendCmd);
     }
+  },
+
+
+  /**
+   * 发送配网询问码
+   */
+  sendNetworkAskReply() {
+    let sendCmd = 'FFFFFFFF02000A0A1204';
+    let connected = this.data.connected;
+    util.sendBlueCmd(connected, sendCmd);
   },
 
 
@@ -183,7 +222,7 @@ Page({
     // TODO
     let wifiSSID = this.data.wifiSSID;
     let wifiPwd = this.data.wifiPwd;
-    console.info('next',wifiSSID,wifiPwd);
+    console.info('next', wifiSSID, wifiPwd);
     if (wifiSSID == '' || wifiPwd == '') {
       util.showToast('WI-FI或密码不能为空');
       return;
@@ -213,7 +252,7 @@ Page({
     let wifiSSIDhex = util.strTo16Hex(this.data.wifiSSID);
     let wifiPwdHex = util.strTo16Hex(this.data.wifiPwd);
     let locationHex = util.floatTo16Hex(this.data.location.longitude) + util.floatTo16Hex(this.data.location.latitude);
-    console.info('locationHex',locationHex);
+    console.info('locationHex', locationHex);
     let cmdWifiSSID01 = cmdPre + "01";
     let cmdWifiSSID02 = cmdPre + "02";
     let cmdWifiSSID03 = cmdPre + "03";
@@ -307,8 +346,12 @@ Page({
 
 
     // setTimeout(()=>{
-    //   this.blueReply('FFFFFFFF02001913010FFFFFFFF');
+    //   this.blueReply('FFFFFFFF020019130101FFFFFFF');
     // }, 6000)
+
+    // setTimeout(()=>{
+    //   this.blueReply('FFFFFFFF02000A1400000000000F0001011F04');
+    // }, 12000)
   },
 
 
