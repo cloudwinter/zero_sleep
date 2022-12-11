@@ -35,6 +35,7 @@ App({
 
         const patt = /ios/i
         const isIos = patt.test(res.system) //判断设备是否为苹果手机
+        this.globalData.isIos = isIos
         // 得到安全区域高度res.safeArea.top
         if (res.safeArea.top > 20 && isIos ){ //IPhoneX 等刘海手机底部横条高度大约为68rpx 
           this.globalData.hasBottonLine = true
@@ -56,5 +57,6 @@ App({
     zhinengShuimian:'00', // 智能睡眠状态
     sleepTimer: '00', // 智能睡眠定时
     hasBottonLine: false, // ios是否有底部横线
+    isIos:false,  //是否是ios
   }
 })

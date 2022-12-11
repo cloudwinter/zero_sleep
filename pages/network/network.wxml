@@ -1,6 +1,6 @@
 <!--pages/network/network.wxml-->
 <view class="page-{{skin}}">
-  <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}" background="{{navbar.background}}" title="设置"></navbar>
+  <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}" background="{{navbar.background}}" title="配网"></navbar>
 
   <view class="{{skin}}">
     <view class="content">
@@ -9,7 +9,7 @@
           <view class="shezhi-button-left">当前连接WI-FI</view>
           <view class="shezhi-button-right">
             <input class="shezhi-button-name" style="text-align: right;height: 100%;" bindinput="wifiSSIDInputChange" placeholder="请输入wifi账号" value="{{wifiSSID}}" type="text"></input>
-            <image bindtap="getConnected" class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+            <image bindtap="selectWifi" class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
           </view>
         </view>
 

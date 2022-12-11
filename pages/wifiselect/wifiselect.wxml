@@ -1,0 +1,39 @@
+<!--pages/wifiselect/wifiselect.wxml-->
+<view class="page-{{skin}}">
+  <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}" background="{{navbar.background}}" title="设置"></navbar>
+
+  <view class="{{skin}}" style="position: fixed;">
+    <view class="content">
+      <view class="line"></view>
+      <scroll-view class="container" scroll-y="true">
+        <view class="container">
+          <block wx:for="{{wifiList}}" wx:key="*this" wx:for-item="item">
+            <view class="list-item" bindtap="itemClick" data-item="{{item}}">
+              <view class="item-content">
+                <text class="name">{{item}}</text>
+                <view class="item-right">
+                  <image class="wifi-icon" src="../../images/{{skin}}/anmo@3x.png"></image>
+                </view>
+              </view>
+            </view>
+            <view class="line" style="width: 90%;justify-content: center;"></view>
+          </block>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+
+	<!-- 故障调试对话框 -->
+	<view class="modal-dialog" hidden="{{!iosWifiDialog}}">
+		<view class="modal-box">
+			<text class="model-title" style="margin-bottom:30rpx;width:90%;">
+      提示：IOS设备获取WIFI列表，需要跳转到【系统设置】后，再手动进入【无线局域网】后，最后返回小程序
+      </text>
+			<view style="width:100%;height:1px;background:#eee"></view>
+			<view class="modal-box-bottom" style="height:100rpx;">
+				<view bindtap="wifiDialogClick" data-ctype="close" class="modal-box-button" hover-class="modal-box-button-hover" style="flex-grow:1;color:black;">确认</view>
+			</view>
+		</view>
+	</view>
+
+</view>

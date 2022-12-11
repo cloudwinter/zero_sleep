@@ -198,6 +198,16 @@ Page({
 
 
   /**
+   * 选择wifi
+   */
+  selectWifi(){
+    wx.navigateTo({
+      url: '/pages/wifiselect/wifiselect'
+    })
+  },
+
+
+  /**
    * 记住密码
    */
   remeberPwd() {
