@@ -15,8 +15,9 @@ Page({
       show: true,
       animated: false,
     }, // 导航栏
+    scorllHeight: app.globalData.scorllHeight,
     wifiList: [],
-    iosWifiDialog: true
+    iosWifiDialog: false,
   },
 
   /**
@@ -24,10 +25,18 @@ Page({
    */
   onLoad(options) {
     // 设置当前的皮肤样式
+    let isIos = app.globalData.isIos;
+    let scorllHeight = app.globalData.screenHeight - app.globalData.navHeight;
+    console.info('scorllHeight',app.globalData.screenHeight,app.globalData.navHeight)
     this.setData({
       skin: app.globalData.skin,
-      iosWifiDialog: app.globalData.isIos
+      iosWifiDialog: isIos,
+      scorllHeight: scorllHeight
     })
+    if (!isIos) {
+      // android 先获取wifi列表
+      this.getWifiList();
+    }
   },
 
 
@@ -36,7 +45,9 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow() {},
+  onShow() {
+
+  },
 
 
 
@@ -55,12 +66,12 @@ Page({
               console.log("wifiList", result);
               let wifiList = that.data.wifiList;
               result.wifiList.forEach(info => {
-                if(info.SSID.length > 1) {
+                if (info.SSID.length > 1) {
                   wifiList.push(info.SSID);
                 }
               });
               that.setData({
-                wifiList:wifiList
+                wifiList: wifiList
               })
             })
           }
@@ -88,13 +99,13 @@ Page({
    */
   itemClick(e) {
     const name = e.currentTarget.dataset.item;
-    console.info("name",name);
-    var pages = getCurrentPages();   //当前页面
-    var prevPage = pages[pages.length - 2];   //上个页面
+    console.info("name", name);
+    var pages = getCurrentPages(); //当前页面
+    var prevPage = pages[pages.length - 2]; //上个页面
     // 直接给上一个页面赋值
     prevPage.setData({
       wifiSSID: name,
-      wifiPwd:''
+      wifiPwd: ''
     });
     // 返回上一个页面
     wx.navigateBack({

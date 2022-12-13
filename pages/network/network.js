@@ -95,7 +95,7 @@ Page({
         }, 6000);
       }
     } else if (cmdCopy.indexOf('FFFFFFFF02000A14') >= 0) {
-      let statusCmd = cmdCopy.substr(26, 2);
+      let statusCmd = cmdCopy.substr(28, 2);
       let askRetryTimes = this.data.askRetryTimes;
       let connectStatus = this.data.connectStatus;
       if (statusCmd == '01') {

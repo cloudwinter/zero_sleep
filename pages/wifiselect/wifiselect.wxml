@@ -5,9 +5,9 @@
   <view class="{{skin}}" style="position: fixed;">
     <view class="content">
       <view class="line"></view>
-      <scroll-view class="container" scroll-y="true">
-        <view class="container">
-          <block wx:for="{{wifiList}}" wx:key="*this" wx:for-item="item">
+      <scroll-view class="container" scroll-y="true" style="height: {{scorllHeight}}px;overflow: scroll;">
+        <block wx:for="{{wifiList}}" wx:key="*this" wx:for-item="item">
+          <view class="container" style="height: auto;">
             <view class="list-item" bindtap="itemClick" data-item="{{item}}">
               <view class="item-content">
                 <text class="name">{{item}}</text>
@@ -17,23 +17,23 @@
               </view>
             </view>
             <view class="line" style="width: 90%;justify-content: center;"></view>
-          </block>
-        </view>
+          </view>
+        </block>
       </scroll-view>
     </view>
   </view>
 
-	<!-- 故障调试对话框 -->
-	<view class="modal-dialog" hidden="{{!iosWifiDialog}}">
-		<view class="modal-box">
-			<text class="model-title" style="margin-bottom:30rpx;width:90%;">
-      提示：IOS设备获取WIFI列表，需要跳转到【系统设置】后，再手动进入【无线局域网】后，最后返回小程序
+  <!-- 故障调试对话框 -->
+  <view class="modal-dialog" hidden="{{!iosWifiDialog}}">
+    <view class="modal-box">
+      <text class="model-title" style="margin-bottom:30rpx;width:90%;">
+        提示：IOS设备获取WIFI列表，需要跳转到【系统设置】后，再手动进入【无线局域网】后，最后返回小程序
       </text>
-			<view style="width:100%;height:1px;background:#eee"></view>
-			<view class="modal-box-bottom" style="height:100rpx;">
-				<view bindtap="wifiDialogClick" data-ctype="close" class="modal-box-button" hover-class="modal-box-button-hover" style="flex-grow:1;color:black;">确认</view>
-			</view>
-		</view>
-	</view>
+      <view style="width:100%;height:1px;background:#eee"></view>
+      <view class="modal-box-bottom" style="height:100rpx;">
+        <view bindtap="wifiDialogClick" data-ctype="close" class="modal-box-button" hover-class="modal-box-button-hover" style="flex-grow:1;color:black;">确认</view>
+      </view>
+    </view>
+  </view>
 
 </view>

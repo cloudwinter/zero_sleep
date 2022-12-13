@@ -5,8 +5,8 @@
   <view class="{{skin}}">
     <view class="content">
       <view class="content" hidden="{{connectStatus!=0}}">
-        <view class="shezhi-content shezhi-button-bg" bindtap="getConnected">
-          <view class="shezhi-button-left">当前连接WI-FI</view>
+        <view class="shezhi-content shezhi-button-bg" >
+          <view class="shezhi-button-left" bindtap="getConnected">当前连接WI-FI</view>
           <view class="shezhi-button-right">
             <input class="shezhi-button-name" style="text-align: right;height: 100%;" bindinput="wifiSSIDInputChange" placeholder="请输入wifi账号" value="{{wifiSSID}}" type="text"></input>
             <image bindtap="selectWifi" class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
