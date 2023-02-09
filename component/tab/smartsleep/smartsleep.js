@@ -379,7 +379,7 @@ Component({
         this.showHideNetworkDialog(true);
       } else if(GH == '5F') {
         result = true;
-        util.showToast('请检查黑色通讯盒是否上电');
+        util.showToast('设备通讯异常，请按如下步骤排查，1.智能控制器断电再重新通电，2.等待30秒后，重启设备（拔掉压力垫的网线，再重新插上网线），3.完成上述步骤后再用小程序重新连接设备');
       }
       return result;
     },

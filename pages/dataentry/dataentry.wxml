@@ -48,13 +48,13 @@
           <view class="oval-button" bindtap="saveTap">保存</view>
         </view>
 
-        <view class="shezhi-content shezhi-button-bg" bindtap="reset">
+        <view class="shezhi-content shezhi-button-bg" bindtap="reset" hidden="true">
           <view class="tips-text">恢复出厂设置</view>
         </view>
 
       </view>
 
-      <view class="hint">
+      <view class="hint" hidden="true">
         <image class="zhengtou" src="../../images/{{skin}}/ic_zhengtou@2x.png"></image>
         <view class="rectangle">
           <view class="rectangle-text" style="margin-top:50rpx">智</view>
@@ -67,7 +67,7 @@
         </view>
       </view>
 
-      <view class="tips-text" style="margin-top:40rpx">智能带与床垫固定示意</view>
+      <view class="tips-text" style="margin-top:40rpx" hidden="true">智能带与床垫固定示意</view>
     </view>
   </view>
 </view>
