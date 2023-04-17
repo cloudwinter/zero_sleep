@@ -39,6 +39,14 @@
 				</view>
 			</view>
 
+      <view class="shezhi-content shezhi-button-bg" bindtap="zhinengshuimianModeItemTap" hidden="{{!zhinengshuimianItemShow}}">
+				<view class="shezhi-button-left">智能睡眠</view>
+				<view class="shezhi-button-right">
+					<!-- <view class="shezhi-button-name"></view> -->
+					<image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+				</view>
+			</view>
+
 
 			<view class="shezhi-content shezhi-button-bg" bindtap="faultDebug" hidden="{{!faultDebugShow}}">
 				<view class="shezhi-button-left">故障调试</view>

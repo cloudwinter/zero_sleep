@@ -41,7 +41,10 @@ Page({
     alarmStatus: '未设置',
     alarmSwitch: false,
     tongbukongzhiItemShow: false, // 同步控制的item
-    tongbukongzhiSWitch: false // 同步控制的开关
+    tongbukongzhiSWitch: false, // 同步控制的开关
+    zhinengshuimianItemShow: false, //显示心率带链接跳转的item
+    jumpSucApp: false, // 是否成功跳转到其他小程序
+    preJumpConnected: {}, // 跳转前的连接
   },
 
   /**
@@ -105,16 +108,19 @@ Page({
           } else {
             alarmStatus = '未设置';
           }
-
         }
       } else {
         alarmStatus = '未设置';
       }
     } else {
       alarmStatus = '未连接';
+      var jumpSucApp = this.data.jumpSucApp;
+      var preJumpConnected = this.data.preJumpConnected;
+      if (jumpSucApp && util.isNotEmptyObject(preJumpConnected)) {
+        // 如果是从其他小程序返回的，自动连接
+        startConnect(preJumpConnected.deviceId, preJumpConnected.name);
+      }
     }
-
-
     this.setData({
       alarmStatus: alarmStatus
     })
@@ -130,9 +136,17 @@ Page({
       util.showToast('当前设备未连接');
       return;
     }
+
+
     // 发送同步控制指令码
     let cmd = 'FFFFFFFF01000A0B0F2104';
     util.sendBlueCmd(connected, cmd);
+
+    // 发码询问主板是否连接心率带
+    setTimeout(() => {
+      let inquiryCmd = 'FFFFFFFF01000C0B0F2304';
+      util.sendBlueCmd(connected, inquiryCmd);
+    }, 200);
   },
 
 
@@ -168,8 +182,18 @@ Page({
         tongbukongzhiSWitch: tongbukongzhiSWitch
       })
       let connected = this.data.connected;
-      configManager.putTongbukzShow(true,connected.deviceId);
-      configManager.putTongbukzSwitch(tongbukongzhiSWitch,connected.deviceId);
+      configManager.putTongbukzShow(true, connected.deviceId);
+      configManager.putTongbukzSwitch(tongbukongzhiSWitch, connected.deviceId);
+      return;
+    } else if (cmd.indexOf('FFFFFFFF01000C0B001404')) {
+      this.setData({
+        zhinengshuimianItemShow: false
+      })
+      return;
+    } else if (cmd.indexOf('FFFFFFFF01000C0B011504')) {
+      this.setData({
+        zhinengshuimianItemShow: true
+      })
       return;
     }
     var prefix = cmd.substr(0, 12);
@@ -278,6 +302,65 @@ Page({
     })
   },
 
+  /**
+   * 智能睡眠
+   * @param {*} e 
+   */
+  zhinengshuimianModeItemTap: function (e) {
+    // 断开蓝牙连接
+    var that = this;
+    var connected = this.data.connected;
+    var status = this.data.status;
+    if (connected && connected.deviceId && status == '已连接') {
+      util.showLoading('断开中...');
+      wx.closeBLEConnection({
+        deviceId: deviceId,
+        success: function () {
+          console.info('closeBLEConnection 断开连接成功');
+          // 清空连接状态
+          that.setData({
+            connected: {},
+            status: "未连接"
+          })
+          configManager.putCurrentConnected(that.data.connected);
+        },
+        fail: function (e) {
+          util.showToast('断开连接失败,请重试');
+          console.error('断开连接失败:', e);
+        },
+        complete: function () {
+          console.info('closeBLEConnection complete完成');
+          util.hideLoading();
+        }
+      })
+    } else {
+      this.jumpToApp();
+    }
+  },
+
+  /**
+   * 跳转到其他app
+   * @param {*} e 
+   */
+  jumpToApp: function (e) {
+    var connected = this.data.connected;
+    wx.navigateToMiniProgram({
+      appId: 'wxbbdd4b1b88358610',
+      // 参数传递
+      // extraData: {
+      //   foo: 'bar'
+      // },
+      envVersion: 'trial', //develop,trial,release
+      success(res) {
+        // 打开成功
+        this.setData({
+          jumpSucApp: true,
+          preJumpConnected: connected
+        })
+      }
+    })
+  },
+
 
   /**
    * 同步控制开关
@@ -362,5 +445,136 @@ Page({
       faultCause: ''
 
     })
-  }
+  },
+
+
+
+  /**----------蓝牙连接--------- */
+  /**
+   * 开始连接
+   * @param {} deviceId 
+   */
+  startConnect(deviceId, localName) {
+    var that = this;
+    util.showLoading('连接中...')
+    console.log("startConnect->deviceId:" + deviceId);
+    wx.createBLEConnection({
+      deviceId: deviceId,
+      success: function (res) {
+        console.log(res.errMsg);
+        // 设置连接的设备信息
+        that.setData({
+          connected: {
+            deviceId: deviceId,
+            name: localName
+          }
+        })
+        // 获取连接设备的service服务
+        setTimeout(function () {
+          that.getBLService(deviceId);
+        }, 100);
+
+        // 监听蓝牙断开的场景
+        wx.onBLEConnectionStateChange(function (res) {
+          // 该方法回调中可以用于处理连接意外断开等异常情况
+          console.log(`device ${res.deviceId} state has changed, connected: ${res.connected}`)
+          var connected = that.data.connected;
+          if (connected && connected.deviceId && connected.deviceId == res.deviceId) {
+            if (!res.connected) {
+              // false表示连接断开 处理断开情况
+              // 清空连接状态
+              that.setData({
+                connected: {}
+              })
+            }
+          }
+        })
+      },
+      fail: function (res) {
+        wx.hideLoading();
+        console.error('startConnect createBLEConnection失败：', res);
+        util.showModal('连接设备失败,请重试');
+      }
+    })
+  },
+
+  /**
+   * 获取连接设备的service服务
+   */
+  getBLService(deviceId) {
+    var that = this;
+    wx.getBLEDeviceServices({
+      deviceId: deviceId,
+      success: function (res) {
+        //console.log('device services:', JSON.stringify(res.services));
+        var services = res.services;
+        if (services && services.length > 0) {
+          for (let i = 0; i < services.length; i++) {
+            if (services[i].isPrimary) {
+              // 获取 主serviceId 
+              //console.log('getBLEDeviceServices:[' + i + "]", services[i])
+              that.setData({
+                ['connected.serviceId']: services[i].uuid
+              })
+              setTimeout(function () {
+                //获取characterstic值
+                that.getBLcharac(deviceId, services[i].uuid);
+              }, 100)
+              return;
+            }
+          }
+        }
+      },
+      fail: function (res) {
+        wx.hideLoading();
+        util.showModal(res.errMsg);
+      }
+    })
+  },
+  /**
+   * 获取特征值
+   * @param {*} deviceId 
+   * @param {*} serviceId 
+   */
+  getBLcharac(deviceId, serviceId) {
+    var that = this;
+    wx.getBLEDeviceCharacteristics({
+      deviceId: deviceId,
+      serviceId: serviceId,
+      success: function (res) {
+        console.log("getBLcharac", res);
+        for (var i = 0; i < res.characteristics.length; i++) {
+          if (res.characteristics[i].properties.notify) {
+            console.log("getBLcharac", res.characteristics[i].uuid);
+            that.setData({
+              ['connected.notifyCharacId']: res.characteristics[0].uuid
+            })
+          }
+          if (res.characteristics[i].properties.write) {
+            that.setData({
+              ['connected.writeCharacId']: res.characteristics[0].uuid
+            })
+          } else if (res.characteristics[i].properties.read) {
+            that.setData({
+              ['connected.readCharacId']: res.characteristics[0].uuid
+            })
+          }
+        }
+        console.log('device connected:', that.data.connected);
+        configManager.putCurrentConnected(that.data.connected);
+        that.setData({
+          status: "已连接",
+          jumpSucApp: false
+        })
+      },
+      fail: function (res) {
+        console.error("getBLcharac->fail", res);
+        util.showModal(res.errMsg);
+      },
+      complete: function () {
+        wx.hideLoading();
+
+      }
+    })
+  },
 })
