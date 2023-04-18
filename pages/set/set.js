@@ -185,12 +185,12 @@ Page({
       configManager.putTongbukzShow(true, connected.deviceId);
       configManager.putTongbukzSwitch(tongbukongzhiSWitch, connected.deviceId);
       return;
-    } else if (cmd.indexOf('FFFFFFFF01000C0B001404')) {
+    } else if (cmd.indexOf('FFFFFFFF01000C0B00')) {
       this.setData({
         zhinengshuimianItemShow: false
       })
       return;
-    } else if (cmd.indexOf('FFFFFFFF01000C0B011504')) {
+    } else if (cmd.indexOf('FFFFFFFF01000C0B01')) {
       this.setData({
         zhinengshuimianItemShow: true
       })
@@ -313,6 +313,7 @@ Page({
     var status = this.data.status;
     if (connected && connected.deviceId && status == '已连接') {
       util.showLoading('断开中...');
+      var deviceId = connected.deviceId;
       wx.closeBLEConnection({
         deviceId: deviceId,
         success: function () {
@@ -323,6 +324,7 @@ Page({
             status: "未连接"
           })
           configManager.putCurrentConnected(that.data.connected);
+          that.jumpToApp();
         },
         fail: function (e) {
           util.showToast('断开连接失败,请重试');
