@@ -1,3 +1,4 @@
+/* pages/nurseset/nurseset2.wxss */
 
 .dark .shezhi-button-bg {
   width: 90% !important;

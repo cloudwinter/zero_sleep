@@ -1,0 +1,96 @@
+<!--pages/nurseset/nurseset2.wxml-->
+<view class="page-{{skin}}">
+  <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}"
+    background="{{navbar.background}}" title="循环模式设置"></navbar>
+
+  <view class="{{skin}}">
+    <view class="content">
+
+
+
+      <view class="item-title">功能设定</view>
+
+      <!-- 按摩功能 -->
+      <view class="item" style="margin-top:1rpx;" bindtap="anmoTap">
+        <view class="item-left">按摩功能</view>
+        <view class="item-right">
+          <image class="item-right-icon" src="../../images/{{skin}}/{{anmoChecked?'ic_checkbox_selected@3x.png':'ic_checkbox_normal@3x.png'}}"></image>
+        </view>
+      </view>
+
+
+      <view class="item" style="margin-top:44rpx;" bindtap="periodTap" bindtap="xunhuanTap" data-type="bbxh">
+        <view class="item-left">背部循环</view>
+        <view class="item-right">
+          <image class="item-right-icon" src="../../images/{{skin}}/{{bbxhChecked?'ic_checkbox_selected@3x.png':'ic_checkbox_normal@3x.png'}}"></image>
+        </view>
+      </view>
+
+      <view class="item" style="margin-top:1rpx;" bindtap="periodTap" bindtap="xunhuanTap" data-type="tbxh">
+        <view class="item-left">腿部循环</view>
+        <view class="item-right">
+          <image class="item-right-icon" src="../../images/{{skin}}/{{tbxhChecked?'ic_checkbox_selected@3x.png':'ic_checkbox_normal@3x.png'}}"></image>
+        </view>
+      </view>
+
+      <view class="item" style="margin-top:1rpx;" bindtap="periodTap" bindtap="xunhuanTap" data-type="fsxh1">
+        <view class="item-left">翻身循环一</view>
+        <view class="item-right">
+          <image class="item-right-icon" src="../../images/{{skin}}/{{fsxh1Checked?'ic_checkbox_selected@3x.png':'ic_checkbox_normal@3x.png'}}"></image>
+        </view>
+      </view>
+
+      <view class="item" style="margin-top:1rpx;" bindtap="periodTap" bindtap="xunhuanTap" data-type="fsxh2">
+        <view class="item-left">翻身循环二</view>
+        <view class="item-right">
+          <image class="item-right-icon" src="../../images/{{skin}}/{{fsxh2Checked?'ic_checkbox_selected@3x.png':'ic_checkbox_normal@3x.png'}}"></image>
+        </view>
+      </view>
+
+
+
+      <view class="item-title" style="margin-top:52rpx;">执行时间</view>
+
+      <view class="item" style="margin-top:1rpx;" bindtap="timeTap" data-type="0600">
+        <view class="item-left">06:00</view>
+        <view class="item-right">
+          <image class="item-right-icon" src="../../images/{{skin}}/{{time0600Checked?'ic_checkbox_selected@3x.png':'ic_checkbox_normal@3x.png'}}"></image>
+        </view>
+      </view>
+      <view class="item" style="margin-top:1rpx;" bindtap="timeTap" data-type="1000">
+        <view class="item-left">10:00</view>
+        <view class="item-right">
+          <image class="item-right-icon" src="../../images/{{skin}}/{{time1000Checked?'ic_checkbox_selected@3x.png':'ic_checkbox_normal@3x.png'}}"></image>
+        </view>
+      </view>
+      <view class="item" style="margin-top:1rpx;" bindtap="timeTap" data-type="1400">
+        <view class="item-left">14:00</view>
+        <view class="item-right">
+          <image class="item-right-icon" src="../../images/{{skin}}/{{time1400Checked?'ic_checkbox_selected@3x.png':'ic_checkbox_normal@3x.png'}}"></image>
+        </view>
+      </view>
+      <view class="item" style="margin-top:1rpx;" bindtap="timeTap" data-type="1800">
+        <view class="item-left">18:00</view>
+        <view class="item-right">
+          <image class="item-right-icon" src="../../images/{{skin}}/{{time1800Checked?'ic_checkbox_selected@3x.png':'ic_checkbox_normal@3x.png'}}"></image>
+        </view>
+      </view>
+      <view class="item" style="margin-top:1rpx;" bindtap="timeTap" data-type="2200">
+        <view class="item-left">22:00</view>
+        <view class="item-right">
+          <image class="item-right-icon" src="../../images/{{skin}}/{{time2200Checked?'ic_checkbox_selected@3x.png':'ic_checkbox_normal@3x.png'}}"></image>
+        </view>
+      </view>
+
+
+
+      <!-- 保存 -->
+      <view class="item item-right-name" style="margin-top:10px;justify-content: center;" bindtap="saveTap">
+        <view class="button-name">确认</view>
+      </view>
+
+
+    </view>
+  </view>
+
+</view>

@@ -297,8 +297,15 @@ Page({
    * @param {*} e 
    */
   xunhuanModeItemTap: function (e) {
+    var jumpUrl = '';
+    var name = this.data.connected.name;
+    if(name.indexOf('S3-5') >= 0 || name.indexOf('S5-Y3') >= 0) {
+      jumpUrl = '/pages/nurseset/nurseset2'
+    } else {
+      jumpUrl = '/pages/nurseset/nurseset'
+    }
     wx.navigateTo({
-      url: '/pages/nurseset/nurseset',
+      url: jumpUrl,
     })
   },
 
