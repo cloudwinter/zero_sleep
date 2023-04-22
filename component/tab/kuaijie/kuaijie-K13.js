@@ -1,10 +1,12 @@
-// component/tab/kuaijie/kuaijie-k12.js
+// component/tab/kuaijie/kuaijie-K13.js
 const util = require('../../../utils/util')
+const configManager = require('../../../utils/configManager')
 const WxNotificationCenter = require('../../../utils/WxNotificationCenter')
 const crcUtil = require('../../../utils/crcUtil');
 const app = getApp();
 const askPrefix = 'FFFFFFFF0300'; // 询问码前缀
-const askReplyPrefix = 'FFFFFFFF031200'; // 询问码回复前缀
+const askReply1Prefix = 'FFFFFFFF031200'; // 询问码1回复前缀
+const askReply2Prefix = 'FFFFFFFF030600'; // 询问码2回复前缀
 const sendPrefix = 'FFFFFFFF050000'; // 发送码前缀
 Component({
   /**
@@ -22,12 +24,12 @@ Component({
   data: {
     skin: app.globalData.skin,
     display: app.globalData.display,
-    containerHeight: '',
     connected: {},
     currentAnjian: {
-      anjian: 'kandianshi', // kandianshi,lingyali,zhihan,tingyinyue,fuyuan,tuibufangsong
-      name: '看电视' // 看电视，零压力，止鼾，听音乐（前倾），复原，腿部放松（后倾）
+      anjian: 'kandianshi', // kandianshi,lingyali,zhihan,fuyuan
+      name: '看电视' // 看电视，零压力，止鼾，复原，
     },
+    askType: '1', // 记忆类型 记忆1，记忆2
     jiyi1: false,
     jiyi2: false,
     kandianshi: false,
@@ -35,6 +37,8 @@ Component({
     zhihan: false,
     startTime: '',
     endTime: '',
+    tongbukzShow: false, // 同步控制显示
+    tongbukzStatus: false, // 同步控制状态
     timeXHSwitch:false
   },
 
@@ -44,37 +48,43 @@ Component({
    */
   pageLifetimes: {
     show: function () {
+      console.info('K2->show');
       // 设置当前的皮肤样式
       this.setData({
         skin: app.globalData.skin
       })
+      // let connected = configManager.getCurrentConnected();
+      // let tongbukzShow = configManager.getTongbukzShow(connected.deviceId);
+      // let tongbukzStatus = configManager.getTongbukzSwitch(connected.deviceId);
+      // this.setData({
+      //   tongbukzShow: tongbukzShow,
+      //   tongbukzStatus: tongbukzStatus
+      // })
     }
   },
 
   lifetimes: {
     created: function () {
       // 在组件实例刚刚被创建时执行
-      console.info("kuaijie-K12-->created");
+      console.info("kuaijie-k2-->created");
       var that = this;
       WxNotificationCenter.addNotification("INIT", that.initConnected, that);
       WxNotificationCenter.addNotification("BLUEREPLY", that.blueReply, that);
     },
     ready: function () {
       // 在组件在视图层布局完成后执行
-      console.info("kuaijie-K12-->ready");
+      console.info("kuaijie-k2-->ready");
     },
     attached: function () {
       // 在组件实例进入页面节点树时执行
-      console.info("attached" + app.globalData.screenHeight + "-" + app.globalData.navHeight);
+      console.info("attached");
       this.setData({
-        display: app.globalData.display,
-        // 屏幕高度-顶部高度-tab高度-预留5px底部距离
-        containerHeight: app.globalData.screenHeight - app.globalData.navHeight - 52 - 5
+        display: app.globalData.display
       })
     },
     detached: function () {
       // 在组件实例被从页面节点树移除时执行
-      console.info("kuaijie-K12-->detached");
+      console.info("kuaijie-k2-->detached");
       var that = this;
       WxNotificationCenter.removeNotification("BLUEREPLY", that);
     },
@@ -90,58 +100,88 @@ Component({
      */
     initConnected(connected) {
       var that = this.observer;
-      console.info('kuaijie-K12->initConnected:', connected, this.observer);
+      console.info('kuaijie-K2->initConnected:', connected, this.observer);
       that.setData({
         connected: connected,
       })
-      that.askJiyiStatus(connected, that);
-      // 删除回调
       WxNotificationCenter.removeNotification("INIT", that);
+      that.askJiyiStatus(connected, that);
     },
 
     /**
      * 询问记忆状态
      */
     askJiyiStatus(connected, cur) {
-      // 记忆1
-      var jiyi1 = '2800091F0E';
+      var name = connected.name;
+      if (name.indexOf('QMS-MQ') >= 0 ||
+        name.indexOf('QMS2') >= 0 ||
+        name.indexOf('QMS3') >= 0) {
+        cur.setData({
+          askType: '2'
+        })
+        // 记忆1
+        var jiyi1 = '2800039F09';
+        // 记忆2
+        var jiyi2 = '3000031F0E';
+        // 看电视
+        var kandianshi = '1800039F06';
+        // 零压力
+        var lingyali = '2000031ECB';
+        // 止鼾
+        var zhihan = '3800039ECC';
 
-      // 记忆2
-      var jiyi2 = '310009CEC9';
 
-      // 看电视
-      var kandianshi = '1600097EC2';
+        setTimeout(() => {
+          cur.sendAskBlueCmd(jiyi1)
+          setTimeout(() => {
+            cur.sendAskBlueCmd(jiyi2)
+            setTimeout(() => {
+              cur.sendAskBlueCmd(kandianshi)
+              setTimeout(() => {
+                cur.sendAskBlueCmd(lingyali)
+                setTimeout(() => {
+                  cur.sendAskBlueCmd(zhihan)
+                }, 500);
+              }, 400);
+            }, 300);
+          }, 200);
+        }, 100);
 
-      // 零压力
-      var lingyali = '1F0009AEC0';
+      } else {
+        cur.setData({
+          askType: '1'
+        })
+        // 记忆1
+        var jiyi1 = '2800091F0E';
+        // 记忆2
+        var jiyi2 = '310009CEC9';
+        // 看电视
+        var kandianshi = '1600097EC2';
+        // 零压力
+        var lingyali = '1F0009AEC0';
+        // 止鼾
+        var zhihan = '3A0009BF0B';
+        setTimeout(() => {
+          cur.sendAskBlueCmd(jiyi1)
+          setTimeout(() => {
+            cur.sendAskBlueCmd(jiyi2)
+            setTimeout(() => {
+              cur.sendAskBlueCmd(kandianshi)
+              setTimeout(() => {
+                cur.sendAskBlueCmd(lingyali)
+                setTimeout(() => {
+                  cur.sendAskBlueCmd(zhihan)
+                }, 500);
+              }, 400);
+            }, 300);
+          }, 200);
+        }, 100);
+      }
 
-      // 止鼾
-      var zhihan = '3A0009BF0B';
-
-      setTimeout(() => {
-        cur.sendAskBlueCmd(jiyi1);
-      }, 200);
-      setTimeout(() => {
-        cur.sendAskBlueCmd(jiyi2);
-      }, 400);
-      setTimeout(() => {
-        cur.sendAskBlueCmd(kandianshi);
-      }, 600);
-      setTimeout(() => {
-        cur.sendAskBlueCmd(lingyali);
-      }, 800);
-      setTimeout(() => {
-        cur.sendAskBlueCmd(zhihan)
-      }, 1000);
-
-      // 循环记忆码
-      setTimeout(() => {
-        let cmd = 'FFFFFFFF0100080B0F';
-        let cmdCrc = crcUtil.HexToCSU16(cmd);
-        cmd = cmd + cmdCrc;
-        cur.sendFullBlueCmd(cmd);
-      }, 1300);
     },
+
+
+
 
     /**
      * 蓝牙回复回调
@@ -149,6 +189,8 @@ Component({
      */
     blueReply(cmd) {
       var that = this.observer;
+      console.error('kuaijie-K2->blueReply',cmd);
+      cmd = cmd.toUpperCase();
       if (cmd.toUpperCase().indexOf('FFFFFFFF0100080B') >= 0) {
         var timeXHSwitchCmd = cmd.substr(16, 2).toUpperCase();
         if(timeXHSwitchCmd == '01') {
@@ -162,37 +204,84 @@ Component({
         }
         return;
       }
-      var prefix = cmd.substr(0, 14).toUpperCase();
-      console.info('kuaijie-K12->askBack', cmd, prefix);
-      if (prefix == askReplyPrefix) {
-        var status = cmd.substr(14, 2).toUpperCase();
-        if ('AA' == status) {
-          that.setData({
-            jiyi1: true
-          })
-        }
-        if ('AB' == status) {
-          that.setData({
-            jiyi2: true
-          })
-        }
-        if ('A5' == status) {
-          that.setData({
-            kandianshi: true
-          })
-        }
-        if ('A9' == status) {
-          that.setData({
-            lingyali: true
-          })
-        }
-        if ('AF' == status) {
-          that.setData({
-            zhihan: true
-          })
-        }
 
+      if (cmd.indexOf('FFFFFFFF01000A0B') >= 0 || cmd.indexOf('FFFFFFFF0100090B') >= 0) {
+        // 同步控制回码
+        let tongbukzStatus = cmd.substr(16, 2) == '01' ? true : false;
+        that.setData({
+          tongbukzShow: true,
+          tongbukzStatus: tongbukzStatus
+        })
+        let connected = that.data.connected;
+        configManager.putTongbukzShow(true, connected.deviceId);
+        configManager.putTongbukzSwitch(tongbukzStatus, connected.deviceId);
+        return;
       }
+
+
+      var prefix = cmd.substr(0, 14).toUpperCase();
+      console.info('kuaijie-k2->blueReply', cmd, prefix);
+      var askType = that.data.askType;
+      if (askType == '1') {
+        if (prefix == askReply1Prefix) {
+          var status = cmd.substr(14, 2).toUpperCase();
+          if ('AA' == status) {
+            that.setData({
+              jiyi1: true
+            })
+          }
+          if ('AB' == status) {
+            that.setData({
+              jiyi2: true
+            })
+          }
+          if ('A5' == status) {
+            that.setData({
+              kandianshi: true
+            })
+          }
+          if ('A9' == status) {
+            that.setData({
+              lingyali: true
+            })
+          }
+          if ('AF' == status) {
+            that.setData({
+              zhihan: true
+            })
+          }
+        }
+      } else {
+        if (prefix == askReply2Prefix) {
+          var status = cmd.substr(14, 2).toUpperCase();
+          if ('0A' == status) {
+            that.setData({
+              jiyi1: true
+            })
+          }
+          if ('0B' == status) {
+            that.setData({
+              jiyi2: true
+            })
+          }
+          if ('05' == status) {
+            that.setData({
+              kandianshi: true
+            })
+          }
+          if ('09' == status) {
+            that.setData({
+              lingyali: true
+            })
+          }
+          if ('0F' == status) {
+            that.setData({
+              zhihan: true
+            })
+          }
+        }
+      }
+
     },
 
     /**
@@ -200,6 +289,7 @@ Component({
      * @param {}} cmd 
      */
     sendAskBlueCmd(cmd) {
+      console.error('K2 -> sendAskBlueCmd ', cmd, new Date().getTime());
       var connected = this.data.connected;
       util.sendBlueCmd(connected, askPrefix + cmd);
     },
@@ -213,13 +303,11 @@ Component({
     },
 
     /**
-     * 发送完整的蓝牙命令
-     * @param {} cmd 
-     * @param {*} options 
+     * 发送完整指令的蓝牙命令
      */
-    sendFullBlueCmd(cmd, options) {
+    sendFullBlueCmd(fullCmd, options) {
       var connected = this.data.connected;
-      util.sendBlueCmd(connected, cmd, options);
+      util.sendBlueCmd(connected, fullCmd, options);
     },
 
 
@@ -252,6 +340,22 @@ Component({
     tapBlank(e) {
       console.info('tapBlank', e);
       this.sendBlueCmd('0000D700');
+    },
+
+
+    /**
+     * 同步控制的点击事件
+     */
+    tongbukzTab() {
+      var tongbukzStatus = this.data.tongbukzStatus;
+      let cmd;
+      if (tongbukzStatus) {
+        cmd = 'FFFFFFFF0100090B00';
+      } else {
+        cmd = 'FFFFFFFF0100090B01';
+      }
+      cmd = cmd + crcUtil.HexToCSU16(cmd);
+      this.sendFullBlueCmd(cmd);
     },
 
 
@@ -304,6 +408,9 @@ Component({
 
 
 
+    /**
+     * 记忆2的点击事件
+     */
     tapJiyi2() {
       console.info("tapJiyi2");
       var that = this;
@@ -532,128 +639,6 @@ Component({
       })
       // 单击
       this.sendBlueCmd('0008D6C6');
-    },
-
-    /**
-     * 听音乐的点击事件
-     */
-    tapTingyingyue() {
-      console.info("tapTingyingyue");
-      this.setData({
-        currentAnjian: {
-          anjian: 'tingyinyue',
-          name: '前倾'
-        }
-      })
-      // 单击
-      this.sendBlueCmd('0028D71E');
-    },
-
-    /**
-     * 腿部放松的点击事件
-     */
-    tapTuibufangsong() {
-      console.info("tapTuibufangsong");
-      this.setData({
-        currentAnjian: {
-          anjian: 'tuibufangsong',
-          name: '后倾'
-        }
-      })
-      // 单击
-      this.sendBlueCmd('002916DE');
-    },
-
-
-    /**
-     * 全身循环的点击事件
-     */
-    tapQuanshengxunhuan() {
-      console.info("tapQuanshengxunhuan");
-      this.setData({
-        currentAnjian: {
-          anjian: 'quanshengxunhuan',
-          name: '全身循环'
-        }
-      })
-      // 单击
-      this.sendFullBlueCmd('FFFFFFFF05000500E4C74A');
-    },
-
-
-    /**
-     * 瑜伽的点击事件
-     */
-    tapYujia() {
-      console.info("tapQuanshengxunhuan");
-      this.setData({
-        currentAnjian: {
-          anjian: 'yujia',
-          name: '瑜伽'
-        }
-      })
-      // 单击
-      this.sendFullBlueCmd('FFFFFFFF050000004E5734');
-    },
-
-
-    /**
-     * 臀部循环的点击事件
-     */
-    tapTunbuxunhuan() {
-      console.info("tapTunbuxunhuan");
-      this.setData({
-        currentAnjian: {
-          anjian: 'tunbuxunhuan',
-          name: '臀部循环'
-        }
-      })
-      // 单击
-      this.sendFullBlueCmd('FFFFFFFF05000500E6468B');
-    },
-
-
-    /**
-     * 一键升起
-     */
-    tapShenQi() {
-      this.setData({
-        currentAnjian: {
-          anjian: 'yijianshengqi',
-          name: '整体上升'
-        }
-      })
-      // 单击
-      this.sendBlueCmd('00211718');
-    },
-
-    /**
-     * 一键降下
-     */
-    tapJiangXia() {
-      this.setData({
-        currentAnjian: {
-          anjian: 'yijianjiangxia',
-          name: '整体下降'
-        }
-      })
-      // 单击
-      this.sendBlueCmd('00225719');
-    },
-
-    /**
-     * 复原的点击事件
-     */
-    tapZhengtiFuyuan() {
-      console.info("tapZhengtiFuyuan");
-      this.setData({
-        currentAnjian: {
-          anjian: 'fuyuan',
-          name: '整体复原'
-        }
-      })
-      // 单击
-      this.sendBlueCmd('002A56DF');
     },
 
     tapBbXH(e) {

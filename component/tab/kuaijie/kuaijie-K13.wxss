@@ -1,0 +1,232 @@
+/* component/tab/kuaijie/kuaijie-K13.wxss */
+@import './../../../common/tab.wxss';
+
+/************common****************** */
+.dark .button-bg {
+  background: #1E1F24;
+}
+
+.dark .button-bg-selected {
+  background-color: #1E1F24;
+  border:3rpx solid #5A9927;
+}
+
+
+.orange .button-bg {
+  background: #6E269A;
+}
+
+.orange .button-bg-selected {
+  background-color: #6E269A;
+  border:3rpx solid #FF9704;
+}
+
+
+.layer {
+  display: flex;
+  height: 120rpx;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.layer .button {
+  width: 400rpx;
+  height: 90rpx;
+  border-radius: 90rpx;
+  display: flex;
+  align-items: center;
+}
+
+.layer .button .dian{
+  width: 28rpx;
+  height: 28rpx;
+  padding-left: 52rpx;
+}
+
+.layer .button .name {
+  color: white;
+  padding-left: 40rpx;
+}
+
+.layer .button-left {
+  flex: 1;
+  color: #ffffff;
+  margin-left: 62rpx;
+}
+
+.layer .button-right {
+  display: flex;
+  align-items: center;
+  margin-right: 50rpx;
+}
+
+.layer .button-name {
+  color: #ffffff;
+}
+
+.layer .button-icon {
+  width: 32rpx;
+  height: 32rpx;
+  margin-left: 20rpx;
+}
+
+
+
+.jiyi {
+  display: flex;
+  height: 120rpx;
+  padding-top: 20rpx;
+  width: 100%;
+}
+
+.jiyi .button {
+  width: 324rpx;
+  height: 120rpx;
+  border-radius: 120rpx;
+  display: flex;
+  align-items: center;
+}
+
+
+
+.jiyi .left {
+  width: 324rpx;
+  height: 120rpx;
+  margin-left: 30rpx;
+}
+
+.jiyi .middle {
+  flex: auto;
+}
+
+.jiyi .right {
+  width: 324rpx;
+  height: 120rpx;
+  margin-right: 30rpx;
+}
+
+.jiyi-button-bg {
+  width: 100%;
+  height: 120rpx;
+  border-radius: 120rpx;
+  position: absolute;
+  z-index: -1;
+}
+
+
+
+.jiyi .button .dian{
+  width: 28rpx;
+  height: 28rpx;
+  padding-left: 52rpx;
+}
+
+.jiyi .button .name {
+  color: white;
+  padding-left: 60rpx;
+}
+
+
+
+.anjianqu {
+  display: flex;
+  margin-left: 135rpx;
+  margin-right: 135rpx;
+  margin-top: 80rpx;
+  align-items: center;
+  height: 120rpx;
+}
+
+.anjianqu .anjian-left {
+  flex: auto;
+  height: 204rpx;
+  display: flex;
+  position: relative;
+}
+
+
+.anjianqu .anjian-right {
+  flex: auto;
+  height: 204rpx;
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+}
+
+.anjian-bg {
+  width: 204rpx;
+  height: 204rpx;
+  /* position: absolute;
+  z-index: -1; */
+}
+
+.anjiian-content {
+  display: flex;
+  height: 204rpx;
+  width: 204rpx;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+}
+
+.anjiian-content .anjian-icon{
+  width: 120rpx;
+  height: 96rpx;
+  margin-top: 20rpx;
+}
+
+.anjiian-content .name{
+  color: white;
+  font-size: 24rpx;
+}
+
+
+.anjianqu-oval {
+  display: flex;
+  margin-left: 39rpx;
+  margin-right: 39rpx;
+  margin-top: 60rpx;
+  align-items: center;
+  height: 120rpx;
+}
+
+
+
+.anjianqu-oval .anjian-oval-middle {
+  width: auto;
+  height: 160rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+.anjian-oval-bg {
+  width: 160rpx;
+  height: 160rpx;
+  /* position: absolute;
+  z-index: -1; */
+}
+
+.anjiian-oval-content {
+  display: flex;
+  height: 160rpx;
+  width: 160rpx;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+}
+
+.anjiian-oval-content .anjian-oval-icon{
+  width: 100rpx;
+  height: 80rpx;
+  margin-top: 20rpx;
+}
+
+.anjiian-oval-content .name{
+  color: white;
+  font-size: 24rpx;
+}
