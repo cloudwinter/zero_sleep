@@ -36,7 +36,7 @@
           <image wx:if="{{animationPosition==3}}" class="dh-icon"
             src="../../../animation/{{skin}}/beituitiaozheng-3@3x.png"></image>
         </block>
-        <block wx:if="{{currentAnjian.anjian=='yaobutz'}}">
+        <block wx:if="{{currentAnjian.anjian=='fanshentz'}}">
           <image wx:if="{{animationPosition==1}}" class="dh-icon"
             src="../../../animation/{{skin}}/tunbutiaozheng-1@3x.png"></image>
           <image wx:if="{{animationPosition==2}}" class="dh-icon"
@@ -118,18 +118,18 @@
   <view class="tiaozheng-content tiaozheng-button-bg button-bg">
     <!-- <button class="tiaozheng-button-bg"></button> -->
     <view class="tiaozheng-button-top-left" bindtouchstart="touchStart" bindtouchend="touchEnd"
-      data-type="yaobutzTop">
+      data-type="fanshentzTop">
       <image class="tiaozheng-button-icon"
-        src="{{yaobutzTop?imgSanjiao.imgSanjiaoTopSelected:imgSanjiao.imgSanjiaoTopNormal}}"></image>
+        src="{{fanshentzTop?imgSanjiao.imgSanjiaoTopSelected:imgSanjiao.imgSanjiaoTopNormal}}"></image>
     </view>
     <view class="tiaozheng-button-top-middle">
-      <image class="tiaozheng-type-icon" src="../../../images/{{skin}}/tunbuxunhuan-xiao@3x.png"></image>
-      <view class="tiaozheng-type-name">腰部调整</view>
+      <image class="tiaozheng-type-icon" src="../../../images/{{skin}}/fanshenxunhuan-xiao@3x.png"></image>
+      <view class="tiaozheng-type-name">翻身调整</view>
     </view>
     <view class="tiaozheng-button-top-right" bindtouchstart="touchStart" bindtouchend="touchEnd"
-      data-type="yaobutzBottom">
+      data-type="fanshentzBottom">
       <image class="tiaozheng-button-icon"
-        src="{{yaobutzBottom?imgSanjiao.imgSanjiaoBottomSelected:imgSanjiao.imgSanjiaoBottomNormal}}"></image>
+        src="{{fanshentzBottom?imgSanjiao.imgSanjiaoBottomSelected:imgSanjiao.imgSanjiaoBottomNormal}}"></image>
     </view>
   </view>
 

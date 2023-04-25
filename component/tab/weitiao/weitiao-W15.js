@@ -51,8 +51,8 @@ Component({
     beibutzBottom: false,
     beituitzTop: false,
     beituitzBottom: false,
-    yaobutzTop: false,
-    yaobutzBottom: false,
+    fanshentzTop: false,
+    fanshentzBottom: false,
     tuibutzTop: false,
     tuibutzBottom: false,
     tongbukzShow: false, // 同步控制显示
@@ -241,26 +241,26 @@ Component({
         });
         this.donghua(false, this);
         this.tapBeibutz(false, true);
-      } else if (type == 'yaobutzTop') {
+      } else if (type == 'fanshentzTop') {
         this.setData({
           currentAnjian: {
-            anjian: 'yaobutz',
-            name: '腰部调整'
+            anjian: 'fanshentz',
+            name: '翻身调整'
           },
-          yaobutzTop: true
+          fanshentzTop: true
         });
         this.donghua(true, this);
-        this.tapYaobutz(true, true);
-      } else if (type == 'yaobutzBottom') {
+        this.tapFanshentz(true, true);
+      } else if (type == 'fanshentzBottom') {
         this.setData({
           currentAnjian: {
-            anjian: 'yaobutz',
-            name: '腰部调整'
+            anjian: 'fanshentz',
+            name: '翻身调整'
           },
-          yaobutzBottom: true
+          fanshentzBottom: true
         });
         this.donghua(false, this);
-        this.tapYaobutz(false, true);
+        this.tapFanshentz(false, true);
       } else if (type == 'beituitzTop') {
         this.setData({
           currentAnjian: {
@@ -332,16 +332,16 @@ Component({
           beibutzBottom: false
         });
         this.tapBeibutz(false, false);
-      } else if (type == 'yaobutzTop') {
+      } else if (type == 'fanshentzTop') {
         this.setData({
-          yaobutzTop: false
+          fanshentzTop: false
         });
-        this.tapYaobutz(true, false);
-      } else if (type == 'yaobutzBottom') {
+        this.tapFanshentz(true, false);
+      } else if (type == 'fanshentzBottom') {
         this.setData({
-          yaobutzBottom: false
+          fanshentzBottom: false
         });
-        this.tapYaobutz(false, false);
+        this.tapFanshentz(false, false);
       } else if (type == 'beituitzTop') {
         this.setData({
           beituitzTop: false
@@ -408,7 +408,7 @@ Component({
      * @param {*} top 上
      * @param {*} start 按下
      */
-    tapYaobutz(top, start) {
+    tapFanshentz(top, start) {
       var cmd = '';
       if (!start) {
         // 松开 发停止码
