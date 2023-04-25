@@ -314,37 +314,47 @@ Page({
    * @param {*} e 
    */
   zhinengshuimianModeItemTap: function (e) {
-    // 断开蓝牙连接
-    var that = this;
-    var connected = this.data.connected;
-    var status = this.data.status;
-    if (connected && connected.deviceId && status == '已连接') {
-      util.showLoading('断开中...');
-      var deviceId = connected.deviceId;
-      wx.closeBLEConnection({
-        deviceId: deviceId,
-        success: function () {
-          console.info('closeBLEConnection 断开连接成功');
-          // 清空连接状态
-          that.setData({
-            connected: {},
-            status: "未连接"
-          })
-          configManager.putCurrentConnected(that.data.connected);
-          that.jumpToApp();
-        },
-        fail: function (e) {
-          util.showToast('断开连接失败,请重试');
-          console.error('断开连接失败:', e);
-        },
-        complete: function () {
-          console.info('closeBLEConnection complete完成');
-          util.hideLoading();
-        }
-      })
-    } else {
-      this.jumpToApp();
-    }
+    wx.navigateToMiniProgram({
+      appId: 'wxbbdd4b1b88358610',
+      envVersion: 'trial', //develop,trial,release
+      success(res) {
+        // 打开成功
+        console.info('跳转成功');
+      }
+    })
+
+
+    // // 断开蓝牙连接
+    // var that = this;
+    // var connected = this.data.connected;
+    // var status = this.data.status;
+    // if (connected && connected.deviceId && status == '已连接') {
+    //   util.showLoading('断开中...');
+    //   var deviceId = connected.deviceId;
+    //   wx.closeBLEConnection({
+    //     deviceId: deviceId,
+    //     success: function () {
+    //       console.info('closeBLEConnection 断开连接成功');
+    //       // 清空连接状态
+    //       that.setData({
+    //         connected: {},
+    //         status: "未连接"
+    //       })
+    //       configManager.putCurrentConnected(that.data.connected);
+    //       that.jumpToApp();
+    //     },
+    //     fail: function (e) {
+    //       util.showToast('断开连接失败,请重试');
+    //       console.error('断开连接失败:', e);
+    //     },
+    //     complete: function () {
+    //       console.info('closeBLEConnection complete完成');
+    //       util.hideLoading();
+    //     }
+    //   })
+    // } else {
+    //   this.jumpToApp();
+    // }
   },
 
   /**

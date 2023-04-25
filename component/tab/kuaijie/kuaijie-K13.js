@@ -653,12 +653,12 @@ Component({
       this.sendFullBlueCmd('FFFFFFFF05000500E7874B');
     },
 
-    tapTbXH(e) {
-      this.sendFullBlueCmd('FFFFFFFF05000500E5068A');
+    tapFsXH1(e) {
+      this.sendFullBlueCmd('FFFFFFFF05000500ECC68C');
     },
 
-    tapBtXH(e) {
-      this.sendFullBlueCmd('FFFFFFFF05000500E8C74F');
+    tapFsXH2(e) {
+      this.sendFullBlueCmd('FFFFFFFF05000500ED074C');
     },
 
     tapTimeXH(e) {

@@ -148,17 +148,17 @@
 
 		<view class="anjian-oval-middle" style="margin-left:10rpx;">
 			<image class="anjian-oval-bg" src="../../../images/{{skin}}/anjian-yuan-normal@3x.png"></image>
-			<view class="anjiian-oval-content" catchtap="tapTbXH" bindtouchstart="touchStart" bindtouchend="touchEnd">
-				<image class="anjian-oval-icon" src="../../../images/{{skin}}/tuibuxunhuan-xiao@3x.png"></image>
-				<view class="name">腿部循环</view>
+			<view class="anjiian-oval-content" catchtap="tapFsXH1" bindtouchstart="touchStart" bindtouchend="touchEnd">
+        <image class="anjian-oval-icon" src="../../../images/{{skin}}/fanshenxunhuan-xiao@3x.png"></image>
+        <view class="name">翻身循环一</view>
 			</view>
 		</view>
 
 		<view class="anjian-oval-middle" style="margin-left:10rpx;">
 			<image class="anjian-oval-bg" src="../../../images/{{skin}}/anjian-yuan-normal@3x.png"></image>
-			<view class="anjiian-oval-content" catchtap="tapBtXH" bindtouchstart="touchStart" bindtouchend="touchEnd">
-				<image class="anjian-oval-icon" src="../../../images/{{skin}}/kandianshi-xiao@3x.png"></image>
-				<view class="name">背腿循环</view>
+			<view class="anjiian-oval-content" catchtap="tapFsXH2" bindtouchstart="touchStart" bindtouchend="touchEnd">
+        <image class="anjian-oval-icon" src="../../../images/{{skin}}/fanshenxunhuan-xiao@3x.png"></image>
+        <view class="name">翻身循环二</view>
 			</view>
 		</view>
 
