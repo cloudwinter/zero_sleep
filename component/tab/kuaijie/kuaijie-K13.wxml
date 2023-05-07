@@ -34,6 +34,15 @@
         <block wx:if="{{currentAnjian.anjian=='tuibufangsong'}}">
           <image class="dh-icon" src="../../../images/{{skin}}/tuibufangsong-da@3x.png"></image>
         </block>
+        <block wx:if="{{currentAnjian.anjian=='bbxunhuan'}}">
+          <image class="dh-icon" src="../../../images/{{skin}}/zhihan-da@3x.png"></image>
+        </block>
+        <block wx:if="{{currentAnjian.anjian=='fsxunhuan1'}}">
+          <image class="dh-icon" src="../../../images/{{skin}}/fanshenxunhuan-da@3x.png"></image>
+        </block>
+        <block wx:if="{{currentAnjian.anjian=='fsxunhuan2'}}">
+          <image class="dh-icon" src="../../../images/{{skin}}/fanshenxunhuan-da@3x.png"></image>
+        </block>
         <view class="dh-name">{{currentAnjian.name}}</view>
       </view>
     </view>

@@ -374,12 +374,12 @@ Component({
      */
     tapDonghuaquClick() {
       console.info('tapDonghuaquClick', this.endTime, this.startTime);
-      if (this.endTime - this.startTime > 1000) {
-        var currentType = this.data.currentType;
-        this.setData({
-          currentType: currentType == 'tiaozheng' ? 'xunhuan' : 'tiaozheng'
-        })
-      }
+      // if (this.endTime - this.startTime > 1000) {
+      //   var currentType = this.data.currentType;
+      //   this.setData({
+      //     currentType: currentType == 'tiaozheng' ? 'xunhuan' : 'tiaozheng'
+      //   })
+      // }
     },
 
     /**

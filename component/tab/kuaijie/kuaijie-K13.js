@@ -650,14 +650,32 @@ Component({
     },
 
     tapBbXH(e) {
+      this.setData({
+        currentAnjian: {
+          anjian: 'bbxunhuan',
+          name: '背部循环'
+        }
+      })
       this.sendFullBlueCmd('FFFFFFFF05000500E7874B');
     },
 
     tapFsXH1(e) {
+      this.setData({
+        currentAnjian: {
+          anjian: 'fsxunhuan1',
+          name: '翻身循环一'
+        }
+      })
       this.sendFullBlueCmd('FFFFFFFF05000500ECC68C');
     },
 
     tapFsXH2(e) {
+      this.setData({
+        currentAnjian: {
+          anjian: 'fsxunhuan2',
+          name: '翻身循环二'
+        }
+      })
       this.sendFullBlueCmd('FFFFFFFF05000500ED074C');
     },
 

@@ -38,11 +38,11 @@
         </block>
         <block wx:if="{{currentAnjian.anjian=='fanshentz'}}">
           <image wx:if="{{animationPosition==1}}" class="dh-icon"
-            src="../../../animation/{{skin}}/tunbutiaozheng-1@3x.png"></image>
+            src="../../../animation/{{skin}}/fanshentiaozheng-1@3x.png"></image>
           <image wx:if="{{animationPosition==2}}" class="dh-icon"
-            src="../../../animation/{{skin}}/tunbutiaozheng-2@3x.png"></image>
+            src="../../../animation/{{skin}}/fanshentiaozheng-2@3x.png"></image>
           <image wx:if="{{animationPosition==3}}" class="dh-icon"
-            src="../../../animation/{{skin}}/tunbutiaozheng-3@3x.png"></image>
+            src="../../../animation/{{skin}}/fanshentiaozheng-3@3x.png"></image>
         </block>
         <block wx:if="{{currentAnjian.anjian=='tuibutz'}}">
           <image wx:if="{{animationPosition==1}}" class="dh-icon"

@@ -36,8 +36,8 @@ Component({
     connected: {},
     currentType: 'tiaozheng', // tiaozheng,xunhuan
     currentAnjian: {
-      anjian: 'beibutz', // beibutz,beituitz,yaobutz,tuibutz
-      name: '背部调整' // 背部调整，背腿调整，腰部调整，腿部调整
+      anjian: 'beibutz', // beibutz,beituitz,fanshentz,tuibutz
+      name: '背部调整' // 背部调整，背腿调整，翻身调整，腿部调整
     },
     currentXHAnjian: {
       anjian: 'quanshengxh', // quanshengxh,beibuxh,yaobuxh,tuibuxh
@@ -372,12 +372,12 @@ Component({
      */
     tapDonghuaquClick() {
       console.info('tapDonghuaquClick', this.endTime, this.startTime);
-      if (this.endTime - this.startTime > 1000) {
-        var currentType = this.data.currentType;
-        this.setData({
-          currentType: currentType == 'tiaozheng' ? 'xunhuan' : 'tiaozheng'
-        })
-      }
+      // if (this.endTime - this.startTime > 1000) {
+      //   var currentType = this.data.currentType;
+      //   this.setData({
+      //     currentType: currentType == 'tiaozheng' ? 'xunhuan' : 'tiaozheng'
+      //   })
+      // }
     },
 
     /**
@@ -404,7 +404,7 @@ Component({
 
 
     /**
-     * 腰部调整
+     * 翻身调整
      * @param {*} top 上
      * @param {*} start 按下
      */
