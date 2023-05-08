@@ -186,12 +186,12 @@ Page({
       configManager.putTongbukzShow(true, connected.deviceId);
       configManager.putTongbukzSwitch(tongbukongzhiSWitch, connected.deviceId);
       return;
-    } else if (cmd.indexOf('FFFFFFFF01000C0B00')) {
+    } else if (cmd.indexOf('FFFFFFFF01000C0B00') >= 0) {
       this.setData({
         zhinengshuimianItemShow: false
       })
       return;
-    } else if (cmd.indexOf('FFFFFFFF01000C0B01')) {
+    } else if (cmd.indexOf('FFFFFFFF01000C0B01')  >= 0) {
       this.setData({
         zhinengshuimianItemShow: true
       })

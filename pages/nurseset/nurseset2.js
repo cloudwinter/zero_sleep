@@ -21,6 +21,7 @@ Page({
       show: true,
       animated: false,
     },
+    anmoItemShow:false,
     anmoChecked: false,
     bbxhChecked: false,
     tbxhChecked: false,
@@ -139,25 +140,47 @@ Page({
         bbxhChecked: !this.data.bbxhChecked,
         tbxhChecked: false,
         btxhChecked: false,
+        fsxh1Checked: false,
+        fsxh2Checked: false
       })
     } else if (type == 'tbxh') {
       this.setData({
         tbxhChecked: !this.data.tbxhChecked,
         bbxhChecked: false,
-        btxhChecked: false
+        btxhChecked: false,
+        fsxh1Checked: false,
+        fsxh2Checked: false
       })
     } else if (type == 'btxh') {
       this.setData({
         btxhChecked: !this.data.btxhChecked,
         bbxhChecked: false,
         tbxhChecked: false,
+        fsxh1Checked: false,
+        fsxh2Checked: false
+      })
+    } else if (type == 'fsxh1') {
+      this.setData({
+        btxhChecked: false,
+        bbxhChecked: false,
+        tbxhChecked: false,
+        fsxh1Checked: !this.data.fsxh1Checked,
+        fsxh2Checked: false,
+      })
+    } else if (type == 'fsxh2') {
+      this.setData({
+        btxhChecked: false,
+        bbxhChecked: false,
+        tbxhChecked: false,
+        fsxh1Checked: false,
+        fsxh2Checked: !this.data.fsxh2Checked,
       })
     }
   },
 
   timeTap: function (e) {
     var type = e.currentTarget.dataset.type;
-    if (type == '0700') {
+    if (type == '0600') {
       this.setData({
         time0600Checked: !this.data.time0600Checked
       })
@@ -169,11 +192,11 @@ Page({
       this.setData({
         time1400Checked: !this.data.time1400Checked
       })
-    } else if (type == '1700') {
+    } else if (type == '1800') {
       this.setData({
         time1800Checked: !this.data.time1800Checked
       })
-    } else if (type == '2000') {
+    } else if (type == '2200') {
       this.setData({
         time2200Checked: !this.data.time2200Checked
       })
@@ -184,12 +207,15 @@ Page({
   saveTap: function () {
     let connected = this.data.connected;
     let cmd = 'FFFFFFFF01000D14'
-    let anmoChecked = this.data.anmoChecked;
-    if (anmoChecked) {
-      cmd = cmd + '01'
-    } else {
-      cmd = cmd + '00'
-    }
+    // let anmoChecked = this.data.anmoChecked;
+    // if (anmoChecked) {
+    //   cmd = cmd + '01'
+    // } else {
+    //   cmd = cmd + '00'
+    // }
+    // 按摩功能固定00
+    cmd = cmd + '00'
+
     if (this.data.bbxhChecked) {
       cmd = cmd + '01'
     } else if (this.data.tbxhChecked) {

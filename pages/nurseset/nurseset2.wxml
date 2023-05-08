@@ -11,15 +11,15 @@
       <view class="item-title">功能设定</view>
 
       <!-- 按摩功能 -->
-      <view class="item" style="margin-top:1rpx;" bindtap="anmoTap">
+      <!-- <view class="item" style="margin-top:1rpx;" bindtap="anmoTap">
         <view class="item-left">按摩功能</view>
         <view class="item-right">
           <image class="item-right-icon" src="../../images/{{skin}}/{{anmoChecked?'ic_checkbox_selected@3x.png':'ic_checkbox_normal@3x.png'}}"></image>
         </view>
-      </view>
+      </view> -->
 
 
-      <view class="item" style="margin-top:44rpx;" bindtap="periodTap" bindtap="xunhuanTap" data-type="bbxh">
+      <view class="item" style="margin-top:5rpx;" bindtap="periodTap" bindtap="xunhuanTap" data-type="bbxh">
         <view class="item-left">背部循环</view>
         <view class="item-right">
           <image class="item-right-icon" src="../../images/{{skin}}/{{bbxhChecked?'ic_checkbox_selected@3x.png':'ic_checkbox_normal@3x.png'}}"></image>
