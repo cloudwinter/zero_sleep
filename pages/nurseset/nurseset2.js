@@ -45,7 +45,7 @@ Page({
       connected: connected
     })
     WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
-    let cmd = 'FFFFFFFF01000E0B00';
+    let cmd = 'FFFFFFFF01000A0B0F';
     let cmdCrc = crcUtil.HexToCSU16(cmd);
     cmd = cmd + cmdCrc;
     this.sendFullBlueCmd(cmd);
@@ -259,6 +259,8 @@ Page({
     } else {
       cmd = cmd + '00'
     }
+    // 补足预留位
+    cmd = cmd + '000000';
 
     let cmdCrc = crcUtil.HexToCSU16(cmd);
     cmd = cmd + cmdCrc;
@@ -266,10 +268,13 @@ Page({
     // 发送蓝牙命令
     console.log('saveTap->', cmd);
     util.sendBlueCmd(connected, cmd);
-
-    // 返回上一页
-    wx.navigateBack({
-      delta: 1,
-    })
+    // 这边延迟500,防止返回时，两个命令一起发送，后台无法接受
+    setTimeout(() => {
+      // 返回上一页
+      wx.navigateBack({
+        delta: 1,
+      })
+    },500);
+  
   }
 })

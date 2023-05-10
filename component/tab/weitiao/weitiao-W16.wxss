@@ -1,6 +1,4 @@
 /* component/tab/weitiao/weitiao-W16.wxss */
-/* component/tab/weitiao/weitiao-W3.wxss */
-
 
 @import './../../../common/tab.wxss';
 
@@ -36,57 +34,6 @@
 } */
 
 
-.layer {
-  display: flex;
-  height: 120rpx;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-}
-
-
-.layer .button {
-  width: 400rpx;
-  height: 90rpx;
-  border-radius: 90rpx;
-  display: flex;
-  align-items: center;
-}
-
-.layer .button .dian{
-  width: 28rpx;
-  height: 28rpx;
-  padding-left: 52rpx;
-}
-
-.layer .button .name {
-  color: white;
-  padding-left: 40rpx;
-}
-
-.layer .button-left {
-  flex: 1;
-  color: #ffffff;
-  margin-left: 62rpx;
-}
-
-.layer .button-right {
-  display: flex;
-  align-items: center;
-  margin-right: 50rpx;
-}
-
-.layer .button-name {
-  color: #ffffff;
-}
-
-.layer .button-icon {
-  width: 32rpx;
-  height: 32rpx;
-  margin-left: 20rpx;
-}
-
-
 
 /********调整************** */
 .tiaozheng-type {
@@ -99,7 +46,7 @@
 .tiaozheng-content {
   width: 90%;
   height: 120rpx;
-  margin-top: 30rpx;
+  margin-top: 20rpx;
   display: flex;
   align-items: center;
 }
