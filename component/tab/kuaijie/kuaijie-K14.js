@@ -149,8 +149,9 @@ Component({
      */
     blueReply(cmd) {
       var that = this.observer;
-      if (cmd.toUpperCase().indexOf('FFFFFFFF0100080B') >= 0) {
-        var timeXHSwitchCmd = cmd.substr(16, 2).toUpperCase();
+      cmd = cmd.toUpperCase();
+      if (cmd.indexOf('FFFFFFFF0100080B') >= 0 || cmd.indexOf('FFFFFFFF0100070B') >= 0) {
+        var timeXHSwitchCmd = cmd.substr(16, 2);
         if(timeXHSwitchCmd == '01') {
           that.setData({
             timeXHSwitch: true

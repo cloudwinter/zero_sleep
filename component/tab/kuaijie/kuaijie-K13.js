@@ -39,7 +39,7 @@ Component({
     endTime: '',
     tongbukzShow: false, // 同步控制显示
     tongbukzStatus: false, // 同步控制状态
-    timeXHSwitch:false
+    timeXHSwitch:true
   },
 
 
@@ -199,8 +199,8 @@ Component({
       var that = this.observer;
       console.error('kuaijie-K2->blueReply',cmd);
       cmd = cmd.toUpperCase();
-      if (cmd.toUpperCase().indexOf('FFFFFFFF0100080B') >= 0) {
-        var timeXHSwitchCmd = cmd.substr(16, 2).toUpperCase();
+      if (cmd.indexOf('FFFFFFFF0100080B') >= 0 || cmd.indexOf('FFFFFFFF0100070B') >= 0) {
+        var timeXHSwitchCmd = cmd.substr(16, 2);
         if(timeXHSwitchCmd == '01') {
           that.setData({
             timeXHSwitch: true
