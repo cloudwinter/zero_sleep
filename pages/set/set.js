@@ -43,6 +43,7 @@ Page({
     tongbukongzhiItemShow: false, // 同步控制的item
     tongbukongzhiSWitch: false, // 同步控制的开关
     zhinengshuimianItemShow: false, //显示心率带链接跳转的item
+    mac: '', // mac地址
     jumpSucApp: false, // 是否成功跳转到其他小程序
     preJumpConnected: {}, // 跳转前的连接
   },
@@ -64,8 +65,8 @@ Page({
       status = '已连接';
       alarmSwitch = configManager.showAlarmSwitch(connected.deviceId);
       faultDebugShow = this.isShowFaultDebug(connected.name);
-      if (connected.name.indexOf('S4-HL') >= 0 || connected.name.indexOf('S5-Y2') >= 0
-      || connected.name.indexOf('S3-5') >= 0 || connected.name.indexOf('S5-Y3') >= 0) {
+      if (connected.name.indexOf('S4-HL') >= 0 || connected.name.indexOf('S5-Y2') >= 0 ||
+        connected.name.indexOf('S3-5') >= 0 || connected.name.indexOf('S5-Y3') >= 0) {
         xunhuanModeItemShow = true;
       }
     } else {
@@ -191,10 +192,12 @@ Page({
         zhinengshuimianItemShow: false
       })
       return;
-    } else if (cmd.indexOf('FFFFFFFF01000C0B01')  >= 0) {
+    } else if (cmd.indexOf('FFFFFFFF01000C0B01') >= 0) {
+      var macCmd = cmd.substr(18, 12);
       this.setData({
-        zhinengshuimianItemShow: true
-      })
+        zhinengshuimianItemShow: true,
+        mac: macCmd
+      });
       return;
     }
     var prefix = cmd.substr(0, 12);
@@ -300,7 +303,7 @@ Page({
   xunhuanModeItemTap: function (e) {
     var jumpUrl = '';
     var name = this.data.connected.name;
-    if(name.indexOf('S3-5') >= 0 || name.indexOf('S5-Y3') >= 0) {
+    if (name.indexOf('S3-5') >= 0 || name.indexOf('S5-Y3') >= 0) {
       jumpUrl = '/pages/nurseset/nurseset2'
     } else {
       jumpUrl = '/pages/nurseset/nurseset'
@@ -315,8 +318,10 @@ Page({
    * @param {*} e 
    */
   zhinengshuimianModeItemTap: function (e) {
+    var jumpPath = 'pages/index/index?mac=' + this.data.mac;
     wx.navigateToMiniProgram({
       appId: 'wxbbdd4b1b88358610',
+      path: jumpPath,
       envVersion: 'trial', //develop,trial,release
       success(res) {
         // 打开成功
