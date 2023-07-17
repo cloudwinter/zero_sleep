@@ -1,8 +1,8 @@
 {
   "pages": [
-    "pages/main/main",
     "pages/index/index",
     "pages/search/search",
+    "pages/main/main",
     "pages/set/set",
     "pages/alarm/alarm",
     "pages/report/report",
