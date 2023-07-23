@@ -46,7 +46,7 @@ Page({
     mac: '', // mac地址
     jumpSucApp: false, // 是否成功跳转到其他小程序
     preJumpConnected: {}, // 跳转前的连接
-    appId:"",
+    appId: '', // appId
   },
 
   /**
