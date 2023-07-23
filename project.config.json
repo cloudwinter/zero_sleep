@@ -1,9 +1,5 @@
 {
   "description": "项目配置文件",
-  "packOptions": {
-    "ignore": [],
-    "include": []
-  },
   "setting": {
     "urlCheck": true,
     "es6": true,
@@ -23,7 +19,6 @@
     "uploadWithSourceMap": true,
     "compileHotReLoad": false,
     "useMultiFrameRuntime": true,
-    "useApiHook": true,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
@@ -36,17 +31,20 @@
     "packNpmManually": false,
     "packNpmRelationList": [],
     "minifyWXSS": true,
-    "useApiHostProcess": true
+    "ignoreUploadUnusedFiles": true
   },
   "compileType": "miniprogram",
-  "libVersion": "2.27.2",
-  "appid": "wxd2f90e3b9f5a3286",
-  "projectname": "zero_sleep",
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
   "condition": {},
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2
-  }
+  },
+  "libVersion": "2.27.2",
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "appid": "wxc92332273e0f413d"
 }

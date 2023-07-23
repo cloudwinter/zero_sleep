@@ -46,6 +46,7 @@ Page({
     mac: '', // mac地址
     jumpSucApp: false, // 是否成功跳转到其他小程序
     preJumpConnected: {}, // 跳转前的连接
+    appId:"",
   },
 
   /**
@@ -196,9 +197,18 @@ Page({
       var macCmd = cmd.substr(18, 12);
       this.setData({
         zhinengshuimianItemShow: true,
-        mac: macCmd
+        mac: macCmd,
+        appId:'wxbbdd4b1b88358610'
       });
       return;
+    } else if (cmd.indexOf('FFFFFFFF01000C0B02') >= 0){
+      var macCmd = cmd.substr(18,12);
+      this.setData ({
+        zhinengshuimianItemShow:true,
+        mac:macCmd,
+        appId:'wx89783978e44773d0'
+      })
+      return
     }
     var prefix = cmd.substr(0, 12);
     console.info('set->askBack', cmd, prefix);
@@ -320,7 +330,7 @@ Page({
   zhinengshuimianModeItemTap: function (e) {
     var jumpPath = 'pages/index/index?mac=' + this.data.mac;
     wx.navigateToMiniProgram({
-      appId: 'wxbbdd4b1b88358610',
+      appId: this.data.appId,
       path: jumpPath,
       envVersion: 'trial', //develop,trial,release
       success(res) {
