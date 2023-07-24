@@ -36,7 +36,8 @@
     "packNpmManually": false,
     "packNpmRelationList": [],
     "minifyWXSS": true,
-    "useApiHostProcess": true
+    "useApiHostProcess": true,
+    "ignoreUploadUnusedFiles": true
   },
   "compileType": "miniprogram",
   "libVersion": "2.27.2",
@@ -50,4 +51,3 @@
     "tabSize": 2
   }
 }
-
