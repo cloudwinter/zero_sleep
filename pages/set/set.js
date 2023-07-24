@@ -193,7 +193,7 @@ Page({
         zhinengshuimianItemShow: false
       })
       return;
-    } else if (cmd.indexOf('FFFFFFFF01000C0B01') >= 0) {
+    } else if (cmd.indexOf('FFFFFFFF01000C1101') >= 0) {
       var macCmd = cmd.substr(18, 12);
       this.setData({
         zhinengshuimianItemShow: true,
@@ -201,7 +201,7 @@ Page({
         appId:'wxbbdd4b1b88358610'
       });
       return;
-    } else if (cmd.indexOf('FFFFFFFF01000C0B02') >= 0){
+    } else if (cmd.indexOf('FFFFFFFF01000C1102') >= 0){
       var macCmd = cmd.substr(18,12);
       this.setData ({
         zhinengshuimianItemShow:true,
