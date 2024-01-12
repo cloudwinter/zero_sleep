@@ -1,6 +1,7 @@
 // pages/set.js
 const configManager = require('../../utils/configManager');
 const util = require('../../utils/util');
+const time = require('../../utils/time');
 const crcUtil = require('../../utils/crcUtil');
 const WxNotificationCenter = require('../../utils/WxNotificationCenter');
 const app = getApp();
@@ -43,6 +44,8 @@ Page({
     tongbukongzhiItemShow: false, // 同步控制的item
     tongbukongzhiSWitch: false, // 同步控制的开关
     zhinengshuimianItemShow: false, //显示心率带链接跳转的item
+    shishixinlvItemShow: false, // 实时心率数据
+    shuimianbaogaoItemShow: false, // 睡眠报告
     mac: '', // mac地址
     jumpSucApp: false, // 是否成功跳转到其他小程序
     preJumpConnected: {}, // 跳转前的连接
@@ -198,17 +201,23 @@ Page({
       this.setData({
         zhinengshuimianItemShow: true,
         mac: macCmd,
-        appId:'wxbbdd4b1b88358610'
+        appId: 'wxbbdd4b1b88358610'
       });
       return;
-    } else if (cmd.indexOf('FFFFFFFF01000C1102') >= 0){
-      var macCmd = cmd.substr(18,12);
-      this.setData ({
-        zhinengshuimianItemShow:true,
-        mac:macCmd,
-        appId:'wx89783978e44773d0'
+    } else if (cmd.indexOf('FFFFFFFF01000C1102') >= 0) {
+      var macCmd = cmd.substr(18, 12);
+      this.setData({
+        zhinengshuimianItemShow: true,
+        mac: macCmd,
+        appId: 'wx89783978e44773d0'
       })
-      return
+      return;
+    } else if (cmd.indexOf('FFFFFFFF01000C1103') >= 0) {
+      this.setData({
+        shishixinlvItemShow: true,
+        shuimianbaogaoItemShow: true
+      })
+      return;
     }
     var prefix = cmd.substr(0, 12);
     console.info('set->askBack', cmd, prefix);
@@ -338,40 +347,34 @@ Page({
         console.info('跳转成功');
       }
     })
-
-
-    // // 断开蓝牙连接
-    // var that = this;
-    // var connected = this.data.connected;
-    // var status = this.data.status;
-    // if (connected && connected.deviceId && status == '已连接') {
-    //   util.showLoading('断开中...');
-    //   var deviceId = connected.deviceId;
-    //   wx.closeBLEConnection({
-    //     deviceId: deviceId,
-    //     success: function () {
-    //       console.info('closeBLEConnection 断开连接成功');
-    //       // 清空连接状态
-    //       that.setData({
-    //         connected: {},
-    //         status: "未连接"
-    //       })
-    //       configManager.putCurrentConnected(that.data.connected);
-    //       that.jumpToApp();
-    //     },
-    //     fail: function (e) {
-    //       util.showToast('断开连接失败,请重试');
-    //       console.error('断开连接失败:', e);
-    //     },
-    //     complete: function () {
-    //       console.info('closeBLEConnection complete完成');
-    //       util.hideLoading();
-    //     }
-    //   })
-    // } else {
-    //   this.jumpToApp();
-    // }
   },
+
+  /**
+   * 实时心率数据
+   * @param {*} e 
+   */
+  shishixinlvItemShowTap: function() {
+    var originalUrl = 'https://alltoone.he-info.cn/h5/#/mattress/oneDevice/oneDevice?mac='+this.data.mac+'&token=2E7JNgIe61QEiP1dZVmNCyqOm4Oz77eVx6RljYQjHR2GkZMrXAK5gpCSmZYg9dXFgRdreG9FdWX7qgBB6yNfY7ks9Tdq9E39A9ZNoSSZGN033RJijayPOmNM3kHsakKVTHKC5I6lNtvgM1KN5HCDN9golGpOWWCvY0auuZQRcoBJ8nGG7TcqMWkEkGyOV6Ghu7uFvpcn0YWXLe1use49YZRkQau6ONaN7f8KvLKzmSRSBw4s6xbR0MpiXBPPs2Y6bmyLH2LK4sSMmSnebLBqCk0oM5gVDGqagY9GMJaZQbzkdZuiZuRqLDh2p5gAbPt8xbhZhGyKW7YaEcfNqx8Q5cOP7NgXUMKZblNc3NFVDzVuAKbl0TzRsnsY7hsLguKT5Axru56VYEDSNPqdla6xzHk9WIFEPUF3qLZQvKb2NbE7BktuCEnXCqIWwm4yTpfw3VzgXmln4pE3pNTBlDBOgaWSYZDaYkjKWKO0y5TULKOjtks2aBQRyw65I1Az8NEM';
+    var webUrl = encodeURIComponent(originalUrl);
+    var jumpUrl = '/pages/webhtml/webhtml?webUrl='+webUrl
+    wx.navigateTo({
+      url: jumpUrl,
+    })
+  },
+
+ /**
+   * 睡眠报告
+   * @param {*} e 
+   */
+  shuimianbaogaoItemShowTap: function() {
+    var originalUrl = 'https://alltoone.he-info.cn/h5/#/mattress/sleep/sleep?date='+time.getYesterDayDate()+'&mac='+this.data.mac+'&token=2E7JNgIe61QEiP1dZVmNCyqOm4Oz77eVx6RljYQjHR2GkZMrXAK5gpCSmZYg9dXFgRdreG9FdWX7qgBB6yNfY7ks9Tdq9E39A9ZNoSSZGN033RJijayPOmNM3kHsakKVTHKC5I6lNtvgM1KN5HCDN9golGpOWWCvY0auuZQRcoBJ8nGG7TcqMWkEkGyOV6Ghu7uFvpcn0YWXLe1use49YZRkQau6ONaN7f8KvLKzmSRSBw4s6xbR0MpiXBPPs2Y6bmyLH2LK4sSMmSnebLBqCk0oM5gVDGqagY9GMJaZQbzkdZuiZuRqLDh2p5gAbPt8xbhZhGyKW7YaEcfNqx8Q5cOP7NgXUMKZblNc3NFVDzVuAKbl0TzRsnsY7hsLguKT5Axru56VYEDSNPqdla6xzHk9WIFEPUF3qLZQvKb2NbE7BktuCEnXCqIWwm4yTpfw3VzgXmln4pE3pNTBlDBOgaWSYZDaYkjKWKO0y5TULKOjtks2aBQRyw65I1Az8NEM'
+    var webUrl = encodeURIComponent(originalUrl);
+    var jumpUrl = '/pages/webhtml/webhtml?webUrl='+webUrl
+    wx.navigateTo({
+      url: jumpUrl,
+    })
+  },
+
 
   /**
    * 跳转到其他app
@@ -395,6 +398,7 @@ Page({
       }
     })
   },
+
 
 
   /**

@@ -64,6 +64,22 @@
 				</view>
 			</view>
 
+      <view class="shezhi-content shezhi-button-bg" bindtap="shishixinlvItemShowTap" hidden="{{!shishixinlvItemShow}}">
+				<view class="shezhi-button-left">实时心率数据</view>
+				<view class="shezhi-button-right">
+					<!-- <view class="shezhi-button-name"></view> -->
+					<image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+				</view>
+			</view>
+
+      <view class="shezhi-content shezhi-button-bg" bindtap="shuimianbaogaoItemShowTap" hidden="{{!shuimianbaogaoItemShow}}">
+				<view class="shezhi-button-left">睡眠报告</view>
+				<view class="shezhi-button-right">
+					<!-- <view class="shezhi-button-name"></view> -->
+					<image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+				</view>
+			</view>
+
 		</view>
 	</view>
 

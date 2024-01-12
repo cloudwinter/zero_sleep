@@ -34,6 +34,23 @@ function getCurrentDate() {
 }
 
 /**
+ * 获取当前日期
+ * yyyy-MM-dd
+ */
+function getYesterDayDate() {
+  // 获取当前日期
+  var today = new Date();
+  // 获取前一天的日期
+  var yesterday = new Date(today);
+  yesterday.setDate(today.getDate() - 1);
+
+  // 格式化输出
+  var formattedDate = yesterday.getFullYear() + '/' + (yesterday.getMonth() + 1).toString().padStart(2, '0') + '/' + yesterday.getDate().toString().padStart(2, '0');
+  console.log(formattedDate);
+  return formattedDate;
+}
+
+/**
  * 两个日期相差的天数
  * @param {*} firstDate 
  * @param {*} secondDate 
@@ -65,4 +82,5 @@ module.exports = {
   getDifferDate,
   getCurrentDate,
   getCurrentDifferMs,
+  getYesterDayDate,
 }

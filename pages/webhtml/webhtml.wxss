@@ -1,0 +1,124 @@
+/* pages/webhtml/webhtml.wxss */
+.dark .shezhi-button-bg {
+  width: 90% !important;
+  height: 120rpx;
+  border-radius: 120rpx;
+  background: #1E1F24;
+}
+
+.orange .shezhi-button-bg {
+  
+  width: 90% !important;
+  height: 120rpx;
+  border-radius: 120rpx;
+  background: #6E269A;
+}
+
+
+.content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 60rpx;
+}
+
+.shezhi-content {
+  width: 90%;
+  height: 120rpx;
+  margin-top: 36rpx;
+  display: flex;
+  align-items: center;
+}
+
+
+.shezhi-button-left {
+  flex: 1;
+  color: white;
+  font-size: 28rpx;
+  margin-left: 62rpx;
+}
+
+.shezhi-button-right {
+  display: flex;
+  align-items: center;
+  margin-right: 50rpx;
+}
+
+.shezhi-button-name {
+  color: #59B84D;
+  font-size: 28rpx;
+}
+
+.shezhi-button-icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-left: 20rpx;
+}
+
+/** 复选框 */
+.dark .wx-switch-input{
+  width:88rpx !important;
+  height:44rpx !important;
+  background: #59B84D !important;
+  border: #59B84D !important; /* 2018-07-18 重置开关边框颜色 */
+}
+
+.orange .wx-switch-input{
+  width:88rpx !important;
+  height:44rpx !important;
+  background: #FF9704 !important;
+  border: #FF9704 !important; /* 2018-07-18 重置开关边框颜色 */
+}
+
+/*白色样式（false的样式）*/
+.wx-switch-input::before{
+  width:88rpx !important;
+  height: 44rpx !important;
+}
+/*绿色样式（true的样式）*/
+.wx-switch-input::after{
+  width: 48rpx !important;
+  height: 44rpx !important;
+}
+
+
+
+/************ 对话框 ***************/
+
+.model-content {
+  width: 100%;
+  height: 240rpx;
+}
+
+.model-label{
+  display: flex;
+  align-items: center;
+  height: 120rpx;
+} 
+
+.radio {
+  display: block;
+  padding: 5px;
+  width: 100%;
+}
+
+.model-row {
+  display: flex;
+}
+
+.model-title {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90rpx;
+}
+
+.model-body {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: red;
+}

@@ -13,8 +13,8 @@
     "pages/nurseset/nurseset",
     "pages/network/network",
     "pages/wifiselect/wifiselect",
-    "pages/nurseset/nurseset2"
- 
+    "pages/nurseset/nurseset2",
+    "pages/webhtml/webhtml"
   ],
   "window": {
     "backgroundTextStyle": "light",
