@@ -51,6 +51,14 @@ Page({
     jumpSucApp: false, // 是否成功跳转到其他小程序
     preJumpConnected: {}, // 跳转前的连接
     appId: '', // appId
+    network: { // 配网信息
+      show: false,
+      GH: '53',
+      title: '',
+      desc: ''
+    },
+    networkDialogShow: false,
+    networkDialogTitle: '',
   },
 
   /**
@@ -181,6 +189,7 @@ Page({
    */
   blueReply(cmd) {
     cmd = cmd.toUpperCase();
+    console.info('set->askBack', cmd);
     if (cmd.indexOf('FFFFFFFF01000A0B') >= 0 || cmd.indexOf('FFFFFFFF0100090B') >= 0) {
       // 同步控制回码
       let tongbukongzhiSWitch = cmd.substr(16, 2) == '01' ? true : false;
@@ -219,13 +228,71 @@ Page({
         shuimianbaogaoItemShow: true,
         peiwangItemShow: true
       })
+      // 发送询问wifi配网状态询问码：
+      let wifiCmd = "FFFFFFFF02000A0A1204";
+      util.sendBlueCmd(this.data.connected, wifiCmd);
+      return;
+    } else if (cmd.indexOf('FFFFFFFF02000A14') >= 0) {
+      this.setPeiWang(cmd);
       return;
     }
-    var prefix = cmd.substr(0, 12);
-    console.info('set->askBack', cmd, prefix);
-    if (prefix != 'FFFFFFFF0304') {
-      return;
+    if(cmd.indexOf('FFFFFFFF0304') >= 0) {
+      this.setFault(cmd);
     }
+  },
+
+  /**
+   * 设置配网
+   * @param {*} cmd 蓝牙回复的指令
+   */
+  setPeiWang: function(cmd) {
+    let networkGH = cmd.substr(28, 2);
+    let networkShow = false;
+    let networkTitle;
+    let networkDesc;
+    let networkDialogShow = false;
+    let networkDialogTitle = '';
+    if (networkGH == '00') {
+      networkShow = true;
+      networkTitle = '网络未连接';
+      networkDesc = '配置WIFI';
+      networkDialogShow = true;
+      networkDialogTitle = '设备未联网，请先给设备配置WIFI网络';
+    } else if (networkGH == '01') {
+      networkShow = true;
+      networkTitle = '网络未连接';
+      networkDesc = '更换WIFI';
+      networkDialogShow = true;
+      networkDialogTitle = '当前网络未连接，请确认您的WIFI网络能否上网，或更换WIFI网络';
+    } else if (networkGH == '0A') {
+      networkShow = true;
+      networkTitle = '网络不稳定';
+      networkDesc = '更换WIFI';
+      networkDialogShow = true;
+      networkDialogTitle = '当前网络不稳定，请将路由器放在离设备更近的位置或更换WIFI网络';
+    } else if (networkGH == '0F') {
+      networkShow = true;
+      networkTitle = '网络已连接';
+      networkDesc = '更换WIFI';
+    }
+    this.setData({
+      networkGH: networkGH,
+      network: {
+        show: networkShow,
+        GH: networkGH,
+        title: networkTitle,
+        desc: networkDesc
+      },
+      networkDialogShow: networkDialogShow,
+      networkDialogTitle: networkDialogTitle
+    })
+  },
+
+  /**
+   * 设置故障信息展示
+   * @param {*} cmd 
+   */
+  setFault: function(cmd) {
     var faultPart = '';
     let partVal = cmd.substr(12, 4).toUpperCase();
     if ('6008' == partVal || '4002' == partVal) {
@@ -276,7 +343,6 @@ Page({
       faultPart: faultPart,
       faultCause: faultCause
     })
-
   },
 
 

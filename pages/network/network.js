@@ -98,7 +98,7 @@ Page({
       let statusCmd = cmdCopy.substr(28, 2);
       let askRetryTimes = this.data.askRetryTimes;
       let connectStatus = this.data.connectStatus;
-      if (statusCmd == '01') {
+      if (statusCmd == '01' || statusCmd == '00') {
         if (askRetryTimes >= 10) {
           connectStatus = 2;
         } else {

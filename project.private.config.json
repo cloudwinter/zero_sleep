@@ -5,6 +5,13 @@
       "list": [
         {
           "name": "",
+          "pathName": "pages/set/set",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
           "pathName": "pages/smartsleep/smartsleep",
           "query": "",
           "launchMode": "default",

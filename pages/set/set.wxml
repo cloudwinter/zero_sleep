@@ -65,13 +65,14 @@
 			</view>
 
 
-      <view class="shezhi-content shezhi-button-bg" bindtap="networkClick" hidden="{{!peiwangItemShow}}">
-				<view class="shezhi-button-left">配网</view>
-				<view class="shezhi-button-right">
-					<!-- <view class="shezhi-button-name"></view> -->
-					<image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
-				</view>
-			</view>
+    <!-- 配网 -->
+    <view class="shezhi-content shezhi-button-bg" bindtap="networkClick" hidden="{{!peiwangItemShow}}">
+      <view class="shezhi-button-left">{{network.title}}</view>
+      <view class="shezhi-button-right">
+        <view class="shezhi-button-name">{{network.desc}}</view>
+        <image class="shezhi-button-icon" src="../../../images/{{skin}}/row_blue@2x.png"></image>
+      </view>
+    </view>
 
       <view class="shezhi-content shezhi-button-bg" bindtap="shishixinlvItemShowTap" hidden="{{!shishixinlvItemShow}}">
 				<view class="shezhi-button-left">实时心率数据</view>
@@ -145,4 +146,36 @@
 			</view>
 		</view>
 	</view>
+
+  <!--配网对话框 -->
+<view class="modal-dialog" hidden="{{!networkDialogShow}}">
+  <view class="modal-box" style="margin-bottom: 700rpx;">
+    <view class="model-content">
+      {{networkDialogTitle}}
+    </view>
+    <view style="width:100%;height:1rpx;background:#FFF;margin-top:10rpx"></view>
+    <block wx:if="{{network.GH == '00'}}">
+      <view class="modal-box-bottom" style="height:100rpx;">
+        <view bindtap="networkConnect" class="modal-box-button" hover-class="modal-box-button-hover" style="flex-grow:1;color:#59B84D;">配网</view>
+        <view style="width:1rpx;height:100%;background:#FFF"></view>
+        <view bindtap="networkCancel" class="modal-box-button" hover-class="modal-box-button-hover" style="flex-grow:1;color:#FFFFFF">忽略</view>
+      </view>
+    </block>
+    <block wx:if="{{network.GH == '01'}}">
+      <view class="modal-box-bottom" style="height:100rpx;">
+        <view bindtap="networkConnect" class="modal-box-button" hover-class="modal-box-button-hover" style="flex-grow:1;color:#59B84D;">更换</view>
+        <view style="width:1rpx;height:100%;background:#FFF"></view>
+        <view bindtap="networkCancel" class="modal-box-button" hover-class="modal-box-button-hover" style="flex-grow:1;color:#FFFFFF">知道了</view>
+      </view>
+    </block>
+    <block wx:if="{{network.GH == '0A'}}">
+      <view class="modal-box-bottom" style="height:100rpx;">
+        <view bindtap="networkConnect" class="modal-box-button" hover-class="modal-box-button-hover" style="flex-grow:1;color:#59B84D;">更换</view>
+        <view style="width:1rpx;height:100%;background:#FFF"></view>
+        <view bindtap="networkCancel" class="modal-box-button" hover-class="modal-box-button-hover" style="flex-grow:1;color:#FFFFFF">忽略</view>
+      </view>
+    </block>
+
+  </view>
+</view>
 </view>
