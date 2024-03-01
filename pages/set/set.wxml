@@ -70,7 +70,7 @@
       <view class="shezhi-button-left">{{network.title}}</view>
       <view class="shezhi-button-right">
         <view class="shezhi-button-name">{{network.desc}}</view>
-        <image class="shezhi-button-icon" src="../../../images/{{skin}}/row_blue@2x.png"></image>
+        <image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
       </view>
     </view>
 

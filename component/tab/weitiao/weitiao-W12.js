@@ -34,9 +34,14 @@ Component({
       imgSanjiaoTopNormal: imgSanjiaoTopNormal
     },
     connected: {},
+    currentType: 'tiaozheng', // tiaozheng,xunhuan
     currentAnjian: {
       anjian: 'beibutz', // beibutz,tuibutz
       name: '背部调整' // 背部调整，腿部调整
+    },
+    currentXHAnjian: {
+      anjian: 'toubuxh', // quanshengxh,yaobuxh,toubuxh,tuibuxh
+      name: '头部循环' // 全身循环，腰部循环，头部循环，腿部循环
     },
     animationPosition: 1, //动画，1，2，3 或者 3，2，1 初始化都是1
     animationStop: true, //停止动画
@@ -267,6 +272,23 @@ Component({
     },
 
 
+    /**
+     * 长按切换动画区
+     */
+    tapDonghuaquClick() {
+      console.info('tapDonghuaquClick', this.endTime, this.startTime);
+      var name = this.data.connected.name;
+      if (name.indexOf('S4-Y2') >= 0) {
+        if (this.endTime - this.startTime > 1000) {
+          var currentType = this.data.currentType;
+          this.setData({
+            currentType: currentType == 'tiaozheng' ? 'xunhuan' : 'tiaozheng'
+          })
+        }
+      }
+    },
+
+
 
 
     /**
@@ -399,6 +421,32 @@ Component({
         animationPosition: position
       });
       setTimeout(that.donghua, 400, reversal, that);
+    },
+
+    /**
+     * 循环点击事件
+     * @param {*} e 
+     */
+    tapXH(e) {
+      var type = e.currentTarget.dataset.xhtype;
+      var name = e.currentTarget.dataset.xhname;
+      this.setData({
+        currentXHAnjian: {
+          anjian: type,
+          name: name
+        }
+      })
+      var cmd = '';
+      if (type == 'quanshengxh') {
+        cmd = '00E4C74A';
+      } else if (type == 'yaobuxh') {
+        cmd = '00E6468B';
+      } else if (type == 'toubuxh') {
+        cmd = '00E38688';
+      } else if (type == 'tuibuxh') {
+        cmd = '00E5068A';
+      }
+      this.sendBlueXHCmd(cmd);
     },
 
   }

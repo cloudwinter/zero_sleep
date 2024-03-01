@@ -427,6 +427,31 @@ Page({
   },
 
   /**
+     * 配网连接
+     * @param {*} e 
+     */
+    networkConnect:function(e) {
+      this.setData({
+        networkDialogShow: false
+      })
+      wx.navigateTo({
+        url: '/pages/network/network'
+      })
+    },
+
+
+    /**
+     * 配网取消对话框
+     * @param {*} e 
+     */
+    networkCancel:function(e) {
+      this.setData({
+        networkDialogShow: false
+      })
+    },
+
+
+  /**
    * 实时心率数据
    * @param {*} e 
    */

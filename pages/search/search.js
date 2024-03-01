@@ -549,7 +549,8 @@ Page({
           name.indexOf('S5-Y') >= 0 ||
           name.indexOf('S6-Y') >= 0 ||
           name.indexOf('S4-HL') >= 0 ||
-          name.indexOf('S5-Y3') >= 0) {
+          name.indexOf('S5-Y3') >= 0 ||
+          name.indexOf('S4-Y2') >= 0) {
           return true;
         }
       }
@@ -605,7 +606,7 @@ Page({
           return 'K8';
         } else if (name.indexOf('S3-4') >= 0) {
           return 'K9';
-        } else if (name.indexOf('S5-Y2') >= 0) {
+        } else if (name.indexOf('S5-Y2') >= 0 || name.indexOf('S4-Y2') >= 0) {
           return 'K12';
         } else if (name.indexOf('S3-5') >= 0) {
           return 'K13';
@@ -670,7 +671,7 @@ Page({
         } else if (name.indexOf('S3-3') >= 0 ||
           name.indexOf('S3-4') >= 0) {
           return 'W11';
-        } else if (name.indexOf('S4-Y') >= 0) {
+        } else if (name.indexOf('S4-Y') >= 0 || name.indexOf('S4-Y2') >= 0) {
           return 'W12';
         } else if (name.indexOf('S6-Y') >= 0) {
           return 'W14';
