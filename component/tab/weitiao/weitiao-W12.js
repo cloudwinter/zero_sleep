@@ -277,15 +277,15 @@ Component({
      */
     tapDonghuaquClick() {
       console.info('tapDonghuaquClick', this.endTime, this.startTime);
-      var name = this.data.connected.name;
-      if (name.indexOf('S4-Y2') >= 0) {
-        if (this.endTime - this.startTime > 1000) {
-          var currentType = this.data.currentType;
-          this.setData({
-            currentType: currentType == 'tiaozheng' ? 'xunhuan' : 'tiaozheng'
-          })
-        }
-      }
+      // var name = this.data.connected.name;
+      // if (name.indexOf('S4-Y2') >= 0) {
+      //   if (this.endTime - this.startTime > 1000) {
+      //     var currentType = this.data.currentType;
+      //     this.setData({
+      //       currentType: currentType == 'tiaozheng' ? 'xunhuan' : 'tiaozheng'
+      //     })
+      //   }
+      // }
     },
 
 

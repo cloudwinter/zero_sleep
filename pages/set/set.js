@@ -34,7 +34,7 @@ Page({
     ],
     dialogShow: false, // 模式对话框
     selectedRadio: 'drak',
-    xunhuanModeItemShow: false, // 循环模式item
+    xunhuanModeItemShow: true, // 循环模式item
     faultDebugShow: false,
     debugDialogShow: false, // 故障调试对话框
     faultPart: '',
@@ -79,7 +79,8 @@ Page({
       alarmSwitch = configManager.showAlarmSwitch(connected.deviceId);
       faultDebugShow = this.isShowFaultDebug(connected.name);
       if (connected.name.indexOf('S4-HL') >= 0 || connected.name.indexOf('S5-Y2') >= 0 ||
-        connected.name.indexOf('S3-5') >= 0 || connected.name.indexOf('S5-Y3') >= 0) {
+        connected.name.indexOf('S3-5') >= 0 || connected.name.indexOf('S5-Y3') >= 0 ||
+        connected.name.indexOf('S4-Y2') >= 0) {
         xunhuanModeItemShow = true;
       }
     } else {
