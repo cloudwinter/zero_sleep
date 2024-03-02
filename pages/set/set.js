@@ -34,7 +34,7 @@ Page({
     ],
     dialogShow: false, // 模式对话框
     selectedRadio: 'drak',
-    xunhuanModeItemShow: true, // 循环模式item
+    xunhuanModeItemShow: false, // 循环模式item
     faultDebugShow: false,
     debugDialogShow: false, // 故障调试对话框
     faultPart: '',

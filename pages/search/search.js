@@ -550,7 +550,8 @@ Page({
           name.indexOf('S6-Y') >= 0 ||
           name.indexOf('S4-HL') >= 0 ||
           name.indexOf('S5-Y3') >= 0 ||
-          name.indexOf('S4-Y2') >= 0) {
+          name.indexOf('S4-Y2') >= 0 ||
+          name.indexOf('S4-2-N93T') >= 0) {
           return true;
         }
       }
@@ -681,6 +682,8 @@ Page({
           return 'W16';
         } else if (name.indexOf('S5-Y') >= 0 || name.indexOf('S5-Y2') >= 0) {
           return 'W13';
+        } else if (name.indexOf('S4-2-N93T') >= 0) {
+          return 'W17';
         }
       }
       // 默认K1
