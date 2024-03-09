@@ -582,7 +582,8 @@ Page({
           name.indexOf('QMS4') >= 0 ||
           name.indexOf('S4-N') >= 0 ||
           name.indexOf('QMS3') >= 0 ||
-          name.indexOf('QMS2') >= 0) {
+          name.indexOf('QMS2') >= 0 ||
+          name.indexOf('S4-2-N93T') >= 0) {
           return 'K2';
         } else if (name.indexOf('QMS-KQ2') >= 0 ||
           name.indexOf('QMS-K12') >= 0) {

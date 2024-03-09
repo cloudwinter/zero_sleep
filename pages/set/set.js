@@ -224,7 +224,9 @@ Page({
       })
       return;
     } else if (cmd.indexOf('FFFFFFFF01000C1103') >= 0) {
+      var macCmd = cmd.substr(18, 12);
       this.setData({
+        mac: macCmd,
         shishixinlvItemShow: true,
         shuimianbaogaoItemShow: true,
         peiwangItemShow: true
