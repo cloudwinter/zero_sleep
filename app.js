@@ -58,5 +58,7 @@ App({
     sleepTimer: '00', // 智能睡眠定时
     hasBottonLine: false, // ios是否有底部横线
     isIos:false,  //是否是ios
+    mac: '', //mac地址
+    appId: ''
   }
 })

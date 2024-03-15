@@ -64,7 +64,15 @@ Page({
         "tapFunction": "toSmartSleep",
         "active": "",
         "show": false
-      }
+      },
+      {
+        "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_znjc_selected@2x.png",
+        "iconPath": "../../images/" + app.globalData.skin + "/tab_znjc_normal@2x.png",
+        "text": "智能监测",
+        "tapFunction": "toZhinengjiance",
+        "active": "",
+        "show": false
+      },
     ],
     periodList: [{
         id: 1,
@@ -102,10 +110,11 @@ Page({
         checked: false
       },
     ],
-    kuaijieType: '',   // 这边不能添加默认值
-    weitiaoType: '',   // 这边不能添加默认值
+    kuaijieType: '', // 这边不能添加默认值
+    weitiaoType: '', // 这边不能添加默认值
     connected: {},
     smartSleepClickTime: 0,
+    zhinengjianceType: '', // 智能检测的类型
   },
 
   /**
@@ -136,7 +145,7 @@ Page({
 
       //this.getBLService(connected.deviceId);
     }
-    
+
   },
 
   /**
@@ -150,6 +159,8 @@ Page({
       skin: skin
     })
     // WxNotificationCenter.postNotificationName('INIT',this.data.connected);
+
+    this.executeInitCmdTasks();
   },
 
 
@@ -231,6 +242,22 @@ Page({
       nowPage: "smartsleep",
       nowIndex: 4
     })
+  },
+
+  toZhinengjiance() {
+    this.setData({
+      nowPage: "zhinengjiance",
+      nowIndex: 5
+    })
+    var type = this.data.zhinengjianceType;
+    if(type == '01' || type == '02') {
+      var jumpPath = 'pages/index/index?mac=' + this.data.mac;
+      wx.navigateToMiniProgram({
+        appId: app.globalData.appId,
+        path: jumpPath,
+        envVersion: 'trial', //develop,trial,release
+      })
+    }
   },
 
 
@@ -356,7 +383,7 @@ Page({
       success: function () {
         console.info("notifyBLECharacteristicValueChange->success");
         // 初始化通知
-        that.sendInitCmd(that.data.connected);
+        that.executeInitCmdTasks();
 
       },
       fail: function (res) {
@@ -380,37 +407,46 @@ Page({
     });
   },
 
-
   /**
-   * 在各个页面发送指令之前发送指令
+   * 延时知悉
    */
-  sendInitCmd: function (connected) {
-    let that = this;
-    let currentTime = new Date().getTime();
-    // 发送压力板指令
-    console.error('main->sendInitCmd 发送压力指令','延时：'+time.getCurrentDifferMs(currentTime)+'ms');
-    that.sendBlueCmd('FFFFFFFF02000E0B001704');
-    setTimeout(() => {
-      console.error("main->sendInitCmd 发送灯光初始化指令 ",'延时：'+time.getCurrentDifferMs(currentTime)+'ms');
-      // 先发送灯光指令
-      that.sendBlueCmd('FFFFFFFF050005FF23C728');
-      // 延迟150ms发送时间指令
-      setTimeout(function () {
-        console.error("main->sendInitCmd 发送时间校验初始化指令",'延时：'+time.getCurrentDifferMs(currentTime)+'ms');
-        // 发送时间校验指令
-        that.sendRequestAlarmCmd(connected);
-        // 延时150ms发送页面初始化操作
-        setTimeout(function () {
-          console.error("main->sendInitCmd 发送页面初始化指令",'延时：'+time.getCurrentDifferMs(currentTime)+'ms');
-          that.postInit(connected);
-          setTimeout(function () {
-            console.error("main->sendInitCmd 发送同步控制的初始化指令",'延时：'+time.getCurrentDifferMs(currentTime)+'ms');
-            that.sendBlueCmd('FFFFFFFF01000A0B0F2104');
-          }, 1500);
-        }, 150)
-      }, 150)
-    }, 300);
+  delay: function (ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   },
+
+  executeInitCmdTasks: async function () {
+    let currentTime = new Date().getTime();
+
+    // 发送压力带
+    console.warn('main->sendInitCmd 发送压力指令', '延时：' + time.getCurrentDifferMs(currentTime) + 'ms');
+    this.sendBlueCmd('FFFFFFFF02000E0B001704');
+
+    await this.delay(150);
+    // 发码询问主板是否连接心率带
+    console.warn("main->sendInitCmd 发送心率带指令 ", '延时：' + time.getCurrentDifferMs(currentTime) + 'ms');
+    this.sendBlueCmd('FFFFFFFF01000C0B0F2304');
+
+    await this.delay(150);
+    // 先发送灯光指令
+    console.warn("main->sendInitCmd 发送灯光初始化指令 ", '延时：' + time.getCurrentDifferMs(currentTime) + 'ms');
+    this.sendBlueCmd('FFFFFFFF050005FF23C728');
+
+    await this.delay(150);
+    // 发送时间校验指令
+    console.warn("main->sendInitCmd 发送时间校验初始化指令", '延时：' + time.getCurrentDifferMs(currentTime) + 'ms');
+    this.sendRequestAlarmCmd(this.data.connected);
+
+    await this.delay(150);
+    // 发送页面初始化指令
+    console.warn("main->sendInitCmd 发送页面初始化指令", '延时：' + time.getCurrentDifferMs(currentTime) + 'ms');
+    this.postInit(this.data.connected);
+
+    await this.delay(1500);
+    // 发送同步控制的初始化指令
+    console.warn("main->sendInitCmd 发送同步控制的初始化指令", '延时：' + time.getCurrentDifferMs(currentTime) + 'ms');
+    this.sendBlueCmd('FFFFFFFF01000A0B0F2104');
+  },
+
 
   /**
    * 页面初始化操作
@@ -428,18 +464,46 @@ Page({
    */
   blueReply: function (received, connected) {
     console.info('main->blueReply-->received', received, connected);
-    if (received) {
-      received = received.toUpperCase();
-      let deviceId = connected.deviceId;
-      if (received.indexOf('FFFFFFFF0100030B00') >= 0 ||
-        received.indexOf('FFFFFFFF01000413') >= 0) {
-        // 有闹钟功能
-        this.setAlarm(received, deviceId);
-      } else if (received.indexOf('FFFFFFFF02000E0B') >= 0) {
-        // 有智能睡眠感应
-        this.showStressBeltTab();
-        this.setTimer(received, deviceId);
-      }
+    if (!received) {
+      return;
+    }
+    received = received.toUpperCase();
+    let deviceId = connected.deviceId;
+    if (received.indexOf('FFFFFFFF0100030B00') >= 0 || received.indexOf('FFFFFFFF01000413') >= 0) {
+      // 有闹钟功能
+      this.setAlarm(received, deviceId);
+      return;
+    }
+    if (received.indexOf('FFFFFFFF02000E0B') >= 0) {
+      // 有智能睡眠感应
+      this.showStressBeltTab();
+      this.setTimer(received, deviceId);
+      return;
+    }
+    if (cmd.indexOf('FFFFFFFF01000C11') >= 0) {
+      this.setZhinengjiance(cmd);
+    }
+
+  },
+
+  /**
+   * 智能检测（太和心率带）
+   * @param {*} cmd 
+   */
+  setZhinengjiance: function (cmd) {
+    var type = cmd.substr(16, 2);
+    var macCmd = received.substr(18, 12);
+    var tabbar = this.data.tabBar
+    tabbar[5].show = true;
+    this.setData({
+      tabbar: tabbar,
+      zhinengjianceType: type,
+    })
+    app.globalData.mac = macCmd;
+    if(type == '01') {
+      app.globalData.appId = 'wxbbdd4b1b88358610';
+    } else if (type == '02') {
+      app.globalData.appId = 'wx89783978e44773d0';
     }
   },
 

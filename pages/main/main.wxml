@@ -66,6 +66,9 @@
 		<view class="tab-container" hidden="{{nowPage!='smartsleep'}}">
 			<smartsleep></smartsleep>
 		</view>
+    <view class="tab-container" hidden="{{nowPage!='zhinengjiance'}}">
+			<zhinengjiance></zhinengjiance>
+		</view>
 	</view>
 
 </view>
