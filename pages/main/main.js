@@ -161,6 +161,15 @@ Page({
     // WxNotificationCenter.postNotificationName('INIT',this.data.connected);
 
     this.executeInitCmdTasks();
+    
+    // setTimeout(() => {
+    //   let connected = {
+    //     deviceId:'11',
+    //     deviceName:'SN'
+    //   }
+    //   this.blueReply('ffffffff01000c1103806599ffffffff01000c11',connected);
+    // },2000)
+
   },
 
 
@@ -278,6 +287,9 @@ Page({
   showDefaultTab() {
     let tabbar = this.data.tabBar;
     tabbar[4].show = false;
+    this.setData({
+      tabBar: tabbar,
+    })
   },
 
   /******------>tab切换 end */
@@ -480,8 +492,8 @@ Page({
       this.setTimer(received, deviceId);
       return;
     }
-    if (cmd.indexOf('FFFFFFFF01000C11') >= 0) {
-      this.setZhinengjiance(cmd);
+    if (received.indexOf('FFFFFFFF01000C11') >= 0) {
+      this.setZhinengjiance(received);
     }
 
   },
@@ -491,12 +503,13 @@ Page({
    * @param {*} cmd 
    */
   setZhinengjiance: function (cmd) {
+    console.info('setZhinengjiance',cmd);
     var type = cmd.substr(16, 2);
-    var macCmd = received.substr(18, 12);
+    var macCmd = cmd.substr(18, 12);
     var tabbar = this.data.tabBar
     tabbar[5].show = true;
     this.setData({
-      tabbar: tabbar,
+      tabBar: tabbar,
       zhinengjianceType: type,
     })
     app.globalData.mac = macCmd;
