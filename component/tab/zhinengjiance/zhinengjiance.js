@@ -1,6 +1,7 @@
 // component/tab/zhinengjiance/zhinengjiance.js
 const app = getApp();
 const util = require('../../../utils/util')
+const time = require('../../../utils/time');
 const WxNotificationCenter = require('../../../utils/WxNotificationCenter')
 const crcUtil = require('../../../utils/crcUtil');
 const sendPrefix = 'FFFFFFFF050000'; // 发送码前缀
@@ -112,13 +113,13 @@ Component({
       cmd = cmd.toUpperCase();
       if (cmd.indexOf('FFFFFFFF01000C11') >= 0) {
         var type = cmd.substr(16, 2);
-        this.setData({
+        that.setData({
           type: type
         })
         if (type == '03') {
           // 发送询问wifi配网状态询问码：
           let wifiCmd = "FFFFFFFF02000A0A1204";
-          util.sendBlueCmd(this.data.connected, wifiCmd);
+          util.sendBlueCmd(that.data.connected, wifiCmd);
         }
         return;
       }
@@ -287,6 +288,20 @@ Component({
      */
     shishixinlvItemShowTap: function () {
       var originalUrl = 'https://alltoone.he-info.cn/h5/#/mattress/oneDevice/oneDevice?mac=' + app.globalData.mac + '&token=2E7JNgIe61QEiP1dZVmNCyqOm4Oz77eVx6RljYQjHR2GkZMrXAK5gpCSmZYg9dXFgRdreG9FdWX7qgBB6yNfY7ks9Tdq9E39A9ZNoSSZGN033RJijayPOmNM3kHsakKVTHKC5I6lNtvgM1KN5HCDN9golGpOWWCvY0auuZQRcoBJ8nGG7TcqMWkEkGyOV6Ghu7uFvpcn0YWXLe1use49YZRkQau6ONaN7f8KvLKzmSRSBw4s6xbR0MpiXBPPs2Y6bmyLH2LK4sSMmSnebLBqCk0oM5gVDGqagY9GMJaZQbzkdZuiZuRqLDh2p5gAbPt8xbhZhGyKW7YaEcfNqx8Q5cOP7NgXUMKZblNc3NFVDzVuAKbl0TzRsnsY7hsLguKT5Axru56VYEDSNPqdla6xzHk9WIFEPUF3qLZQvKb2NbE7BktuCEnXCqIWwm4yTpfw3VzgXmln4pE3pNTBlDBOgaWSYZDaYkjKWKO0y5TULKOjtks2aBQRyw65I1Az8NEM';
+      var webUrl = encodeURIComponent(originalUrl);
+      var jumpUrl = '/pages/webhtml/webhtml?webUrl=' + webUrl
+      wx.navigateTo({
+        url: jumpUrl,
+      })
+    },
+
+
+    /**
+     * 睡眠报告
+     * @param {*} e 
+     */
+    shuimianbaogaoItemShowTap: function () {
+      var originalUrl = 'https://alltoone.he-info.cn/h5/#/mattress/sleep/sleep?date=' + time.getYesterDayDate() + '&mac=' + app.globalData.mac + '&token=2E7JNgIe61QEiP1dZVmNCyqOm4Oz77eVx6RljYQjHR2GkZMrXAK5gpCSmZYg9dXFgRdreG9FdWX7qgBB6yNfY7ks9Tdq9E39A9ZNoSSZGN033RJijayPOmNM3kHsakKVTHKC5I6lNtvgM1KN5HCDN9golGpOWWCvY0auuZQRcoBJ8nGG7TcqMWkEkGyOV6Ghu7uFvpcn0YWXLe1use49YZRkQau6ONaN7f8KvLKzmSRSBw4s6xbR0MpiXBPPs2Y6bmyLH2LK4sSMmSnebLBqCk0oM5gVDGqagY9GMJaZQbzkdZuiZuRqLDh2p5gAbPt8xbhZhGyKW7YaEcfNqx8Q5cOP7NgXUMKZblNc3NFVDzVuAKbl0TzRsnsY7hsLguKT5Axru56VYEDSNPqdla6xzHk9WIFEPUF3qLZQvKb2NbE7BktuCEnXCqIWwm4yTpfw3VzgXmln4pE3pNTBlDBOgaWSYZDaYkjKWKO0y5TULKOjtks2aBQRyw65I1Az8NEM'
       var webUrl = encodeURIComponent(originalUrl);
       var jumpUrl = '/pages/webhtml/webhtml?webUrl=' + webUrl
       wx.navigateTo({

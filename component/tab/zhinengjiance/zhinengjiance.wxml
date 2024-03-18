@@ -21,7 +21,7 @@
 			</view>
 
     <!-- 睡眠报告 -->
-    <view class="shezhi-content shezhi-button-bg" bindtap="sleepReport">
+    <view class="shezhi-content shezhi-button-bg" bindtap="shuimianbaogaoItemShowTap">
       <view class="shezhi-button-left">睡眠报告</view>
       <view class="shezhi-button-right">
         <image class="shezhi-button-icon" src="../../../images/{{skin}}/row_blue@2x.png"></image>

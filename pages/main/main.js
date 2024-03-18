@@ -167,8 +167,16 @@ Page({
     //     deviceId:'11',
     //     deviceName:'SN'
     //   }
-    //   this.blueReply('ffffffff01000c1103806599ffffffff01000c11',connected);
+    //   let received = 'ffffffff01000c1103806599ffffffff01000c11';
+    //   //this.blueReply('ffffffff01000c1103806599ffffffff01000c11',connected);
+
+    //   this.blueReply(received, connected);
+    //   //received = 'FFFFFFFF01000413AF08300026010301019897';
+    //   //received = 'FFFFFFFF01000A0B011304';
+    //   WxNotificationCenter.postNotificationName('BLUEREPLY', received);
     // },2000)
+
+
 
   },
 
@@ -266,6 +274,10 @@ Page({
         path: jumpPath,
         envVersion: 'trial', //develop,trial,release
       })
+    } else if(type == '03') {
+      // 发送询问wifi配网状态询问码：
+      let wifiCmd = "FFFFFFFF02000A0A1204";
+      util.sendBlueCmd(this.data.connected, wifiCmd);
     }
   },
 
