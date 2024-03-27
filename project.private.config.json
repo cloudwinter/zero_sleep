@@ -5,6 +5,13 @@
       "list": [
         {
           "name": "",
+          "pathName": "pages/nurseset/nurseset3",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "",
           "pathName": "pages/set/set",
           "query": "",
           "launchMode": "default",

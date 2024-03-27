@@ -160,7 +160,7 @@ Page({
     })
     // WxNotificationCenter.postNotificationName('INIT',this.data.connected);
 
-    this.executeInitCmdTasks();
+    // this.executeInitCmdTasks();
     
     // setTimeout(() => {
     //   let connected = {

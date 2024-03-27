@@ -36,8 +36,8 @@ Component({
     connected: {},
     currentType: 'tiaozheng', // tiaozheng,xunhuan
     currentAnjian: {
-      anjian: 'toubutz', // beibutz,fanshentz,toubutz,tuibutz
-      name: '头部调整' // 背部调整，翻身调整，头部调整，腿部调整
+      anjian: 'beibutz', // beibutz,fanshentz,toubutz,tuibutz
+      name: '背部调整' // 背部调整，翻身调整，头部调整，腿部调整
     },
     currentXHAnjian: {
       anjian: 'toubuxh', // quanshengxh,yaobuxh,toubuxh,tuibuxh

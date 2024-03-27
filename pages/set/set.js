@@ -239,7 +239,7 @@ Page({
       this.setPeiWang(cmd);
       return;
     }
-    if(cmd.indexOf('FFFFFFFF0304') >= 0) {
+    if (cmd.indexOf('FFFFFFFF0304') >= 0) {
       this.setFault(cmd);
     }
   },
@@ -248,7 +248,7 @@ Page({
    * 设置配网
    * @param {*} cmd 蓝牙回复的指令
    */
-  setPeiWang: function(cmd) {
+  setPeiWang: function (cmd) {
     let networkGH = cmd.substr(28, 2);
     let networkShow = false;
     let networkTitle;
@@ -295,7 +295,7 @@ Page({
    * 设置故障信息展示
    * @param {*} cmd 
    */
-  setFault: function(cmd) {
+  setFault: function (cmd) {
     var faultPart = '';
     let partVal = cmd.substr(12, 4).toUpperCase();
     if ('6008' == partVal || '4002' == partVal) {
@@ -393,8 +393,10 @@ Page({
   xunhuanModeItemTap: function (e) {
     var jumpUrl = '';
     var name = this.data.connected.name;
-    if (name.indexOf('S3-5') >= 0 || name.indexOf('S5-Y3') >= 0) {
+    if (name.indexOf('S3-5') >= 0) {
       jumpUrl = '/pages/nurseset/nurseset2'
+    } else if (name.indexOf('S5-Y3') >= 0) {
+      jumpUrl = '/pages/nurseset/nurseset3'
     } else {
       jumpUrl = '/pages/nurseset/nurseset'
     }
@@ -430,28 +432,28 @@ Page({
   },
 
   /**
-     * 配网连接
-     * @param {*} e 
-     */
-    networkConnect:function(e) {
-      this.setData({
-        networkDialogShow: false
-      })
-      wx.navigateTo({
-        url: '/pages/network/network'
-      })
-    },
+   * 配网连接
+   * @param {*} e 
+   */
+  networkConnect: function (e) {
+    this.setData({
+      networkDialogShow: false
+    })
+    wx.navigateTo({
+      url: '/pages/network/network'
+    })
+  },
 
 
-    /**
-     * 配网取消对话框
-     * @param {*} e 
-     */
-    networkCancel:function(e) {
-      this.setData({
-        networkDialogShow: false
-      })
-    },
+  /**
+   * 配网取消对话框
+   * @param {*} e 
+   */
+  networkCancel: function (e) {
+    this.setData({
+      networkDialogShow: false
+    })
+  },
 
 
   /**
