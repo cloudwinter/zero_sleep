@@ -517,6 +517,9 @@ Page({
   setZhinengjiance: function (cmd) {
     console.info('setZhinengjiance',cmd);
     var type = cmd.substr(16, 2);
+    if(type == '00') {
+      return;
+    }
     var macCmd = cmd.substr(18, 12);
     var tabbar = this.data.tabBar
     tabbar[5].show = true;

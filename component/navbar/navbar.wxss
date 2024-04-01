@@ -46,7 +46,7 @@ page {
   font-size: 12px;
   width: 40rpx;
   height: 38rpx;
-  background-image: url("http://www.tri-mix.net/xiaochengxuPIC/zerosleep2.png");
+  background-image: url("https://yhjx.oss-cn-beijing.aliyuncs.com/ddc/zero_sleep/icon_row.png");
   background-position: 50% 50%;
   background-size: cover
 }
@@ -56,7 +56,7 @@ page {
   width: 38rpx;
   height: 36rpx;
   margin-left: 40px;
-  background-image: url("http://www.tri-mix.net/xiaochengxuPIC/zerosleep3.png");
+  background-image: url("https://yhjx.oss-cn-beijing.aliyuncs.com/ddc/zero_sleep/icon_set.png");
   background-position: 50% 50%;
   background-size: cover
 }

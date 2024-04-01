@@ -3,7 +3,7 @@
   width: 100vw;
   height: 100vh;
   background-color: #58008E;
-  background-image: url("http://www.tri-mix.net/xiaochengxuPIC/zerosleep4.png");
+  background-image: url("https://yhjx.oss-cn-beijing.aliyuncs.com/ddc/zero_sleep/ic_orange_background.png");
 
   background-repeat: no-repeat;
   background-size: 100% 100%;
