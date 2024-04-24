@@ -33,14 +33,14 @@
       </view>
 
       <view class="item" style="margin-top:1rpx;" bindtap="periodTap" bindtap="xunhuanTap" data-type="fsxh1">
-        <view class="item-left">翻身循环一</view>
+        <view class="item-left">翻身循环一（高位停5分钟,水平位置停20分钟）</view>
         <view class="item-right">
           <image class="item-right-icon" src="../../images/{{skin}}/{{fsxh1Checked?'ic_checkbox_selected@3x.png':'ic_checkbox_normal@3x.png'}}"></image>
         </view>
       </view>
 
       <view class="item" style="margin-top:1rpx;" bindtap="periodTap" bindtap="xunhuanTap" data-type="fsxh2">
-        <view class="item-left">翻身循环二</view>
+        <view class="item-left">翻身循环二（高位停5分钟,水平位置停40分钟）</view>
         <view class="item-right">
           <image class="item-right-icon" src="../../images/{{skin}}/{{fsxh2Checked?'ic_checkbox_selected@3x.png':'ic_checkbox_normal@3x.png'}}"></image>
         </view>
@@ -49,13 +49,13 @@
       <view class="item-title" style="margin-top:45rpx;">翻身幅度</view>
       <view class="item" style="display: flex;flex-direction: row;width: 100%;justify-content: center;">
         <view style="display: flex;flex-direction: row;width: 100%;justify-content: center;">
-          <view class="item-text" bindtap="fanshenTap" data-type="low">小
+          <view class="item-text" bindtap="fanshenTap" data-type="low">小幅6°
             <image class="item-right-icon" src="../../images/{{skin}}/{{fsfdLow?'ic_checkbox_selected@3x.png':'ic_checkbox_normal@3x.png'}}"></image>
           </view>
-          <view class="item-text" bindtap="fanshenTap" data-type="middle">中
+          <view class="item-text" bindtap="fanshenTap" data-type="middle">中幅12°
             <image class="item-right-icon" src="../../images/{{skin}}/{{fsfdMiddle?'ic_checkbox_selected@3x.png':'ic_checkbox_normal@3x.png'}}"></image>
           </view>
-          <view class="item-text" bindtap="fanshenTap" data-type="high">大
+          <view class="item-text" bindtap="fanshenTap" data-type="high">大幅18°
             <image class="item-right-icon" src="../../images/{{skin}}/{{fsfdHigh?'ic_checkbox_selected@3x.png':'ic_checkbox_normal@3x.png'}}"></image>
           </view>
         </view>
