@@ -66,7 +66,7 @@
 
 
     <!-- 配网 -->
-    <view class="shezhi-content shezhi-button-bg" bindtap="networkClick" hidden="{{!peiwangItemShow}}">
+    <view class="shezhi-content shezhi-button-bg" bindtap="networkClick" hidden="true">
       <view class="shezhi-button-left">{{network.title}}</view>
       <view class="shezhi-button-right">
         <view class="shezhi-button-name">{{network.desc}}</view>
@@ -74,7 +74,7 @@
       </view>
     </view>
 
-      <view class="shezhi-content shezhi-button-bg" bindtap="shishixinlvItemShowTap" hidden="{{!shishixinlvItemShow}}">
+      <view class="shezhi-content shezhi-button-bg" bindtap="shishixinlvItemShowTap" hidden="true">
 				<view class="shezhi-button-left">实时心率数据</view>
 				<view class="shezhi-button-right">
 					<!-- <view class="shezhi-button-name"></view> -->
@@ -82,7 +82,7 @@
 				</view>
 			</view>
 
-      <view class="shezhi-content shezhi-button-bg" bindtap="shuimianbaogaoItemShowTap" hidden="{{!shuimianbaogaoItemShow}}">
+      <view class="shezhi-content shezhi-button-bg" bindtap="shuimianbaogaoItemShowTap" hidden="true">
 				<view class="shezhi-button-left">睡眠报告</view>
 				<view class="shezhi-button-right">
 					<!-- <view class="shezhi-button-name"></view> -->
