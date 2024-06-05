@@ -17,6 +17,7 @@
 				<!-- <button class="item_bg"></button> -->
 				<view class="item-content">
 					<text class="name">{{device.name}}</text>
+          <text class="rssi">RSSI：{{device.RSSI}}</text>
 					<view class="item-right">
 						<block wx:if="{{connected&&connected.deviceId===device.deviceId}}">
 							<view class="green" bindtap="disconnect" data-device="{{device}}">断开连接</view>

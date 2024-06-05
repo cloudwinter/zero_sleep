@@ -33,5 +33,9 @@
         }
       ]
     }
+  },
+  "projectname": "zero_sleep",
+  "setting": {
+    "compileHotReLoad": true
   }
 }

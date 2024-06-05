@@ -16,7 +16,7 @@
 
 	<view class="top">
 		<view class="donghuaqu">
-			<view class="dh-content">
+			<view class="dh-content" bindlongtap="tapLongAnmo">
 				<image class="dh-icon" src="../../../images/{{skin}}/anmo@3x.png"></image>
 				<view class="dh-name">按摩频率</view>
 			</view>

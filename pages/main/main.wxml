@@ -34,6 +34,7 @@
 			<kuaijie-K12 wx:if="{{kuaijieType=='K12'}}"></kuaijie-K12>
       <kuaijie-K13 wx:if="{{kuaijieType=='K13'}}"></kuaijie-K13>
       <kuaijie-K14 wx:if="{{kuaijieType=='K14'}}"></kuaijie-K14>
+      <kuaijie-K15 wx:if="{{kuaijieType=='K15'}}"></kuaijie-K15>
 		</view>
 		<view class="tab-container" hidden="{{nowPage!='weitiao'}}">
 			<weitiao-W1 wx:if="{{weitiaoType=='W1'}}"></weitiao-W1>
@@ -53,6 +54,7 @@
       <weitiao-W15 wx:if="{{weitiaoType=='W15'}}"></weitiao-W15>
       <weitiao-W16 wx:if="{{weitiaoType=='W16'}}"></weitiao-W16>
       <weitiao-W17 wx:if="{{weitiaoType=='W17'}}"></weitiao-W17>
+      <weitiao-W18 wx:if="{{weitiaoType=='W18'}}"></weitiao-W18>
 		</view>
 		<view class="tab-container" hidden="{{nowPage!='nurse'}}">
 			<nurse></nurse>

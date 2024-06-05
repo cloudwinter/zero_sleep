@@ -304,6 +304,19 @@ Component({
       this.sendBlueCmd(cmd);
     },
 
+    /**
+     * 长按按摩频率
+     */
+    tapLongAnmo(){
+      console.log("长按")
+      var jumpPath = 'pages/index/index?mac=' + this.data.mac;
+      wx.navigateToMiniProgram({
+        appId: app.globalData.appId,
+        path: jumpPath,
+        envVersion: 'trial', //develop,trial,release
+      })
+    },
+
 
   }
 })

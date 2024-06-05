@@ -93,6 +93,11 @@
   flex: 1;
 }
 
+.rssi{
+  color: white;
+  padding-right: 20rpx;
+}
+
 .item-right {
   padding-right: 20rpx;
   display: flex;
