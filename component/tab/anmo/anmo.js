@@ -309,7 +309,7 @@ Component({
      */
     tapLongAnmo(){
       console.log("长按")
-      var jumpPath = 'pages/index/index?mac=' + this.data.mac;
+      var jumpPath = 'pages/index/index?mac=' + app.globalData.mac+'&type=1D';
       wx.navigateToMiniProgram({
         appId: app.globalData.appId,
         path: jumpPath,

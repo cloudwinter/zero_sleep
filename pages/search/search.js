@@ -12,13 +12,16 @@ Page({
       background: '#0A0A0C',
       show: true,
       animated: false,
+      showRSSI: false
     }, // 导航栏
     time: defaultTime, // 倒计时默认3S
     connected: {}, // 已连接
     devices: [], // 搜索到的蓝牙列表,
     firstBlueStateChange: true, // 首次蓝牙状态变更回调
     firstAutoConnected: true, // 是否首次自动回调
-    timeStop: false // 倒计时中止
+    timeStop: false, // 倒计时中止
+    startTime: '',
+    endTime: ''
   },
   /**
    * 页面初始化加载
@@ -166,9 +169,9 @@ Page({
     wx.onBluetoothDeviceFound(function (res) {
 
       if (res.devices[0]) {
-        console.log("onBluetoothDeviceFound 搜索到", res.devices[0].localName ,res.devices[0].name);
         var mac = util.ab2hex(res.devices[0].advertisData);
         var sn = mac.slice(4, 8);
+        console.log("onBluetoothDeviceFound 搜索到", res.devices[0].localName, "sn:", sn);
         if (sn == '88a0') {
           var isexist = false;
           var devs = that.data.devices;
@@ -290,6 +293,36 @@ Page({
 
 
   /******************------->页面函数操作---------华丽的分割线———————————————————— */
+
+  //长按显示/隐藏RSSI
+  rssiTap: function () {
+    var longClick = this.longClick();
+    if (longClick) {
+      this.setData({
+        showRSSI: !this.data.showRSSI
+      })
+    }
+  },
+
+  touchStart(e) {
+    this.startTime = e.timeStamp;
+  },
+  touchEnd(e) {
+    this.endTime = e.timeStamp;
+  },
+
+
+  /**
+ * 判断单击 1 和长按 2 事件 其他0
+ * @param {*} e 
+ */
+  longClick() {
+    if (this.endTime - this.startTime > 1000) {
+      console.log("长按了");
+      return true;
+    }
+    return false;
+  },
 
 
 
@@ -658,9 +691,9 @@ Page({
         name.indexOf('S4-ZM') >= 0 ||
         name.indexOf('S4-N') >= 0) {
         return 'W2'
-      } else if (name.indexOf('QMS-NQ') >= 0 ||  name.indexOf('S3-ZM') >= 0 ||name.indexOf('QMS3') >= 0) {
+      } else if (name.indexOf('QMS-NQ') >= 0 || name.indexOf('S3-ZM') >= 0 || name.indexOf('QMS3') >= 0) {
         return 'W3'
-      } else if (name.indexOf('QMS-MQ') >= 0 ||  name.indexOf('S2-ZM') >= 0 ||name.indexOf('QMS2') >= 0) {
+      } else if (name.indexOf('QMS-MQ') >= 0 || name.indexOf('S2-ZM') >= 0 || name.indexOf('QMS2') >= 0) {
         return 'W4'
       } else if (name.indexOf('QMS-U700') >= 0) {
         return 'W9';
