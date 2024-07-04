@@ -31,7 +31,9 @@ Component({
     toubu: 0, //0,1,2,3
     tuibu: 0, //0,1,2,3
     tongbukzShow: false, // 同步控制显示
-    tongbukzStatus: false // 同步控制状态
+    tongbukzStatus: false, // 同步控制状态
+    startTime: '',
+    endTime: ''
   },
 
   /**
@@ -122,7 +124,7 @@ Component({
      */
     blueReply(cmd) {
       var that = this.observer;
-      console.error('anmo->blueReply',cmd);
+      console.error('anmo->blueReply', cmd);
       cmd = cmd.toUpperCase();
       if (cmd.indexOf('FFFFFFFF01000A0B') >= 0 || cmd.indexOf('FFFFFFFF0100090B') >= 0) {
         // 同步控制回码
@@ -304,19 +306,40 @@ Component({
       this.sendBlueCmd(cmd);
     },
 
-    /**
-     * 长按按摩频率
-     */
-    tapLongAnmo(){
-      console.log("长按")
-      var jumpPath = 'pages/index/index?mac=' + app.globalData.mac+'&type=1D';
-      wx.navigateToMiniProgram({
-        appId: app.globalData.appId,
-        path: jumpPath,
-        envVersion: 'trial', //develop,trial,release
-      })
+
+
+    //长按按摩频率
+    tapLongAnmo: function () {
+      var longClick = this.longClick();
+      if (longClick) {
+        var jumpPath = 'pages/index/index?mac=' + app.globalData.mac + '&type=1D';
+        wx.navigateToMiniProgram({
+          appId: app.globalData.appId,
+          path: jumpPath,
+          envVersion: 'trial', //develop,trial,release
+        })
+      }
     },
 
+    touchStart(e) {
+      this.startTime = e.timeStamp;
+    },
+    touchEnd(e) {
+      this.endTime = e.timeStamp;
+    },
+
+
+    /**
+   * 判断单击 1 和长按 2 事件 其他0
+   * @param {*} e 
+   */
+    longClick() {
+      if (this.endTime - this.startTime > 1000) {
+        console.log("长按了");
+        return true;
+      }
+      return false;
+    },
 
   }
 })
