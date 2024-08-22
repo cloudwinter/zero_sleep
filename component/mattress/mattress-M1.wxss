@@ -1,0 +1,120 @@
+/* component/mattress/mattress-M1.wxss */
+@import './../../common/tab.wxss';
+
+/************common****************** */
+.dark {
+  padding: 0 30rpx;
+  box-sizing: border-box;
+}
+
+.orange {
+  padding: 0 30rpx;
+  box-sizing: border-box;
+}
+
+.dark .button-bg {
+  background: #1E1F24;
+}
+
+.dark .button-bg-selected {
+  background-color: #1E1F24;
+  border: 3rpx solid #5A9927;
+}
+
+
+.orange .button-bg {
+  background: #6E269A;
+}
+
+.orange .button-bg-selected {
+  background-color: #6E269A;
+  border: 3rpx solid #FF9704;
+}
+
+
+
+.anjianqu {
+  display: flex;
+  margin-top: 30rpx;
+  align-items: center;
+  height: 200rpx;
+}
+
+.anjianqu .anjian-left {
+  flex: auto;
+  height: 200rpx;
+  display: flex;
+  position: relative;
+}
+
+.anjianqu .anjian-middle {
+  width: 200rpx;
+  height: 200rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.anjianqu .anjian-right {
+  flex: auto;
+  height: 200rpx;
+  display: flex;
+  align-items: center;
+  flex-direction: row-reverse;
+}
+
+.anjian-bg {
+  width: 200rpx;
+  height: 200rpx;
+  background-color: #1E1F24;
+  border-radius: 40rpx;
+  /* position: absolute;
+  z-index: -1; */
+}
+
+.anjiian-content {
+  display: flex;
+  height: 200rpx;
+  width: 200rpx;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: absolute;
+}
+
+.anjiian-content .anjian-icon {
+  width: 100rpx;
+  height: 80rpx;
+}
+
+.anjiian-content .name {
+  color: white;
+  font-size: 24rpx;
+}
+
+
+
+
+.mode-content {
+  display: flex;
+  align-items: center;
+  height: 120rpx;
+  border-radius: 60rpx;
+  background-color: #1E1F24;
+  margin-top: 40rpx;
+  padding: 0 32rpx;
+  color: #FFF;
+}
+
+.mode-content .mode-name {
+  font-size: 28rpx;
+  color: #C9C9C9;
+  margin-left: 10rpx;
+  flex: 1;
+}
+
+.mode-content .mode-row {
+  width: 54rpx;
+  height: 54rpx;
+}

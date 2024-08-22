@@ -1,0 +1,51 @@
+/* pages/mainv2/mainv2.wxss */
+
+
+/***  common **/
+
+
+.module {
+  display: flex;
+  justify-content: space-around;
+  height: 300rpx;
+  margin-top: 100rpx;
+  width: 100%;
+}
+
+.module .button {
+  width: 254rpx;
+  height: 300rpx;
+  border-radius: 20rpx;
+  border: 2rpx solid #41B67C;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.module .left {
+  width: 254rpx;
+  height: 300rpx;
+  margin-left: 30rpx;
+}
+
+
+.module .right {
+  width: 254rpx;
+  height: 300rpx;
+  margin-right: 30rpx;
+}
+
+
+
+.module .button .icon {
+  width: 180rpx;
+  height: 100rpx;
+}
+
+.module .button .name {
+  color: white;
+  font-size: 24rpx;
+  margin-top: 48rpx;
+  color: #00D8A0;
+}

@@ -1,0 +1,22 @@
+<!--pages/pressure/pressure.wxml-->
+<view class="page-{{skin}}">
+  <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}" set="{{navbar.set}}" background="{{navbar.background}}" title="压力设置"></navbar>
+
+  <scroll-view scroll-y="true" class="{{skin}}" bindtap="tapBlank" data-blank="blank" enhanced="true" showScrollbar="false" style="height:{{containerHeight}}px">
+
+    <view wx:for="{{pressureList}}" wx:for-item="pressursItem" wx:for-index="pressuresIndex" wx:key="pressuresIndex">
+
+      <view class="press-group" style="background-color: {{pressursItem.isSelect?'#1A2C55':'#1E1F24'}};">
+        <view class="name" bindtap="selectPressTap" data-index="{{pressuresIndex}}">{{pressursItem.name}}</view>
+        <picker range="{{pressureValueList}}" value="{{item}}" bindchange="pickerChange" data-index="{{pressuresIndex}}">
+          <view class="value">{{pressursItem.value}}KPA</view>
+        </picker>
+      </view>
+
+    </view>
+
+  </scroll-view>
+
+  <button class="submit" bindtap="tapSubmit">提交</button>
+
+</view>

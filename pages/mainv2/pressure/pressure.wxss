@@ -1,0 +1,35 @@
+/* pages/pressure/pressure.wxss */
+
+.press-group {
+  height: 100rpx;
+  display: flex;
+  align-items: center;
+  margin: 30rpx 30rpx;
+  padding: 0 36rpx;
+  background-color: #1E1F24;
+  border-radius: 50rpx;
+}
+
+.name {
+  color: white;
+  font-size: 28rpx;
+  flex: 1;
+}
+
+.value {
+  font-size: 28rpx;
+  color: #59B84D;
+  padding-left: 20rpx;
+}
+
+.submit {
+  margin: 20rpx 30rpx;
+  height: 80rpx;
+  border-radius: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #59B84D;
+  color: white;
+  font-size: 32rpx;
+}

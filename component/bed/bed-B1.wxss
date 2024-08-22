@@ -1,0 +1,191 @@
+/* component/bed/bed-b1.wxss */
+
+.dark {
+  padding: 0 30rpx;
+  box-sizing: border-box;
+}
+
+.orange {
+  padding: 0 30rpx;
+  box-sizing: border-box;
+}
+
+
+/********common************** */
+.dark .button-bg {
+  background: #1E1F24;
+}
+
+.dark .button-bg-selected {
+  background-color: #1E1F24;
+  border: 3rpx solid #5A9927;
+}
+
+
+.orange .button-bg {
+  background: #6E269A;
+}
+
+.orange .button-bg-selected {
+  background-color: #6E269A;
+  border: 3rpx solid #FF9704;
+}
+
+
+.header {
+  display: flex;
+  align-items: center;
+  background-color: #2B2D36;
+  padding: 16rpx 30rpx;
+  margin-top: 20rpx;
+  box-sizing: border-box;
+}
+
+.header .header-icon {
+  height: 54rpx;
+  width: 54rpx;
+}
+
+.header .header-title {
+  color: #C9C9C9;
+  font-size: 28rpx;
+  margin-left: 10rpx;
+}
+
+
+/********模式************** */
+.mode {
+  display: flex;
+  margin: 40rpx 0;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: space-between;
+  height: 100rpx;
+}
+
+.mode .mode-child {
+  flex: 1;
+  height: 100rpx;
+  margin: 0 10rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1E1F24;
+  border-radius: 50rpx;
+}
+
+
+.mode-child .mode-icon {
+  width: 28rpx;
+  height: 28rpx;
+}
+
+.mode-child .name {
+  color: white;
+  font-size: 24rpx;
+  margin-left: 24rpx;
+}
+
+
+/********调整************** */
+.tiaozheng-type {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tiaozheng-content {
+  width: 90%;
+  height: 120rpx;
+  margin-top: 40rpx;
+  display: flex;
+  align-items: center;
+}
+
+.tiaozheng-button-bg {
+  width: 90% !important;
+  height: 120rpx;
+  border-radius: 120rpx;
+  /* background: #1E1F24; */
+  /* position: absolute;
+  z-index: -1; */
+}
+
+.tiaozheng-button-top-left {
+  width: 64rpx;
+  height: 120rpx;
+  padding-left: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tiaozheng-button-top-right {
+  width: 64rpx;
+  height: 120rpx;
+  padding-right: 80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tiaozheng-button-top-middle {
+  flex: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tiaozheng-button-icon {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.tiaozheng-type-icon {
+  width: 100rpx;
+  height: 80rpx;
+}
+
+.tiaozheng-type-name {
+  color: white;
+  font-size: 26rpx;
+}
+
+
+/******按摩、灯光、定时****************/
+.anjian-content {
+  display: flex;
+  align-items: center;
+  height: 120rpx;
+  border-radius: 60rpx;
+  background-color: #1E1F24;
+  margin-top: 40rpx;
+  padding: 0 32rpx;
+  color: #FFF;
+}
+
+.anjian-content .anjian-icon {
+  height: 54rpx;
+  width: 54rpx;
+}
+
+.anjian-content .anjian-name {
+  font-size: 28rpx;
+  color: #C9C9C9;
+  margin-left: 10rpx;
+}
+
+.anjian-content .anjian-value {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  color: #59B84D;
+  flex: 1;
+  font-size: 28rpx;
+}
+
+.anjian-content .anjian-row {
+  width: 54rpx;
+  height: 54rpx;
+}

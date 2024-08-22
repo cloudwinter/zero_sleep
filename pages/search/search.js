@@ -3,6 +3,7 @@ const configManager = require('../../utils/configManager')
 const app = getApp()
 const defaultTime = 3;
 
+
 Page({
   data: {
     skin: app.globalData.skin, //当前皮肤样式
@@ -11,8 +12,7 @@ Page({
       color: '#FFFFFF',
       background: '#0A0A0C',
       show: true,
-      animated: false,
-      showRSSI: false
+      animated: false
     }, // 导航栏
     time: defaultTime, // 倒计时默认3S
     connected: {}, // 已连接
@@ -21,8 +21,11 @@ Page({
     firstAutoConnected: true, // 是否首次自动回调
     timeStop: false, // 倒计时中止
     startTime: '',
-    endTime: ''
+    endTime: '',
+    showRSSI: false
   },
+
+
   /**
    * 页面初始化加载
    */
@@ -31,8 +34,6 @@ Page({
     // 1、检查蓝牙是否打开
     this.openBluetoothAdapter();
   },
-
-
 
   /**
    * 页面显示时加载
@@ -171,7 +172,7 @@ Page({
       if (res.devices[0]) {
         var mac = util.ab2hex(res.devices[0].advertisData);
         var sn = mac.slice(4, 8);
-        console.log("onBluetoothDeviceFound 搜索到", res.devices[0].localName, "sn:", sn);
+        // console.log("onBluetoothDeviceFound 搜索到", res.devices[0].localName, "sn:", sn);
         if (sn == '88a0') {
           var isexist = false;
           var devs = that.data.devices;
@@ -536,13 +537,21 @@ Page({
     var connected = this.data.connected;
     var connectedStr = JSON.stringify(connected);
     var name = connected.name;
-    var kuaijieType = this.getKuaijieType(name);
-    var weitiaoType = this.getWeitiaoType(name);
-    console.info('turnToMain', connected, kuaijieType, weitiaoType);
-    // TODO 还需要过滤类型
-    wx.navigateTo({
-      url: '../main/main?first=' + first + '&connected=' + connectedStr + '&kuaijieType=' + kuaijieType + '&weitiaoType=' + weitiaoType,
-    })
+    //判断是否是TM设备
+    console.log(name.indexOf('TM'))
+    if (name.indexOf('TM') >= -1) {//新版零睡吧
+      wx.navigateTo({
+        url: '/pages/mainv2/mainv2?connected=' + connectedStr,
+      })
+    } else {
+      var kuaijieType = this.getKuaijieType(name);
+      var weitiaoType = this.getWeitiaoType(name);
+      console.info('turnToMain', connected, kuaijieType, weitiaoType);
+      // TODO 还需要过滤类型
+      wx.navigateTo({
+        url: '../main/main?first=' + first + '&connected=' + connectedStr + '&kuaijieType=' + kuaijieType + '&weitiaoType=' + weitiaoType,
+      })
+    }
   },
 
 
@@ -594,7 +603,7 @@ Page({
         name.indexOf('S4-ZM') >= 0 ||
         name.indexOf('S4-Y2') >= 0 ||
         name.indexOf('S4-2-N93T') >= 0 ||
-        name.indexOf('S4-4-N93H') >= 0) {
+        name.indexOf('S4-4-N93H') >= 0 || name.indexOf('TM') >= 0) {
         return true;
       }
     }
@@ -739,17 +748,5 @@ Page({
     // 默认K1
     return 'W1';
   },
-
 },
-
-
-
-
-
-
-
-
-
-
-
 )

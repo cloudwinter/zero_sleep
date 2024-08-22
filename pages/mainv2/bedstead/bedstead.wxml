@@ -1,0 +1,16 @@
+<!--pages/bedstead/bedstead.wxml-->
+<!-- 智能床架 -->
+<view class="page-{{skin}}">
+  <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}" set="{{navbar.set}}" background="{{navbar.background}}" title="智能床架"></navbar>
+
+  <!-- 页面容器 -->
+  <view class="container">
+    <view class="tab-container" wx:if="{{nowPage=='bed'}}">
+      <bed-B1></bed-B1>
+    </view>
+    <view class="tab-container" wx:else="{{nowPage =='mattress'}}">
+      <mattress-M1 wx:if="{{mattressType=='M1'}}"></mattress-M1>
+      <mattress-M2 wx:if="{{mattressType=='M2'}}"></mattress-M2>
+    </view>
+  </view>
+</view>

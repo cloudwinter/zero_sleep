@@ -1,6 +1,11 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/mainv2/mainv2",
+    "pages/mainv2/searchv2/searchv2",
+    "pages/mainv2/anmo/anmo",
+    "pages/mainv2/dengguang/dengguang",
+    "pages/mainv2/bedstead/bedstead",
     "pages/search/search",
     "pages/main/main",
     "pages/set/set",
@@ -15,7 +20,8 @@
     "pages/wifiselect/wifiselect",
     "pages/nurseset/nurseset2",
     "pages/webhtml/webhtml",
-    "pages/nurseset/nurseset3"
+    "pages/nurseset/nurseset3",
+    "pages/mainv2/pressure/pressure"
   ],
   "window": {
     "backgroundTextStyle": "light",

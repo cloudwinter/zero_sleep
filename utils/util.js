@@ -56,7 +56,7 @@ function showLoading(title) {
 
 function hideLoading() {
   wx.hideLoading({
-    complete: (res) => {},
+    complete: (res) => { },
   })
 }
 
@@ -94,17 +94,6 @@ function str2ab(str) {
   console.log(array);
   return array.buffer;
 }
-
-// ArrayBuffer转16进度字符串示例
-// function ab2hex(buffer) {
-//   var hexArr = Array.prototype.map.call(
-//     new Uint8Array(buffer),
-//     function (bit) {
-//       return ('00' + bit.toString(16)).slice(-2)
-//     }
-//   )
-//   return hexArr.join('');
-// }
 
 
 /**
@@ -355,6 +344,57 @@ function changeEndianness(string) {
   return result.join('');
 }
 
+/**
+ * 整数转array数组  
+ * 如：1 = [0,1]
+ */
+function intToByteArray(i) {
+  var result = new Array(2)
+  result[0] = i & 0xFF
+  result[1] = (i >> 8) & 0xFF
+  return result
+}
+
+/**
+   * byte数组转int   2-1
+   */
+function byteArrayToInt(bytes) {
+  var value = 0;
+  // 由高位到低位
+  for (var i = 0; i < bytes.length; i++) {
+    var shift = (i) * 8;
+    value += (bytes[i] & 0x000000FF) << shift; // 往高位游
+  }
+  return value;
+}
+
+
+/**
+ * 一个字节转8位bit 从高位到低位
+ * @param {} cmd 
+ */
+function byteToBitsByHight(byte) {
+  const bits = [];
+  for (let i = 7; i >= 0; i--) {
+    bits.push((byte >> i) & 1);
+  }
+  return bits;
+}
+
+/**
+ * 一个字节转8位bit 从低位到高位
+ * @param {} cmd 
+ */
+function byteToBitsBylowe(byte) {
+  console.log(byte)
+  const bits = [];
+  for (let i = 0; i < 8; i++) {
+    bits.push((byte >> i) & 1);
+  }
+  return bits;
+
+}
+
 
 
 
@@ -380,4 +420,8 @@ module.exports = {
   strTo16Hex,
   floatTo16Hex,
   changeEndianness,
+  intToByteArray,
+  byteArrayToInt,
+  byteToBitsByHight,
+  byteToBitsBylowe
 }

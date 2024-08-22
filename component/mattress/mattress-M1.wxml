@@ -1,0 +1,62 @@
+<!--component/mattress/mattress-M1.wxml-->
+<scroll-view scroll-y="true" class="{{skin}}" bindtap="tapBlank" data-blank="blank" enhanced="true" showScrollbar="false" style="height:{{containerHeight}}px">
+
+  <view class="top">
+    <view class="donghuaqu">
+      <view class="dh-content">
+        <block wx:if="{{currentAnjian.anjian=='zhumian'}}">
+          <image class="dh-icon" src="../../images/{{skin}}/air_bag@2x.png"></image>
+        </block>
+        <block wx:if="{{currentAnjian.anjian=='dingyao'}}">
+          <image class="dh-icon" src="../../images/{{skin}}/air_bag@2x.png"></image>
+        </block>
+        <block wx:if="{{currentAnjian.anjian=='anmo'}}">
+          <image class="dh-icon" src="../../images/{{skin}}/air_bag@2x.png"></image>
+        </block>
+        <view class="dh-name">{{currentAnjian.name}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="anjianqu" style="padding-top:10rpx;">
+
+    <view class="anjian-left">
+      <image class="anjian-bg" style="border: 2rpx solid {{modeType=='zhumian'?'#41B67C':'#1E1F24'}};"></image>
+      <view class="anjiian-content" catchtap="selectMode" data-type="zhumian">
+        <image class="anjian-icon" src="../../images/{{skin}}/kandianshi-xiao@3x.png"></image>
+        <view class="name">助眠</view>
+      </view>
+    </view>
+
+    <view class="anjian-middle">
+      <image class="anjian-bg" style="border: 2rpx solid {{modeType=='dingyao'?'#41B67C':'#1E1F24'}};"></image>
+      <view class="anjiian-content" catchtap="selectMode" data-type="dingyao">
+        <image class="anjian-icon" src="../../images/{{skin}}/lingyali-xiao@3x.png"></image>
+        <view class="name">顶腰</view>
+      </view>
+    </view>
+
+    <view class="anjian-right">
+      <image class="anjian-bg" style="border: 2rpx solid {{modeType=='anmo'?'#41B67C':'#1E1F24'}};"></image>
+      <view class="anjiian-content" catchtap="selectMode" data-type="anmo">
+        <image class="anjian-icon" src="../../images/{{skin}}/lingyali-xiao@3x.png"></image>
+        <view class="name">按摩</view>
+      </view>
+    </view>
+
+  </view>
+
+  <view class="mode-content">
+    <view class="mode-name">睡眠模式</view>
+    <switch style="transform:scale(0.7)" bindchange="changeShuimian"></switch>
+  </view>
+
+  
+  <view class="mode-content" catchtap="pressureTap">
+    <view class="mode-name">压力设置</view>
+    <image src="../../images/dark/row@3x.png" class="mode-row"></image>
+  </view>
+
+
+
+</scroll-view>

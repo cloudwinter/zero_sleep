@@ -1,0 +1,111 @@
+/* component/mattress/mattress-M2.wxss */
+@import './../../common/tab.wxss';
+
+/************common****************** */
+.dark {
+  padding: 0 30rpx;
+  box-sizing: border-box;
+}
+
+.orange {
+  padding: 0 30rpx;
+  box-sizing: border-box;
+}
+
+.dark .button-bg {
+  background: #1E1F24;
+}
+
+.dark .button-bg-selected {
+  background-color: #1E1F24;
+  border: 3rpx solid #5A9927;
+}
+
+
+.orange .button-bg {
+  background: #6E269A;
+}
+
+.orange .button-bg-selected {
+  background-color: #6E269A;
+  border: 3rpx solid #FF9704;
+}
+
+.top{
+  position: relative;
+  margin-top: 30rpx;
+}
+
+
+.temp {
+  width: 68px;
+  height: 320px;
+  position: relative;
+}
+
+.temp-scale {
+  position: absolute;
+  width: 56px;
+  height: 320px;
+  left: 6px;
+  right: 6px;
+}
+
+.slider {
+  position: absolute;
+  width: 68px;
+  height: 13.6px;
+  z-index: 999;
+}
+
+.scale-group {
+  position: absolute;
+  height: 320px;
+  display: flex;
+  flex-direction: column;
+}
+
+.scale {
+  width: 60px;
+  flex: 1;
+  color: white;
+  display: flex;
+  align-items: center;
+  font-size: 22rpx;
+}
+
+
+
+.mode-content {
+  display: flex;
+  align-items: center;
+  height: 120rpx;
+  border-radius: 60rpx;
+  background-color: #1E1F24;
+  margin-top: 40rpx;
+  padding: 0 32rpx;
+  color: #FFF;
+}
+
+.mode-content .mode-name {
+  font-size: 28rpx;
+  color: #C9C9C9;
+  margin-left: 10rpx;
+  flex: 1;
+}
+
+.mode-content .mode-row {
+  width: 54rpx;
+  height: 54rpx;
+}
+
+.picker-content {
+  width: 630rpx;
+  display: flex;
+  align-items: center;
+  height: 120rpx;
+}
+
+.time {
+  font-size: 32rpx;
+}

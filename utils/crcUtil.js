@@ -22,6 +22,10 @@ function FillString(t, c, n, b) {
   return t;
 }
 
+/**
+ * 累加和校验
+ * @param {*} t 
+ */
 function HexToCSU16(t) {
   var pos = 0;
   t = t.replace(/\s+/g, "");
@@ -52,6 +56,41 @@ function HexToCSU16(t) {
   return result;
 }
 
+/**
+ * CRC校验
+ * @param {*} p_dat 
+ * @param {*} len 
+ */
+function crc16(hexString) {
+  let crc = 0xFFFF;
+  for (let i = 0; i < hexString.length; i += 2) {
+      const byte = parseInt(hexString.substr(i, 2), 16);
+      crc ^= byte;
+      for (let j = 0; j < 8; j++) {
+          if ((crc & 0x0001) === 0x0001) {
+              crc = (crc >> 1) ^ 0xA001;
+          } else {
+              crc = crc >> 1;
+          }
+      }
+  }
+  // console.log(crc.toString(16).toUpperCase())
+  // crc =  (crc >> 8) | (crc << 8);
+  // console.log(crc.toString(16).toUpperCase())
+  return crc.toString(16).toUpperCase();
+}
+
+function swapHexByteOrder(hexValue) {
+  // 将16进制字符串转换为数字
+  let num = parseInt(hexValue, 16);
+ 
+  // 使用位操作符交换字节的高低位
+  let swapped = (num & 0x00FF) << 8 | (num & 0xFF00) >> 8;
+ 
+  // 将数字转换回16进制字符串
+  return swapped.toString(16).toUpperCase();
+}
+
 function HexToCS(t) {
   var pos = 0;
   t = t.replace(/\s+/g, "");
@@ -78,4 +117,6 @@ function HexToCS(t) {
 
 module.exports = {
   HexToCSU16:HexToCSU16,
+  crc16:crc16,
+  swapHexByteOrder:swapHexByteOrder
 }
