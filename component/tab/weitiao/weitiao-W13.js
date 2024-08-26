@@ -548,6 +548,8 @@ Component({
         cmd = '00E38688';
       } else if (type == 'tuibuxh') {
         cmd = '00E5068A';
+      } else if (type == 'beibuxh') {
+        cmd = '00E7874B';
       }
       this.sendBlueXHCmd(cmd);
     }

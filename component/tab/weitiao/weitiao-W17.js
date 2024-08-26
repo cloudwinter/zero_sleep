@@ -137,7 +137,7 @@ Component({
      */
     blueReply(cmd) {
       var that = this.observer;
-      console.error('weitiao-W2->blueReply',cmd);
+      console.error('weitiao-W2->blueReply', cmd);
       cmd = cmd.toUpperCase();
       if (cmd.indexOf('FFFFFFFF01000A0B') >= 0 || cmd.indexOf('FFFFFFFF0100090B') >= 0) {
         // 同步控制回码
@@ -529,6 +529,8 @@ Component({
         cmd = '00E38688';
       } else if (type == 'tuibuxh') {
         cmd = '00E5068A';
+      } else if (type == 'beibuxh') {
+        cmd = '00E7874B';
       }
       this.sendBlueXHCmd(cmd);
     }

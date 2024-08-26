@@ -531,7 +531,7 @@ Component({
       } else if (type == 'yaobuxh') {
         cmd = '00E6468B';
       } else if (type == 'beibuxh') {
-        cmd = '00E8C74F';
+        cmd = '00E7874B';
       } else if (type == 'tuibuxh') {
         cmd = '00E5068A';
       }
