@@ -537,11 +537,11 @@ Page({
     var connected = this.data.connected;
     var connectedStr = JSON.stringify(connected);
     var name = connected.name;
-    //判断是否是TM设备
-    console.log(name.indexOf('TM'))
-    if (name.indexOf('TM') >= -1) {//新版零睡吧
+    //判断是否是TL-Q设备
+    console.log(name.indexOf('TL-Q')>-1)
+    if (name.indexOf('TL-Q') > -1) {//新版零睡吧
       wx.navigateTo({
-        url: '/pages/mainv2/mainv2?connected=' + connectedStr,
+        url: '/pages/mainv2/mainv2?connected=' + connectedStr+'&first='+first,
       })
     } else {
       var kuaijieType = this.getKuaijieType(name);
@@ -603,7 +603,7 @@ Page({
         name.indexOf('S4-ZM') >= 0 ||
         name.indexOf('S4-Y2') >= 0 ||
         name.indexOf('S4-2-N93T') >= 0 ||
-        name.indexOf('S4-4-N93H') >= 0 || name.indexOf('TM') >= 0) {
+        name.indexOf('S4-4-N93H') >= 0 || name.indexOf('TL-Q') >= 0) {
         return true;
       }
     }

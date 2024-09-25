@@ -72,6 +72,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "",
+          "pathName": "pages/mainv2/bedstead/bedstead",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

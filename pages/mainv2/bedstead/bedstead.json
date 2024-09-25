@@ -1,9 +1,9 @@
 {
   "usingComponents":{
     "navbar":"/component/navbar/navbar",
-    "bed-B1":"/component/bed/bed-B1",
-    "mattress-M1":"/component/mattress/mattress-M1",
-    "mattress-M2":"/component/mattress/mattress-M2"
+    "diandong":"/component/tab2/diandong/diandong",
+    "qinang":"/component/tab2/qinang/qinang",
+    "lengnuan":"/component/tab2/lengnuan/lengnuan"
   },
   "disableScroll": true
 }

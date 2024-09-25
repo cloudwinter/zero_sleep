@@ -4,13 +4,7 @@
 
   <!-- 页面容器 -->
   <view class="container">
-
-    <!-- <anmo></anmo> -->
-
-    <!--component/anmo/anmo.wxml-->
-
     <view class="{{skin}}">
-
 
       <view class="layer" wx:if="{{tongbukzShow}}" bindtap="tongbukzTab">
         <view class="button title button-bg">
@@ -130,7 +124,6 @@
       </view>
 
     </view>
-
 
   </view>
 </view>

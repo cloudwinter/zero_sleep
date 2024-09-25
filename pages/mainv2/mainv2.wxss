@@ -8,12 +8,12 @@
   display: flex;
   justify-content: space-around;
   height: 300rpx;
-  margin-top: 100rpx;
+  margin-top: 40rpx;
   width: 100%;
 }
 
 .module .button {
-  width: 254rpx;
+  width: 560rpx;
   height: 300rpx;
   border-radius: 20rpx;
   border: 2rpx solid #41B67C;

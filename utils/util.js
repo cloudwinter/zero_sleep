@@ -118,6 +118,7 @@ function hexStringToArrayBuffer(str) {
   if (!str || str.length < 2) {
     return new ArrayBuffer(0);
   }
+  console.log(str.length / 2)
   var buffer = new ArrayBuffer(str.length / 2);
   let dataView = new DataView(buffer)
   let ind = 0;

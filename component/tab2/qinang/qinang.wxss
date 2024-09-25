@@ -1,5 +1,5 @@
 /* component/mattress/mattress-M1.wxss */
-@import './../../common/tab.wxss';
+@import './../../../common/tab.wxss';
 
 /************common****************** */
 .dark {
@@ -44,7 +44,8 @@
   flex: auto;
   height: 200rpx;
   display: flex;
-  position: relative;
+  align-items: center;
+    position: relative;
 }
 
 .anjianqu .anjian-middle {
@@ -65,8 +66,8 @@
 }
 
 .anjian-bg {
-  width: 200rpx;
-  height: 200rpx;
+  width: 180rpx;
+  height: 180rpx;
   background-color: #1E1F24;
   border-radius: 40rpx;
   /* position: absolute;
@@ -75,8 +76,8 @@
 
 .anjiian-content {
   display: flex;
-  height: 200rpx;
-  width: 200rpx;
+  height: 180rpx;
+  width: 180rpx;
   align-items: center;
   justify-content: center;
   flex-direction: column;
@@ -93,9 +94,6 @@
   font-size: 24rpx;
 }
 
-
-
-
 .mode-content {
   display: flex;
   align-items: center;
@@ -108,7 +106,7 @@
 }
 
 .mode-content .mode-name {
-  font-size: 28rpx;
+  font-size: 24rpx;
   color: #C9C9C9;
   margin-left: 10rpx;
   flex: 1;

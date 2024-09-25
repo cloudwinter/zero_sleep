@@ -42,8 +42,8 @@ Component({
       name: '头部调整' // 背部调整，腰部调整，头部调整，腿部调整
     },
     currentXHAnjian: {
-      anjian: 'toubuxh', // quanshengxh,yaobuxh,toubuxh,tuibuxh
-      name: '头部循环' // 全身循环，腰部循环，头部循环，腿部循环
+      anjian: 'yaobuxh', // quanshengxh,yaobuxh,toubuxh,tuibuxh
+      name: '腰部循环' // 全身循环，腰部循环，头部循环，腿部循环
     },
     animationPosition: 1, //动画，1，2，3 或者 3，2，1 初始化都是1
     animationStop: true, //停止动画
@@ -58,7 +58,8 @@ Component({
     tuibutzTop: false,
     tuibutzBottom: false,
     tongbukzShow: false, // 同步控制显示
-    tongbukzStatus: false // 同步控制状态
+    tongbukzStatus: false, // 同步控制状态
+    yaobufuduShow: false,//腰部循环幅度大小展示
   },
 
 
@@ -137,7 +138,7 @@ Component({
      */
     blueReply(cmd) {
       var that = this.observer;
-      console.error('weitiao-W2->blueReply',cmd);
+      console.error('weitiao-W2->blueReply', cmd);
       cmd = cmd.toUpperCase();
       if (cmd.indexOf('FFFFFFFF01000A0B') >= 0 || cmd.indexOf('FFFFFFFF0100090B') >= 0) {
         // 同步控制回码
@@ -358,10 +359,61 @@ Component({
           tuibutzBottom: false
         });
         this.tapTuibutz(false, false);
+      } else if (type == 'yaobuxunhuanfudu') {
+        var longClick = this.longClick();
+        if (longClick) {
+          // 长按
+          this.setData({
+            yaobufuduShow: true
+          });
+        } else {
+          //短按
+          this.setData({
+            currentXHAnjian: {
+              anjian: "yaobuxh",
+              name: "腰部循环"
+            }
+          })
+          var cmd = '00E6468B';
+          this.sendBlueXHCmd(cmd);
+        }
       }
     },
 
+    /**
+   * 判断单击 1 和长按 2 事件 其他0
+   * @param {*} e 
+   */
+    longClick() {
+      if (this.endTime - this.startTime > 1000) {
+        console.log("长按了");
+        return true;
+      }
+      return false;
+    },
 
+    //腰部循环 点击幅度
+    tapYaobufd(e) {
+      var type = e.currentTarget.dataset.type;
+      var xhtype = e.currentTarget.dataset.xhtype;
+      var name = e.currentTarget.dataset.xhname;
+      console.log(xhtype, name)
+      this.setData({
+        currentXHAnjian: {
+          anjian: xhtype,
+          name: name
+        }
+      })
+      var cmd = ""
+      if (type == 0) {//小幅
+        cmd = '00E6468B';
+      } else if (type == 1) {//中幅
+        cmd = '01E6471B';
+      } else if (type == 2) {//大幅
+        cmd = '02E647EB';
+      }
+      this.sendBlueXHCmd(cmd);
+    },
 
     /**
      * 长按切换动画区
@@ -524,11 +576,14 @@ Component({
       if (type == 'quanshengxh') {
         cmd = '00E4C74A';
       } else if (type == 'yaobuxh') {
+        console.log("单电机")
         cmd = '00E6468B';
       } else if (type == 'toubuxh') {
         cmd = '00E38688';
       } else if (type == 'tuibuxh') {
         cmd = '00E5068A';
+      } else if (type == 'beibuxh') {
+        cmd = '00E7874B';
       }
       this.sendBlueXHCmd(cmd);
     }

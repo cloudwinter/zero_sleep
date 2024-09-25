@@ -23,7 +23,8 @@ Page({
       showRSSI: false
     }, // 导航栏
     cmd: '',//当前设备的状态码集合
-    connected: {}
+    connected: {},
+    isFirst: true
   },
 
   /**
@@ -33,14 +34,16 @@ Page({
     if (option && option.connected) {
       console.info("mainV2.onLoad option", option);
       var connected = JSON.parse(option.connected);
+      var first = option.first
       console.info("mainV2->onLoad connected:", connected);
       this.setData({
-        connected: connected
+        connected: connected,
+        isFirst:first
       })
     }
   },
 
-  onShow(){
+  onShow() {
     this.notifyBLECharacteristicValueChange();
     //发码询问状态
     util.showLoading('查询中...');
@@ -57,7 +60,7 @@ Page({
     }));
   },
 
-  onHide(){
+  onHide() {
     var connected = this.data.connected;
     wx.notifyBLECharacteristicValueChange({
       state: false, // 启用 notify 功能  
@@ -81,30 +84,30 @@ Page({
    */
   tapSearch(e) {
     let type = e.currentTarget.dataset.type
-    let mattressType = e.currentTarget.dataset.mattresstype
     var connectedStr = JSON.stringify(this.data.connected);
     var cmd = this.data.cmd
-    if (type == 'bed') {
+    // this.data.isFirst = false
+    if (type == 'diandong') {
       let bedState = cmd.substr(18, 2) == '0A' ? true : false;
       if (!bedState) {
         wx.navigateTo({
-          url: '/pages/mainv2/searchv2/searchv2?type=' + type + "&mattressType=" + mattressType+ '&connected=' + connectedStr,
+          url: '/pages/mainv2/searchv2/searchv2?type=' + type + '&connected=' + connectedStr,
         })
         return
       }
-    } else if (mattressType == 'M1') {
+    } else if (type == 'qinang') {
       let m1State = cmd.substr(24, 2) == '0B' ? true : false;
       if (!m1State) {
         wx.navigateTo({
-          url: '/pages/mainv2/searchv2/searchv2?type=' + type + "&mattressType=" + mattressType+ '&connected=' + connectedStr,
+          url: '/pages/mainv2/searchv2/searchv2?type=' + type + '&connected=' + connectedStr,
         })
         return
       }
-    } else if (mattressType == 'M2') {
+    } else if (type == 'lengnuan') {
       let m2State = cmd.substr(30, 2) == '0C' ? true : false;
       if (!m2State) {
         wx.navigateTo({
-          url: '/pages/mainv2/searchv2/searchv2?type=' + type + "&mattressType=" + mattressType+ '&connected=' + connectedStr,
+          url: '/pages/mainv2/searchv2/searchv2?type=' + type + '&connected=' + connectedStr,
         })
         return
       }
@@ -112,7 +115,7 @@ Page({
     var connected = this.data.connected;
     var connectedStr = JSON.stringify(connected);
     wx.navigateTo({
-      url: '/pages/mainv2/bedstead/bedstead?type=' + type + "&mattressType=" + mattressType + '&connected=' + connectedStr,
+      url: '/pages/mainv2/bedstead/bedstead?type=' + type + '&connected=' + connectedStr + "&cmd=" + cmd,
     })
   },
 
@@ -136,6 +139,29 @@ Page({
     this.setData({
       cmd: cmd
     })
+
+    let bedState = cmd.substr(18, 2) == '0A' ? true : false;
+    let m1State = cmd.substr(24, 2) == '0B' ? true : false;
+    let m2State = cmd.substr(30, 2) == '0C' ? true : false;
+
+    var type = ''
+    if (bedState) {
+      type = 'diandong'
+    } else if (m1State) {
+      type = 'qinang'
+    } else if (m2State) {
+      type = 'lengnuan'
+    }
+
+    var isFirst = this.data.isFirst
+    if (type && isFirst) {
+      this.data.isFirst = false
+      var connected = this.data.connected;
+      var connectedStr = JSON.stringify(connected);
+      wx.navigateTo({
+        url: '/pages/mainv2/bedstead/bedstead?type=' + type + '&connected=' + connectedStr + "&cmd=" + cmd,
+      })
+    }
   },
 
 

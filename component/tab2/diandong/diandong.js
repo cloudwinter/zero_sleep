@@ -1,16 +1,14 @@
-// component/bed/bed-b1.js
-const util = require('../../utils/util')
-const configManager = require('../../utils/configManager')
-const WxNotificationCenter = require('../../utils/WxNotificationCenter')
-const crcUtil = require('../../utils/crcUtil');
+// component/diandong/diandong.js
+const util = require('../../../utils/util')
+const configManager = require('../../../utils/configManager')
+const WxNotificationCenter = require('../../../utils/WxNotificationCenter')
+const crcUtil = require('../../../utils/crcUtil');
 const app = getApp();
-const askPrefix = 'FFFFFFFF0100'; // 询问码前缀
-const askReplyPrefix = 'FFFFFFFF0124'; // 询问码回复前缀
 const sendPrefix = 'FFFFFFFF050000'; // 发送码前缀
-const imgSanjiaoBottomSelected = '../../images/' + app.globalData.skin + '/sanjiao-bottom-selected@3x.png';
-const imgSanjiaoBottomNormal = '../../images/' + app.globalData.skin + '/sanjiao-bottom-normal@3x.png';
-const imgSanjiaoTopSelected = '../../images/' + app.globalData.skin + '/sanjiao-top-selected@3x.png';
-const imgSanjiaoTopNormal = '../../images/' + app.globalData.skin + '/sanjiao-top-normal@3x.png';
+const imgSanjiaoBottomSelected = '../../../images/' + app.globalData.skin + '/sanjiao-bottom-selected@3x.png';
+const imgSanjiaoBottomNormal = '../../../images/' + app.globalData.skin + '/sanjiao-bottom-normal@3x.png';
+const imgSanjiaoTopSelected = '../../../images/' + app.globalData.skin + '/sanjiao-top-selected@3x.png';
+const imgSanjiaoTopNormal = '../../../images/' + app.globalData.skin + '/sanjiao-top-normal@3x.png';
 
 
 Component({
@@ -60,14 +58,15 @@ Component({
    */
   pageLifetimes: {
     show: function () {
+      console.log("diandong show")
       // 设置当前的皮肤样式
       this.setData({
         skin: app.globalData.skin,
         imgSanjiao: {
-          imgSanjiaoBottomSelected: '../../images/' + app.globalData.skin + '/sanjiao-bottom-selected@3x.png',
-          imgSanjiaoBottomNormal: '../../images/' + app.globalData.skin + '/sanjiao-bottom-normal@3x.png',
-          imgSanjiaoTopSelected: '../../images/' + app.globalData.skin + '/sanjiao-top-selected@3x.png',
-          imgSanjiaoTopNormal: '../../images/' + app.globalData.skin + '/sanjiao-top-normal@3x.png'
+          imgSanjiaoBottomSelected: '../../../images/' + app.globalData.skin + '/sanjiao-bottom-selected@3x.png',
+          imgSanjiaoBottomNormal: '../../../images/' + app.globalData.skin + '/sanjiao-bottom-normal@3x.png',
+          imgSanjiaoTopSelected: '../../../images/' + app.globalData.skin + '/sanjiao-top-selected@3x.png',
+          imgSanjiaoTopNormal: '../../../images/' + app.globalData.skin + '/sanjiao-top-normal@3x.png'
         },
       })
 
@@ -101,14 +100,14 @@ Component({
   lifetimes: {
     created: function () {
       // 在组件实例刚刚被创建时执行
-      console.info("bed-b1-->created");
+      console.info("diandong-->created");
       var that = this;
       WxNotificationCenter.addNotification("INIT", that.initConnected, that);
       WxNotificationCenter.addNotification("BLUEREPLY", that.blueReply, that);
     },
     ready: function () {
       // 在组件在视图层布局完成后执行
-      console.info("bed-b1-->ready");
+      console.info("diandong-->ready");
     },
     attached: function () {
       // 在组件实例进入页面节点树时执行
@@ -121,7 +120,7 @@ Component({
     },
     detached: function () {
       // 在组件实例被从页面节点树移除时执行
-      console.info("bed-b1-->detached");
+      console.info("diandong-->detached");
       var that = this;
       WxNotificationCenter.removeNotification("BLUEREPLY", that);
     },
@@ -138,7 +137,7 @@ Component({
    */
     initConnected(connected) {
       var that = this.observer;
-      console.info('bed-B1->initConnected:', connected, this.observer);
+      console.info('diandong->initConnected:', connected, this.observer);
       console.log(connected)
       that.setData({
         connected: connected,
@@ -157,51 +156,6 @@ Component({
       cmd = cmd + crcUtil.HexToCSU16(cmd);
       console.log(cmd)
       cur.sendAskBlueCmd(cmd);
-
-
-      //模仿返回结果 TODO
-      var response = 'FFFFFFFF0100241415000100000000000000AABB';
-
-      var anMoStatus = response.substr(20, 2).toUpperCase();
-
-      if (anMoStatus == '01') {
-        this.setData({
-          anMoStatus: true
-        })
-      }
-
-      var status = response.substr(16, 2).toUpperCase();
-      var result = util.byteToBitsBylowe('0x' + status)
-      var that = this
-      if (result.length == 8) {
-        if (result[0] == 1) {
-          that.setData({
-            kandianshi: true
-          })
-        }
-        if (result[1] == 1) {
-          that.setData({
-            lingyali: true
-          })
-        }
-        if (result[2] == 1) {
-          that.setData({
-            jiyi1: true
-          })
-        }
-        if (result[3] == 1) {
-          that.setData({
-            jiyi2: true
-          })
-        }
-
-        if (result[4] == 1) {
-          that.setData({
-            zhihan: true
-          })
-        }
-      }
-
     },
 
     /**
@@ -210,45 +164,47 @@ Component({
      */
     blueReply(cmd) {
       var that = this.observer;
-      console.error('bed-B1->blueReply', cmd);
+      console.error('diandong->blueReply', cmd);
       cmd = cmd.toUpperCase();
 
-      var anMoStatus = cmd.substr(20, 2).toUpperCase();
-      if (anMoStatus == '01') {
-        that.setData({
-          anMoStatus: true
-        })
+      if(cmd.indexOf("FFFFFFFF01002414")>-1){
+        var anMoStatus = cmd.substr(20, 2).toUpperCase();
+        if (anMoStatus == '01') {
+          that.setData({
+            anMoStatus: true
+          })
+        }
+        var status = cmd.substr(16, 2).toUpperCase();
+        var result = util.byteToBitsBylowe('0x' + status)
+        console.log("智能床架" , result)
+        if (result.length == 8) {
+          if (result[0] == 1) {
+            that.setData({
+              kandianshi: true
+            })
+          }
+          if (result[1] == 1) {
+            that.setData({
+              lingyali: true
+            })
+          }
+          if (result[2] == 1) {
+            that.setData({
+              jiyi1: true
+            })
+          }
+          if (result[3] == 1) {
+            that.setData({
+              jiyi2: true
+            })
+          }
+          if (result[4] == 1) {
+            that.setData({
+              zhihan: true
+            })
+          }
+        }
       }
-      var status = cmd.substr(16, 2).toUpperCase();
-      var result = util.byteToBitsBylowe('0x' + status)
-      if (result.length == 8) {
-        if (result[0] == 1) {
-          that.setData({
-            kandianshi: true
-          })
-        }
-        if (result[1] == 1) {
-          that.setData({
-            lingyali: true
-          })
-        }
-        if (result[2] == 1) {
-          that.setData({
-            jiyi1: true
-          })
-        }
-        if (result[3] == 1) {
-          that.setData({
-            jiyi2: true
-          })
-        }
-        if (result[4] == 1) {
-          that.setData({
-            zhihan: true
-          })
-        }
-      }
-
     },
 
     /**
@@ -277,8 +233,6 @@ Component({
       var connected = this.data.connected;
       util.sendBlueCmd(connected, cmd, options);
     },
-
-
 
 
     /*************-------------点击事件--------------------*********** */

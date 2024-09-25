@@ -1,24 +1,25 @@
 <!--pages/mainv2/mainv2.wxml-->
 <view class="page-{{skin}}">
-  <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}" set="{{navbar.set}}" background="{{navbar.background}}"></navbar>
+  <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}" set="{{navbar.set}}" setType="1" background="{{navbar.background}}"></navbar>
 
   <view class="{{skin}}">
     <view class="module">
-      <view class="button left button-bg" catchtap="tapSearch" data-type="bed">
+      <view class="button  button-bg" catchtap="tapSearch" data-type="diandong">
         <image class="icon" src="../../images/{{skin}}/bedstead@2x.png"></image>
         <view class="name">智能床架</view>
       </view>
-      <view class="button right button-bg" catchtap="tapSearch" data-type="mattress" data-mattressType="M1">
+    </view>
+
+    <view class="module">
+      <view class="button  button-bg" catchtap="tapSearch" data-type="qinang">
         <image class="icon" src="../../images/{{skin}}/airbag_mattress@2x.png"></image>
         <view class="name">气囊床垫</view>
       </view>
     </view>
     <view class="module">
-      <view class="button left button-bg" catchtap="tapSearch" data-type="mattress" data-mattressType="M2">
+      <view class="button  button-bg" catchtap="tapSearch" data-type="lengnuan">
         <image class="icon" src="../../images/{{skin}}/mattress_cold_warm@2x.png"></image>
         <view class="name">冷暖床垫</view>
-      </view>
-      <view class=" right button-bg">
       </view>
     </view>
 

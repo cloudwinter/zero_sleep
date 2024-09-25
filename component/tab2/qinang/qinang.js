@@ -1,12 +1,9 @@
 // component/mattress/mattress-M1.js
-const util = require('../../utils/util')
-const configManager = require('../../utils/configManager')
-const WxNotificationCenter = require('../../utils/WxNotificationCenter')
-const crcUtil = require('../../utils/crcUtil');
+const util = require('../../../utils/util')
+const configManager = require('../../../utils/configManager')
+const WxNotificationCenter = require('../../../utils/WxNotificationCenter')
+const crcUtil = require('../../../utils/crcUtil');
 const app = getApp();
-const askPrefix = 'FFFFFFFF0300'; // 询问码前缀
-const askReplyPrefix = 'FFFFFFFF031200'; // 询问码回复前缀
-const sendPrefix = 'FFFFFFFF050000'; // 发送码前缀
 
 Component({
   /**
@@ -38,6 +35,7 @@ Component({
   */
   pageLifetimes: {
     show: function () {
+      console.log("qinang show")
       // 设置当前的皮肤样式
       this.setData({
         skin: app.globalData.skin,
@@ -49,14 +47,14 @@ Component({
   lifetimes: {
     created: function () {
       // 在组件实例刚刚被创建时执行
-      console.info("mattress-b1-->created");
+      console.info("qinang-->created");
       var that = this;
       WxNotificationCenter.addNotification("INIT", that.initConnected, that);
       WxNotificationCenter.addNotification("BLUEREPLY", that.blueReply, that);
     },
     ready: function () {
       // 在组件在视图层布局完成后执行
-      console.info("mattress-b1-->ready");
+      console.info("qinang-->ready");
     },
     attached: function () {
       // 在组件实例进入页面节点树时执行
@@ -69,7 +67,7 @@ Component({
     },
     detached: function () {
       // 在组件实例被从页面节点树移除时执行
-      console.info("mattress-b1-->detached");
+      console.info("qinang-->detached");
       var that = this;
       WxNotificationCenter.removeNotification("BLUEREPLY", that);
     },
@@ -87,7 +85,7 @@ Component({
       */
     initConnected(connected) {
       var that = this.observer;
-      console.info('mattress-B1->initConnected:', connected, this.observer);
+      console.info('qinang->initConnected:', connected, this.observer);
       console.log(connected)
       that.setData({
         connected: connected,
@@ -103,65 +101,44 @@ Component({
     blueReply(cmd) {
       var that = this.observer;
       cmd = cmd.toUpperCase();
-      console.error('mattress-B1->blueReply', cmd);
-
-      // var anMoStatus = cmd.substr(20, 2).toUpperCase();
-      // if (anMoStatus == '01') {
-      //   that.setData({
-      //     anMoStatus: true
-      //   })
-      // }
-      // var status = cmd.substr(16, 2).toUpperCase();
-      // var result = util.byteToBitsBylowe('0x' + status)
-      // if (result.length == 8) {
-      //   if (result[0] == 1) {
-      //     that.setData({
-      //       kandianshi: true
-      //     })
-      //   }
-      //   if (result[1] == 1) {
-      //     that.setData({
-      //       lingyali: true
-      //     })
-      //   }
-      //   if (result[2] == 1) {
-      //     that.setData({
-      //       jiyi1: true
-      //     })
-      //   }
-      //   if (result[3] == 1) {
-      //     that.setData({
-      //       jiyi2: true
-      //     })
-      //   }
-      //   if (result[4] == 1) {
-      //     that.setData({
-      //       zhihan: true
-      //     })
-      //   }
-      // }
-
+      console.error('qinang->blueReply', cmd);
     },
 
     //选择模式
     selectMode(event) {
       var type = event.currentTarget.dataset.type
-      var name = 'zhumian'
+      var name = '舒适助眠'
       var cmd = ''
+      var anjian = 'zhumian'
       if (type == 'zhumian') {
-        name = '助眠'
+        name = '舒适助眠'
+        anjian = 'zhumian'
         cmd = 'FFFFFFFFFF0A0108'
       } else if (type == 'dingyao') {
-        name = '顶腰'
+        name = '腰部放松'
+        anjian = 'dingyao'
         cmd = 'FFFFFFFFFF0A010C'
       } else if (type == 'anmo') {
-        name = '按摩'
+        name = '全身按摩'
+        anjian = 'anmo'
         cmd = 'FFFFFFFFFF0A0103'
+      } else if (type == 'fangqi') {
+        name = '放气'
+        anjian = 'fangqi'
+        cmd = 'FFFFFFFFFF0A0106'
+      } else if (type == 'shuimianmoshi') {
+        name = '睡眠模式'
+        anjian = 'shuimianmoshi'
+        cmd = 'FFFFFFFFFF0A0109'
+      } else if (type == 'tingzhi') {
+        name = '停止'
+        anjian = 'tingzhi'
+        cmd = 'FFFFFFFFFF0A0100'
       }
       this.setData({
         modeType: type,
         currentAnjian: {
-          anjian: 'zhumian', // kandianshi,lingyali,zhihan,fuyuan
+          anjian: anjian, // kandianshi,lingyali,zhihan,fuyuan
           name: name // 助眠，顶腰，按摩
         }
       })
@@ -169,19 +146,40 @@ Component({
       util.sendBlueCmd(this.data.connected, cmd);
     },
 
-    //睡眠模式
-    changeShuimian(e) {
-      console.log(e)
-      var status = e.detail.value
-      var cmd = ''
-      if (status) {
-        cmd = 'FFFFFFFFFF0C03060001'
-      } else {
-        cmd = 'FFFFFFFFFF0C03060000'
-      }
+    //放气
+    tapFangqi(e) {
+      var cmd = "FFFFFFFFFF0A0106"
       cmd = cmd + crcUtil.swapHexByteOrder(crcUtil.crc16(cmd));
       util.sendBlueCmd(this.data.connected, cmd);
     },
+
+    //睡眠模式
+    tapShuimian(e) {
+      var cmd = "FFFFFFFFFF0A0109"
+      cmd = cmd + crcUtil.swapHexByteOrder(crcUtil.crc16(cmd));
+      util.sendBlueCmd(this.data.connected, cmd);
+    },
+
+    //停止
+    tapTingzhi(e) {
+      var cmd = "FFFFFFFFFF0A0100"
+      cmd = cmd + crcUtil.swapHexByteOrder(crcUtil.crc16(cmd));
+      util.sendBlueCmd(this.data.connected, cmd);
+    },
+
+    // //睡眠模式
+    // changeShuimian(e) {
+    //   console.log(e)
+    //   var status = e.detail.value
+    //   var cmd = ''
+    //   if (status) {
+    //     cmd = 'FFFFFFFFFF0C03060001'
+    //   } else {
+    //     cmd = 'FFFFFFFFFF0C03060000'
+    //   }
+    //   cmd = cmd + crcUtil.swapHexByteOrder(crcUtil.crc16(cmd));
+    //   util.sendBlueCmd(this.data.connected, cmd);
+    // },
 
     //压力设置
     pressureTap() {

@@ -29,6 +29,7 @@ Page({
     endTime: '',
     showRSSI: false,
     deviceType: '',//设备类型 0A 0B 0C
+    isIos: app.globalData.isIos,//设备类型
   },
 
 
@@ -40,19 +41,18 @@ Page({
     var connected = JSON.parse(options.connected);
     this.setData({
       type: options.type,
-      mattressType: options.mattressType,
       connected: connected
     })
 
-    if (this.data.type == 'bed') {
+    if (this.data.type == 'diandong') {
       this.setData({
         deviceType: '0A'
       })
-    } else if (this.data.mattressType == 'M1') {
+    } else if (this.data.type == 'qinang') {
       this.setData({
         deviceType: '0B'
       })
-    } else if (this.data.mattressType == 'M2') {
+    } else if (this.data.type == 'lengnuan') {
       this.setData({
         deviceType: '0C'
       })
@@ -208,15 +208,17 @@ Page({
           })
           if (!isexist && res.devices[0].localName) {
             var name = util.transSpecialChar(res.devices[0].localName);
+            console.log("res.devices[0]", res.devices[0])
+            console.log("deviceId",res.devices[0].deviceId,mac)
             console.error('蓝牙名称hex:' + res.devices[0].localName)
             console.error('蓝牙名称装换hex:' + name)
-            if (devs.length >= 6) {
-              console.error('蓝牙列表已超过6个', name);
+            if (devs.length >= 40) {
+              console.error('蓝牙列表已超过10个', name);
             } else {
               if (!that.isValidBlueName(name)) {
                 console.error('不是有效的蓝牙名称', name);
               } else {
-                console.log("isValidBlueName", name)
+                console.log("isValidBlueName", res.devices[0])
                 if (res.devices[0].RSSI < -95) {
                   console.error('蓝牙强度小于-80', res.devices[0].RSSI);
                 } else {
@@ -312,18 +314,6 @@ Page({
     this.startDevicesDiscovery();
   },
 
-  //长按显示/隐藏RSSI
-  rssiTap: function () {
-    // const device = e.currentTarget.dataset.device;
-    // var deviceId = device.deviceId.replaceAll(":", "")
-
-    var cmd = 'FFFFFFFF01002214' + this.data.deviceType + '45BFJKHF45000000'
-    cmd = cmd.toUpperCase()
-    cmd = cmd + crcUtil.HexToCSU16(cmd);
-
-    this.sendBlueCmd(cmd)
-  },
-
 
   /**
    * 发送连接蓝牙指令
@@ -331,8 +321,14 @@ Page({
    */
   connect: function (e) {
     const device = e.currentTarget.dataset.device;
-    var deviceId = device.deviceId.replaceAll(":", "")
-
+    var deviceId;
+    if (this.data.isIos) {
+      deviceId = device.mac.toUpperCase()
+    } else {
+      deviceId = device.deviceId.replaceAll(":","")
+      deviceId = deviceId.toUpperCase()
+    }
+    console.log(deviceId)
     var cmd = 'FFFFFFFF01002214' + this.data.deviceType + deviceId + '000000'
     cmd = cmd.toUpperCase()
     cmd = cmd + crcUtil.HexToCSU16(cmd);
@@ -349,17 +345,17 @@ Page({
  */
   isValidBlueName(name) {
     if (name) {
-      if (this.data.type == 'bed') {
-        console.log("bed",name.indexOf('TB'))
-        if (name.indexOf('TB') > -1) {
+      if (this.data.type == 'diandong') {
+        console.log("diandong", name.indexOf('TL-B'))
+        if (name.indexOf('TL-B') > -1) {
           return true;
         }
-      } else if (this.data.mattressType == 'M1') {
-        if (name.indexOf('TA') > -1) {
+      } else if (this.data.type == 'qinang') {
+        if (name.indexOf('TL-A') > -1) {
           return true;
         }
-      } else if (this.data.mattressType == 'M2') {
-        if (name.indexOf('TW') > -1) {
+      } else if (this.data.type == 'lengnuan') {
+        if (name.indexOf('TL-W') > -1) {
           return true;
         }
       }
@@ -381,20 +377,21 @@ Page({
    * @param {*} cmd 
    */
   blueReply(cmd) {
-    var that = this.observer;
     cmd = cmd.toUpperCase();
     console.error('search->blueReply', cmd);
-    if (cmd.indexOf('FFFFFFFF010023') >= 0) {//APP下发MAC回复
+    if (cmd.indexOf('FFFFFFFF01002314') >= 0) {//APP下发MAC回复
       util.hideLoading()
-      wx.showModal({
-        title: '零睡吧',
-        content:"连接成功",
-        showCancel: false,
-        success(res){
-          if(res.confirm){
-            wx.navigateBack()
-          }
-        }
+      var cmd = 'FFFFFFFF010020140F000000000000000000'
+      cmd = cmd + crcUtil.HexToCSU16(cmd);
+      console.log("cmd", cmd)
+      this.sendBlueCmd(cmd);
+    } else if (cmd.indexOf('FFFFFFFF01002114') >= 0) {
+      var connected = this.data.connected;
+      var connectedStr = JSON.stringify(connected);
+      let type = this.data.type
+      console.log("跳转", type)
+      wx.redirectTo({
+        url: '/pages/mainv2/bedstead/bedstead?type=' + type + '&connected=' + connectedStr + "&cmd=" + cmd,
       })
     }
   },

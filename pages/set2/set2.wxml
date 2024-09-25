@@ -1,0 +1,37 @@
+<!--pages/mainv2/setting2/setting2.wxml-->
+<view class="page-{{skin}}">
+  <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}" background="{{navbar.background}}" title="设置"></navbar>
+
+  <!-- 页面容器 -->
+
+  <view class="{{skin}}">
+    <view class="content">
+      <view class="shezhi-content shezhi-button-bg" wx:if="{{diandongState}}">
+        <!-- <button class="shezhi-button-bg"></button> -->
+        <view class="shezhi-button-left">智能床</view>
+        <view class="shezhi-button-right">
+          <view class="shezhi-button-name" bindtap="connectTap" data-type="0A">断开连接</view>
+          <image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+        </view>
+      </view>
+
+      <view class="shezhi-content shezhi-button-bg" wx:if="{{qinangState}}">
+        <!-- <button class="shezhi-button-bg"></button> -->
+        <view class="shezhi-button-left">气囊床垫</view>
+        <view class="shezhi-button-right">
+          <view class="shezhi-button-name" bindtap="connectTap" data-type="0B">断开连接</view>
+          <image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+        </view>
+      </view>
+
+      <view class="shezhi-content shezhi-button-bg" wx:if="{{lengnuanState}}">
+        <!-- <button class="shezhi-button-bg"></button> -->
+        <view class="shezhi-button-left">冷暖床垫</view>
+        <view class="shezhi-button-right">
+          <view class="shezhi-button-name" bindtap="connectTap" data-type="0C">断开连接</view>
+          <image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

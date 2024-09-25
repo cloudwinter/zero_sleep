@@ -1,16 +1,30 @@
 <!--pages/bedstead/bedstead.wxml-->
 <!-- 智能床架 -->
 <view class="page-{{skin}}">
-  <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}" set="{{navbar.set}}" background="{{navbar.background}}" title="智能床架"></navbar>
+  <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}" set="{{navbar.set}}" setType="2" background="{{navbar.background}}" title="{{title}}"></navbar>
 
   <!-- 页面容器 -->
   <view class="container">
-    <view class="tab-container" wx:if="{{nowPage=='bed'}}">
-      <bed-B1></bed-B1>
+    <view class="tab-container" hidden="{{nowPage !='diandong'}}">
+      <diandong></diandong>
     </view>
-    <view class="tab-container" wx:else="{{nowPage =='mattress'}}">
-      <mattress-M1 wx:if="{{mattressType=='M1'}}"></mattress-M1>
-      <mattress-M2 wx:if="{{mattressType=='M2'}}"></mattress-M2>
+    <view class="tab-container" hidden="{{nowPage!='qinang'}}">
+      <qinang></qinang>
     </view>
+    <view class="tab-container" hidden="{{nowPage!='lengnuan'}}">
+      <lengnuan></lengnuan>
+    </view>
+  </view>
+
+  <!-- 底部切换菜单 -->
+  <view class="tab-bar" wx:if="{{tabBarShow}}">
+    <block wx:for="{{tabBar}}" wx:for-item="item" wx:key="index">
+      <view class="tab-item {{index==nowIndex?'active':''}}" bindtap="{{item.tapFunction}}" style="display:{{item.show?'flex':'none'}}">
+        <!-- <view style="position: relative;display:inline-block;"> -->
+        <image src="{{nowIndex === index ? item.selectedIconPath : item.iconPath}}" class="tabbar_icon"></image>
+        <!-- </view> -->
+        <text class="icon-text">{{item.text}}</text>
+      </view>
+    </block>
   </view>
 </view>

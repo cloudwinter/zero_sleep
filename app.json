@@ -1,6 +1,8 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/set2/set2",
+    "pages/set/set",
     "pages/mainv2/mainv2",
     "pages/mainv2/searchv2/searchv2",
     "pages/mainv2/anmo/anmo",
@@ -8,7 +10,6 @@
     "pages/mainv2/bedstead/bedstead",
     "pages/search/search",
     "pages/main/main",
-    "pages/set/set",
     "pages/alarm/alarm",
     "pages/report/report",
     "pages/wmreport/wmreport",

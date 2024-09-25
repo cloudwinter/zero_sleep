@@ -1,5 +1,5 @@
 /* component/mattress/mattress-M2.wxss */
-@import './../../common/tab.wxss';
+@import './../../../common/tab.wxss';
 
 /************common****************** */
 .dark {
@@ -38,22 +38,33 @@
 
 
 .temp {
-  width: 68px;
+  width: 112px;
   height: 320px;
   position: relative;
 }
 
 .temp-scale {
   position: absolute;
-  width: 56px;
+  width: 33px;
   height: 320px;
-  left: 6px;
-  right: 6px;
+  left: 39.5px;
+  right: 39.5px;
+}
+
+.temp-value{
+  color: #5A9927;
+  font-size: 42rpx;
+  height: 13.6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  z-index: 999;
 }
 
 .slider {
   position: absolute;
-  width: 68px;
+  width: 112px;
   height: 13.6px;
   z-index: 999;
 }

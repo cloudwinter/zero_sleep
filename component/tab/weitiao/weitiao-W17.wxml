@@ -54,6 +54,9 @@
         <block wx:if="{{currentXHAnjian.anjian=='tuibuxh'}}">
           <image class="dh-icon" src="../../../images/{{skin}}/tuibuxunhuan-da@3x.png"></image>
         </block>
+        <block wx:if="{{currentXHAnjian.anjian=='beibuxh'}}">
+            <image class="dh-icon" src="../../../images/{{skin}}/zhihan-da@3x.png"></image>
+          </block>
         <view class="dh-name">{{currentXHAnjian.name}}</view>
       </block>
     </view>
@@ -130,23 +133,45 @@
 <!--循环区-->
 <view class="xunhuan-type" hidden="{{currentType!='xunhuan'}}">
 
-  <view class="xunhuan-content xunhuan-button-bg button-bg" bindtap="tapXH" data-xhtype="toubuxh" data-xhname="头部循环">
+  <!-- <view class="xunhuan-content xunhuan-button-bg button-bg" bindtap="tapXH" data-xhtype="toubuxh" data-xhname="头部循环"> -->
     <!-- <button class="xunhuan-button-bg"></button> -->
-    <image class="xunhuan-type-icon" src="../../../images/{{skin}}/toubuxunhuan-xiao@3x.png"></image>
+    <!-- <image class="xunhuan-type-icon" src="../../../images/{{skin}}/toubuxunhuan-xiao@3x.png"></image>
     <view class="xunhuan-type-name">头部循环</view>
-  </view>
+  </view> -->
 
-  <view class="xunhuan-content xunhuan-button-bg button-bg" bindtap="tapXH" data-xhtype="quanshengxh" data-xhname="全身循环">
+  <!-- <view class="xunhuan-content xunhuan-button-bg button-bg" bindtap="tapXH" data-xhtype="quanshengxh" data-xhname="全身循环"> -->
     <!-- <button class="xunhuan-button-bg"></button> -->
-    <image class="xunhuan-type-icon" src="../../../images/{{skin}}/quanshengxunhuan-xiao@3x.png"></image>
+    <!-- <image class="xunhuan-type-icon" src="../../../images/{{skin}}/quanshengxunhuan-xiao@3x.png"></image>
     <view class="xunhuan-type-name">全身循环</view>
-  </view>
+  </view> -->
 
-  <view class="xunhuan-content xunhuan-button-bg button-bg" bindtap="tapXH" data-xhtype="yaobuxh" data-xhname="臀部循环">
+  <view class="xunhuan-content-2" wx:if="{{yaobufuduShow}}">
+      <view class="xunhuan-title">
+        <image class="xunhuan-type-icon" src="../../../images/{{skin}}/tunbuxunhuan-xiao@3x.png"></image>
+        <view class="xunhuan-type-name">腰部循环</view>
+      </view>
+      <view class="xunhuan-content-3 xunhuan-button-bg-3 button-bg">
+        <view class="xunhuan-button-xiao" bindtap="tapYaobufd" data-type="0"  data-xhtype="yaobuxh" data-xhname="腰部循环">小幅</view>
+        <view class="line"></view>
+        <view class="xunhuan-button-xiao" bindtap="tapYaobufd" data-type="1"  data-xhtype="yaobuxh" data-xhname="腰部循环">中幅</view>
+        <view class="line"></view>
+        <view class="xunhuan-button-xiao" bindtap="tapYaobufd" data-type="2"  data-xhtype="yaobuxh" data-xhname="腰部循环">大幅</view>
+      </view>
+    </view>
+
+
+  <view class="xunhuan-content xunhuan-button-bg button-bg"data-xhtype="yaobuxh" data-xhname="臀部循环"
+  wx:if="{{!yaobufuduShow}}" bindtouchstart="touchStart" bindtouchend="touchEnd" data-type="yaobuxunhuanfudu">
     <!-- <button class="xunhuan-button-bg"></button> -->
     <image class="xunhuan-type-icon" src="../../../images/{{skin}}/tunbuxunhuan-xiao@3x.png"></image>
     <view class="xunhuan-type-name">腰部循环</view>
   </view>
+
+  <view class="xunhuan-content xunhuan-button-bg button-bg" bindtap="tapXH" data-xhtype="beibuxh" data-xhname="背部循环">
+			<!-- <button class="xunhuan-button-bg"></button> -->
+			<image class="xunhuan-type-icon" src="../../../images/{{skin}}/zhihan-xiao@3x.png"></image>
+			<view class="xunhuan-type-name">背部循环</view>
+		</view>
 
 
   <view class="xunhuan-content xunhuan-button-bg button-bg" bindtap="tapXH" data-xhtype="tuibuxh" data-xhname="腿部循环">

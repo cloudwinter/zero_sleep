@@ -1,5 +1,7 @@
 /* component/bed/bed-b1.wxss */
+@import './../../../common/tab.wxss';
 
+/************common****************** */
 .dark {
   padding: 0 30rpx;
   box-sizing: border-box;

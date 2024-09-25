@@ -69,23 +69,91 @@ Page({
       checked: false
     },
     ],
-    nowPage: '',
-    mattressType: '',
+    title:'智能床架',
+    cmd: '',
+    nowIndex:1,
+    nowPage: 'qinang',
     connected: {},
+    tabBarShow: true,
+    tabBar: [{
+      "selectedIconPath": "../../../images/" + app.globalData.skin + "/tab_kuaijie_selected@2x.png",
+      "iconPath": "../../../images/" + app.globalData.skin + "/tab_kuaijie_normal@2x.png",
+      "text": "电动床",
+      "tapFunction": "toDianDongChuang",
+      "active": "active",
+      "show": true
+    },
+    {
+      "selectedIconPath": "../../../images/" + app.globalData.skin + "/tab_weitiao_selected@2x.png",
+      "iconPath": "../../../images/" + app.globalData.skin + "/tab_weitiao_normal@2x.png",
+      "text": "气囊",
+      "tapFunction": "toQiNang",
+      "active": "",
+      "show": true
+    },
+    {
+      "selectedIconPath": "../../../images/" + app.globalData.skin + "/tab_anno_selected@2x.png",
+      "iconPath": "../../../images/" + app.globalData.skin + "/tab_anno_normal@2x.png",
+      "text": "冷暖",
+      "tapFunction": "toLengNuan",
+      "active": "active",
+      "show": true
+    }
+    ],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(option) {
-    if (option && option.connected) {
-      console.info("bedstead.onLoad option", option);
-      var connected = JSON.parse(option.connected);
-      console.info("bedstead->onLoad connected:", connected);
+    if (option && option.cmd) {
+      let connected = configManager.getCurrentConnected();
+      var cmd = option.cmd;
+      let bedState = cmd.substr(18, 2) == '0A' ? true : false;
+      let m1State = cmd.substr(24, 2) == '0B' ? true : false;
+      let m2State = cmd.substr(30, 2) == '0C' ? true : false;
+      var tabbar = this.data.tabBar
+      var tabBarShow = this.data.tabBarShow
+      var tabBarNum = 0;
+      if (!bedState) {
+        tabbar[0].show = false;
+        tabBarNum++;
+      }
+      if (!m1State) {
+        tabbar[1].show = false;
+        tabBarNum++;
+      }
+      if (!m2State) {
+        tabbar[2].show = false;
+        tabBarNum++;
+      }
+
+      //判断是否超过2个页面不显示
+      if (tabBarNum >= 2) {
+        tabBarShow = false
+      }
+
+      var type =  option.type
+      var nowIndex = this.data.nowIndex
+      var title= this.data.title
+      if(type == 'diandong'){
+        nowIndex = 0
+        title = "智能床架"
+      }else if(type == 'qinang'){
+        nowIndex = 1
+        title = "舒适按摩"
+      }else if(type == 'lengnuan'){
+        nowIndex = 2
+        title = "温度调节"
+      }
+
       this.setData({
+        tabBar: tabbar,
+        tabBarShow: tabBarShow,
         connected: connected,
-        nowPage: option.type,
-        mattressType: option.mattressType
+        nowPage:type,
+        nowIndex:nowIndex,
+        title:title
       })
       this.notifyBLECharacteristicValueChange();
     }
@@ -140,19 +208,10 @@ Page({
   executeInitCmdTasks: async function () {
     let currentTime = new Date().getTime();
 
-    // 发送压力带
-    // console.warn('main->sendInitCmd 发送压力指令', '延时：' + time.getCurrentDifferMs(currentTime) + 'ms');
-    // this.sendBlueCmd('FFFFFFFF02000E0B001704');
-
-    await this.delay(150);
-    // 发码询问主板是否连接心率带
-    // console.warn("main->sendInitCmd 发送心率带指令 ", '延时：' + time.getCurrentDifferMs(currentTime) + 'ms');
-    // this.sendBlueCmd('FFFFFFFF01000C0B0F2304');
-
-    await this.delay(150);
-    // 先发送灯光指令
-    console.warn("main->sendInitCmd 发送灯光初始化指令 ", '延时：' + time.getCurrentDifferMs(currentTime) + 'ms');
-    this.sendBlueCmd('FFFFFFFF050005FF23C728');
+    // await this.delay(150);
+    // // 先发送灯光指令
+    // console.warn("main->sendInitCmd 发送灯光初始化指令 ", '延时：' + time.getCurrentDifferMs(currentTime) + 'ms');
+    // this.sendBlueCmd('FFFFFFFF050005FF23C728');
 
     await this.delay(150);
     // 发送时间校验指令
@@ -164,10 +223,10 @@ Page({
     console.warn("main->sendInitCmd 发送页面初始化指令", '延时：' + time.getCurrentDifferMs(currentTime) + 'ms');
     this.postInit(this.data.connected);
 
-    await this.delay(1500);
-    // 发送同步控制的初始化指令
-    console.warn("main->sendInitCmd 发送同步控制的初始化指令", '延时：' + time.getCurrentDifferMs(currentTime) + 'ms');
-    this.sendBlueCmd('FFFFFFFF01000A0B0F2104');
+    // await this.delay(1500);
+    // // 发送同步控制的初始化指令
+    // console.warn("main->sendInitCmd 发送同步控制的初始化指令", '延时：' + time.getCurrentDifferMs(currentTime) + 'ms');
+    // this.sendBlueCmd('FFFFFFFF01000A0B0F2104');
   },
 
   /**
@@ -193,7 +252,32 @@ Page({
     console.log('sendRequestAlarmCmd:', cmd);
 
     this.sendBlueCmd(cmd);
+  },
 
+
+
+  /******------>tab切换 start */
+
+  toDianDongChuang() {
+    this.setData({
+      nowPage: "diandong",
+      nowIndex: 0,
+      title:"智能床架"
+    })
+  },
+  toQiNang() {
+    this.setData({
+      nowPage: "qinang",
+      nowIndex: 1,
+      title:"舒适按摩"
+    })
+  },
+  toLengNuan() {
+    this.setData({
+      nowPage: "lengnuan",
+      nowIndex: 2,
+      title:"温度调节"
+    })
   },
 
   /**

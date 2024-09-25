@@ -1,0 +1,83 @@
+<!--component/qinang/qinang.wxml-->
+<scroll-view scroll-y="true" class="{{skin}}" bindtap="tapBlank" data-blank="blank" enhanced="true" showScrollbar="false" style="height:{{containerHeight}}px">
+
+  <view class="top">
+    <view class="donghuaqu">
+      <view class="dh-content">
+        <!-- <block wx:if="{{currentAnjian.anjian=='zhumian'}}">
+          <image class="dh-icon" src="../../../images/{{skin}}/kandianshi-da@3x.png"></image>
+        </block>
+        <block wx:if="{{currentAnjian.anjian=='dingyao'}}">
+          <image class="dh-icon" src="../../../images/{{skin}}/lingyali-da@3x.png"></image>
+        </block>
+        <block wx:if="{{currentAnjian.anjian=='anmo'}}">
+          <image class="dh-icon" src="../../../images/{{skin}}/lingyali-da@3x.png"></image>
+        </block> -->
+        <block>
+          <image class="dh-icon" src="../../../images/{{skin}}/air_bag@2x.png"></image>
+        </block>
+        <view class="dh-name">{{currentAnjian.name}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="anjianqu" style="padding-top:10rpx;">
+    <view class="anjian-left">
+      <image class="anjian-bg" style="border: 2rpx solid {{modeType=='zhumian'?'#41B67C':'#1E1F24'}};"></image>
+      <view class="anjiian-content" catchtap="selectMode" data-type="zhumian">
+        <!-- <image class="anjian-icon" src="../../../images/{{skin}}/kandianshi-xiao@3x.png"></image> -->
+        <view class="name"><text>舒适\n助眠</text></view>
+      </view>
+    </view>
+
+    <view class="anjian-middle">
+      <image class="anjian-bg" style="border: 2rpx solid {{modeType=='dingyao'?'#41B67C':'#1E1F24'}};"></image>
+      <view class="anjiian-content" catchtap="selectMode" data-type="dingyao">
+        <!-- <image class="anjian-icon" src="../../../images/{{skin}}/lingyali-xiao@3x.png"></image> -->
+        <view class="name"><text>腰部\n放松</text></view>
+      </view>
+    </view>
+
+    <view class="anjian-right">
+      <image class="anjian-bg" style="border: 2rpx solid {{modeType=='anmo'?'#41B67C':'#1E1F24'}};"></image>
+      <view class="anjiian-content" catchtap="selectMode" data-type="anmo">
+        <!-- <image class="anjian-icon" src="../../../images/{{skin}}/lingyali-xiao@3x.png"></image> -->
+        <view class="name"><text>全身\n按摩</text></view>
+      </view>
+    </view>
+  </view>
+
+  <view class="anjianqu" style="padding-top:10rpx;">
+    <view class="anjian-left">
+      <image class="anjian-bg" style="border: 2rpx solid {{modeType=='fangqi'?'#41B67C':'#1E1F24'}};"></image>
+      <view class="anjiian-content" catchtap="selectMode" data-type="fangqi">
+        <!-- <image class="anjian-icon" src="../../../images/{{skin}}/kandianshi-xiao@3x.png"></image> -->
+        <view class="name"><text>放气</text></view>
+      </view>
+    </view>
+
+    <view class="anjian-middle">
+      <image class="anjian-bg" style="border: 2rpx solid {{modeType=='shuimianmoshi'?'#41B67C':'#1E1F24'}};"></image>
+      <view class="anjiian-content" catchtap="selectMode" data-type="shuimianmoshi">
+        <!-- <image class="anjian-icon" src="../../../images/{{skin}}/lingyali-xiao@3x.png"></image> -->
+        <view class="name"><text>睡眠\n模式</text></view>
+      </view>
+    </view>
+
+    <view class="anjian-right">
+      <image class="anjian-bg" style="border: 2rpx solid {{modeType=='tingzhi'?'#41B67C':'#1E1F24'}};"></image>
+      <view class="anjiian-content" catchtap="selectMode" data-type="tingzhi">
+        <!-- <image class="anjian-icon" src="../../../images/{{skin}}/lingyali-xiao@3x.png"></image> -->
+        <view class="name"><text>停止</text></view>
+      </view>
+    </view>
+  </view>
+
+  <view class="mode-content" catchtap="pressureTap">
+    <view class="mode-name"><text>压力设置</text></view>
+    <image src="../../../images/dark/row@3x.png" class="mode-row"></image>
+  </view>
+
+
+
+</scroll-view>

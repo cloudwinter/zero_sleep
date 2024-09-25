@@ -1,5 +1,4 @@
-<!--component/mattress/mattress-M2.wxml-->
-<!-- <scroll-view scroll-y="true" class="{{skin}}" bindtap="tapBlank" data-blank="blank" enhanced="true" showScrollbar="false" style="height:{{containerHeight}}px"> -->
+<!--component/lengnuan/lengnuan.wxml-->
 
 <view class="{{skin}}" bindtap="tapBlank" data-blank="blank" enhanced="true" showScrollbar="false" style="height:{{containerHeight}}px">
 
@@ -7,10 +6,14 @@
   <view class="top">
     <view class="temp">
       <image class="temp-scale" src="/images/dark/temp_bg.png"></image>
-      <image class="slider" catchtouchmove="buttonMove" bindtouchstart="buttonStart" bindtouchend="buttonEnd" style="top:{{buttonTop}}px;left:{{buttonLeft}}px;" src="/images/dark/temp_slider.png"></image>
+      <image class="slider" catchtouchmove="buttonMove" bindtouchstart="buttonStart" bindtouchend="buttonEnd" style="top:{{buttonTop}}px;" src="/images/dark/temp_slider.png"></image>
+      <text class="temp-value" style="top:{{buttonTop}}px;left:120px;color: {{scales[selectScaleIndex].color}};">{{scales[selectScaleIndex].temp}}{{selectScaleIndex!=4?"°c":""}}</text>
     </view>
-    <view class="scale-group" style="left: {{scaleLeft}}px;">
+    <!-- <view class="scale-group" style="left: {{scaleLeftXiao}}px;">
       <view class="scale" wx:for="{{scales}}" style="color: {{item.color}};font-size: {{selectScaleIndex==index?'42rpx':'22rpx'}}; font-weight: {{selectScaleIndex==index?'600':'500'}};">{{item.temp}} <text style="color: {{item.color}};" wx:if="{{selectScaleIndex==index && selectScaleIndex!=4}}">°c</text></view>
+    </view> -->
+    <view class="scale-group" style="left: {{scaleLeftXiao}}px;">
+      <view class="scale" wx:for="{{scales}}" style="color: {{item.color}};">{{selectScaleIndex!=index?item.temp:""}}</view>
     </view>
   </view>
 
@@ -29,11 +32,9 @@
           {{timeStr}}
         </view>
 
-        <image src="../../images/dark/row@3x.png" class="mode-row"></image>
+        <image src="../../../images/dark/row@3x.png" class="mode-row"></image>
       </view>
     </picker>
   </view>
 
 </view>
-
-<!-- </scroll-view> -->
