@@ -561,7 +561,11 @@ Page({
 
     configManager.putAlarm(this.data.alarm, connected.deviceId);
 
+    wx.showLoading({
+      title: '保存中...'
+    })
     setTimeout(() => {
+      wx.hideLoading()
       // 返回上一页
       wx.navigateBack({
         delta: 1,
