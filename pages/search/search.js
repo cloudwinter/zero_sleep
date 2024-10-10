@@ -538,10 +538,10 @@ Page({
     var connectedStr = JSON.stringify(connected);
     var name = connected.name;
     //判断是否是TL-Q设备
-    console.log(name.indexOf('TL-Q')>-1)
+    console.log(name.indexOf('TL-Q') > -1)
     if (name.indexOf('TL-Q') > -1) {//新版零睡吧
       wx.navigateTo({
-        url: '/pages/mainv2/mainv2?connected=' + connectedStr+'&first='+first,
+        url: '/pages/mainv2/mainv2?connected=' + connectedStr + '&first=' + first,
       })
     } else {
       var kuaijieType = this.getKuaijieType(name);
@@ -593,6 +593,7 @@ Page({
         name.indexOf('S3-3') >= 0 ||
         name.indexOf('S3-4') >= 0 ||
         name.indexOf('S3-5') >= 0 ||
+        name.indexOf('S3-7') >= 0 ||
         name.indexOf('S4-Y') >= 0 ||
         name.indexOf('S5-Y') >= 0 ||
         name.indexOf('S6-Y') >= 0 ||
@@ -665,7 +666,11 @@ Page({
         return 'K12';
       } else if (name.indexOf('S3-5') >= 0) {
         return 'K13';
-      } else if (name.indexOf('S5-Y3') >= 0) {
+      }
+      else if (name.indexOf('S3-7') >= 0) {
+        return 'K13';
+      }
+      else if (name.indexOf('S5-Y3') >= 0) {
         return 'K14';
       } else if (name.indexOf('S2-ZM') >= 0 || name.indexOf('S3-ZM') >= 0 || name.indexOf('S4-ZM') >= 0) {
         return 'K15';
@@ -735,7 +740,11 @@ Page({
         return 'W14';
       } else if (name.indexOf('S3-5') >= 0) {
         return 'W15';
-      } else if (name.indexOf('S5-Y3') >= 0) {
+      }
+      else if (name.indexOf('S3-7') >= 0) {
+        return 'W15';
+      }
+      else if (name.indexOf('S5-Y3') >= 0) {
         return 'W16';
       } else if (name.indexOf('S5-Y') >= 0 || name.indexOf('S5-Y2') >= 0) {
         return 'W13';

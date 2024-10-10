@@ -23,14 +23,14 @@ Page({
       animated: false,
     },
     items: [{
-        value: 'dark',
-        name: '深黑',
-        checked: 'true'
-      },
-      {
-        value: 'orange',
-        name: '紫色'
-      },
+      value: 'dark',
+      name: '深黑',
+      checked: 'true'
+    },
+    {
+      value: 'orange',
+      name: '紫色'
+    },
     ],
     dialogShow: false, // 模式对话框
     selectedRadio: 'drak',
@@ -395,6 +395,8 @@ Page({
     var name = this.data.connected.name;
     if (name.indexOf('S3-5') >= 0) {
       jumpUrl = '/pages/nurseset/nurseset2'
+    } else if (name.indexOf('S3-7') >= 0) {
+      jumpUrl = '/pages/nurseset/nurseset3'
     } else if (name.indexOf('S5-Y3') >= 0) {
       jumpUrl = '/pages/nurseset/nurseset3'
     } else {

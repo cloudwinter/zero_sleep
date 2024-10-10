@@ -268,7 +268,7 @@ Page({
     })
     var type = this.data.zhinengjianceType;
     if(type == '01' || type == '02') {
-      var jumpPath = 'pages/index/index?mac=' + this.data.mac;
+      var jumpPath = 'pages/index/index?mac=' + app.globalData.mac;
       wx.navigateToMiniProgram({
         appId: app.globalData.appId,
         path: jumpPath,

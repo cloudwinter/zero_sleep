@@ -1,4 +1,4 @@
-<!--pages/alarm/alarm.wxml-->
+<!--pages/nurseset/nurseset.wxml-->
 <view class="page-{{skin}}">
   <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}"
     background="{{navbar.background}}" title="循环模式设置"></navbar>

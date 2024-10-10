@@ -32,17 +32,17 @@ Page({
       animated: false,
     },
     modeItems: [{
-        value: 'lingyali',
-        name: '零压力',
-      },
-      {
-        value: 'jiyi1',
-        name: '记忆一',
-      },
-      {
-        value: 'close',
-        name: '不动作',
-      },
+      value: 'lingyali',
+      name: '零压力',
+    },
+    {
+      value: 'jiyi1',
+      name: '记忆一',
+    },
+    {
+      value: 'close',
+      name: '不动作',
+    },
     ],
     dialogShow: false,
     alarm: { // 闹钟设置
@@ -60,40 +60,40 @@ Page({
     periodDialogShow: false, // 周期选择对话框
 
     periodList: [{
-        id: 1,
-        name: '周一',
-        checked: false
-      },
-      {
-        id: 2,
-        name: '周二',
-        checked: false
-      },
-      {
-        id: 3,
-        name: '周三',
-        checked: false
-      },
-      {
-        id: 4,
-        name: '周四',
-        checked: false
-      },
-      {
-        id: 5,
-        name: '周五',
-        checked: false
-      },
-      {
-        id: 6,
-        name: '周六',
-        checked: false
-      },
-      {
-        id: 7,
-        name: '周日',
-        checked: false
-      },
+      id: 1,
+      name: '周一',
+      checked: false
+    },
+    {
+      id: 2,
+      name: '周二',
+      checked: false
+    },
+    {
+      id: 3,
+      name: '周三',
+      checked: false
+    },
+    {
+      id: 4,
+      name: '周四',
+      checked: false
+    },
+    {
+      id: 5,
+      name: '周五',
+      checked: false
+    },
+    {
+      id: 6,
+      name: '周六',
+      checked: false
+    },
+    {
+      id: 7,
+      name: '周日',
+      checked: false
+    },
     ],
     remarkDialogShow: false,
     remarkInputValue: '',
@@ -114,8 +114,8 @@ Page({
   onLoad: function (options) {
     let connected = configManager.getCurrentConnected();
     let isMode2 = this.data.isMode2;
-    if (connected.name.indexOf('QMS-DFQ') >= 0 || connected.name.indexOf('QMS-430') >= 0 
-    || connected.name.indexOf('QMS-444') >= 0 || connected.name.indexOf('S4-HL') >= 0) {
+    if (connected.name.indexOf('QMS-DFQ') >= 0 || connected.name.indexOf('QMS-430') >= 0
+      || connected.name.indexOf('QMS-444') >= 0 || connected.name.indexOf('S4-HL') >= 0) {
       isMode2 = true;
     } else {
       isMode2 = false;
@@ -561,9 +561,11 @@ Page({
 
     configManager.putAlarm(this.data.alarm, connected.deviceId);
 
-    // 返回上一页
-    wx.navigateBack({
-      delta: 1,
-    })
+    setTimeout(() => {
+      // 返回上一页
+      wx.navigateBack({
+        delta: 1,
+      })
+    }, 1500)
   }
 })

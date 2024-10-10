@@ -91,7 +91,7 @@
   <image src="../../../images/dark/row@3x.png" class="anjian-row"></image>
 </view>
 
-<view class="anjian-content" bindtap="tapDingshi">
+<view class="anjian-content" bindtap="tapDingshi" wx:if="{{alarmSwitch}}">
   <image src="../../../images/dark/clock@2x.png" class="anjian-icon"></image>
   <view class="anjian-name">定时</view>
   <view class="anjian-value">{{alarmStatus}}</view>

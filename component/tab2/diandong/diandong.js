@@ -50,7 +50,8 @@ Component({
     lingyali: false,
     zhihan: false,
     anMoStatus: false,
-    alarmStatus: '未设置'
+    alarmStatus: '未设置',
+    alarmSwitch:false
   },
 
   /**
@@ -73,8 +74,11 @@ Component({
       //闹钟
       let connected = configManager.getCurrentConnected();
       let alarmStatus = this.data.alarmStatus;
+      let alarmSwitch = false;
       if (util.isNotEmptyObject(connected)) {
         let alarm = configManager.getAlarm(connected.deviceId);
+        alarmSwitch = configManager.showAlarmSwitch(connected.deviceId);
+        console.log("闹钟功能",alarmSwitch)
         if (util.isNotEmptyObject(alarm)) {
           if (alarm.isOpenAlarm) {
             alarmStatus = '已开启';
@@ -92,7 +96,8 @@ Component({
         alarmStatus = '未连接';
       }
       this.setData({
-        alarmStatus: alarmStatus
+        alarmStatus: alarmStatus,
+        alarmSwitch: alarmSwitch
       })
     }
   },
