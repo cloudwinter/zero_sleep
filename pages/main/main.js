@@ -110,7 +110,7 @@ Page({
         checked: false
       },
     ],
-    kuaijieType: 'K2', // 这边不能添加默认值
+    kuaijieType: '', // 这边不能添加默认值
     weitiaoType: 'W2', // 这边不能添加默认值
     connected: {},
     smartSleepClickTime: 0,
