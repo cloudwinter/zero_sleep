@@ -32,6 +32,8 @@ Component({
     kandianshiRight: false,
     jiyiLeft: false,
     jiyiRight: false,
+    tongbukzShow: false, // 同步控制显示
+    tongbukzStatus: false // 同步控制状态
   },
 
 
@@ -124,6 +126,21 @@ Component({
      */
     blueReply(cmd) {
       var that = this.observer;
+      console.error('kuaijie-K5->blueReply',cmd);
+      cmd = cmd.toUpperCase();
+      if (cmd.indexOf('FFFFFFFF01000A0B') >= 0 || cmd.indexOf('FFFFFFFF0100090B') >= 0) {
+        // 同步控制回码
+        let tongbukzStatus = cmd.substr(16, 2) == '01' ? true : false;
+        that.setData({
+          tongbukzShow: true,
+          tongbukzStatus: tongbukzStatus
+        })
+        let connected = that.data.connected;
+        configManager.putTongbukzShow(true, connected.deviceId);
+        configManager.putTongbukzSwitch(tongbukzStatus, connected.deviceId);
+        return;
+      }
+
       var prefix = cmd.substr(0, 14).toUpperCase();
       console.info('kuaijie-k5->askBack', cmd, prefix);
       if (prefix == askReplyPrefix) {
@@ -210,7 +227,20 @@ Component({
       this.sendBlueCmd('0000D700');
     },
 
-
+  /**
+     * 同步控制的点击事件
+     */
+    tongbukzTab() {
+      var tongbukzStatus = this.data.tongbukzStatus;
+      let cmd;
+      if (tongbukzStatus) {
+        cmd = 'FFFFFFFF0100090B00';
+      } else {
+        cmd = 'FFFFFFFF0100090B01';
+      }
+      cmd = cmd + crcUtil.HexToCSU16(cmd);
+      this.sendFullBlueCmd(cmd);
+    },
 
     /**
      * 长按切换分体和同步

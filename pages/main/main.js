@@ -110,7 +110,7 @@ Page({
         checked: false
       },
     ],
-    kuaijieType: '', // 这边不能添加默认值
+    kuaijieType: 'K2', // 这边不能添加默认值
     weitiaoType: 'W2', // 这边不能添加默认值
     connected: {},
     smartSleepClickTime: 0,
@@ -399,6 +399,8 @@ Page({
   notifyBLECharacteristicValueChange: function () {
     var that = this;
     var connected = this.data.connected;
+    console.log(connected.serviceId)
+    console.log(connected.notifyCharacId)
     wx.notifyBLECharacteristicValueChange({
       state: true, // 启用 notify 功能  
       deviceId: connected.deviceId,
