@@ -47,7 +47,8 @@ Page({
     this.notifyBLECharacteristicValueChange();
     //发码询问状态
     util.showLoading('查询中...');
-    var cmd = 'FFFFFFFF010020140F000000000000000000'
+    // APP/小程序 询问总控板当前连接状态
+    var cmd = 'FFFFFFFF010026140F000000000000000000'
     cmd = cmd + crcUtil.HexToCSU16(cmd);
     console.log("cmd", cmd)
     this.sendBlueCmd(cmd, ({

@@ -42,7 +42,8 @@ Page({
     this.notifyBLECharacteristicValueChange();
     //发码询问状态
     util.showLoading('查询中...');
-    var cmd = 'FFFFFFFF010020140F000000000000000000'
+    // APP/小程序 询问总控板当前连接状态
+    var cmd = 'FFFFFFFF010026140F000000000000000000'
     cmd = cmd + crcUtil.HexToCSU16(cmd);
     console.log("cmd", cmd)
     this.sendBlueCmd(cmd, ({
@@ -71,7 +72,8 @@ Page({
       success(res) {
         console.log(res)
         if (res.confirm) {
-          var cmd = 'FFFFFFFF01002214' + deviceType + '000000000000000100'
+          // APP/小程序下发下位设备的MAC地址
+          var cmd = 'FFFFFFFF01002814' + deviceType + '000000000000000100'
           cmd = cmd.toUpperCase()
           cmd = cmd + crcUtil.HexToCSU16(cmd);
 
@@ -100,7 +102,8 @@ Page({
     var that = this;
     cmd = cmd.toUpperCase();
     console.error('set2->blueReply', cmd);
-    if (cmd.indexOf("FFFFFFFF01002114") > -1) {
+    if (cmd.indexOf("FFFFFFFF01002714") > -1) {
+      // 总控板回复 APP/小程序 当前连接状态
       let diandongState = cmd.substr(18, 2) == '0A' ? true : false;
       let qinangState = cmd.substr(24, 2) == '0B' ? true : false;
       let lengnuanState = cmd.substr(30, 2) == '0C' ? true : false;
@@ -109,7 +112,7 @@ Page({
         qinangState: qinangState,
         lengnuanState: lengnuanState
       })
-    } else if (cmd.indexOf("FFFFFFFF01002214") > -1) {
+    } else if (cmd.indexOf("FFFFFFFF01002814") > -1) {
       console.log("delta", that.data.delta)
       var delta = that.data.delta
       setTimeout(() => {

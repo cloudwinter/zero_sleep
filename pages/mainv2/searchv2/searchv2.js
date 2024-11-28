@@ -329,7 +329,8 @@ Page({
       deviceId = deviceId.toUpperCase()
     }
     console.log(deviceId)
-    var cmd = 'FFFFFFFF01002214' + this.data.deviceType + deviceId + '000000'
+    // APP/小程序下发下位设备的MAC地址
+    var cmd = 'FFFFFFFF01002814' + this.data.deviceType + deviceId + '000000'
     cmd = cmd.toUpperCase()
     cmd = cmd + crcUtil.HexToCSU16(cmd);
 
@@ -379,13 +380,15 @@ Page({
   blueReply(cmd) {
     cmd = cmd.toUpperCase();
     console.error('search->blueReply', cmd);
-    if (cmd.indexOf('FFFFFFFF01002314') >= 0) {//APP下发MAC回复
+    if (cmd.indexOf('FFFFFFFF01002914') >= 0) {//APP下发MAC回复
       util.hideLoading()
-      var cmd = 'FFFFFFFF010020140F000000000000000000'
+      // APP/小程序 询问总控板当前连接状态
+      var cmd = 'FFFFFFFF010026140F000000000000000000'
       cmd = cmd + crcUtil.HexToCSU16(cmd);
       console.log("cmd", cmd)
       this.sendBlueCmd(cmd);
-    } else if (cmd.indexOf('FFFFFFFF01002114') >= 0) {
+    } else if (cmd.indexOf('FFFFFFFF01002714') >= 0) {
+      // 总控板回复 APP/小程序 当前连接状态
       var connected = this.data.connected;
       var connectedStr = JSON.stringify(connected);
       let type = this.data.type

@@ -157,7 +157,7 @@ Component({
      */
     askJiyiStatus(connected, cur) {
       // 合并询问码
-      var cmd = 'FFFFFFFF0100241400000000000000000000';
+      var cmd = 'FFFFFFFF01002A1400000000000000000000';
       cmd = cmd + crcUtil.HexToCSU16(cmd);
       console.log(cmd)
       cur.sendAskBlueCmd(cmd);
@@ -172,7 +172,7 @@ Component({
       console.error('diandong->blueReply', cmd);
       cmd = cmd.toUpperCase();
 
-      if(cmd.indexOf("FFFFFFFF01002414")>-1){
+      if(cmd.indexOf("FFFFFFFF01002A14")>-1){
         var anMoStatus = cmd.substr(20, 2).toUpperCase();
         if (anMoStatus == '01') {
           that.setData({
