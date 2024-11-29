@@ -604,7 +604,9 @@ Page({
         name.indexOf('S4-ZM') >= 0 ||
         name.indexOf('S4-Y2') >= 0 ||
         name.indexOf('S4-2-N93T') >= 0 ||
-        name.indexOf('S4-4-N93H') >= 0 || name.indexOf('TL-Q') >= 0) {
+        name.indexOf('S4-4-N93H') >= 0 || 
+        name.indexOf('TL-Q') >= 0 ||
+        name.indexOf('S5-N05') >= 0) {
         return true;
       }
     }
@@ -654,7 +656,8 @@ Page({
         name.indexOf('S4-HL') >= 0) {
         return 'K4';
       } else if (name.indexOf('QMS-DQ') >= 0 ||
-        name.indexOf('QMS-443') >= 0) {
+        name.indexOf('QMS-443') >= 0 ||
+        name.indexOf('S5-N05') >= 0 ) {
         return 'K5';
       } else if (name.indexOf('S3-2') >= 0) {
         return 'K7';
@@ -752,6 +755,8 @@ Page({
         return 'W17';
       } else if (name.indexOf('S4-4-N93H') >= 0) {
         return 'W18';
+      } else if (name.indexOf('S5-N05') >= 0) {
+        return 'W19';
       }
     }
     // 默认K1

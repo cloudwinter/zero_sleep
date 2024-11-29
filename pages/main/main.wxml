@@ -55,6 +55,7 @@
       <weitiao-W16 wx:if="{{weitiaoType=='W16'}}"></weitiao-W16>
       <weitiao-W17 wx:if="{{weitiaoType=='W17'}}"></weitiao-W17>
       <weitiao-W18 wx:if="{{weitiaoType=='W18'}}"></weitiao-W18>
+      <weitiao-W19 wx:if="{{weitiaoType=='W19'}}"></weitiao-W19>
 		</view>
 		<view class="tab-container" hidden="{{nowPage!='nurse'}}">
 			<nurse></nurse>
