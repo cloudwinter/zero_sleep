@@ -102,7 +102,6 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
     /**
      * 连接后初始化
      * @param {*} connected 
