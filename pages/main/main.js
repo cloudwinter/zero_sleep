@@ -111,7 +111,7 @@ Page({
       },
     ],
     kuaijieType: '', // 这边不能添加默认值
-    weitiaoType: 'W2', // 这边不能添加默认值
+    weitiaoType: '', // 这边不能添加默认值
     connected: {},
     smartSleepClickTime: 0,
     zhinengjianceType: '', // 智能检测的类型

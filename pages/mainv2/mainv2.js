@@ -135,7 +135,7 @@ Page({
     */
   blueReply(cmd) {
     util.hideLoading();
-    console.error('search->blueReply', cmd);
+    console.error('mainv2->blueReply', cmd);
     cmd = cmd.toUpperCase();
     this.setData({
       cmd: cmd

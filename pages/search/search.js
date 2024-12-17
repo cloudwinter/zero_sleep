@@ -418,7 +418,7 @@ Page({
         // 获取连接设备的service服务
         setTimeout(function () {
           that.getBLService(deviceId);
-        }, 100);
+        }, 300);
 
 
         // 监听蓝牙断开的场景

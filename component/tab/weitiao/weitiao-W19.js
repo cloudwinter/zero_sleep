@@ -435,16 +435,16 @@ Component({
         if (left) {
           // 左边
           if (top) {
-            cmd = '00039701';
+            cmd = '000116C0';
           } else {
-            cmd = '0004D6C3';
+            cmd = '000256C1';
           }
         } else {
           // 右边
           if (top) {
-            cmd = '000D16C5';
+            cmd = '00039701';
           } else {
-            cmd = '000E56C4';
+            cmd = '0004D6C3';
           }
         }
         this.sendBlueCmd(cmd);
@@ -475,7 +475,7 @@ Component({
 
 
     /**
-     * 分体腿部调整
+     * 分体腰部调整
      * @param {*} top 上
      * @param {*} start 按下
      * @param {*} left 左边
@@ -520,7 +520,7 @@ Component({
       } else {
         // 按下
         if (top) {
-          cmd = '000657C2';
+          cmd = '00065702';
         } else {
           cmd = '000796C2';
         }
