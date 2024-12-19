@@ -1,5 +1,6 @@
 // pages/mainv2/mainv2.js
 const util = require('../../utils/util')
+const time = require('../../utils/time');
 const configManager = require('../../utils/configManager')
 const WxNotificationCenter = require('../../utils/WxNotificationCenter')
 const crcUtil = require('../../utils/crcUtil');
@@ -38,7 +39,7 @@ Page({
       console.info("mainV2->onLoad connected:", connected);
       this.setData({
         connected: connected,
-        isFirst:first
+        isFirst: first
       })
     }
   },
@@ -130,38 +131,42 @@ Page({
   },
 
   /**
-    * 蓝牙回复回调
-    * @param {*} cmd 
-    */
+   * 蓝牙回复回调
+   * @param {*} cmd 
+   */
   blueReply(cmd) {
     util.hideLoading();
-    console.error('mainv2->blueReply', cmd);
+    console.error('search->blueReply', cmd);
     cmd = cmd.toUpperCase();
-    this.setData({
-      cmd: cmd
-    })
-
-    let bedState = cmd.substr(18, 2) == '0A' ? true : false;
-    let m1State = cmd.substr(24, 2) == '0B' ? true : false;
-    let m2State = cmd.substr(30, 2) == '0C' ? true : false;
-
-    var type = ''
-    if (bedState) {
-      type = 'diandong'
-    } else if (m1State) {
-      type = 'qinang'
-    } else if (m2State) {
-      type = 'lengnuan'
-    }
-
-    var isFirst = this.data.isFirst
-    if (type && isFirst) {
-      this.data.isFirst = false
-      var connected = this.data.connected;
-      var connectedStr = JSON.stringify(connected);
-      wx.navigateTo({
-        url: '/pages/mainv2/bedstead/bedstead?type=' + type + '&connected=' + connectedStr + "&cmd=" + cmd,
+    if (cmd.indexOf("FFFFFFFF01002714") > -1) {
+      this.setData({
+        cmd: cmd
       })
+
+      let bedState = cmd.substr(18, 2) == '0A' ? true : false;
+      let m1State = cmd.substr(24, 2) == '0B' ? true : false;
+      let m2State = cmd.substr(30, 2) == '0C' ? true : false;
+
+      var type = ''
+      if (bedState) {
+        type = 'diandong'
+      } else if (m1State) {
+        type = 'qinang'
+      } else if (m2State) {
+        type = 'lengnuan'
+      }
+
+      var isFirst = this.data.isFirst
+      if (type && isFirst) {
+        this.setData({
+          isFirst: false
+        })
+        var connected = this.data.connected;
+        var connectedStr = JSON.stringify(connected);
+        wx.navigateTo({
+          url: '/pages/mainv2/bedstead/bedstead?type=' + type + '&connected=' + connectedStr + "&cmd=" + cmd,
+        })
+      }
     }
   },
 
@@ -197,4 +202,6 @@ Page({
       that.blueReply(received, connected);
     });
   },
+
+
 })

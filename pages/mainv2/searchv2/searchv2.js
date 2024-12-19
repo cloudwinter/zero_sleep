@@ -347,7 +347,6 @@ Page({
   isValidBlueName(name) {
     if (name) {
       if (this.data.type == 'diandong') {
-        console.log("diandong", name.indexOf('TL-B'))
         if (name.indexOf('TL-B') > -1) {
           return true;
         }

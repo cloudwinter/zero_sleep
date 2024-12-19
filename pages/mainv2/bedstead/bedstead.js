@@ -208,11 +208,6 @@ Page({
   executeInitCmdTasks: async function () {
     let currentTime = new Date().getTime();
 
-    // await this.delay(150);
-    // // 先发送灯光指令
-    // console.warn("main->sendInitCmd 发送灯光初始化指令 ", '延时：' + time.getCurrentDifferMs(currentTime) + 'ms');
-    // this.sendBlueCmd('FFFFFFFF050005FF23C728');
-
     await this.delay(150);
     // 发送时间校验指令
     console.warn("main->sendInitCmd 发送时间校验初始化指令", '延时：' + time.getCurrentDifferMs(currentTime) + 'ms');
@@ -222,11 +217,6 @@ Page({
     // 发送页面初始化指令
     console.warn("main->sendInitCmd 发送页面初始化指令", '延时：' + time.getCurrentDifferMs(currentTime) + 'ms');
     this.postInit(this.data.connected);
-
-    // await this.delay(1500);
-    // // 发送同步控制的初始化指令
-    // console.warn("main->sendInitCmd 发送同步控制的初始化指令", '延时：' + time.getCurrentDifferMs(currentTime) + 'ms');
-    // this.sendBlueCmd('FFFFFFFF01000A0B0F2104');
   },
 
   /**
