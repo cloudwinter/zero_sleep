@@ -22,7 +22,7 @@ Page({
       color: '#FFFFFF',
       background: '#0A0A0C',
       show: true,
-      set: true,
+      set: false,
       animated: false,
       showRSSI: false
     }, // 导航栏

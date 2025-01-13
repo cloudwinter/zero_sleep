@@ -91,23 +91,23 @@
 
 /********调整************** */
 .tiaozheng-type {
-  width: 100%;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  padding: 0rpx 30rpx;
+  margin: 20rpx 30rpx 0 30rpx;
+  box-sizing: border-box;
+  border-radius: 40rpx;
 }
 
 .tiaozheng-content {
   width: 90%;
-  height: 120rpx;
-  margin-top: 40rpx;
   display: flex;
   align-items: center;
+  flex-direction: column;
 }
 
 .tiaozheng-button-bg {
   width: 90% !important;
-  height: 120rpx;
   border-radius: 120rpx;
   /* background: #1E1F24; */
   /* position: absolute;
@@ -116,8 +116,7 @@
 
 .tiaozheng-button-top-left {
   width: 64rpx;
-  height: 120rpx;
-  padding-left: 80rpx;
+  height: 100rpx;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -125,8 +124,7 @@
 
 .tiaozheng-button-top-right {
   width: 64rpx;
-  height: 120rpx;
-  padding-right: 80rpx;
+  height: 100rpx;
   display: flex;
   align-items: center;
   justify-content: center;

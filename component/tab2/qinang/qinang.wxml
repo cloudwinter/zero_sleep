@@ -26,7 +26,7 @@
       <image class="anjian-bg" style="border: 2rpx solid {{modeType=='zhumian'?'#41B67C':'#1E1F24'}};"></image>
       <view class="anjiian-content" catchtap="selectMode" data-type="zhumian">
         <!-- <image class="anjian-icon" src="../../../images/{{skin}}/kandianshi-xiao@3x.png"></image> -->
-        <view class="name"><text>舒适\n助眠</text></view>
+        <view class="name"><text>轻柔\n按摩</text></view>
       </view>
     </view>
 
@@ -34,7 +34,7 @@
       <image class="anjian-bg" style="border: 2rpx solid {{modeType=='dingyao'?'#41B67C':'#1E1F24'}};"></image>
       <view class="anjiian-content" catchtap="selectMode" data-type="dingyao">
         <!-- <image class="anjian-icon" src="../../../images/{{skin}}/lingyali-xiao@3x.png"></image> -->
-        <view class="name"><text>腰部\n放松</text></view>
+        <view class="name"><text>舒适\n按摩</text></view>
       </view>
     </view>
 
@@ -42,7 +42,7 @@
       <image class="anjian-bg" style="border: 2rpx solid {{modeType=='anmo'?'#41B67C':'#1E1F24'}};"></image>
       <view class="anjiian-content" catchtap="selectMode" data-type="anmo">
         <!-- <image class="anjian-icon" src="../../../images/{{skin}}/lingyali-xiao@3x.png"></image> -->
-        <view class="name"><text>全身\n按摩</text></view>
+        <view class="name"><text>酸痛\n按摩</text></view>
       </view>
     </view>
   </view>

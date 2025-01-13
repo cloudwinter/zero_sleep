@@ -22,7 +22,8 @@
     "pages/nurseset/nurseset2",
     "pages/webhtml/webhtml",
     "pages/nurseset/nurseset3",
-    "pages/mainv2/pressure/pressure"
+    "pages/mainv2/pressure/pressure",
+    "pages/mainv2/zhinengjiance/zhinengjiance"
   ],
   "window": {
     "backgroundTextStyle": "light",

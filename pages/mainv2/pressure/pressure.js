@@ -137,6 +137,7 @@ Page({
       var result = util.ab2hex(util.intToByteArray(item.value * 10))
       cmd = cmd + result
     })
+
     cmd = cmd + crcUtil.swapHexByteOrder(crcUtil.crc16(cmd));
     console.log(cmd.toUpperCase())
     var connected = this.data.connected

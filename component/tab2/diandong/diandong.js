@@ -51,7 +51,9 @@ Component({
     zhihan: false,
     anMoStatus: false,
     alarmStatus: '未设置',
-    alarmSwitch:false
+    alarmSwitch: false,
+    showZhinengjiance: false,//是否有智能检测
+    zhinengjianceType: '00',//智能检测类型
   },
 
   /**
@@ -78,7 +80,7 @@ Component({
       if (util.isNotEmptyObject(connected)) {
         let alarm = configManager.getAlarm(connected.deviceId);
         alarmSwitch = configManager.showAlarmSwitch(connected.deviceId);
-        console.log("闹钟功能",alarmSwitch)
+        console.log("闹钟功能", alarmSwitch)
         if (util.isNotEmptyObject(alarm)) {
           if (alarm.isOpenAlarm) {
             alarmStatus = '已开启';
@@ -172,7 +174,7 @@ Component({
       console.error('diandong->blueReply', cmd);
       cmd = cmd.toUpperCase();
 
-      if(cmd.indexOf("FFFFFFFF01002A14")>-1){
+      if (cmd.indexOf("FFFFFFFF01002A14") > -1) {
         var anMoStatus = cmd.substr(20, 2).toUpperCase();
         if (anMoStatus == '01') {
           that.setData({
@@ -181,7 +183,7 @@ Component({
         }
         var status = cmd.substr(16, 2).toUpperCase();
         var result = util.byteToBitsBylowe('0x' + status)
-        console.log("智能床架" , result)
+        console.log("智能床架", result)
         if (result.length == 8) {
           if (result[0] == 1) {
             that.setData({
@@ -207,6 +209,21 @@ Component({
             that.setData({
               zhihan: true
             })
+          }
+        }
+
+        var type = cmd.substr(18, 2).toUpperCase();
+        if (type != '00') {
+          that.setData({
+            showZhinengjiance: true,
+            zhinengjianceType: type
+          })
+          var macCmd = cmd.substr(22, 12);
+          app.globalData.mac = macCmd;
+          if (type == '01') {
+            app.globalData.appId = 'wxbbdd4b1b88358610';
+          } else if (type == '02') {
+            app.globalData.appId = 'wx89783978e44773d0';
           }
         }
       }
@@ -697,6 +714,23 @@ Component({
       wx.navigateTo({
         url: '/pages/alarm/alarm',
       })
+    },
+
+    //点击智能监测
+    tapZhinengjiance(){
+      var type = this.data.zhinengjianceType;
+      if(type == '01' || type == '02') {
+        var jumpPath = 'pages/index/index?mac=' + app.globalData.mac;
+        wx.navigateToMiniProgram({
+          appId: app.globalData.appId,
+          path: jumpPath,
+          envVersion: 'trial', //develop,trial,release
+        })
+      } else if(type == '03') {
+        wx.navigateTo({
+          url: '/pages/mainv2/zhinengjiance/zhinengjiance',
+        })
+      }
     },
 
     /********************动画处理 */
