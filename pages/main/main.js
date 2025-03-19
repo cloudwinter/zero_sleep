@@ -146,6 +146,13 @@ Page({
       //this.getBLService(connected.deviceId);
     }
 
+    if(this.data.kuaijieType == 'K16'){
+      let tabbar = this.data.tabBar;
+      tabbar[2].show = false;
+      this.setData({
+        tabBar: tabbar,
+      })
+    }
   },
 
   /**

@@ -24,6 +24,7 @@ Component({
   data: {
     skin: app.globalData.skin,
     display: app.globalData.display,
+    containerHeight: '',
     connected: {},
     currentAnjian: {
       anjian: 'kandianshi', // kandianshi,lingyali,zhihan,fuyuan
@@ -39,7 +40,7 @@ Component({
     endTime: '',
     tongbukzShow: false, // 同步控制显示
     tongbukzStatus: false, // 同步控制状态
-    timeXHSwitch:true
+    timeXHSwitch: true,//定时循环
   },
 
 
@@ -79,7 +80,9 @@ Component({
       // 在组件实例进入页面节点树时执行
       console.info("attached");
       this.setData({
-        display: app.globalData.display
+        display: app.globalData.display,
+        // 屏幕高度-顶部高度-tab高度-预留5px底部距离
+        containerHeight: app.globalData.screenHeight - app.globalData.navHeight - 52 - 5
       })
     },
     detached: function () {
@@ -197,11 +200,11 @@ Component({
      */
     blueReply(cmd) {
       var that = this.observer;
-      console.error('kuaijie-K2->blueReply',cmd);
+      console.error('kuaijie-K2->blueReply', cmd);
       cmd = cmd.toUpperCase();
       if (cmd.indexOf('FFFFFFFF0100080B') >= 0 || cmd.indexOf('FFFFFFFF0100070B') >= 0) {
         var timeXHSwitchCmd = cmd.substr(16, 2);
-        if(timeXHSwitchCmd == '01') {
+        if (timeXHSwitchCmd == '01') {
           that.setData({
             timeXHSwitch: true
           })
