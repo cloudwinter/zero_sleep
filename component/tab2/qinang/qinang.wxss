@@ -45,15 +45,8 @@
   height: 200rpx;
   display: flex;
   align-items: center;
-    position: relative;
-}
-
-.anjianqu .anjian-middle {
-  width: 200rpx;
-  height: 200rpx;
-  display: flex;
-  align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 
@@ -62,22 +55,24 @@
   height: 200rpx;
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: row-reverse;
 }
 
 .anjian-bg {
-  width: 180rpx;
-  height: 180rpx;
+  width: 240rpx;
+  height: 200rpx;
   background-color: #1E1F24;
   border-radius: 40rpx;
+  border: 2rpx solid #1E1F24;
   /* position: absolute;
   z-index: -1; */
 }
 
 .anjiian-content {
   display: flex;
-  height: 180rpx;
-  width: 180rpx;
+  width: 240rpx;
+  height: 200rpx;
   align-items: center;
   justify-content: center;
   flex-direction: column;
@@ -94,7 +89,70 @@
   font-size: 24rpx;
 }
 
+
+
+
+.jiyi {
+  display: flex;
+  height: 120rpx;
+  margin-top: 40rpx;
+  width: 100%;
+}
+
+.jiyi .button {
+  width: 324rpx;
+  height: 120rpx;
+  border-radius: 120rpx;
+  display: flex;                                   
+  align-items: center;
+  box-sizing: border-box;     
+}
+
+.jiyi .left {
+  width: 324rpx;
+  height: 120rpx;
+  margin-left: 30rpx;
+}
+
+.jiyi .middle {
+  flex: auto;
+  width: 30rpx;
+}
+
+.jiyi .right {
+  width: 324rpx;
+  height: 120rpx;
+  margin-right: 30rpx;
+}
+
+.jiyi-button-bg {
+  width: 100%;
+  height: 120rpx;
+  border-radius: 120rpx;
+  position: absolute;
+  z-index: -1;
+}
+
+
+.jiyi .button .dian {
+  width: 28rpx;
+  height: 28rpx;
+  padding-left: 52rpx;
+}
+
+.jiyi .button .name {
+  color: white;
+  padding-left: 60rpx;
+  font-size: 28rpx;
+}
+
+.mode {
+  display: flex;
+  align-items: center;
+}
+
 .mode-content {
+  flex: 1;
   display: flex;
   align-items: center;
   height: 120rpx;
@@ -103,6 +161,16 @@
   margin-top: 40rpx;
   padding: 0 32rpx;
   color: #FFF;
+}
+
+.mode .left {
+  margin-left: 30rpx;
+  margin-right: 15rpx;
+}
+
+.mode .right {
+  margin-right: 30rpx;
+  margin-left: 15rpx;
 }
 
 .mode-content .mode-name {

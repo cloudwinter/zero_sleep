@@ -278,7 +278,7 @@ Page({
       },
       fail: function (res) {
         console.error("main->notifyBLECharacteristicValueChange error", res);
-        util.showModal('开启监听失败，请重新进入');
+        util.showModal('蓝牙通讯不稳定，请重新进入');
       }
     });
     wx.onBLECharacteristicValueChange((res) => {

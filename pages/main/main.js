@@ -110,8 +110,8 @@ Page({
         checked: false
       },
     ],
-    kuaijieType: '', // 这边不能添加默认值
-    weitiaoType: '', // 这边不能添加默认值
+    kuaijieType: 'K1', // 这边不能添加默认值
+    weitiaoType: 'W1', // 这边不能添加默认值
     connected: {},
     smartSleepClickTime: 0,
     zhinengjianceType: '', // 智能检测的类型
@@ -423,7 +423,7 @@ Page({
         console.error("main->notifyBLECharacteristicValueChange error", res);
         // let received = 'FFFFFFFF01000413AF083000C2010301019897';
         // that.blueReply(received, connected);
-        util.showModal('开启监听失败，请重新进入');
+        util.showModal('蓝牙通讯不稳定，请重新进入');
       }
     });
     wx.onBLECharacteristicValueChange((res) => {

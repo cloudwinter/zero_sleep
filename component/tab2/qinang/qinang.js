@@ -28,6 +28,11 @@ Component({
       name: '' // 助眠，顶腰，按摩
     },
     modeType: '',//助眠 0，顶腰 1，按摩 2
+    zishiying: false,//自适应
+    quanshen: false,//是否联动
+    beibu: false,//是否联动
+    startTime: '',
+    endTime: '',
   },
 
   /**
@@ -55,6 +60,14 @@ Component({
     ready: function () {
       // 在组件在视图层布局完成后执行
       console.info("qinang-->ready");
+      var that = this;
+      let connected = configManager.getCurrentConnected();
+      that.setData({
+        connected: connected,
+      })
+      setTimeout(() => {
+        that.askQiNangStatus(that.data.connected, that);
+      }, 100)
     },
     attached: function () {
       // 在组件实例进入页面节点树时执行
@@ -90,8 +103,20 @@ Component({
       that.setData({
         connected: connected,
       })
+      // that.askQiNangStatus(connected, that);
       // 删除回调
       WxNotificationCenter.removeNotification("INIT", that);
+    },
+
+    /**
+    * 询问记忆状态 （合并询问码）
+    */
+    askQiNangStatus(connected, cur) {
+      // 合并询问码
+      var cmd = 'FFFFFFFFFF14020900000000000000000000';
+      cmd = cmd + crcUtil.swapHexByteOrder(crcUtil.crc16(cmd));
+      console.log(cmd)
+      util.sendBlueCmd(this.data.connected, cmd);
     },
 
     /**
@@ -102,84 +127,170 @@ Component({
       var that = this.observer;
       cmd = cmd.toUpperCase();
       console.error('qinang->blueReply', cmd);
+      if (cmd.indexOf("FFFFFFFFFF14020901") > -1) {//询问码回复
+        var anmoStatus = cmd.substr(18, 2).toUpperCase();
+        var zishiyingStatus = cmd.substr(20, 2).toUpperCase();
+        if (anmoStatus == '01') {
+          that.setData({
+            quanshen: true
+          })
+        }
+        if (anmoStatus == '02') {
+          that.setData({
+            beibu: true
+          })
+        }
+        if (anmoStatus == '03') {
+          that.setData({
+            quanshen: true,
+            beibu: true
+          })
+        }
+        if (zishiyingStatus == '01') {
+          that.setData({
+            zishiying: true
+          })
+        }
+      } else if (cmd.indexOf("FFFFFFFFFF0D030C01") > -1) {//自适应开关回码
+        var zishiyingStatus = cmd.substr(18, 2).toUpperCase();
+        if (zishiyingStatus == '01') {
+          that.setData({
+            zishiying: true
+          })
+        } else {
+          that.setData({
+            zishiying: false
+          })
+        }
+      } else if (cmd.indexOf("FFFFFFFFFF14030D01") > -1) {//全身按摩、背部按摩设置联动(记忆)
+        var status = cmd.substr(18, 2).toUpperCase();
+        var type = cmd.substr(20, 2).toUpperCase();
+
+        if (status == '01') {
+          if (type == '03') {
+            that.setData({
+              quanshen: true
+            })
+          } else if (type == '12') {
+            that.setData({
+              beibu: true
+            })
+          }
+        } else {
+          if (type == '03') {
+            that.setData({
+              quanshen: false
+            })
+          } else if (type == '12') {
+            that.setData({
+              beibu: false
+            })
+          }
+        }
+      }
     },
+
 
     //选择模式
     selectMode(event) {
       var type = event.currentTarget.dataset.type
-      var name = '舒适助眠'
+      var name = ''
       var cmd = ''
-      var anjian = 'zhumian'
-      if (type == 'zhumian') {
-        name = '舒适助眠'
-        anjian = 'zhumian'
-        cmd = 'FFFFFFFFFF0A0108'
-      } else if (type == 'dingyao') {
-        name = '腰部放松'
-        anjian = 'dingyao'
-        cmd = 'FFFFFFFFFF0A010C'
-      } else if (type == 'anmo') {
+      var anjian = ''
+      if (type == 'quanshen') {
         name = '全身按摩'
-        anjian = 'anmo'
-        cmd = 'FFFFFFFFFF0A0103'
+        anjian = 'quanshen'
+        var longClick = this.longClick();
+        var quanshen = this.data.quanshen;
+        if (!quanshen) {
+          // 无记忆
+          if (longClick) {
+            // 长按
+            cmd = 'FFFFFFFFFF14030D00010300000000000000'
+          } else {
+            // 单击
+            cmd = 'FFFFFFFFFF0B010300'
+          }
+        } else {
+          // 有记忆
+          if (longClick) {
+            // 长按
+            cmd = 'FFFFFFFFFF14030D00000300000000000000'
+          } else {
+            // 单击
+            cmd = 'FFFFFFFFFF0B010300'
+          }
+        }
+      } else if (type == 'beibu') {
+        name = '背部按摩'
+        anjian = 'beibu'
+        var longClick = this.longClick();
+        var beibu = this.data.beibu;
+        if (!beibu) {
+          // 无记忆
+          if (longClick) {
+            // 长按
+            cmd = 'FFFFFFFFFF14030D00011200000000000000'
+          } else {
+            // 单击
+            cmd = 'FFFFFFFFFF0B011200'
+          }
+        } else {
+          // 有记忆
+          if (longClick) {
+            // 长按
+            cmd = 'FFFFFFFFFF14030D00001200000000000000'
+          } else {
+            // 单击
+            cmd = 'FFFFFFFFFF0B011200'
+          }
+        }
+      } else if (type == 'yaobu') {
+        name = '腰部按摩'
+        anjian = 'yaobu'
+        cmd = 'FFFFFFFFFF0B010500'
+      } else if (type == 'jingbu') {
+        name = '颈部按摩'
+        anjian = 'jingbu'
+        cmd = 'FFFFFFFFFF0B010400'
+      } else if (type == 'yujia') {
+        name = '瑜伽'
+        anjian = 'yujia'
+        cmd = 'FFFFFFFFFF0B010C00'
+      } else if (type == 'anmotingzhi') {
+        name = '按摩停止'
+        anjian = 'anmotingzhi'
+        cmd = 'FFFFFFFFFF0B010000'
       } else if (type == 'fangqi') {
         name = '放气'
         anjian = 'fangqi'
-        cmd = 'FFFFFFFFFF0A0106'
-      } else if (type == 'shuimianmoshi') {
-        name = '睡眠模式'
-        anjian = 'shuimianmoshi'
-        cmd = 'FFFFFFFFFF0A0109'
-      } else if (type == 'tingzhi') {
-        name = '停止'
-        anjian = 'tingzhi'
-        cmd = 'FFFFFFFFFF0A0100'
+        cmd = 'FFFFFFFFFF0B010600'
       }
       this.setData({
         modeType: type,
         currentAnjian: {
-          anjian: anjian, // kandianshi,lingyali,zhihan,fuyuan
-          name: name // 助眠，顶腰，按摩
+          anjian: anjian,
+          name: name
         }
       })
       cmd = cmd + crcUtil.swapHexByteOrder(crcUtil.crc16(cmd));
       util.sendBlueCmd(this.data.connected, cmd);
     },
 
-    //放气
-    tapFangqi(e) {
-      var cmd = "FFFFFFFFFF0A0106"
+    //自适应
+    ziShiYingSwitch(e) {
+      this.setData({
+        zishiying: !this.data.zishiying
+      })
+      var cmd = ''
+      if (this.data.zishiying) {
+        cmd = 'FFFFFFFFFF0D030C000100'
+      } else {
+        cmd = 'FFFFFFFFFF0D030C000000'
+      }
       cmd = cmd + crcUtil.swapHexByteOrder(crcUtil.crc16(cmd));
       util.sendBlueCmd(this.data.connected, cmd);
     },
-
-    //睡眠模式
-    tapShuimian(e) {
-      var cmd = "FFFFFFFFFF0A0109"
-      cmd = cmd + crcUtil.swapHexByteOrder(crcUtil.crc16(cmd));
-      util.sendBlueCmd(this.data.connected, cmd);
-    },
-
-    //停止
-    tapTingzhi(e) {
-      var cmd = "FFFFFFFFFF0A0100"
-      cmd = cmd + crcUtil.swapHexByteOrder(crcUtil.crc16(cmd));
-      util.sendBlueCmd(this.data.connected, cmd);
-    },
-
-    // //睡眠模式
-    // changeShuimian(e) {
-    //   console.log(e)
-    //   var status = e.detail.value
-    //   var cmd = ''
-    //   if (status) {
-    //     cmd = 'FFFFFFFFFF0C03060001'
-    //   } else {
-    //     cmd = 'FFFFFFFFFF0C03060000'
-    //   }
-    //   cmd = cmd + crcUtil.swapHexByteOrder(crcUtil.crc16(cmd));
-    //   util.sendBlueCmd(this.data.connected, cmd);
-    // },
 
     //压力设置
     pressureTap() {
@@ -187,5 +298,33 @@ Component({
         url: '/pages/mainv2/pressure/pressure',
       })
     },
+
+    //按摩设置
+    anmoTap() {
+      wx.navigateTo({
+        url: '/pages/mainv2/anmoset/anmoset',
+      })
+    },
+
+    /*************-------------点击事件--------------------*********** */
+    touchStart(e) {
+      this.startTime = e.timeStamp;
+    },
+    touchEnd(e) {
+      this.endTime = e.timeStamp;
+    },
+
+    /**
+   * 判断单击 1 和长按 2 事件 其他0
+   * @param {*} e 
+   */
+    longClick() {
+      if (this.endTime - this.startTime > 1000) {
+        console.log("长按了");
+        return true;
+      }
+      return false;
+    },
+
   }
 })

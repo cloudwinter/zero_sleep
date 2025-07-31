@@ -173,59 +173,59 @@ Page({
         var mac = util.ab2hex(res.devices[0].advertisData);
         var sn = mac.slice(4, 8);
         // console.log("onBluetoothDeviceFound 搜索到", res.devices[0].localName, "sn:", sn);
-        if (sn == '88a0') {
-          var isexist = false;
-          var devs = that.data.devices;
-          mac = mac.slice(8, 20); //取MAC
-          devs.forEach(function (row, index) {
-            if (mac == row.mac) {
-              console.log("找到");
-              isexist = true;
-            }
-          })
-          if (!isexist && res.devices[0].localName) {
-            var name = util.transSpecialChar(res.devices[0].localName);
-            console.error('蓝牙名称装换hex:' + name)
-            if (devs.length >= 6) {
-              console.error('蓝牙列表已超过6个', name);
+        // if (sn == '88a0') {
+        var isexist = false;
+        var devs = that.data.devices;
+        mac = mac.slice(8, 20); //取MAC
+        devs.forEach(function (row, index) {
+          if (mac == row.mac) {
+            console.log("找到");
+            isexist = true;
+          }
+        })
+        if (!isexist && res.devices[0].localName) {
+          var name = util.transSpecialChar(res.devices[0].localName);
+          console.error('蓝牙名称装换hex:' + name)
+          if (devs.length >= 6) {
+            console.error('蓝牙列表已超过6个', name);
+          } else {
+            if (!that.isValidBlueName(name)) {
+              console.error('不是有效的蓝牙名称', name);
             } else {
-              if (!that.isValidBlueName(name)) {
-                console.error('不是有效的蓝牙名称', name);
+              if (res.devices[0].RSSI < -95) {
+                console.error('蓝牙强度小于-80', res.devices[0].RSSI);
               } else {
-                if (res.devices[0].RSSI < -95) {
-                  console.error('蓝牙强度小于-80', res.devices[0].RSSI);
-                } else {
 
-                  devs.push({
-                    name: name,
-                    mac: mac,
-                    RSSI: res.devices[0].RSSI,
-                    deviceId: res.devices[0].deviceId
-                  })
-                  console.log("当前 devicesList", devs);
+                devs.push({
+                  name: name,
+                  mac: mac,
+                  RSSI: res.devices[0].RSSI,
+                  deviceId: res.devices[0].deviceId
+                })
+                console.log("当前 devicesList", devs);
+                that.setData({
+                  devices: devs
+                });
+                if (firstAutoConnected && lastConnectedDeviceId && lastConnectedDeviceId == res.devices[0].deviceId) {
+                  // 发起自动连接，处理下确保只触发一次
                   that.setData({
-                    devices: devs
+                    firstAutoConnected: false,
+                    timeStop: true,
                   });
-                  if (firstAutoConnected && lastConnectedDeviceId && lastConnectedDeviceId == res.devices[0].deviceId) {
-                    // 发起自动连接，处理下确保只触发一次
-                    that.setData({
-                      firstAutoConnected: false,
-                      timeStop: true,
-                    });
-                    // 停止搜索
-                    that.stopDevicesDiscovery();
-                    // 自动连接
-                    var devices = {
-                      deviceId: res.devices[0].deviceId,
-                      name: name
-                    }
-                    that.startConnect(res.devices[0].deviceId, devices);
+                  // 停止搜索
+                  that.stopDevicesDiscovery();
+                  // 自动连接
+                  var devices = {
+                    deviceId: res.devices[0].deviceId,
+                    name: name
                   }
+                  that.startConnect(res.devices[0].deviceId, devices);
                 }
               }
             }
           }
         }
+        // }
       }
     })
   },
@@ -358,7 +358,7 @@ Page({
       util.showToast('当前设备连接状态异常');
       return;
     }
-    this.turnToMain(false);
+    this.turnToMain(0);
   },
 
   /**
@@ -514,7 +514,7 @@ Page({
         }
         console.log('device connected:', that.data.connected);
         configManager.putCurrentConnected(that.data.connected);
-        that.turnToMain(true);
+        that.turnToMain(1);
       },
       fail: function (res) {
         console.error("getBLcharac->fail", res);
@@ -542,6 +542,18 @@ Page({
     if (name.indexOf('TL-Q') > -1) {//新版零睡吧
       wx.navigateTo({
         url: '/pages/mainv2/mainv2?connected=' + connectedStr + '&first=' + first,
+      })
+    } else if (name.indexOf('TL-A') > -1) {
+      wx.navigateTo({
+        url: '/pages/singlemain/singlemain?connected=' + connectedStr + '&type=0B',
+      })
+    } else if (name.indexOf('TL-B') > -1) {
+      wx.navigateTo({
+        url: '/pages/singlemain/singlemain?connected=' + connectedStr + '&type=0A',
+      })
+    } else if (name.indexOf('TL-W') > -1) {
+      wx.navigateTo({
+        url: '/pages/singlemain/singlemain?connected=' + connectedStr + '&type=0C',
       })
     } else {
       var kuaijieType = this.getKuaijieType(name);
@@ -604,10 +616,13 @@ Page({
         name.indexOf('S4-ZM') >= 0 ||
         name.indexOf('S4-Y2') >= 0 ||
         name.indexOf('S4-2-N93T') >= 0 ||
-        name.indexOf('S4-4-N93H') >= 0 || 
-        name.indexOf('TL-Q') >= 0 ||
-        name.indexOf('S5-N05') >= 0||
-        name.indexOf('S3-6') >= 0) {
+        name.indexOf('S4-4-N93H') >= 0 ||
+        name.indexOf('S5-N05') >= 0 ||
+        name.indexOf('S3-6') >= 0 ||
+        name.indexOf('TL-A') >= 0 ||
+        name.indexOf('TL-B') >= 0 ||
+        name.indexOf('TL-W') >= 0 ||
+        name.indexOf('TL-Q') >= 0) {
         return true;
       }
     }
@@ -658,7 +673,7 @@ Page({
         return 'K4';
       } else if (name.indexOf('QMS-DQ') >= 0 ||
         name.indexOf('QMS-443') >= 0 ||
-        name.indexOf('S5-N05') >= 0 ) {
+        name.indexOf('S5-N05') >= 0) {
         return 'K5';
       } else if (name.indexOf('S3-2') >= 0) {
         return 'K7';

@@ -33,3 +33,133 @@
   color: white;
   font-size: 32rpx;
 }
+
+
+.page-dark {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.pressure-bg {
+  margin: 0 30rpx;
+  width: 90%;
+  height: 240rpx;
+  box-sizing: border-box;
+}
+
+.unit {
+  width: 100%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 40rpx;
+  box-sizing: border-box;
+}
+
+.pressure-list {
+  width: 100%;
+  color: white;
+  display: flex;
+  padding: 30rpx;
+  box-sizing: border-box;
+}
+
+.pressure {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pressure-value-bg {
+  height: 188rpx;
+  width: 36rpx;
+  border: 1rpx solid #B4FFE1;
+  border-radius: 50rpx;
+  background-color: rgba(180, 255, 225, 0.2);
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.pressure-value {
+  width: 100%;
+  margin: 2rpx;
+  background: linear-gradient(175deg, #5A9927 0%, #3FB882 100%);
+  border-radius: 50rpx;
+}
+
+.pressure-text {
+  font-size: 28rpx;
+  color: #C9C9C9;
+}
+
+.pressure-dict {
+  width: 52rpx;
+  height: 78rpx;
+  margin-top: 20rpx;
+}
+
+.footer {
+  width: 100%;
+  padding: 30rpx;
+  margin-top: 60rpx;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+
+.footer-jian {
+  height: 120rpx;
+  background-color: #2B2D36;
+  border-top-left-radius: 60rpx;
+  border-bottom-left-radius: 60rpx;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-save {
+  height: 120rpx;
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #2B2D36;
+  margin: 0 20rpx;
+}
+
+.footer-submit {
+  background: #59B84D;
+  color: white;
+  width: 128rpx;
+  height: 64rpx;
+  font-size: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 64rpx;
+
+}
+
+.footer-jia {
+  background-color: #2B2D36;
+  border-top-right-radius: 64rpx;
+  border-bottom-right-radius: 64rpx;
+  flex: 1;
+  height: 120rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jia-jian {
+  width: 60rpx;
+  height: 60rpx;
+}

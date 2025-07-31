@@ -129,7 +129,7 @@ function hexStringToArrayBuffer(str) {
     dataView.setUint8(ind, code)
     ind++
   }
-  //console.log("长度"+buffer);
+  console.log("长度"+buffer);
   return buffer;
 }
 

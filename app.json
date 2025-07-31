@@ -23,7 +23,11 @@
     "pages/webhtml/webhtml",
     "pages/nurseset/nurseset3",
     "pages/mainv2/pressure/pressure",
-    "pages/mainv2/zhinengjiance/zhinengjiance"
+    "pages/mainv2/zhinengjiance/zhinengjiance",
+    "pages/mainv2/anmoset/anmoset",
+    "pages/mainv2/diandongset/diandongset",
+    "pages/singlemain/singlemain",
+    "pages/mainv2/timeset/timeset"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -42,6 +46,5 @@
   "requiredPrivateInfos": [
     "getLocation"
   ],
-
-  "lazyCodeLoading":"requiredComponents"
+  "lazyCodeLoading": "requiredComponents"
 }

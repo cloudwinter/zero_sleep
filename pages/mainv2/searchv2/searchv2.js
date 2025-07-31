@@ -38,7 +38,7 @@ Page({
    */
   onLoad(options) {
     console.log(options)
-    var connected = JSON.parse(options.connected);
+    var connected = configManager.getCurrentConnected();
     this.setData({
       type: options.type,
       connected: connected
@@ -57,7 +57,7 @@ Page({
         deviceType: '0C'
       })
     }
-    this.notifyBLECharacteristicValueChange();
+    WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
     // 1、检查蓝牙是否打开
     this.openBluetoothAdapter();
   },
@@ -73,23 +73,12 @@ Page({
     })
   },
 
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
   onUnload: function () {
-    console.info("search2-->onUnload");
-    var connected = this.data.connected;
-    wx.notifyBLECharacteristicValueChange({
-      state: false, // 启用 notify 功能  
-      deviceId: connected.deviceId,
-      serviceId: connected.serviceId,
-      characteristicId: connected.notifyCharacId,
-      success: function () {
-        console.info("notifyBLECharacteristicValueChange->success");
-      },
-      fail: function (res) {
-        console.error("main->notifyBLECharacteristicValueChange error", res);
-        util.showModal('关闭监听失败，请重新进入');
-      }
-    });
-    wx.offBLECharacteristicValueChange();
+    WxNotificationCenter.removeNotification("BLUEREPLY", this);
   },
 
   /**
@@ -209,7 +198,7 @@ Page({
           if (!isexist && res.devices[0].localName) {
             var name = util.transSpecialChar(res.devices[0].localName);
             console.log("res.devices[0]", res.devices[0])
-            console.log("deviceId",res.devices[0].deviceId,mac)
+            console.log("deviceId", res.devices[0].deviceId, mac)
             console.error('蓝牙名称hex:' + res.devices[0].localName)
             console.error('蓝牙名称装换hex:' + name)
             if (devs.length >= 40) {
@@ -325,7 +314,7 @@ Page({
     if (this.data.isIos) {
       deviceId = device.mac.toUpperCase()
     } else {
-      deviceId = device.deviceId.replaceAll(":","")
+      deviceId = device.deviceId.replaceAll(":", "")
       deviceId = deviceId.toUpperCase()
     }
     console.log(deviceId)
@@ -379,7 +368,7 @@ Page({
   blueReply(cmd) {
     cmd = cmd.toUpperCase();
     console.error('search->blueReply', cmd);
-    if (cmd.indexOf('FFFFFFFF01002914') >= 0) {//APP下发MAC回复
+    if (cmd.indexOf('FFFFFFFF01002914') >= 0) {//连接MCU设备下发MAC回复
       util.hideLoading()
       // APP/小程序 询问总控板当前连接状态
       var cmd = 'FFFFFFFF010026140F000000000000000000'
@@ -392,38 +381,41 @@ Page({
       var connectedStr = JSON.stringify(connected);
       let type = this.data.type
       console.log("跳转", type)
+      // wx.redirectTo({
+      //   url: '/pages/mainv2/mainv2?connected=' + connectedStr + '&first=1',
+      // })
       wx.redirectTo({
         url: '/pages/mainv2/bedstead/bedstead?type=' + type + '&connected=' + connectedStr + "&cmd=" + cmd,
       })
     }
   },
 
-  /**
- * 开启监听
- */
-  notifyBLECharacteristicValueChange: function () {
-    var that = this;
-    var connected = this.data.connected;
-    wx.notifyBLECharacteristicValueChange({
-      state: true, // 启用 notify 功能  
-      deviceId: connected.deviceId,
-      serviceId: connected.serviceId,
-      characteristicId: connected.notifyCharacId,
-      success: function () {
-        console.info("notifyBLECharacteristicValueChange->success");
-      },
-      fail: function (res) {
-        console.error("main->notifyBLECharacteristicValueChange error", res);
-        util.showModal('开启监听失败，请重新进入');
-      }
-    });
-    wx.onBLECharacteristicValueChange((res) => {
-      console.info('main->onBLECharacteristicValueChange', res);
-      var buffer = res.value;
-      var received = util.ab2hex(buffer);
-      console.info('main->onBLECharacteristicValueChange-->received', received);
-      that.blueReply(received, connected);
-    });
-  },
+  //   /**
+  //  * 开启监听
+  //  */
+  //   notifyBLECharacteristicValueChange: function () {
+  //     var that = this;
+  //     var connected = this.data.connected;
+  //     wx.notifyBLECharacteristicValueChange({
+  //       state: true, // 启用 notify 功能  
+  //       deviceId: connected.deviceId,
+  //       serviceId: connected.serviceId,
+  //       characteristicId: connected.notifyCharacId,
+  //       success: function () {
+  //         console.info("notifyBLECharacteristicValueChange->success");
+  //       },
+  //       fail: function (res) {
+  //         console.error("main->notifyBLECharacteristicValueChange error", res);
+  //         util.showModal('蓝牙通讯不稳定，请重新进入');
+  //       }
+  //     });
+  //     wx.onBLECharacteristicValueChange((res) => {
+  //       console.info('main->onBLECharacteristicValueChange', res);
+  //       var buffer = res.value;
+  //       var received = util.ab2hex(buffer);
+  //       console.info('main->onBLECharacteristicValueChange-->received', received);
+  //       that.blueReply(received, connected);
+  //     });
+  //   },
 
 })

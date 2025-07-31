@@ -3,6 +3,9 @@
   <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}" set="{{navbar.set}}" setType="1" background="{{navbar.background}}"></navbar>
 
   <view class="{{skin}}">
+    <view class="taly-module">
+      <image src="/images/dark/taly.png" mode="aspectFit" class="taly"></image>
+    </view>
     <view class="module">
       <view class="button  button-bg" catchtap="tapSearch" data-type="diandong">
         <image class="icon" src="../../images/{{skin}}/bedstead@2x.png"></image>

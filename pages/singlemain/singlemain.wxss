@@ -1,0 +1,4 @@
+/* pages/singlemain/singlemain.wxss */
+.tab-container{
+	height: 100%;
+}

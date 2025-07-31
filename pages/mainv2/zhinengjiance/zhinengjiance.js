@@ -47,10 +47,18 @@ Page({
     this.setData({
       connected: connected
     })
-    this.notifyBLECharacteristicValueChange();
+
+    WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
     // 发送询问wifi配网状态询问码：
     let wifiCmd = "FFFFFFFF02000A0A1204";
     util.sendBlueCmd(this.data.connected, wifiCmd);
+  },
+
+      /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+    WxNotificationCenter.removeNotification("BLUEREPLY", this);
   },
 
   /**
@@ -200,7 +208,7 @@ Page({
       },
       fail: function (res) {
         console.error("main->notifyBLECharacteristicValueChange error", res);
-        util.showModal('开启监听失败，请重新进入');
+        util.showModal('蓝牙通讯不稳定，请重新进入');
       }
     });
     wx.onBLECharacteristicValueChange((res) => {

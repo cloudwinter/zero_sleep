@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "navbar":"/component/navbar/navbar",
+    "diandong":"/component/tab2/diandong/diandong",
+    "qinang":"/component/tab2/qinang/qinang",
+    "lengnuan":"/component/tab2/lengnuan/lengnuan"
+  }
+}

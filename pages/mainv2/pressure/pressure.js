@@ -25,55 +25,57 @@ Page({
     }, // 导航栏
     connected: {},
     pressureList: [{
-      name: '1号气囊',
+      name: '1',
       value: 0,
       isSelect: false
     }, {
-      name: '2号气囊',
+      name: '2',
       value: 0,
       isSelect: false
     }, {
-      name: '3号气囊',
+      name: '3',
       value: 0,
       isSelect: false
     }, {
-      name: '4号气囊',
+      name: '4',
       value: 0,
       isSelect: false
     }, {
-      name: '5号气囊',
+      name: '5',
       value: 0,
       isSelect: false
     }, {
-      name: '6号气囊',
+      name: '6',
       value: 0,
       isSelect: false
     }, {
-      name: '7号气囊',
+      name: '7',
       value: 0,
       isSelect: false
     }, {
-      name: '8号气囊',
+      name: '8',
       value: 0,
       isSelect: false
     }, {
-      name: '9号气囊',
+      name: '9',
       value: 0,
       isSelect: false
     }, {
-      name: '10号气囊',
+      name: '10',
       value: 0,
       isSelect: false
     }, {
-      name: '11号气囊',
+      name: '11',
       value: 0,
       isSelect: false
     }, {
-      name: '12号气囊',
+      name: '12',
       value: 0,
       isSelect: false
     }],
-    pressureValueList: [],//压力值
+    selectIndex: 0,//选中的气囊
+    isAudoSave: -1,//是否自动保存气压设置
+    isShowSuccess:false,//是否弹成功弹框
   },
 
   /**
@@ -81,67 +83,112 @@ Page({
    */
   onLoad(options) {
     let connected = configManager.getCurrentConnected();
-    var pressureValueList = []
-    for (var i = 0; i < 401; ++i) {
-      pressureValueList.push((i / 10).toFixed(1))
-    }
     this.setData({
-      pressureValueList: pressureValueList,
       connected: connected
     })
-    this.notifyBLECharacteristicValueChange();
+
+    WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
 
     var cmd = "FFFFFFFFFF0B020400"
     cmd = cmd + crcUtil.swapHexByteOrder(crcUtil.crc16(cmd));
     util.sendBlueCmd(connected, cmd)
+
+    var that = this
+    setInterval(() => {
+      var isAudoSave = that.data.isAudoSave
+      //每秒执行一次，自动保存气压设置
+      if (isAudoSave >= 3) {
+        var cmd = "FFFFFFFFFF2F030500" //协议头
+        var pressureList = this.data.pressureList
+        pressureList.forEach((item, index) => {
+          cmd = cmd + "01"
+          var result = util.ab2hex(util.intToByteArray( item.value * 10))
+          cmd = cmd + result
+        })
+        cmd = cmd + crcUtil.swapHexByteOrder(crcUtil.crc16(cmd));
+        console.log(cmd.toUpperCase())
+        var connected = this.data.connected
+        util.sendBlueCmd(connected, cmd)
+
+        that.setData({
+          isAudoSave: -1,
+          isShowSuccess:false
+        })
+      } else {
+        if (isAudoSave >= 0) {
+          isAudoSave++;
+          that.setData({
+            isAudoSave: isAudoSave
+          })
+        }
+      }
+
+    }, 1000)
   },
 
 
-  //选择压力
-  pickerChange(e) {
-    var index = e.currentTarget.dataset.index
-    var value = e.detail.value
+  /**
+ * 生命周期函数--监听页面卸载
+ */
+  onUnload: function () {
+    WxNotificationCenter.removeNotification("BLUEREPLY", this);
+  },
 
-    var pressureList = this.data.pressureList
-    pressureList[index].value = (value / 10).toFixed(1)
-    // pressureList[index].isSelect = true
+
+  //选择需要修改的气囊
+  selectPressure(e) {
+    var index = e.currentTarget.dataset.index
     this.setData({
+      selectIndex: index
+    })
+  },
+
+  //减小
+  jianTap() {
+    var pressureList = this.data.pressureList
+    var pressureValue = pressureList[this.data.selectIndex].value
+    if (pressureValue > 0) {
+      pressureValue--
+    }
+    pressureList[this.data.selectIndex].value = pressureValue
+    this.setData({
+      isAudoSave: 0,
       pressureList: pressureList
     })
   },
 
-  //是否选中
-  selectPressTap(e){
-    var index = e.currentTarget.dataset.index
-
+  //增加
+  jiaTap() {
     var pressureList = this.data.pressureList
-    pressureList[index].isSelect = !pressureList[index].isSelect
+    var pressureValue = pressureList[this.data.selectIndex].value
+    if (pressureValue < 9) {
+      pressureValue++
+    }
+    pressureList[this.data.selectIndex].value = pressureValue
     this.setData({
+      isAudoSave: 0,
       pressureList: pressureList
     })
-
   },
-
 
   //提交压力设置
   tapSubmit() {
+    this.setData({
+      isShowSuccess: true
+    })
     var cmd = "FFFFFFFFFF2F030500" //协议头
     var pressureList = this.data.pressureList
+    
     pressureList.forEach((item, index) => {
-      // console.log(index)
-      if (item.isSelect) {
-        cmd = cmd + "01"
-      } else {
-        cmd = cmd + "00"
-      }
-      var result = util.ab2hex(util.intToByteArray(item.value * 10))
+      cmd = cmd + "01"
+      var result = util.ab2hex(util.intToByteArray( item.value * 10))
       cmd = cmd + result
     })
 
     cmd = cmd + crcUtil.swapHexByteOrder(crcUtil.crc16(cmd));
     console.log(cmd.toUpperCase())
     var connected = this.data.connected
-    util.sendBlueCmd(connected,cmd)
+    util.sendBlueCmd(connected, cmd)
   },
 
 
@@ -152,19 +199,25 @@ Page({
   blueReply(cmd) {
     cmd = cmd.toUpperCase();
     var prefix = cmd.substr(0, 18);
-    console.info('report->askBack', cmd, prefix);
-
+    console.info('blueReply->pressure', cmd, prefix);
     if (prefix == "FFFFFFFFFF2F030501") {
-      wx.showModal({
-        title: '零睡吧',
-        content:"设置成功!",
-        showCancel: false,
-        success(res){
-          if(res.confirm){
-            wx.navigateBack()
+      if (this.data.isShowSuccess) {
+        wx.showModal({
+          title: '零睡吧',
+          content: "设置成功!",
+          showCancel: false,
+          success(res) {
+            if (res.confirm) {
+              wx.navigateBack()
+            }
           }
-        }
-      })
+        })
+      } else {
+        wx.showToast({
+          title: '自动保存成功!',
+          icon: 'none'
+        })
+      }
     } else if (prefix == "FFFFFFFFFF2F020401") {
       var result = cmd.substr(18, 72)
       // console.log(result)
@@ -173,14 +226,15 @@ Page({
 
         var resArray = util.strToArray(result, 6)
         resArray.forEach((item, index) => {
-          var isSelect = item.substr(0, 2)
-          if (isSelect == '01') {
-            pressureList[index].isSelect = true
-          } else {
-            pressureList[index].isSelect = false
-          }
+          // var isSelect = item.substr(0, 2)
+          // if (isSelect == '01') {
+          //   pressureList[index].isSelect = true
+          // } else {
+          //   pressureList[index].isSelect = false
+          // }
           var value = util.str16To10(item.substr(4, 2) + item.substr(2, 2))
-          pressureList[index].value = (value / 10).toFixed(1)
+          // pressureList[index].value = (value / 10).toFixed(1)
+          pressureList[index].value = (value / 10).toFixed(0)
         })
 
         this.setData({
@@ -189,35 +243,4 @@ Page({
       }
     }
   },
-
-
-  /**
-  * 开启监听
-  */
-  notifyBLECharacteristicValueChange: function () {
-    var that = this;
-    var connected = this.data.connected;
-    wx.notifyBLECharacteristicValueChange({
-      state: true, // 启用 notify 功能  
-      deviceId: connected.deviceId,
-      serviceId: connected.serviceId,
-      characteristicId: connected.notifyCharacId,
-      success: function () {
-        console.info("notifyBLECharacteristicValueChange->success");
-      },
-      fail: function (res) {
-        console.error("main->notifyBLECharacteristicValueChange error", res);
-        util.showModal('开启监听失败，请重新进入');
-      }
-    });
-    wx.onBLECharacteristicValueChange((res) => {
-      // console.info('main->onBLECharacteristicValueChange', res);
-      var buffer = res.value;
-      var received = util.ab2hex(buffer);
-      console.info('main->onBLECharacteristicValueChange-->received', received);
-      that.blueReply(received, connected);
-    });
-  },
-
-
 })

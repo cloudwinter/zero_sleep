@@ -10,7 +10,7 @@
         <!-- <button class="shezhi-button-bg"></button> -->
         <view class="shezhi-button-left">智能床</view>
         <view class="shezhi-button-right">
-          <view class="shezhi-button-name" bindtap="connectTap" data-type="0A">断开连接</view>
+          <view class="shezhi-button-name" bindtap="connectTap" data-type="0A" data-name="diandong">断开连接</view>
           <image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
         </view>
       </view>
@@ -19,7 +19,7 @@
         <!-- <button class="shezhi-button-bg"></button> -->
         <view class="shezhi-button-left">气囊床垫</view>
         <view class="shezhi-button-right">
-          <view class="shezhi-button-name" bindtap="connectTap" data-type="0B">断开连接</view>
+          <view class="shezhi-button-name" bindtap="connectTap" data-type="0B" data-name="qinang">断开连接</view>
           <image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
         </view>
       </view>
@@ -28,7 +28,8 @@
         <!-- <button class="shezhi-button-bg"></button> -->
         <view class="shezhi-button-left">冷暖床垫</view>
         <view class="shezhi-button-right">
-          <view class="shezhi-button-name" bindtap="connectTap" data-type="0C">断开连接</view>
+          <view class="shezhi-button-name" bindtap="connectTap" data-type="0C"
+          data-name="lengnuan">断开连接</view>
           <image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
         </view>
       </view>

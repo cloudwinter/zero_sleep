@@ -89,7 +89,7 @@ function swapHexByteOrder(hexValue) {
 
   // 将数字转换回16进制字符串
   let result = swapped.toString(16).toUpperCase()
-  
+
   if (result.length == 3) {
     result = '0' + result
   }
@@ -120,8 +120,28 @@ function HexToCS(t) {
 }
 
 
+/**
+ * 定义一个函数用于将低字节在前的16进制值转换为10进制值
+ * @param {*} hexValue 
+ */
+function hexToDec(hexStr) {
+  // 按每两个字符分割16进制字符串，得到字节数组
+  let bytes = [];
+  for (let i = 0; i < hexStr.length; i += 2) {
+    bytes.push(hexStr.substr(i, 2));
+  }
+  // 反转字节顺序
+  bytes.reverse();
+  // 重新组合成高字节在前的16进制字符串
+  let reversedHexStr = bytes.join('');
+  // 将反转后的16进制字符串转换为10进制值
+  return parseInt(reversedHexStr, 16);
+}
+
+
 module.exports = {
   HexToCSU16: HexToCSU16,
   crc16: crc16,
-  swapHexByteOrder: swapHexByteOrder
+  swapHexByteOrder: swapHexByteOrder,
+  hexToDec:hexToDec
 }

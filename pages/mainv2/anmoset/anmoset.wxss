@@ -1,0 +1,198 @@
+/* pages/mainv2/anmoset/anmoset.wxss */
+.scroll {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+}
+
+
+.header {
+	width: 240rpx;
+	border-radius: 5rpx;
+	display: flex;
+	align-items: center;
+	background-color: #2B2D36;
+	padding: 16rpx 30rpx;
+	margin: 20rpx 30rpx 0 30rpx;
+	box-sizing: border-box;
+}
+
+.header .header-icon {
+	height: 54rpx;
+	width: 54rpx;
+}
+
+.header .header-title {
+	color: #C9C9C9;
+	font-size: 28rpx;
+	margin-left: 10rpx;
+}
+
+.mode {
+	display: flex;
+	align-items: center;
+	margin: 30rpx 15rpx;
+	box-sizing: border-box;
+}
+
+.mode .name {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	font-size: 28rpx;
+	height: 100rpx;
+	border-radius: 50rpx;
+	margin: 0 15rpx;
+	box-sizing: border-box;
+}
+
+.mode .model-selected {
+	border: 1rpx solid #59B84D;
+	background-color: #1E1F24;
+	color: #59B84D;
+}
+
+.mode .model-normal {
+	border: 1rpx solid #00000000;
+	background-color: #1E1F24;
+}
+
+.qiangdu {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	margin: 30rpx;
+}
+
+
+.qiangdu .qiangdu-content {
+	width: 400rpx;
+	height: 100rpx;
+	border-radius: 50rpx;
+	background-color: #1E1F24;
+	display: flex;
+	align-items: center;
+}
+
+.qiangdu-content .qiangdu-left {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	font-size: 36rpx;
+}
+
+.qiangdu-content .line {
+	height: 60rpx;
+	border: 4rpx solid #FFFFFF70;
+	border-style: dashed;
+}
+
+.qiangdu-content .qiangdu-right {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.qiangdu-right .qiangdu-image {
+	width: 40rpx;
+	height: 40rpx;
+}
+
+.qiangdu-duxian {
+	width: 254rpx;
+	height: 76rpx;
+	margin: 15rpx;
+}
+
+
+
+/********* 时间区域 ************** */
+.shijian {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	margin-top: 30rpx;
+}
+
+.shijian .shijian-button {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.shijian .left {
+	flex: 1;
+	margin-left: 40rpx;
+}
+
+.shijian .middle {
+	flex: auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.shijian .right {
+	flex: 1;
+	margin-right: 40rpx;
+}
+
+.button-bg-normal {
+	width: 176rpx;
+	height: 120rpx;
+	border-radius: 60rpx;
+	background: #1E1F24;
+}
+
+
+.button-bg {
+	background: #1E1F24;
+	color: white;
+}
+
+.button-bg-selected {
+	background-color: #1E1F24;
+	border: 3rpx solid #5A9927;
+	color: #5A9927;
+}
+
+.shijian-button-content {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.shijian-button .shijian-icon {
+	width: 41rpx;
+	height: 41rpx;
+	margin-top: 17rpx;
+}
+
+.shijian-button .name {
+	margin-top: 5rpx;
+	font-size: 26rpx;
+}
+
+
+.confirm {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 36px;
+	font-size: 28rpx;
+	margin: 0rpx 30rpx 40rpx 30rpx;
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #5A9927;
+	border-radius: 20px;
+
+}

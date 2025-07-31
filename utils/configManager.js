@@ -4,10 +4,12 @@ const _LAST_CONNECT_KEY = 'last_connected'
 const _CONNECTED_KEY = 'connected'
 const _ALARM_KEY = 'alarm:'
 const _ALARM_SHOW_KEY = 'show:alarm:'
+const _ALARM_AUDIO_KEY = 'audio:alarm:'
 const _SHISHI_KEY = 'shishi:flag:'
 const _STARTDATAENTRY_KEY = 'startDataEntry:flag:'
 const _TONGBUKZ_SHOW_KEY = 'tongbukz:show'
 const _TONGBUKZ_STATUS_KEY = 'tongbukz:status'
+const _LENGNUAM_KEY = 'lengnuan:'
 
 
 const _PROPS = {
@@ -266,6 +268,32 @@ function showAlarmSwitch(deviceId) {
   return false;
 }
 
+/**
+ * 设置闹钟是否有音响
+ * @param {*} show 
+ * @param {*} deviceId 
+ */
+function putAlarmAudio(show,deviceId) {
+  let key = _ALARM_AUDIO_KEY+deviceId;
+  wx.setStorage({
+    data: show,
+    key: key,
+  })
+}
+
+/**
+ * 获取闹钟是否有音响
+ * @param {*} deviceId 
+ */
+function getAlarmAudio(deviceId) {
+  let key = _ALARM_AUDIO_KEY+deviceId;
+  var show = wx.getStorageSync(key);
+  if(show) {
+    return true;
+  }
+  return false;
+}
+
 
 
 
@@ -389,6 +417,44 @@ function getWifiPwd(ssid) {
 }
 
 
+/**
+ * 存储冷暖模块定时数据
+ * @param {*} connected 
+ */
+function putLengNuanData(lengnuanModel,deviceId) {
+  var dataVal = JSON.stringify(lengnuanModel);
+  wx.setStorage({
+    data: deviceId,
+    key: _LENGNUAM_KEY,
+  })
+  let key = _LENGNUAM_KEY+deviceId;
+  wx.setStorage({
+    data: dataVal,
+    key: key,
+  })
+  console.log("putLengNuan", deviceId, dataVal);
+}
+
+/**
+ * 获取冷暖模块定时数据
+ */
+function getLengNuanData(deviceId) {
+  var cacheDeviceId = wx.getStorageSync(_LENGNUAM_KEY);
+  var lengnuanModel;
+  if (deviceId == cacheDeviceId) {
+    let key = _LENGNUAM_KEY+deviceId;
+    var dataVal = wx.getStorageSync(key);
+    if (dataVal) {
+      lengnuanModel = JSON.parse(dataVal);
+    }
+    return lengnuanModel;
+  }
+  console.log("getLengNuan", deviceId, lengnuanModel);
+  return lengnuanModel;
+
+}
+
+
 
 module.exports = {
   _PROPS,
@@ -417,5 +483,9 @@ module.exports = {
   putTongbukzSwitch,
   getTongbukzSwitch,
   putWifiPwd,
-  getWifiPwd
+  getWifiPwd,
+  putLengNuanData,
+  getLengNuanData,
+  putAlarmAudio,
+  getAlarmAudio
 }

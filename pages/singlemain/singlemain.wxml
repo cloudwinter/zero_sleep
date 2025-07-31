@@ -1,0 +1,17 @@
+<!--pages/singlemain/singlemain.wxml-->
+<view class="page-{{skin}}">
+	<navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}" set="{{navbar.set}}" setType="1" background="{{navbar.background}}" title="{{title}}"></navbar>
+
+	<!-- 页面容器 -->
+	<view class="container">
+		<view class="tab-container" wx:if="{{type =='0A'}}">
+			<diandong></diandong>
+		</view>
+		<view class="tab-container" wx:if="{{type=='0B'}}">
+			<qinang></qinang>
+		</view>
+		<view class="tab-container" wx:if="{{type=='0C'}}">
+			<lengnuan></lengnuan>
+		</view>
+	</view>
+</view>

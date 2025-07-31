@@ -1,0 +1,400 @@
+/* pages/mainv2/diandongset/diandongset.wxss */
+.scroll {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+}
+
+
+.header {
+	width: 300rpx;
+	border-radius: 5rpx;
+	display: flex;
+	align-items: center;
+	background-color: #2B2D36;
+	padding: 16rpx 30rpx;
+	margin: 20rpx 30rpx 0 30rpx;
+	box-sizing: border-box;
+}
+
+.header .header-icon {
+	height: 54rpx;
+	width: 54rpx;
+}
+
+.header .header-title {
+	color: #C9C9C9;
+	font-size: 28rpx;
+	margin-left: 10rpx;
+}
+
+.header .header-arror {
+	width: 22rpx;
+	height: 12rpx;
+	margin-left: 30rpx;
+}
+
+
+/********* 时间区域 ************** */
+.shijian {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	margin-top: 30rpx;
+}
+
+.shijian .shijian-button {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.shijian .left {
+	flex: 1;
+	margin-left: 40rpx;
+}
+
+.shijian .middle {
+	flex: auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.shijian .right {
+	flex: 1;
+	margin-right: 40rpx;
+}
+
+.button-bg-normal {
+	width: 176rpx;
+	height: 120rpx;
+	border-radius: 60rpx;
+	background: #1E1F24;
+}
+
+
+.button-bg {
+	background: #1E1F24;
+	color: white;
+}
+
+.button-bg-selected {
+	background-color: #1E1F24;
+	border: 3rpx solid #5A9927;
+	color: #5A9927;
+}
+
+.shijian-button-content {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.shijian-button .shijian-icon {
+	width: 41rpx;
+	height: 41rpx;
+	margin-top: 17rpx;
+}
+
+.shijian-button .name {
+	margin-top: 5rpx;
+	font-size: 26rpx;
+}
+
+
+
+/********* 按摩类型 ************** */
+.anmo-type {
+	width: 100%;
+	margin-top: 17rpx;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.anmo-content {
+	width: 90%;
+	height: 120rpx;
+	margin-top: 30rpx;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.anmo-button-bg {
+	width: 90% !important;
+	height: 120rpx;
+	border-radius: 120rpx;
+	background: #1E1F24;
+	/* position: absolute;
+  z-index: -1; */
+}
+
+.anmo-button-top {
+	width: 100%;
+	flex: auto;
+	display: flex;
+	align-items: center;
+}
+
+.anmo-button-top-left {
+	width: 90rpx;
+	height: 100%;
+	padding-left: 80rpx;
+	display: flex;
+	align-items: center;
+}
+
+.anmo-button-icon {
+	width: 45rpx;
+	height: 45rpx;
+}
+
+.anmo-button-top-right {
+	width: 90rpx;
+	height: 100%;
+	padding-right: 80rpx;
+	display: flex;
+	align-items: center;
+	flex-direction: row-reverse;
+}
+
+.anmo-button-top-middle {
+	flex: auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.anmo-button-bottom {
+	width: 85%;
+	display: flex;
+	height: 4px;
+}
+
+.line4 {
+	width: 24%;
+	height: 4rpx;
+	background: #05BF74;
+	border-radius: 4rpx;
+	margin-right: 2rpx;
+}
+
+.line3 {
+	width: 33%;
+	height: 4rpx;
+	background: #05BF74;
+	border-radius: 4rpx;
+	margin-right: 2rpx;
+}
+
+.anmo-type-icon {
+	width: 39rpx;
+	height: 39rpx;
+}
+
+.anmo-type-name {
+	color: white;
+	font-size: 26rpx;
+	margin-left: 19rpx;
+}
+
+.dengguang-type {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.line10 {
+  width: 9.4%;
+  height: 4rpx;
+  background: #05BF74;
+  border-radius: 4rpx;
+  margin-right: 2rpx;
+}
+
+
+.dengguang-type .mode {
+	width: 90%;
+	display: flex;
+	align-items: center;
+	margin-top: 30rpx;
+	box-sizing: border-box;
+}
+
+.mode .name {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+	font-size: 28rpx;
+	height: 100rpx;
+	border-radius: 50rpx;
+	box-sizing: border-box;
+}
+
+.mode .model-selected {
+	border: 1rpx solid #59B84D;
+	background-color: #1E1F24;
+	color: #59B84D;
+}
+
+.mode .model-normal {
+	border: 1rpx solid #00000000;
+	background-color: #1E1F24;
+}
+
+.clock-type {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.clock-type .clock-mode {
+	width: 90%;
+	display: flex;
+	align-items: center;
+}
+
+.mode-content {
+	width: 100%;
+	flex: 1;
+	height: 100rpx;
+	border-radius: 50rpx;
+	background-color: #1E1F24;
+	margin-top: 30rpx;
+	padding-left: 24rpx;
+	color: #FFF;
+	box-sizing: border-box;
+}
+
+.clock-mode .left {
+	height: 100rpx;
+	margin-right: 15rpx;
+	display: flex;
+	align-items: center;
+}
+
+.clock-mode .right {
+	height: 100rpx;
+	margin-left: 15rpx;
+	display: flex;
+	align-items: center;
+}
+
+.mode-content .mode-name {
+	font-size: 24rpx;
+	color: #C9C9C9;
+	margin-left: 10rpx;
+	flex: 1;
+}
+
+.mode-content .mode-value {
+	color: #59B84D;
+	font-size: 24rpx;
+}
+
+.mode-content .mode-row {
+	width: 54rpx;
+	height: 54rpx;
+}
+
+.moshi-content {
+	width: 90%;
+	display: flex;
+	align-items: center;
+	height: 100rpx;
+	border-radius: 50rpx;
+	background-color: #1E1F24;
+	margin-top: 30rpx;
+	padding: 0 24rpx;
+	color: #FFF;
+	box-sizing: border-box;
+}
+
+.moshi-content .moshi-name {
+	font-size: 24rpx;
+	color: #C9C9C9;
+	margin-left: 10rpx;
+	flex: 1;
+}
+
+.moshi-content .moshi-value {
+	color: #59B84D;
+	font-size: 24rpx;
+}
+
+.moshi-content .moshi-row {
+	width: 54rpx;
+	height: 54rpx;
+}
+
+.save {
+	width: 150rpx;
+	margin-top: 30rpx;
+	height: 80rpx;
+	background-color: #5A9927;
+	border-radius: 64rpx;
+	color: white;
+	font-size: 28rpx;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+
+
+
+
+
+
+
+
+/** 对话框 */
+.sure {
+	color: green;
+}
+
+
+.model-line {
+	width: 100%;
+	height: 1rpx;
+	background: #eee;
+}
+
+.modal-box-body {
+	background: #2B2D36;
+	width: 100%;
+}
+
+.dialog-item {
+	height: 80rpx;
+	width: 100%;
+	background: #FFFFFF;
+	display: flex;
+	align-items: center;
+}
+
+.dialog-item .checkbox {
+	margin-left: 20rpx;
+}
+
+.dialog-item-name {
+	margin-left: 10rpx;
+}
+
+.model-label {
+	display: flex;
+	align-items: center;
+	height: 120rpx;
+}
+
+.radio {
+	display: block;
+	padding: 5px;
+	width: 100%;
+}

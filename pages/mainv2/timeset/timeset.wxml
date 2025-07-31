@@ -1,0 +1,99 @@
+<!--pages/mainv2/timeset/timeset.wxml-->
+<view class="page-{{skin}}">
+	<navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}" set="{{navbar.set}}" background="{{navbar.background}}" title="时间设置"></navbar>
+
+	<!-- 模式 -->
+	<view class="item" style="margin-top:1px;" bindtap="modeTap">
+		<view class="item-left">模式</view>
+		<view class="item-right">
+			<view class=".item-right-name">{{modeSelectName}}</view>
+			<image class="item-right-icon" src="/images/{{skin}}/row@3x.png"></image>
+		</view>
+	</view>
+
+	<!-- 档位 -->
+	<view class="item" style="margin-top:1px;" bindtap="gearTap">
+		<view class="item-left">档位</view>
+		<view class="item-right">
+			<view class=".item-right-name">{{gearSelectName}}</view>
+			<image class="item-right-icon" src="/images/{{skin}}/row@3x.png"></image>
+		</view>
+	</view>
+
+	<!-- 时间 -->
+	<picker mode="time" value="{{hour}}:{{mins}}" start="00:00" end="23:59" bindchange="bindTimeChange" style="margin-top:1px;width:100%">
+		<view class="item">
+			<view class="item-left">时间</view>
+			<view class="item-right">
+				<view class="weui-input item-right-name">{{hour}}:{{mins}}</view>
+				<image class="item-right-icon" src="/images/{{skin}}/row@3x.png"></image>
+			</view>
+		</view>
+	</picker>
+
+	<!-- 保存 -->
+	<view class="item item-right-name" style="margin-top:10px;justify-content: center;" bindtap="saveTap">
+		<view class="button-name">保存</view>
+	</view>
+
+
+	<!-- 模式对话框 -->
+	<view class="modal-dialog" hidden="{{!modeDialogShow}}">
+		<view class="modal-box">
+			<text class="modal-box-title" style="margin-bottom:30rpx;margin-top:30rpx;">模式选择</text>
+			<view style="width:100%;height:1px;background:#eee"></view>
+
+			<view class="model-content" style="width:100%;display:flex;justify-content:center">
+				<radio-group bindchange="modeRadioChange" class="radio-group" style="width:100%">
+					<block wx:for="{{modeItems}}" wx:key="key">
+						<label class="model-label">
+							<view>
+								<radio class="radio" value="{{item.value}}" checked="{{item.value==modeSelectRadio}}" />
+							</view>
+							<view class="dialog-item-name">{{item.name}}</view>
+						</label>
+						<view style="width:100%;height:1px;background:#eee"></view>
+					</block>
+				</radio-group>
+			</view>
+
+			<view style="width:100%;height:1px;background:#eee"></view>
+			<view class="modal-box-bottom" style="height:100rpx;">
+				<view bindtap="onModalModeClick" data-ctype="cancel" class="modal-box-button" hover-class="modal-box-button-hover" style="flex-grow:1;color:black">取消</view>
+				<view style="width:1rpx;height:100%;background:#eee"></view>
+				<view bindtap="onModalModeClick" data-ctype="confirm" class="modal-box-button sure" hover-class="modal-box-button-hover" style="flex-grow:1;">确定</view>
+			</view>
+		</view>
+	</view>
+
+	<!-- 档位对话框 -->
+	<view class="modal-dialog" hidden="{{!gearDialogShow}}">
+		<view class="modal-box">
+			<text class="modal-box-title" style="margin-bottom:30rpx;margin-top:30rpx;">档位选择</text>
+			<view style="width:100%;height:1px;background:#eee"></view>
+
+			<view class="model-content" style="width:100%;display:flex;justify-content:center">
+				<radio-group bindchange="gearRadioChange" class="radio-group" style="width:100%">
+					<block wx:for="{{gearItems}}" wx:key="key">
+						<label class="model-label">
+							<view>
+								<radio class="radio" value="{{item.value}}" checked="{{item.value==gearSelectRadio}}" />
+							</view>
+							<view class="dialog-item-name">{{item.name}}</view>
+						</label>
+						<view style="width:100%;height:1px;background:#eee"></view>
+					</block>
+				</radio-group>
+			</view>
+
+			<view style="width:100%;height:1px;background:#eee"></view>
+			<view class="modal-box-bottom" style="height:100rpx;">
+				<view bindtap="onGearModeClick" data-ctype="cancel" class="modal-box-button" hover-class="modal-box-button-hover" style="flex-grow:1;color:black">取消</view>
+				<view style="width:1rpx;height:100%;background:#eee"></view>
+				<view bindtap="onGearModeClick" data-ctype="confirm" class="modal-box-button sure" hover-class="modal-box-button-hover" style="flex-grow:1;">确定</view>
+			</view>
+		</view>
+	</view>
+
+
+</view>

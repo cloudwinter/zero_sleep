@@ -39,7 +39,7 @@ Page({
       console.info("mainV2->onLoad connected:", connected);
       this.setData({
         connected: connected,
-        isFirst: first
+        isFirst: first == 1 ? true : false
       })
     }
   },
@@ -62,7 +62,7 @@ Page({
     }));
   },
 
-  onHide() {
+  onUnload() {
     var connected = this.data.connected;
     wx.notifyBLECharacteristicValueChange({
       state: false, // 启用 notify 功能  
@@ -74,7 +74,8 @@ Page({
       },
       fail: function (res) {
         console.error("main->notifyBLECharacteristicValueChange error", res);
-        util.showModal('关闭监听失败，请重新进入');
+        // util.showModal('关闭监听失败，请重新进入');
+        util.showModal('蓝牙通讯不稳定，请重新进入');
       }
     });
     wx.offBLECharacteristicValueChange();
@@ -116,6 +117,7 @@ Page({
     }
     var connected = this.data.connected;
     var connectedStr = JSON.stringify(connected);
+    // this.onUnload()//解绑掉全局的post
     wx.navigateTo({
       url: '/pages/mainv2/bedstead/bedstead?type=' + type + '&connected=' + connectedStr + "&cmd=" + cmd,
     })
@@ -136,7 +138,7 @@ Page({
    */
   blueReply(cmd) {
     util.hideLoading();
-    console.error('search->blueReply', cmd);
+    console.error('mainv2->blueReply', cmd);
     cmd = cmd.toUpperCase();
     if (cmd.indexOf("FFFFFFFF01002714") > -1) {
       this.setData({
@@ -163,9 +165,11 @@ Page({
         })
         var connected = this.data.connected;
         var connectedStr = JSON.stringify(connected);
-        wx.navigateTo({
-          url: '/pages/mainv2/bedstead/bedstead?type=' + type + '&connected=' + connectedStr + "&cmd=" + cmd,
-        })
+        setTimeout(() => {
+          wx.navigateTo({
+            url: '/pages/mainv2/bedstead/bedstead?type=' + type + '&connected=' + connectedStr + "&cmd=" + cmd,
+          })
+        }, 300)
       }
     }
   },
@@ -190,7 +194,7 @@ Page({
       },
       fail: function (res) {
         console.error("main->notifyBLECharacteristicValueChange error", res);
-        util.showModal('开启监听失败，请重新进入');
+        util.showModal('蓝牙通讯不稳定，请重新进入');
         util.hideLoading();
       }
     });
@@ -200,6 +204,7 @@ Page({
       var received = util.ab2hex(buffer);
       console.info('main->onBLECharacteristicValueChange-->received', received);
       that.blueReply(received, connected);
+      WxNotificationCenter.postNotificationName('BLUEREPLY', received);
     });
   },
 

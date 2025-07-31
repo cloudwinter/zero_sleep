@@ -3,6 +3,7 @@ const util = require('../../../utils/util')
 const configManager = require('../../../utils/configManager')
 const WxNotificationCenter = require('../../../utils/WxNotificationCenter')
 const crcUtil = require('../../../utils/crcUtil');
+const time = require('../../../utils/time');
 const app = getApp();
 
 
@@ -26,51 +27,55 @@ Component({
     connected: {},
     timeStr: '',//选择的时间 时间字符串
     isTimer: false,//定时开启
+    workStatus: "00",//设备工作状态0：空闲1：加热 2：制冷3：水位低4：故障
     //按钮位置参数
-    buttonTop: 17.75,
+    buttonLeft: 0,
     startPoint: 0,
-    windowWidth: '',
-    scales: [{
-      temp: '45',
-      Gear: 'FFFFFFFFFE0C010100F4',
-      color: '#FF1204'
-    }, {
-      temp: '40',
-      Gear: 'FFFFFFFFFE0C010100F3',
-      color: '#EA3F03'
-    }, {
-      temp: '35',
-      Gear: 'FFFFFFFFFE0C010100F2',
-      color: '#FF6D04'
-    }, {
-      temp: '30',
-      Gear: 'FFFFFFFFFE0C010100F1',
-      color: '#FF9704'
-    }, {
-      temp: '关闭',
-      Gear: 'FFFFFFFFFE0C01030000',
-      color: '#41B67D'
-    }, {
-      temp: '20',
-      Gear: 'FFFFFFFFFE0C010200F1',
-      color: '#17C9D5'
-    }, {
-      temp: '15',
-      Gear: 'FFFFFFFFFE0C010200F2',
-      color: '#2EBFE4'
-    }, {
-      temp: '10',
-      Gear: 'FFFFFFFFFE0C010200F3',
-      color: '#47B4F4'
-    }, {
-      temp: '5',
-      Gear: 'FFFFFFFFFE0C010200F4',
-      color: '#1A89FE'
-    }
+    scales: [
+      {
+        temp: '5',
+        Gear: 'FFFFFFFFFE1000050000040000AA',
+        color: '#1A89FE'
+      }, {
+        temp: '10',
+        Gear: 'FFFFFFFFFE1000050000030000AA',
+        color: '#47B4F4'
+      }, {
+        temp: '15',
+        Gear: 'FFFFFFFFFE1000050000020000AA',
+        color: '#2EBFE4'
+      }, {
+        temp: '20',
+        Gear: 'FFFFFFFFFE1000050000010000AA',
+        color: '#17C9D5'
+      }, {
+        temp: '关闭',
+        Gear: 'FFFFFFFFFE1000060000000000AA',
+        color: '#41B67D'
+      }, {
+        temp: '30',
+        Gear: 'FFFFFFFFFE1000040000010000AA',
+        color: '#FF9704'
+      }, {
+        temp: '35',
+        Gear: 'FFFFFFFFFE1000040000020000AA',
+        color: '#FF6D04'
+      }, {
+        temp: '40',
+        Gear: 'FFFFFFFFFE1000040000030000AA',
+        color: '#EA3F03'
+      },
+      {
+        temp: '45',
+        Gear: 'FFFFFFFFFE1000040000040000AA',
+        color: '#FF1204'
+      }
     ],
-    selectScaleIndex: 0,
-    scaleLeftXiao: 0,//温度列表(小字)偏移的距离
-    scaleLeftDa: 0,//温度列表(大字)偏移的距离
+    selectScaleIndex: 4,
+    interval5: '',//定时器循环查询温度
+    tempRange: [
+      5.75, 38.25, 70.75, 103.25, 168.25, 200.75, 233.25, 265.75, 282
+    ]
   },
 
   /**
@@ -83,18 +88,12 @@ Component({
       this.setData({
         skin: app.globalData.skin
       })
-      wx.getSystemInfo({
-        success(res) {
-          var windowWidth = res.windowWidth
-          var resultXiao = windowWidth / 2 + 17
-          var resultDa = windowWidth / 2 + 60
-          that.setData({
-            windowWidth: windowWidth,
-            scaleLeftXiao: resultXiao,
-            scaleLeftDa:resultDa
-          })
-        }
-      })
+      var lengnuanModel = configManager.getLengNuanData(this.data.connected.deviceId)
+      if (lengnuanModel) {
+        this.setData({
+          timeStr: lengnuanModel.hour + ":" + lengnuanModel.mins
+        })
+      }
     }
   },
 
@@ -105,10 +104,31 @@ Component({
       var that = this;
       WxNotificationCenter.addNotification("INIT", that.initConnected, that);
       WxNotificationCenter.addNotification("BLUEREPLY", that.blueReply, that);
+
+      that.setData({//初始化默认在关闭位置
+        buttonLeft: 146.25 - 10.5
+      })
     },
     ready: function () {
       // 在组件在视图层布局完成后执行
       console.info("lengnuan-->ready");
+      var that = this;
+      let connected = configManager.getCurrentConnected();
+      that.setData({
+        connected: connected,
+      })
+      console.log(that.data.connected)
+      setTimeout(() => {
+        that.askJiyiStatus(that.data.connected, that);
+      }, 100)
+      var interval5 = setInterval(() => {
+        var cmd = 'FFFFFFFFFE1000010000000000AA'
+        cmd = cmd + crcUtil.swapHexByteOrder(crcUtil.crc16(cmd));
+        that.sendBlueCmd(cmd)
+      }, 5000)
+      that.setData({
+        interval5: interval5
+      })
     },
     attached: function () {
       // 在组件实例进入页面节点树时执行
@@ -124,6 +144,9 @@ Component({
       console.info("lengnuan-->detached");
       var that = this;
       WxNotificationCenter.removeNotification("BLUEREPLY", that);
+      if (that.data.interval5) {
+        clearInterval(that.data.interval5)
+      }
     },
   },
 
@@ -141,20 +164,39 @@ Component({
       that.setData({
         connected: connected,
       })
-      that.askJiyiStatus(connected, that);
+      // that.askJiyiStatus(connected, that);
       // 删除回调
       WxNotificationCenter.removeNotification("INIT", that);
     },
 
     /**
-     * 询问记忆状态 （合并询问码）
+     * 询问冷暖状态 （合并询问码）
      */
     askJiyiStatus(connected, cur) {
-      // 合并询问码
-      var cmd = 'FFFFFFFFFE0B010000';
+      // 冷暖合并询问码
+      var cmd = 'FFFFFFFFFE1000000000000000AA';
       cmd = cmd + crcUtil.swapHexByteOrder(crcUtil.crc16(cmd));
       console.log(cmd)
-      cur.sendAskBlueCmd(cmd);
+      this.sendAskBlueCmd(cmd);
+      setTimeout(() => {
+        // 发送实时时间指令
+        this.sendTimeInitCmd()
+      }, 200)
+    },
+
+    sendTimeInitCmd() {
+      console.info('lengnuan->发送实时时间指令 time ', new Date().getTime());
+      let cmdPrefix = 'FFFFFFFFFE1400070000';
+      let date = time.getDateInfo(new Date());
+      let cmdTime = date.year + date.month + date.day + date.hour + date.minute + date.second + date.week + "00";
+      let cmdCrc = crcUtil.swapHexByteOrder(crcUtil.crc16(cmdPrefix + cmdTime));
+      let cmd = cmdPrefix + cmdTime + cmdCrc;
+      console.log('sendTimeInitCmd:', cmd);
+
+      // let cmd = "FFFFFFFFFE14000700002507041709450500"
+      // let cmdCrc = crcUtil.HexToCSU16(cmd);
+      // console.log('sendTimeInitCmd:', cmd + cmdCrc);
+      this.sendBlueCmd(cmd);
     },
 
     /**
@@ -167,62 +209,141 @@ Component({
       console.error('lengnuan->blueReply', cmd);
 
       //查询回复
-      if (cmd.indexOf("FFFFFFFFFE0F") > -1) {
-        var gear = cmd.substr(18, 2).toUpperCase();
-        var settingStatus = cmd.substr(20, 2).toUpperCase();
-        var timeHour = cmd.substr(22, 2).toUpperCase();
-        var timeMins = cmd.substr(24, 2).toUpperCase();
+      if (cmd.indexOf("FFFFFFFFFE14000001") > -1) {
+        if (cmd.length < 40) {//返回长度不对
+          return
+        }
+        var timeLower = cmd.substr(18, 1).toUpperCase();
+        var stateHigh = cmd.substr(19, 1).toUpperCase();
 
-        // console.log("cmd====", util.byteToBitsBylowe('0x' + gear))
-        var gear2bit = util.byteToBitsBylowe('0x' + gear)
-        var workState = gear2bit[7].toString() + gear2bit[6].toString()
-        // console.log(workState)
+        // 提取高四位和低四位
+        const timeState = parseInt(timeLower, 16);
+        const workState = parseInt(stateHigh, 16);
+
+        console.log("timeState:" + timeState)
+        console.log("workState:" + workState)
+
+        var gear = cmd.substr(20, 2).toUpperCase();
         var selectScaleIndex = 0
-        if (workState == '11') {
-          // console.log('正在工作')
-          var workModeState = gear2bit[5].toString() + gear2bit[4].toString()
-          var workGear = parseInt(gear2bit[3].toString() + gear2bit[2].toString() + gear2bit[1].toString() + gear2bit[0].toString(), 2)
-
-          if (workModeState == '10') {
-            // console.log('正在加热')
-            selectScaleIndex = workGear + 4
-          } else {
-            // console.log('正在制冷')
-            selectScaleIndex = workGear
-          }
-        } else {
-          selectScaleIndex = 4 //关闭状态
-          // console.log('未在工作')
+        if (workState == 0) {//空闲
+          selectScaleIndex = 4
+        } else if (workState == 1) {//加热
+          selectScaleIndex = 4 + parseInt(gear)
+        } else if (workState == 2) {//制冷
+          selectScaleIndex = 4 - parseInt(gear)
+          console.log("档位：", parseInt(gear))
+        } else if (workState == 3) {//水位低
+          selectScaleIndex = 4
+        } else if (workState == 4) {//故障
+          selectScaleIndex = 4
         }
+        console.log("gear:" + gear, "selectScaleIndex:" + selectScaleIndex)
 
-        // console.log("response====", util.byteToBitsBylowe('0x' + settingStatus))
-        var setting2bit = util.byteToBitsBylowe('0x' + settingStatus)
-        var settingState = setting2bit[7].toString() + setting2bit[6].toString()
-        // console.log(settingState)
+        var buttonLeft = (5 * (selectScaleIndex + 1) - 2.5) * 6.5 - 10.5
+        console.log("buttonLeft", buttonLeft)
+
+        //是否设置定时
         var isTimer = false
-        if (settingState == '11') {
-          // console.log('设置定时')
-          isTimer = true
-        } else {
+        if (timeState == 0) {
           isTimer = false
-          // console.log('未设置定时')
+        } else if (timeState == 1) {
+          isTimer = true
         }
-        var hour = util.str16To10('0x' + timeHour)
-        var mins = util.str16To10('0x' + timeMins) > 9 ? util.str16To10('0x' + timeMins) : '0' + util.str16To10('0x' + timeMins)
-        // console.log('时间:' + hour + ":" + mins)
+        console.log("isTimer:" + isTimer)
+
+        //定时时间
+        var timeStr = ''
+        if (isTimer) {
+          var timerHour = cmd.substr(22, 2).toUpperCase();
+          var timerMin = cmd.substr(24, 2).toUpperCase();
+          var workMode = cmd.substr(26, 2).toUpperCase();
+          var workGear = cmd.substr(28, 2).toUpperCase();
+
+          var hour = timerHour
+          var mins = timerMin
+          timeStr = hour + ":" + mins
+
+          var lengnuanModel = {
+            hour: hour,
+            mins: mins,
+            workMode: workMode,
+            workGear: workGear
+          }
+          configManager.putLengNuanData(lengnuanModel, that.data.connected.deviceId)
+        }
+
+        //温度
+        var temp1 = cmd.substr(30, 2).toUpperCase();
+        var temp2 = cmd.substr(32, 2).toUpperCase();
+        var temp = parseInt(temp1) + "." + parseInt(temp2)
+
+        console.log("temp1:" + temp1, "temp2:" + temp2)
+
+        //水位
+        var waterLevelStatus = cmd.substr(34, 2).toUpperCase();
+        var waterLevel = parseInt(waterLevelStatus)
+        console.log("waterLevel:" + waterLevel)
 
         that.setData({
-          timeStr: hour + ":" + mins,
-          isTimer: isTimer,
+          workState: workState,
           selectScaleIndex: selectScaleIndex,
-          buttonTop: 35.5625 * selectScaleIndex + 17.75
+          isTimer: isTimer,
+          timeStr: timeStr,
+          temp: temp,
+          waterLevel, waterLevel,
+          buttonLeft: buttonLeft
         })
+      } else if (cmd.indexOf("FFFFFFFFFE14000701") > -1) {//实时时间回码
+        console.log("实时时间回码:" + cmd)
+      } else if (cmd.indexOf("FFFFFFFFFE14000101") > -1) {
+        //温度
+        var temp1 = cmd.substr(30, 2).toUpperCase();
+        var temp2 = cmd.substr(32, 2).toUpperCase();
+        var temp = parseInt(temp1) + "." + parseInt(temp2)
+        console.log("temp1:" + temp1, "temp2:" + temp2)
+
+        that.setData({
+          temp: temp
+        })
+
+       // 提取高四位和低四位
+       var stateHigh = cmd.substr(19, 1).toUpperCase();
+       const workState = parseInt(stateHigh, 16);
+
+       console.log("workState:" + workState)
+
+       var gear = cmd.substr(20, 2).toUpperCase();
+       var selectScaleIndex = 0
+       if (workState == 0) {//空闲
+         selectScaleIndex = 4
+       } else if (workState == 1) {//加热
+         selectScaleIndex = 4 + parseInt(gear)
+       } else if (workState == 2) {//制冷
+         selectScaleIndex = 4 - parseInt(gear)
+         console.log("档位：", parseInt(gear))
+       } else if (workState == 3) {//水位低
+         selectScaleIndex = 4
+       } else if (workState == 4) {//故障
+         selectScaleIndex = 4
+       }
+       console.log("gear:" + gear, "selectScaleIndex:" + selectScaleIndex)
+
+       if (selectScaleIndex != that.data.selectScaleIndex) {//返回的状态与当前的状态不一致
+        var buttonLeft = (5 * (selectScaleIndex + 1) - 2.5) * 6.5 - 10.5
+        console.log("buttonLeft", buttonLeft)
+
+        that.setData({
+          workState: workState,
+          selectScaleIndex: selectScaleIndex,
+          buttonLeft: buttonLeft
+        })
+       }
       }
     },
 
 
     /**
-    * 发送询问记忆状态命令
+    * 发送询问状态命令
     * @param {}} cmd 
     */
     sendAskBlueCmd(cmd) {
@@ -246,14 +367,21 @@ Component({
       var value = e.detail.value
       console.log(value)
       if (value) {//开启
-        var cmd = "FFFFFFFFFE0C010400FF"
+        var cmd = "FFFFFFFFFE1000030000010000AA"
         cmd = cmd + crcUtil.swapHexByteOrder(crcUtil.crc16(cmd));
         this.sendBlueCmd(cmd)
       } else {//关闭
-        var cmd = "FFFFFFFFFE0C01040000"
+        var cmd = "FFFFFFFFFE1000030000000000AA"
         cmd = cmd + crcUtil.swapHexByteOrder(crcUtil.crc16(cmd));
         this.sendBlueCmd(cmd)
       }
+    },
+
+    //时间设置
+    timeSet() {
+      wx.navigateTo({
+        url: '/pages/mainv2/timeset/timeset',
+      })
     },
 
     //选择时间
@@ -267,15 +395,24 @@ Component({
       if (time.length == 2) {
         var hour = time[0]
         var mins = time[1]
+        console.log(hour)
+        console.log(mins)
+        var gear = ''
+        if (this.data.workStatus == 1) {
+          gear = "0" + (this.data.selectScaleIndex - 3)
+        } else if (this.data.workStatus == 2) {
+          gear = "0" + this.data.selectScaleIndex
+        } else {
+          gear = "00"
+        }
 
-        console.log(util.str10To16(hour))
-        console.log(util.str10To16(mins))
-
-        var cmd = "FFFFFFFFFE0D010500" + util.str10To16(hour) + util.str10To16(mins)
+        var cmd = "FFFFFFFFFE1400020000" + util.str10To16(hour) + util.str10To16(mins) + "00" +
+          this.data.workStatus + gear + "000000"
         cmd = cmd + crcUtil.swapHexByteOrder(crcUtil.crc16(cmd));
         this.sendBlueCmd(cmd)
       }
     },
+
 
     //以下是按钮拖动事件
     buttonStart: function (e) {
@@ -284,35 +421,57 @@ Component({
       })
     },
     buttonMove: function (e) {
+      // console.log(e)
       var endPoint = e.touches[e.touches.length - 1] //获取拖动结束点
       //计算在X轴上拖动的距离和在Y轴上拖动的距离
-      var translateY = endPoint.clientY - this.data.startPoint.clientY
+      var translateX = endPoint.clientX - this.data.startPoint.clientX
       this.data.startPoint = endPoint //重置开始位置
-      var buttonTop = this.data.buttonTop + translateY
+      var buttonLeft = this.data.buttonLeft + translateX
       //判断是移动否超出父布局
-      if (buttonTop <= 17.75) {
-        buttonTop = 17.75
+      if (buttonLeft <= 0) {
+        buttonLeft = 0
       }
-      if (buttonTop + 13.6 >= 302.25) {
-        buttonTop = 302.25 - 13.6;
+      if (buttonLeft + 21 >= 292.5) {
+        buttonLeft = 292.5 - 21;
       }
-
-      var result = buttonTop / 35.5625
-
+      var gear = this.getGearByAction(buttonLeft)
+      // var result = buttonLeft / 31.5556
       this.setData({
-        buttonTop: buttonTop,
-        selectScaleIndex: parseInt(result)
+        buttonLeft: buttonLeft,
+        selectScaleIndex: gear
       })
-      // console.log('buttonTop:' + buttonTop)
     },
     buttonEnd: function (e) {
       //发送指令
-      console.log("档位",this.data.selectScaleIndex,this.data.scales[this.data.selectScaleIndex])
+      console.log("档位", this.data.selectScaleIndex, this.data.scales[this.data.selectScaleIndex])
+      var workStatus = this.data.workStatus
+      if (this.data.selectScaleIndex > 4) {
+        workStatus = '01'
+      } else if (this.data.selectScaleIndex == 4) {
+        workStatus = '00'
+      } else {
+        workStatus = '02'
+      }
+      this.setData({
+        workStatus: workStatus
+      })
       var cmd = this.data.scales[this.data.selectScaleIndex].Gear
       cmd = cmd + crcUtil.swapHexByteOrder(crcUtil.crc16(cmd));
       this.sendBlueCmd(cmd)
     },
 
+    //根据移动的距离判断当前所在的档位
+    getGearByAction(x) {
+      var gear = 0;
+      var tempRange = this.data.tempRange
+      for (var i = 0; i < tempRange.length; i++) {
+        if (x < tempRange[i]) {
+          gear = i;
+          break;
+        }
+      }
+      return gear;
+    }
   }
 })
 

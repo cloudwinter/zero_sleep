@@ -27,7 +27,9 @@ Page({
     diandongState: false,
     qinangState: false,
     lengnuanState: false,
-    delta: 0
+    delta: 0,
+    deviceType: "",//选择断开的设备
+    deviceName: ''
   },
 
   /**
@@ -39,7 +41,18 @@ Page({
       delta: option.delta,
       connected: connected
     })
-    this.notifyBLECharacteristicValueChange();
+    WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
+  },
+
+  onShow() {
+    if (this.data.delta != 2) {//非主界面过来，要注册蓝牙广播
+      this.notifyBLECharacteristicValueChange();
+    }
+
+    // 设置当前的皮肤样式
+    this.setData({
+      skin: app.globalData.skin
+    })
     //发码询问状态
     util.showLoading('查询中...');
     // APP/小程序 询问总控板当前连接状态
@@ -56,29 +69,36 @@ Page({
     }));
   },
 
-  show: function () {
-    // 设置当前的皮肤样式
-    this.setData({
-      skin: app.globalData.skin
-    })
+
+  /**
+ * 生命周期函数--监听页面卸载
+ */
+  onUnload: function () {
+    WxNotificationCenter.removeNotification("BLUEREPLY", this);
   },
+
 
   //点击断开连接
   connectTap(e) {
     var that = this
     let deviceType = e.currentTarget.dataset.type
+    let deviceName = e.currentTarget.dataset.name
     wx.showModal({
-      title: '是否断开当前设备并返回首页?',
+      title: '确认断开当前设备?',
       success(res) {
         console.log(res)
         if (res.confirm) {
-          // APP/小程序下发下位设备的MAC地址
+          that.setData({
+            deviceType: deviceType,
+            deviceName: deviceName
+          })
+          //断开MCU连接的设备
           var cmd = 'FFFFFFFF01002814' + deviceType + '000000000000000100'
           cmd = cmd.toUpperCase()
           cmd = cmd + crcUtil.HexToCSU16(cmd);
-
           that.sendBlueCmd(cmd)
           util.showLoading("设备断开中")
+
         }
       }
     })
@@ -112,30 +132,30 @@ Page({
         qinangState: qinangState,
         lengnuanState: lengnuanState
       })
+
+      let pages = getCurrentPages()
+      if (pages.length >= 2) {
+        let curPage = pages[pages.length - 1]; // 当前页面
+        let prePage = pages[pages.length - 2]; // 上一页面
+        prePage.setData({
+          cmd:cmd
+        })
+      }
+
     } else if (cmd.indexOf("FFFFFFFF01002814") > -1) {
       console.log("delta", that.data.delta)
-      var delta = that.data.delta
       setTimeout(() => {
         wx.hideLoading()
-        if (delta == 1) {
-          wx.navigateBack({
-            delta: 1
-          });
-        } else if (delta == 2) {
-          wx.navigateBack({
-            delta: 2
-          });
-        }else{
-          wx.navigateBack();
-        }
-      }, 5000);
+        wx.navigateTo({
+          url: '/pages/mainv2/searchv2/searchv2?type=' + that.data.deviceName,
+        })
+      }, 2000);
     }
   },
 
-
   /**
-* 开启监听
-*/
+   * 开启监听
+   */
   notifyBLECharacteristicValueChange: function () {
     var that = this;
     var connected = this.data.connected;
@@ -146,10 +166,14 @@ Page({
       characteristicId: connected.notifyCharacId,
       success: function () {
         console.info("notifyBLECharacteristicValueChange->success");
+        // 初始化通知
+        // that.executeInitCmdTasks();
+
       },
       fail: function (res) {
         console.error("main->notifyBLECharacteristicValueChange error", res);
-        util.showModal('开启监听失败，请重新进入');
+        util.showModal('蓝牙通讯不稳定，请重新进入');
+        util.hideLoading();
       }
     });
     wx.onBLECharacteristicValueChange((res) => {
@@ -160,4 +184,6 @@ Page({
       that.blueReply(received, connected);
     });
   },
+
+
 })

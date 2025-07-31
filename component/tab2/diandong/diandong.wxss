@@ -35,6 +35,8 @@
 
 
 .header {
+  width: 185rpx;
+  border-radius: 5rpx;
   display: flex;
   align-items: center;
   background-color: #2B2D36;
@@ -56,9 +58,19 @@
 
 
 /********模式************** */
-.mode {
+.mode-type {
+  padding: 20rpx 30rpx;
+  box-sizing: border-box;
   display: flex;
-  margin: 40rpx 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.mode {
+  width: 100%;
+  display: flex;
+  margin: 10rpx 0;
   box-sizing: border-box;
   align-items: center;
   justify-content: space-between;
@@ -72,7 +84,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #1E1F24;
   border-radius: 50rpx;
 }
 
@@ -91,24 +102,23 @@
 
 /********调整************** */
 .tiaozheng-type {
+  padding: 20rpx 30rpx;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
-  padding: 0rpx 30rpx;
-  margin: 20rpx 30rpx 0 30rpx;
-  box-sizing: border-box;
-  border-radius: 40rpx;
+  justify-content: center;
 }
 
 .tiaozheng-content {
-  width: 90%;
   display: flex;
   align-items: center;
   flex-direction: column;
 }
 
 .tiaozheng-button-bg {
-  width: 90% !important;
+  width: 120rpx;
   border-radius: 120rpx;
+  margin: 0 70rpx;
   /* background: #1E1F24; */
   /* position: absolute;
   z-index: -1; */
@@ -154,6 +164,41 @@
 
 
 /******按摩、灯光、定时****************/
+.footer {
+  height: 120rpx;
+  border-radius: 120rpx;
+  margin-top: 20rpx;
+  padding: 30rpx;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+
+.footer-content {
+  height: 100rpx;
+  border-radius: 50rpx;
+  padding: 0 20rpx 0  40rpx;
+  box-sizing: border-box;
+  margin: 0 5rpx;
+  flex: 1;
+  color: white;
+  display: flex;
+  align-items: center;
+  font-size: 26rpx;
+}
+
+.footer-name {
+  flex: 1;
+}
+
+.button-icon {
+  width: 50rpx;
+  height: 50rpx;
+}
+
+
+
+
 .anjian-content {
   display: flex;
   align-items: center;

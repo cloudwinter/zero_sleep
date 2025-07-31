@@ -2,18 +2,24 @@
 
 <view class="{{skin}}" bindtap="tapBlank" data-blank="blank" enhanced="true" showScrollbar="false" style="height:{{containerHeight}}px">
 
-
-  <view class="top">
-    <view class="temp">
-      <image class="temp-scale" src="/images/dark/temp_bg.png"></image>
-      <image class="slider" catchtouchmove="buttonMove" bindtouchstart="buttonStart" bindtouchend="buttonEnd" style="top:{{buttonTop}}px;" src="/images/dark/temp_slider.png"></image>
-      <text class="temp-value" style="top:{{buttonTop}}px;left:120px;color: {{scales[selectScaleIndex].color}};">{{scales[selectScaleIndex].temp}}{{selectScaleIndex!=4?"°c":""}}</text>
+  <view class="shuiwei-group">
+    <image class="shuiwei-bg" src="/images/dark/shuiwei@2x.png"></image>
+    <view class="shuiwei-value-group">水位:
+      <text class="shuiwei-value">{{waterLevel}}</text>%
     </view>
-    <!-- <view class="scale-group" style="left: {{scaleLeftXiao}}px;">
-      <view class="scale" wx:for="{{scales}}" style="color: {{item.color}};font-size: {{selectScaleIndex==index?'42rpx':'22rpx'}}; font-weight: {{selectScaleIndex==index?'600':'500'}};">{{item.temp}} <text style="color: {{item.color}};" wx:if="{{selectScaleIndex==index && selectScaleIndex!=4}}">°c</text></view>
-    </view> -->
-    <view class="scale-group" style="left: {{scaleLeftXiao}}px;">
-      <view class="scale" wx:for="{{scales}}" style="color: {{item.color}};">{{selectScaleIndex!=index?item.temp:""}}</view>
+  </view>
+
+  <view class="temperature">温度:{{temp}}°c</view>
+
+  <view class="top2">
+    <view class="scale-group">
+      <view class="scale" wx:for="{{scales}}" style="color: {{item.color}};font-size: {{selectScaleIndex==index?(selectScaleIndex==4?'32rpx':'42rpx'):'24rpx'}};font-weight: {{selectScaleIndex==index?600:500}};">{{item.temp}}
+        <text class="scale-unit">{{(selectScaleIndex == index &&selectScaleIndex!=4) ?"°c":""}}</text>
+      </view>
+    </view>
+    <view class="temp">
+      <image class="temp-scale" src="/images/dark/temp_bg2.png"></image>
+      <image class="slider" catchtouchmove="buttonMove" bindtouchstart="buttonStart" bindtouchend="buttonEnd" style="left:{{buttonLeft}}px;" src="/images/dark/temp_slider2.png"></image>
     </view>
   </view>
 
@@ -24,16 +30,15 @@
   </view>
 
 
-  <view class="mode-content" catchtap="timeTap">
-    <picker mode="time" value="{{timeStr}}" start="00:00" end="23:59" bindchange="changeTime">
-      <view class="picker-content">
-        <view class="mode-name">时间设置</view>
-        <view class="time">
-          {{timeStr}}
-        </view>
-
-        <image src="../../../images/dark/row@3x.png" class="mode-row"></image>
+  <view class="mode-content">
+    <view class="picker-content" bind:tap="timeSet">
+      <view class="mode-name">时间设置</view>
+      <view class="time">
+        {{timeStr}}
       </view>
+      <image src="../../../images/dark/row@3x.png" class="mode-row"></image>
+    </view>
+    <picker mode="time" value="{{timeStr}}" start="00:00" end="23:59" bindchange="changeTime">
     </picker>
   </view>
 

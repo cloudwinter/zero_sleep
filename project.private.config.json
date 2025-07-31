@@ -4,6 +4,55 @@
     "miniprogram": {
       "list": [
         {
+          "name": "pages/mainv2/diandongset/diandongset",
+          "pathName": "pages/mainv2/diandongset/diandongset",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/mainv2/timeset/timeset",
+          "pathName": "pages/mainv2/timeset/timeset",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/singlemain/singlemain",
+          "pathName": "pages/singlemain/singlemain",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/set2/set2",
+          "pathName": "pages/set2/set2",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/alarm/alarm",
+          "pathName": "pages/alarm/alarm",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/mainv2/diandongset/diandongset",
+          "pathName": "pages/mainv2/diandongset/diandongset",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/mainv2/anmoset/anmoset",
+          "pathName": "pages/mainv2/anmoset/anmoset",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "",
           "pathName": "pages/nurseset/nurseset3",
           "query": "",
@@ -86,5 +135,6 @@
   "projectname": "zero_sleep",
   "setting": {
     "compileHotReLoad": true
-  }
+  },
+  "libVersion": "3.7.12"
 }

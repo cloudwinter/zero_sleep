@@ -2,21 +2,47 @@
 <view class="page-{{skin}}">
   <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}" set="{{navbar.set}}" background="{{navbar.background}}" title="压力设置"></navbar>
 
-  <scroll-view scroll-y="true" class="{{skin}}" bindtap="tapBlank" data-blank="blank" enhanced="true" showScrollbar="false" style="height:{{containerHeight}}px">
+  <image class="pressure-bg" src="https://yhjx.oss-cn-beijing.aliyuncs.com/ddc/zero_sleep/2025-07-29_174348_930.png" mode="aspectFit"></image>
 
-    <view wx:for="{{pressureList}}" wx:for-item="pressursItem" wx:for-index="pressuresIndex" wx:key="pressuresIndex">
+  <view class="unit">单位：KPA</view>
 
+  <view class="pressure-list">
+    <view class="pressure" wx:for="{{pressureList}}" wx:for-item="pressursItem" wx:for-index="pressuresIndex" wx:key="pressuresIndex" bindtap="selectPressure" data-index="{{pressuresIndex}}">
+      <text class="pressure-text">{{pressursItem.value}}</text>
+      <view class="pressure-value-bg">
+        <view class="pressure-value" style="height:{{pressursItem.value*20}}rpx"></view>
+      </view>
+      <text class="pressure-text">{{pressursItem.name}}</text>
+      <image class="pressure-dict" src="/images/dark/temp_slider2.png" wx:if="{{selectIndex == pressuresIndex}}"></image>
+    </view>
+  </view>
+
+  <view class="footer">
+    <view class="footer-jian" bindtap="jianTap">
+      <image class="jia-jian" src="/images/dark/minus-selected@3x.png"></image>
+    </view>
+    <view class="footer-save">
+      <view class="footer-submit" bindtap="tapSubmit">保存</view>
+    </view>
+    <view class="footer-jia" bindtap="jiaTap">
+      <image class="jia-jian" src="/images/dark/plus-selected@3x.png"></image>
+    </view>
+  </view>
+
+
+
+
+
+  <!-- <scroll-view scroll-y="true" class="{{skin}}" bindtap="tapBlank" data-blank="blank" enhanced="true" showScrollbar="false" style="height:{{containerHeight}}px">
+    <view wx:for="{{pressureList}}" wx:for-item="pressursItem" wx:for-index="pressuresIndex" wx:key="pressuresIndex" wx:if="{{false}}">
       <view class="press-group" style="background-color: {{pressursItem.isSelect?'#1A2C55':'#1E1F24'}};">
         <view class="name" bindtap="selectPressTap" data-index="{{pressuresIndex}}">{{pressursItem.name}}</view>
         <picker range="{{pressureValueList}}" value="{{item}}" bindchange="pickerChange" data-index="{{pressuresIndex}}">
           <view class="value">{{pressursItem.value}}KPA</view>
         </picker>
       </view>
-
     </view>
-
   </scroll-view>
-
-  <button class="submit" bindtap="tapSubmit">提交</button>
+  <button class="submit" bindtap="tapSubmit" wx:if="{{false}}">提交</button> -->
 
 </view>

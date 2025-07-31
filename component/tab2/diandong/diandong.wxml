@@ -1,12 +1,12 @@
 <!--component/diandong/diandong.wxml-->
-<scroll-view scroll-y="true" class="{{skin}}" bindtap="tapBlank" data-blank="blank" enhanced="true" showScrollbar="false" style="height:{{containerHeight}}px">
+<scroll-view scroll-y="true" class="{{skin}}" bindtap="tapBlank" data-blank="blank" enhanced="true" 	show-scrollbar="{{false}}" style="height:{{containerHeight}}px">
 
   <view class="header">
     <image src="../../../images/{{skin}}/weitiao_icon@2x.png" class="header-icon"></image>
     <view class="header-title">微调</view>
   </view>
 
-  <view class="tiaozheng-type button-bg">
+  <view class="tiaozheng-type">
     <view class="tiaozheng-content tiaozheng-button-bg button-bg">
       <!-- <view class="tiaozheng-button-bg"></view> -->
       <view class="tiaozheng-button-top-left" bindtouchstart="touchWTStart" bindtouchend="touchWTEnd" data-type="beibutzTop">
@@ -39,63 +39,74 @@
     <view class="header-title">模式</view>
   </view>
 
-  <view class="mode">
-    <view class="mode-child  {{jiyi1?'button-bg-selected':'button-bg'}}" catchtap="tapJiyi1" bindtouchstart="touchStart" bindtouchend="touchEnd" data-mode="0">
-      <image class="mode-icon" wx:if="{{jiyi1}}" src="../../../images/{{skin}}/dian-green@3x.png"></image>
-      <image class="mode-icon" wx:else src="../../../images/dark/dian-black@3x.png"></image>
-      <view class="name">记忆一</view>
+  <view class="mode-type">
+    <view class="mode">
+      <view class="mode-child  {{kandianshi?'button-bg-selected':'button-bg'}}" catchtap="tapKandianshi" bindtouchstart="touchStart" bindtouchend="touchEnd">
+        <image class="mode-icon" wx:if="{{kandianshi}}" src="../../../images/{{skin}}/dian-green@3x.png"></image>
+        <image class="mode-icon" wx:else src="../../../images/dark/dian-black@3x.png"></image>
+        <view class="name">电视</view>
+      </view>
+      <view class="mode-child  {{zhihan?'button-bg-selected':'button-bg'}}" catchtap="tapZhihan" bindtouchstart="touchStart" bindtouchend="touchEnd">
+        <image class="mode-icon" wx:if="{{zhihan}}" src="../../../images/{{skin}}/dian-green@3x.png"></image>
+        <image class="mode-icon" wx:else src="../../../images/{{skin}}/dian-black@3x.png"></image>
+        <view class="name">止鼾</view>
+      </view>
+      <view class="mode-child  {{lingyali?'button-bg-selected':'button-bg'}}" catchtap="tapLingyali" bindtouchstart="touchStart" bindtouchend="touchEnd">
+        <image class="mode-icon" wx:if="{{lingyali}}" src="../../../images/{{skin}}/dian-green@3x.png"></image>
+        <image class="mode-icon" wx:else src="../../../images/{{skin}}/dian-black@3x.png"></image>
+        <view class="name">零压</view>
+      </view>
     </view>
-    <view class="mode-child  {{kandianshi?'button-bg-selected':'button-bg'}}" catchtap="tapKandianshi" bindtouchstart="touchStart" bindtouchend="touchEnd">
-      <image class="mode-icon" wx:if="{{kandianshi}}" src="../../../images/{{skin}}/dian-green@3x.png"></image>
-      <image class="mode-icon" wx:else src="../../../images/dark/dian-black@3x.png"></image>
-      <view class="name">电视</view>
+
+    <view class="mode">
+      <view class="mode-child  {{jiyi1?'button-bg-selected':'button-bg'}}" catchtap="tapJiyi1" bindtouchstart="touchStart" bindtouchend="touchEnd" data-mode="0">
+        <image class="mode-icon" wx:if="{{jiyi1}}" src="../../../images/{{skin}}/dian-green@3x.png"></image>
+        <image class="mode-icon" wx:else src="../../../images/dark/dian-black@3x.png"></image>
+        <view class="name">记忆一</view>
+      </view>
+      <view class="mode-child button-bg" catchtap="tapYaoLan">
+        <image class="mode-icon" src="../../../images/{{skin}}/dian-black@3x.png"></image>
+        <view class="name">摇篮</view>
+      </view>
+      <view class="mode-child  {{jiyi2?'button-bg-selected':'button-bg'}}" catchtap="tapJiyi2" bindtouchstart="touchStart" bindtouchend="touchEnd" data-mode="3">
+        <image class="mode-icon" wx:if="{{jiyi2}}" src="../../../images/{{skin}}/dian-green@3x.png"></image>
+        <image class="mode-icon" wx:else src="../../../images/{{skin}}/dian-black@3x.png"></image>
+        <view class="name">记忆二</view>
+      </view>
     </view>
-    <view class="mode-child  {{zhihan?'button-bg-selected':'button-bg'}}" catchtap="tapZhihan" bindtouchstart="touchStart" bindtouchend="touchEnd">
-      <image class="mode-icon" wx:if="{{zhihan}}" src="../../../images/{{skin}}/dian-green@3x.png"></image>
-      <image class="mode-icon" wx:else src="../../../images/{{skin}}/dian-black@3x.png"></image>
-      <view class="name">止鼾</view>
+    <view class="mode">
+      <view class="mode-child"></view>
+      <view class="mode-child button-bg" catchtap="tapFangping">
+        <image class="mode-icon" src="../../../images/{{skin}}/dian-black@3x.png"></image>
+        <view class="name">放平</view>
+      </view>
+      <view class="mode-child"></view>
     </view>
   </view>
 
-  <view class="mode">
-    <view class="mode-child  {{jiyi2?'button-bg-selected':'button-bg'}}" catchtap="tapJiyi2" bindtouchstart="touchStart" bindtouchend="touchEnd" data-mode="3">
-      <image class="mode-icon" wx:if="{{jiyi2}}" src="../../../images/{{skin}}/dian-green@3x.png"></image>
-      <image class="mode-icon" wx:else src="../../../images/{{skin}}/dian-black@3x.png"></image>
-      <view class="name">记忆二</view>
+  <view class="footer">
+    <view class="footer-content button-bg">
+      <view class="footer-name">定时</view>
+      <switch style="transform:scale(0.7)" checked="{{isOpenAlarm}}" bindchange="alarmChange"></switch>
     </view>
-    <view class="mode-child  {{lingyali?'button-bg-selected':'button-bg'}}" catchtap="tapLingyali" bindtouchstart="touchStart" bindtouchend="touchEnd">
-      <image class="mode-icon" wx:if="{{lingyali}}" src="../../../images/{{skin}}/dian-green@3x.png"></image>
-      <image class="mode-icon" wx:else src="../../../images/{{skin}}/dian-black@3x.png"></image>
-      <view class="name">零压</view>
-    </view>
-    <view class="mode-child button-bg" catchtap="tapFangping">
-      <image class="mode-icon" src="../../../images/{{skin}}/dian-black@3x.png"></image>
-      <view class="name">放平</view>
+    <view class="footer-content button-bg">
+      <view class="footer-name">灯光</view>
+      <switch style="transform:scale(0.7)" checked="{{dengguangCheck}}" bindchange="dengguangChange"></switch>
     </view>
   </view>
 
-  <view class="anjian-content" bindtap="tapAnmo" wx:if="{{anMoStatus}}">
-    <image src="../../../images/dark/anmo_icon@2x.png" class="anjian-icon"></image>
-    <view class="anjian-name">按摩</view>
-    <view class="anjian-value"></view>
-    <image src="../../../images/dark/row@3x.png" class="anjian-row"></image>
+  <view class="footer">
+    <view class="footer-content button-bg" wx:if="{{anMoStatus}}">
+      <view class="footer-name">按摩</view>
+      <switch style="transform:scale(0.7)" checked="{{anMoCheck}}" bindchange="anmoChange"></switch>
+    </view>
+    <view class="footer-content button-bg" bindtap="diandongSetTap">
+      <view class="footer-name">设置</view>
+      <image class="button-icon" src="/images/{{skin}}/row@3x.png"></image>
+    </view>
   </view>
 
-  <view class="anjian-content" bindtap="tapDengguang">
-    <image src="../../../images/dark/lighting@2x.png" class="anjian-icon"></image>
-    <view class="anjian-name">灯光</view>
-    <view class="anjian-value"></view>
-    <image src="../../../images/dark/row@3x.png" class="anjian-row"></image>
-  </view>
-
-  <view class="anjian-content" bindtap="tapDingshi" wx:if="{{alarmSwitch}}">
-    <image src="../../../images/dark/clock@2x.png" class="anjian-icon"></image>
-    <view class="anjian-name">定时</view>
-    <view class="anjian-value">{{alarmStatus}}</view>
-    <image src="../../../images/dark/row@3x.png" class="anjian-row"></image>
-  </view>
-
-  <view class="anjian-content" bindtap="tapZhinengjiance" wx:if="{{showZhinengjiance}}">
+  <view class="anjian-content button-bg" bindtap="tapZhinengjiance" wx:if="{{showZhinengjiance}}">
     <image src="../../../images/dark/clock@2x.png" class="anjian-icon"></image>
     <view class="anjian-name">智能监测</view>
     <view class="anjian-value"></view>
