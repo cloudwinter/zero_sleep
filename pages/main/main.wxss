@@ -1,4 +1,16 @@
 /**main.wxss**/
+.page-blue .tab-bar {
+  position: fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  height: 52px;
+  border-top:1px solid #ECF2F6;
+  z-index:500;
+  display: flex;
+}
+
+
 .page-dark .tab-bar {
   position: fixed;
   bottom:0;
@@ -44,6 +56,14 @@
   line-height:2.1;
   color:white;
 }
+
+.tab-bar .tab-item .icon-text-blue{
+  font-size:10px;
+  display: block;
+  line-height:2.1;
+  color:#6181AB;
+}
+
 .tab-bar .active .icons{
   color:#000;
 
@@ -51,6 +71,11 @@
 .page-dark .tab-bar .active .icon-text{
   color:#59B84D;
 }
+
+.page-blue .tab-bar .active .icon-text-blue{
+  color:#335683;
+}
+
 
 .page-orange .tab-bar .active .icon-text{
   color:#FF9704;

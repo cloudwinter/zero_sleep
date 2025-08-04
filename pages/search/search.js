@@ -558,10 +558,21 @@ Page({
     } else {
       var kuaijieType = this.getKuaijieType(name);
       var weitiaoType = this.getWeitiaoType(name);
+      var anmoType = this.getAnMoType(name);
+
+      if (kuaijieType == 'K17') {//蓝色风格
+        configManager.setSkin('blue')
+        app.globalData.skin = 'blue'
+      } else {
+        if (app.globalData.skin == 'blue') {
+          configManager.setSkin('dark')
+          app.globalData.skin = 'dark'
+        }
+      }
       console.info('turnToMain', connected, kuaijieType, weitiaoType);
       // TODO 还需要过滤类型
       wx.navigateTo({
-        url: '../main/main?first=' + first + '&connected=' + connectedStr + '&kuaijieType=' + kuaijieType + '&weitiaoType=' + weitiaoType,
+        url: '../main/main?first=' + first + '&connected=' + connectedStr + '&kuaijieType=' + kuaijieType + '&weitiaoType=' + weitiaoType + '&anmoType=' + anmoType,
       })
     }
   },
@@ -622,7 +633,8 @@ Page({
         name.indexOf('TL-A') >= 0 ||
         name.indexOf('TL-B') >= 0 ||
         name.indexOf('TL-W') >= 0 ||
-        name.indexOf('TL-Q') >= 0) {
+        name.indexOf('TL-Q') >= 0 ||
+        name.indexOf('S4-6') >= 0) {
         return true;
       }
     }
@@ -656,7 +668,7 @@ Page({
         name.indexOf('QMS2') >= 0 ||
         name.indexOf('S4-4-N93H') >= 0 ||
         name.indexOf('S4-2-N93T') >= 0) {
-        return 'K2';
+        return 'K2';//K2
       } else if (name.indexOf('QMS-KQ2') >= 0 ||
         name.indexOf('QMS-K12') >= 0) {
         return 'K6';
@@ -699,6 +711,8 @@ Page({
         return 'K11';
       } else if (name.indexOf('S3-6') >= 0) {
         return 'K16';
+      } else if (name.indexOf('S4-6') >= 0) {
+        return 'K17';
       }
     }
     // 默认K1
@@ -725,7 +739,7 @@ Page({
         name.indexOf('QMS4') >= 0 ||
         name.indexOf('S4-ZM') >= 0 ||
         name.indexOf('S4-N') >= 0) {
-        return 'W2'
+        return 'W2'//W2
       } else if (name.indexOf('QMS-NQ') >= 0 || name.indexOf('S3-ZM') >= 0 || name.indexOf('QMS3') >= 0) {
         return 'W3'
       } else if (name.indexOf('QMS-MQ') >= 0 || name.indexOf('S2-ZM') >= 0 || name.indexOf('QMS2') >= 0) {
@@ -777,6 +791,25 @@ Page({
         return 'W19';
       } else if (name.indexOf('S3-6') >= 0) {
         return 'W20';
+      } else if (name.indexOf('S4-6') >= 0) {
+        return 'W21';
+      }
+    }
+    // 默认K1
+    return 'W1';
+  },
+
+
+  /**
+   * 获取按摩类型
+   * @param {*} name 
+   */
+  getAnMoType(name) {
+    if (name) {
+      if (name.indexOf('S4-6') >= 0) {
+        return 'A1';
+      } else {
+        return 'A0';
       }
     }
     // 默认K1

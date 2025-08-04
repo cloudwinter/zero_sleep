@@ -1,6 +1,7 @@
 /**app.wxss**/
 @import './theme/dark.wxss';
 @import './theme/orange.wxss';
+@import './theme/blue.wxss';
 
 
 

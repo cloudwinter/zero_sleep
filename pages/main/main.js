@@ -26,92 +26,93 @@ Page({
     nowPage: "kuaijie",
     nowIndex: 0,
     tabBar: [{
-        "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_kuaijie_selected@2x.png",
-        "iconPath": "../../images/" + app.globalData.skin + "/tab_kuaijie_normal@2x.png",
-        "text": "快捷",
-        "tapFunction": "toKuaijie",
-        "active": "active",
-        "show": true
-      },
-      {
-        "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_weitiao_selected@2x.png",
-        "iconPath": "../../images/" + app.globalData.skin + "/tab_weitiao_normal@2x.png",
-        "text": "微调",
-        "tapFunction": "toWeitiao",
-        "active": "",
-        "show": true
-      },
-      {
-        "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_anno_selected@2x.png",
-        "iconPath": "../../images/" + app.globalData.skin + "/tab_anno_normal@2x.png",
-        "text": "按摩",
-        "tapFunction": "toAnmo",
-        "active": "active",
-        "show": true
-      },
-      {
-        "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_dengguang_selected@2x.png",
-        "iconPath": "../../images/" + app.globalData.skin + "/tab_dengguang_normal@2x.png",
-        "text": "灯光",
-        "tapFunction": "toDengguang",
-        "active": "",
-        "show": true
-      },
-      {
-        "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_sleep_selected@2x.png",
-        "iconPath": "../../images/" + app.globalData.skin + "/tab_sleep_normal@2x.png",
-        "text": "智能睡眠",
-        "tapFunction": "toSmartSleep",
-        "active": "",
-        "show": false
-      },
-      {
-        "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_znjc_selected@2x.png",
-        "iconPath": "../../images/" + app.globalData.skin + "/tab_znjc_normal@2x.png",
-        "text": "智能监测",
-        "tapFunction": "toZhinengjiance",
-        "active": "",
-        "show": false
-      },
+      "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_kuaijie_selected@2x.png",
+      "iconPath": "../../images/" + app.globalData.skin + "/tab_kuaijie_normal@2x.png",
+      "text": "快捷",
+      "tapFunction": "toKuaijie",
+      "active": "active",
+      "show": true
+    },
+    {
+      "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_weitiao_selected@2x.png",
+      "iconPath": "../../images/" + app.globalData.skin + "/tab_weitiao_normal@2x.png",
+      "text": "微调",
+      "tapFunction": "toWeitiao",
+      "active": "",
+      "show": true
+    },
+    {
+      "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_anno_selected@2x.png",
+      "iconPath": "../../images/" + app.globalData.skin + "/tab_anno_normal@2x.png",
+      "text": "按摩",
+      "tapFunction": "toAnmo",
+      "active": "active",
+      "show": true
+    },
+    {
+      "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_dengguang_selected@2x.png",
+      "iconPath": "../../images/" + app.globalData.skin + "/tab_dengguang_normal@2x.png",
+      "text": "灯光",
+      "tapFunction": "toDengguang",
+      "active": "",
+      "show": true
+    },
+    {
+      "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_sleep_selected@2x.png",
+      "iconPath": "../../images/" + app.globalData.skin + "/tab_sleep_normal@2x.png",
+      "text": "智能睡眠",
+      "tapFunction": "toSmartSleep",
+      "active": "",
+      "show": false
+    },
+    {
+      "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_znjc_selected@2x.png",
+      "iconPath": "../../images/" + app.globalData.skin + "/tab_znjc_normal@2x.png",
+      "text": "智能监测",
+      "tapFunction": "toZhinengjiance",
+      "active": "",
+      "show": false
+    },
     ],
     periodList: [{
-        id: 1,
-        name: '周一',
-        checked: false
-      },
-      {
-        id: 2,
-        name: '周二',
-        checked: false
-      },
-      {
-        id: 3,
-        name: '周三',
-        checked: false
-      },
-      {
-        id: 4,
-        name: '周四',
-        checked: false
-      },
-      {
-        id: 5,
-        name: '周五',
-        checked: false
-      },
-      {
-        id: 6,
-        name: '周六',
-        checked: false
-      },
-      {
-        id: 7,
-        name: '周日',
-        checked: false
-      },
+      id: 1,
+      name: '周一',
+      checked: false
+    },
+    {
+      id: 2,
+      name: '周二',
+      checked: false
+    },
+    {
+      id: 3,
+      name: '周三',
+      checked: false
+    },
+    {
+      id: 4,
+      name: '周四',
+      checked: false
+    },
+    {
+      id: 5,
+      name: '周五',
+      checked: false
+    },
+    {
+      id: 6,
+      name: '周六',
+      checked: false
+    },
+    {
+      id: 7,
+      name: '周日',
+      checked: false
+    },
     ],
-    kuaijieType: 'K1', // 这边不能添加默认值
-    weitiaoType: 'W1', // 这边不能添加默认值
+    kuaijieType: 'K17', // 这边不能添加默认值 K1
+    weitiaoType: 'W21', // 这边不能添加默认值 W1
+    anMoType: 'A0',
     connected: {},
     smartSleepClickTime: 0,
     zhinengjianceType: '', // 智能检测的类型
@@ -136,7 +137,8 @@ Page({
       this.setData({
         connected: connected,
         kuaijieType: option.kuaijieType,
-        weitiaoType: option.weitiaoType
+        weitiaoType: option.weitiaoType,
+        anMoType: option.anMoType
       })
       if (connected.name.indexOf('S4-HL') >= 0) {
         //this.showNurseTab();
@@ -146,11 +148,23 @@ Page({
       //this.getBLService(connected.deviceId);
     }
 
-    if(this.data.kuaijieType == 'K16'){
+    if (this.data.kuaijieType == 'K16') {
       let tabbar = this.data.tabBar;
       tabbar[2].show = false;
       this.setData({
         tabBar: tabbar,
+      })
+    } else if (this.data.kuaijieType == 'K17') {//蓝色模式 没有灯光模块，tab图标文字颜色根据theme更换
+      let tabbar = this.data.tabBar;
+      tabbar[3].show = false;
+      tabbar[0].selectedIconPath = "../../images/" + app.globalData.skin + "/tab_kuaijie_selected2@2x.png"
+      tabbar[0].iconPath = "../../images/" + app.globalData.skin + "/tab_kuaijie_normal2@2x.png"
+      tabbar[1].selectedIconPath = "../../images/" + app.globalData.skin + "/tab_weitiao_selected2@2x.png"
+      tabbar[1].iconPath = "../../images/" + app.globalData.skin + "/tab_weitiao_normal2@2x.png"
+      tabbar[2].selectedIconPath = "../../images/" + app.globalData.skin + "/tab_anno_selected2@2x.png"
+      tabbar[2].iconPath = "../../images/" + app.globalData.skin + "/tab_anno_normal2@2x.png"
+      this.setData({
+        tabBar: tabbar
       })
     }
   },
@@ -168,7 +182,7 @@ Page({
     // WxNotificationCenter.postNotificationName('INIT',this.data.connected);
 
     // this.executeInitCmdTasks();
-    
+
     // setTimeout(() => {
     //   let connected = {
     //     deviceId:'11',
@@ -274,14 +288,14 @@ Page({
       nowIndex: 5
     })
     var type = this.data.zhinengjianceType;
-    if(type == '01' || type == '02') {
+    if (type == '01' || type == '02') {
       var jumpPath = 'pages/index/index?mac=' + app.globalData.mac;
       wx.navigateToMiniProgram({
         appId: app.globalData.appId,
         path: jumpPath,
         envVersion: 'trial', //develop,trial,release
       })
-    } else if(type == '03') {
+    } else if (type == '03') {
       // 发送询问wifi配网状态询问码：
       let wifiCmd = "FFFFFFFF02000A0A1204";
       util.sendBlueCmd(this.data.connected, wifiCmd);
@@ -524,9 +538,9 @@ Page({
    * @param {*} cmd 
    */
   setZhinengjiance: function (cmd) {
-    console.info('setZhinengjiance',cmd);
+    console.info('setZhinengjiance', cmd);
     var type = cmd.substr(16, 2);
-    if(type == '00') {
+    if (type == '00') {
       return;
     }
     var macCmd = cmd.substr(18, 12);
@@ -537,7 +551,7 @@ Page({
       zhinengjianceType: type,
     })
     app.globalData.mac = macCmd;
-    if(type == '01') {
+    if (type == '01') {
       app.globalData.appId = 'wxbbdd4b1b88358610';
     } else if (type == '02') {
       app.globalData.appId = 'wx89783978e44773d0';

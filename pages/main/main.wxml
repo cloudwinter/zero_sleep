@@ -1,18 +1,17 @@
 <!--main.wxml-->
 <view class="page-{{skin}}">
-	<navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}"
-		background="{{navbar.background}}" back="{{true}}" set="{{true}}"></navbar>
+	<navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}" background="{{navbar.background}}" back="{{true}}" set="{{true}}"></navbar>
 
 
 	<!-- 底部切换菜单 -->
 	<view class="tab-bar">
 		<block wx:for="{{tabBar}}" wx:for-item="item" wx:key="index">
-			<view class="tab-item {{index==nowIndex?'active':''}}" bindtap="{{item.tapFunction}}"
-				style="display:{{item.show?'flex':'none'}}">
+			<view class="tab-item {{index==nowIndex?'active':''}}" bindtap="{{item.tapFunction}}" style="display:{{item.show?'flex':'none'}}">
 				<!-- <view style="position: relative;display:inline-block;"> -->
 				<image src="{{nowIndex === index ? item.selectedIconPath : item.iconPath}}" class="tabbar_icon"></image>
 				<!-- </view> -->
-				<text class="icon-text">{{item.text}}</text>
+				<text class="icon-text-blue" wx:if="{{kuaijieType=='K17'}}">{{item.text}}</text>
+				<text class="icon-text" wx:else>{{item.text}}</text>
 			</view>
 		</block>
 	</view>
@@ -32,10 +31,11 @@
 			<kuaijie-K10 wx:if="{{kuaijieType=='K10'}}"></kuaijie-K10>
 			<kuaijie-K11 wx:if="{{kuaijieType=='K11'}}"></kuaijie-K11>
 			<kuaijie-K12 wx:if="{{kuaijieType=='K12'}}"></kuaijie-K12>
-      <kuaijie-K13 wx:if="{{kuaijieType=='K13'}}"></kuaijie-K13>
-      <kuaijie-K14 wx:if="{{kuaijieType=='K14'}}"></kuaijie-K14>
-      <kuaijie-K15 wx:if="{{kuaijieType=='K15'}}"></kuaijie-K15>
+			<kuaijie-K13 wx:if="{{kuaijieType=='K13'}}"></kuaijie-K13>
+			<kuaijie-K14 wx:if="{{kuaijieType=='K14'}}"></kuaijie-K14>
+			<kuaijie-K15 wx:if="{{kuaijieType=='K15'}}"></kuaijie-K15>
 			<kuaijie-K16 wx:if="{{kuaijieType=='K16'}}"></kuaijie-K16>
+			<kuaijie-K17 wx:if="{{kuaijieType=='K17'}}"></kuaijie-K17>
 		</view>
 		<view class="tab-container" hidden="{{nowPage!='weitiao'}}">
 			<weitiao-W1 wx:if="{{weitiaoType=='W1'}}"></weitiao-W1>
@@ -52,18 +52,21 @@
 			<weitiao-W12 wx:if="{{weitiaoType=='W12'}}"></weitiao-W12>
 			<weitiao-W13 wx:if="{{weitiaoType=='W13'}}"></weitiao-W13>
 			<weitiao-W14 wx:if="{{weitiaoType=='W14'}}"></weitiao-W14>
-      <weitiao-W15 wx:if="{{weitiaoType=='W15'}}"></weitiao-W15>
-      <weitiao-W16 wx:if="{{weitiaoType=='W16'}}"></weitiao-W16>
-      <weitiao-W17 wx:if="{{weitiaoType=='W17'}}"></weitiao-W17>
-      <weitiao-W18 wx:if="{{weitiaoType=='W18'}}"></weitiao-W18>
-      <weitiao-W19 wx:if="{{weitiaoType=='W19'}}"></weitiao-W19>
+			<weitiao-W15 wx:if="{{weitiaoType=='W15'}}"></weitiao-W15>
+			<weitiao-W16 wx:if="{{weitiaoType=='W16'}}"></weitiao-W16>
+			<weitiao-W17 wx:if="{{weitiaoType=='W17'}}"></weitiao-W17>
+			<weitiao-W18 wx:if="{{weitiaoType=='W18'}}"></weitiao-W18>
+			<weitiao-W19 wx:if="{{weitiaoType=='W19'}}"></weitiao-W19>
 			<weitiao-W20 wx:if="{{weitiaoType=='W20'}}"></weitiao-W20>
+			<weitiao-W21 wx:if="{{weitiaoType=='W21'}}"></weitiao-W21>
 		</view>
 		<view class="tab-container" hidden="{{nowPage!='nurse'}}">
 			<nurse></nurse>
 		</view>
 		<view class="tab-container" hidden="{{nowPage!='anmo'}}">
-			<anmo></anmo>
+			<anmo wx:if="{{anMoType=='A0'}}"></anmo>
+			<anmo-A1 wx:if="{{anMoType=='A1'}}"></anmo-A1>
+
 		</view>
 		<view class="tab-container" hidden="{{nowPage!='dengguang'}}">
 			<dengguang></dengguang>
@@ -71,7 +74,7 @@
 		<view class="tab-container" hidden="{{nowPage!='smartsleep'}}">
 			<smartsleep></smartsleep>
 		</view>
-    <view class="tab-container" hidden="{{nowPage!='zhinengjiance'}}">
+		<view class="tab-container" hidden="{{nowPage!='zhinengjiance'}}">
 			<zhinengjiance></zhinengjiance>
 		</view>
 	</view>
