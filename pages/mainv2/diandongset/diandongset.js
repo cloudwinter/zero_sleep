@@ -124,6 +124,7 @@ Page({
     isLightShow: false,
     lineItems: [], //灯光亮度
     isFirstAlarm: false,//是否首次设置闹钟
+    isFirstQueryAlarm: false,//是否首次查询闹钟
   },
 
   /**
@@ -151,7 +152,7 @@ Page({
       isMode2: isMode2,
       isFirstAlarm: isFirstAlarm,
       alarmModeIndex: alarmModeIndex,
-      anMoModeIndex:anMoModeIndex
+      anMoModeIndex: anMoModeIndex
     })
     if (util.isNotEmptyObject(connected)) {
       // 如果缓存中有设置缓存回显
@@ -237,23 +238,8 @@ Page({
     console.log('sendRequestAlarmCmd:', cmd);
 
     this.sendFullBlueCmd(cmd)
-  },
-
-  /**
-   * 闹钟开关
-   * @param {}} e 
-   */
-  alarmSwitch: function (e) {
-    var openAlarm = this.data.alarm.isOpenAlarm;
     this.setData({
-      ['alarm.isOpenAlarm']: !openAlarm
-    })
-  },
-
-  repeatSwitch: function (e) {
-    var repeat = this.data.alarm.repeat;
-    this.setData({
-      ['alarm.repeat']: !repeat
+      isFirstQueryAlarm: true
     })
   },
 
@@ -476,6 +462,7 @@ Page({
     let openAlarm = false
     if (this.data.isFirstAlarm) {
       openAlarm = true
+      alarm.isOpenAlarm = true
     } else {
       openAlarm = alarm.isOpenAlarm;
     }
@@ -576,7 +563,9 @@ Page({
     this.sendFullBlueCmd(cmd);
 
     configManager.putAlarm(this.data.alarm, connected.deviceId);
-
+    this.setData({
+      isFirstQueryAlarm: false
+    })
   },
 
 
@@ -957,7 +946,7 @@ Page({
 
       let anmoTime = cmd.substr(24, 2);//按摩时长
       var currentTimeSelected = ''
-      if (TanmoTime == "00") {
+      if (anmoTime == "00") {
         currentTimeSelected == '10min'
       } else if (TextUtils.equals(anmoTime, "01")) {
         currentTimeSelected == '20min'
@@ -982,6 +971,11 @@ Page({
       // 有闹钟功能
       let deviceId = this.data.connected.deviceId;
       this.setAlarm(cmd, deviceId);
+      if (!this.data.isFirstQueryAlarm) {
+        wx.showToast({
+          title: '闹钟设置成功!',
+        })
+      }
     }
   },
 

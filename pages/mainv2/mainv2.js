@@ -14,6 +14,7 @@ Page({
   data: {
     skin: app.globalData.skin, //当前皮肤样式
     display: app.globalData.display,
+    containerHeight: app.globalData.screenHeight - app.globalData.navHeight,
     navbar: {
       loading: false,
       color: '#FFFFFF',

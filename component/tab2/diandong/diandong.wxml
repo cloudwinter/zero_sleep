@@ -1,5 +1,5 @@
 <!--component/diandong/diandong.wxml-->
-<scroll-view scroll-y="true" class="{{skin}}" bindtap="tapBlank" data-blank="blank" enhanced="true" 	show-scrollbar="{{false}}" style="height:{{containerHeight}}px">
+<scroll-view scroll-y="true" class="{{skin}}" bindtap="tapBlank" data-blank="blank" enhanced="true" show-scrollbar="{{false}}" style="height:{{containerHeight}}px">
 
   <view class="header">
     <image src="../../../images/{{skin}}/weitiao_icon@2x.png" class="header-icon"></image>
@@ -7,28 +7,30 @@
   </view>
 
   <view class="tiaozheng-type">
-    <view class="tiaozheng-content tiaozheng-button-bg button-bg">
+    <view class="tiaozheng-content tiaozheng-button-bg">
       <!-- <view class="tiaozheng-button-bg"></view> -->
-      <view class="tiaozheng-button-top-left" bindtouchstart="touchWTStart" bindtouchend="touchWTEnd" data-type="beibutzTop">
+      <view class="tiaozheng-button-top-left" style="border-color:{{beibutzTop?'#59B84D':'#1E1F24'}}" bindtouchstart="touchWTStart" bindtouchend="touchWTEnd" data-type="beibutzTop">
         <image class="tiaozheng-button-icon" src="{{beibutzTop?imgSanjiao.imgSanjiaoTopSelected:imgSanjiao.imgSanjiaoTopNormal}}"></image>
       </view>
       <view class="tiaozheng-button-top-middle">
-        <image class="tiaozheng-type-icon" src="../../../images/{{skin}}/zhihan-xiao@3x.png"></image>
+        <image class="tiaozheng-type-icon" wx:if="{{beibutzTop||beibutzBottom}}" src="../../../images/{{skin}}/zhumian-da@2x.png"></image>
+        <image class="tiaozheng-type-icon" wx:else src="../../../images/{{skin}}/zhihan-xiao@3x.png"></image>
       </view>
-      <view class="tiaozheng-button-top-right" bindtouchstart="touchWTStart" bindtouchend="touchWTEnd" data-type="beibutzBottom">
+      <view class="tiaozheng-button-top-right" style="border-color:{{beibutzBottom?'#59B84D':'#1E1F24'}}" bindtouchstart="touchWTStart" bindtouchend="touchWTEnd" data-type="beibutzBottom">
         <image class="tiaozheng-button-icon" src="{{beibutzBottom?imgSanjiao.imgSanjiaoBottomSelected:imgSanjiao.imgSanjiaoBottomNormal}}"></image>
       </view>
     </view>
 
-    <view class="tiaozheng-content tiaozheng-button-bg button-bg">
+    <view class="tiaozheng-content tiaozheng-button-bg">
       <!-- <button class="tiaozheng-button-bg"></button> -->
-      <view class="tiaozheng-button-top-left" bindtouchstart="touchWTStart" bindtouchend="touchWTEnd" data-type="tuibutzTop">
+      <view class="tiaozheng-button-top-left" style="border-color:{{tuibutzTop?'#59B84D':'#1E1F24'}}" bindtouchstart="touchWTStart" bindtouchend="touchWTEnd" data-type="tuibutzTop">
         <image class="tiaozheng-button-icon" src="{{tuibutzTop?imgSanjiao.imgSanjiaoTopSelected:imgSanjiao.imgSanjiaoTopNormal}}"></image>
       </view>
       <view class="tiaozheng-button-top-middle">
-        <image class="tiaozheng-type-icon" src="../../../images/{{skin}}/tuibuxunhuan-xiao@3x.png"></image>
+        <image class="tiaozheng-type-icon" wx:if="{{tuibutzTop||tuibutzBottom}}" src="../../../images/{{skin}}/tuibuxunhuan-da@3x.png"></image>
+        <image class="tiaozheng-type-icon" wx:else src="../../../images/{{skin}}/tuibuxunhuan-xiao@3x.png"></image>
       </view>
-      <view class="tiaozheng-button-top-right" bindtouchstart="touchWTStart" bindtouchend="touchWTEnd" data-type="tuibutzBottom">
+      <view class="tiaozheng-button-top-right" style="border-color:{{tuibutzBottom?'#59B84D':'#1E1F24'}}" bindtouchstart="touchWTStart" bindtouchend="touchWTEnd" data-type="tuibutzBottom">
         <image class="tiaozheng-button-icon" src="{{tuibutzBottom?imgSanjiao.imgSanjiaoBottomSelected:imgSanjiao.imgSanjiaoBottomNormal}}"></image>
       </view>
     </view>
@@ -41,17 +43,17 @@
 
   <view class="mode-type">
     <view class="mode">
-      <view class="mode-child  {{kandianshi?'button-bg-selected':'button-bg'}}" catchtap="tapKandianshi" bindtouchstart="touchStart" bindtouchend="touchEnd">
+      <view class="mode-child  {{selectIndex==0?'button-bg-selected':'button-bg'}}" catchtap="tapKandianshi" bindtouchstart="touchStart" bindtouchend="touchEnd">
         <image class="mode-icon" wx:if="{{kandianshi}}" src="../../../images/{{skin}}/dian-green@3x.png"></image>
         <image class="mode-icon" wx:else src="../../../images/dark/dian-black@3x.png"></image>
         <view class="name">电视</view>
       </view>
-      <view class="mode-child  {{zhihan?'button-bg-selected':'button-bg'}}" catchtap="tapZhihan" bindtouchstart="touchStart" bindtouchend="touchEnd">
+      <view class="mode-child  {{selectIndex==1?'button-bg-selected':'button-bg'}}" catchtap="tapZhihan" bindtouchstart="touchStart" bindtouchend="touchEnd">
         <image class="mode-icon" wx:if="{{zhihan}}" src="../../../images/{{skin}}/dian-green@3x.png"></image>
         <image class="mode-icon" wx:else src="../../../images/{{skin}}/dian-black@3x.png"></image>
         <view class="name">止鼾</view>
       </view>
-      <view class="mode-child  {{lingyali?'button-bg-selected':'button-bg'}}" catchtap="tapLingyali" bindtouchstart="touchStart" bindtouchend="touchEnd">
+      <view class="mode-child  {{selectIndex==2?'button-bg-selected':'button-bg'}}" catchtap="tapLingyali" bindtouchstart="touchStart" bindtouchend="touchEnd">
         <image class="mode-icon" wx:if="{{lingyali}}" src="../../../images/{{skin}}/dian-green@3x.png"></image>
         <image class="mode-icon" wx:else src="../../../images/{{skin}}/dian-black@3x.png"></image>
         <view class="name">零压</view>
@@ -59,16 +61,15 @@
     </view>
 
     <view class="mode">
-      <view class="mode-child  {{jiyi1?'button-bg-selected':'button-bg'}}" catchtap="tapJiyi1" bindtouchstart="touchStart" bindtouchend="touchEnd" data-mode="0">
+      <view class="mode-child  {{selectIndex==3?'button-bg-selected':'button-bg'}}" catchtap="tapJiyi1" bindtouchstart="touchStart" bindtouchend="touchEnd" data-mode="0">
         <image class="mode-icon" wx:if="{{jiyi1}}" src="../../../images/{{skin}}/dian-green@3x.png"></image>
         <image class="mode-icon" wx:else src="../../../images/dark/dian-black@3x.png"></image>
         <view class="name">记忆一</view>
       </view>
-      <view class="mode-child button-bg" catchtap="tapYaoLan">
-        <image class="mode-icon" src="../../../images/{{skin}}/dian-black@3x.png"></image>
+      <view class="mode-child {{selectIndex==4?'button-bg-selected':'button-bg'}}" catchtap="tapYaoLan">
         <view class="name">摇篮</view>
       </view>
-      <view class="mode-child  {{jiyi2?'button-bg-selected':'button-bg'}}" catchtap="tapJiyi2" bindtouchstart="touchStart" bindtouchend="touchEnd" data-mode="3">
+      <view class="mode-child  {{selectIndex==5?'button-bg-selected':'button-bg'}}" catchtap="tapJiyi2" bindtouchstart="touchStart" bindtouchend="touchEnd" data-mode="3">
         <image class="mode-icon" wx:if="{{jiyi2}}" src="../../../images/{{skin}}/dian-green@3x.png"></image>
         <image class="mode-icon" wx:else src="../../../images/{{skin}}/dian-black@3x.png"></image>
         <view class="name">记忆二</view>
@@ -76,8 +77,7 @@
     </view>
     <view class="mode">
       <view class="mode-child"></view>
-      <view class="mode-child button-bg" catchtap="tapFangping">
-        <image class="mode-icon" src="../../../images/{{skin}}/dian-black@3x.png"></image>
+      <view class="mode-child {{selectIndex==6?'button-bg-selected':'button-bg'}}" catchtap="tapFangping">
         <view class="name">放平</view>
       </view>
       <view class="mode-child"></view>
@@ -96,7 +96,7 @@
   </view>
 
   <view class="footer">
-    <view class="footer-content button-bg" wx:if="{{anMoStatus}}">
+    <view class="footer-content button-bg" wx:if="{{anMoStatus}}" catchtap="tapZhinengCancel" bindtouchstart="touchStart" bindtouchend="touchEnd">
       <view class="footer-name">按摩</view>
       <switch style="transform:scale(0.7)" checked="{{anMoCheck}}" bindchange="anmoChange"></switch>
     </view>
@@ -105,13 +105,15 @@
       <image class="button-icon" src="/images/{{skin}}/row@3x.png"></image>
     </view>
   </view>
-
-  <view class="anjian-content button-bg" bindtap="tapZhinengjiance" wx:if="{{showZhinengjiance}}">
-    <image src="../../../images/dark/clock@2x.png" class="anjian-icon"></image>
-    <view class="anjian-name">智能监测</view>
-    <view class="anjian-value"></view>
-    <image src="../../../images/dark/row@3x.png" class="anjian-row"></image>
+  <view class="footer">
+    <view class="anjian-content button-bg" bindtap="tapZhinengjiance" wx:if="{{showZhinengjiance}}">
+      <image src="../../../images/dark/clock@2x.png" class="anjian-icon"></image>
+      <view class="anjian-name">智能监测</view>
+      <view class="anjian-value"></view>
+      <image src="../../../images/dark/row@3x.png" class="anjian-row"></image>
+    </view>
   </view>
+
 
 
 </scroll-view>

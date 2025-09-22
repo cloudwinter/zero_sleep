@@ -1,5 +1,4 @@
-// component/tab/anmo/anmo-A1.js
-
+// component/anmo/anmo.js
 const app = getApp();
 const util = require('../../../utils/util')
 const configManager = require('../../../utils/configManager')

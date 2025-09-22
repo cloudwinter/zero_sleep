@@ -8,8 +8,8 @@
 				<view class="header-title">模式选择</view>
 			</view>
 			<view class="mode">
-				<view class="name {{currentModeSelected=='quanshen'?'model-selected':'model-normal'}}" bindtap="modeClick" data-mode="quanshen" data-value="0300">全身按摩</view>
-				<view class="name {{currentModeSelected=='beibu' ?'model-selected':'model-normal'}}" bindtap="modeClick" data-mode="beibu" data-value="1200">背部按摩</view>
+				<view class="name {{currentModeSelected=='quanshen'?'model-selected':'model-normal'}}" bindtap="modeClick" data-mode="quanshen" data-value="0300">组合按摩</view>
+				<view class="name {{currentModeSelected=='beibu' ?'model-selected':'model-normal'}}" bindtap="modeClick" data-mode="beibu" data-value="1200">波浪按摩</view>
 				<view class="name {{currentModeSelected=='yaobu'?'model-selected':'model-normal'}}" bindtap="modeClick" data-mode="yaobu" data-value="0500">腰部按摩</view>
 			</view>
 			<view class="mode">
@@ -24,7 +24,7 @@
 			</view>
 			<view class="qiangdu">
 				<view class="qiangdu-content">
-					<view class="qiangdu-left">{{qingduUpperLimit}}</view>
+					<view class="qiangdu-left" style="color: {{upperLimitList[qingduUpperLimitIndex].gear-lowerLimitList[qingduLowerLimitIndex].gear<1?'#F00':'#FFF'}};">{{upperLimitList[qingduUpperLimitIndex].gear}}</view>
 					<view class="line"></view>
 					<view class="qiangdu-right" bindtap="upperTap">
 						<image class="qiangdu-image" src="/images/dark/plus-selected@3x.png"></image>
@@ -32,7 +32,7 @@
 				</view>
 				<image class="qiangdu-duxian" src="/images/dark/quxian@2x.png"></image>
 				<view class="qiangdu-content">
-					<view class="qiangdu-left">{{qingduLowerLimit}}</view>
+					<view class="qiangdu-left">{{lowerLimitList[qingduLowerLimitIndex].gear}}</view>
 					<view class="line"></view>
 					<view class="qiangdu-right" bindtap="lowerTap">
 						<image class="qiangdu-image" src="/images/dark/plus-selected@3x.png"></image>

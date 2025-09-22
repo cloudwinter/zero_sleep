@@ -10,7 +10,9 @@ const _STARTDATAENTRY_KEY = 'startDataEntry:flag:'
 const _TONGBUKZ_SHOW_KEY = 'tongbukz:show'
 const _TONGBUKZ_STATUS_KEY = 'tongbukz:status'
 const _LENGNUAM_KEY = 'lengnuan:'
-
+const _ALARM_LENGNUAM_KEY = 'lengnuan:alarm:'
+const _CHILD_LOCK_KEY = 'child:lock:'
+const _CHILD_LOCK_STATUS_KEY = 'childlock:status:'
 
 const _PROPS = {
   _ID: 'id'
@@ -295,6 +297,31 @@ function getAlarmAudio(deviceId) {
 }
 
 
+/**
+ * 设置冷暖是否有定时
+ * @param {*} show 
+ * @param {*} deviceId 
+ */
+function putLengNuanAlarm(show,deviceId) {
+  let key = _ALARM_LENGNUAM_KEY+deviceId;
+  wx.setStorage({
+    data: show,
+    key: key,
+  })
+}
+
+/**
+ * 获取冷暖是否有定时
+ * @param {*} deviceId 
+ */
+function getLengNuanAlarm(deviceId) {
+  let key = _ALARM_LENGNUAM_KEY+deviceId;
+  var show = wx.getStorageSync(key);
+  if(show) {
+    return true;
+  }
+  return false;
+}
 
 
 /**
@@ -455,6 +482,57 @@ function getLengNuanData(deviceId) {
 }
 
 
+/**
+ * 设置是否有童锁
+ * @param {*} show 
+ */
+function putChildLockStatus(show, deviceId) {
+  let key = _CHILD_LOCK_KEY + deviceId;
+  wx.setStorage({
+    data: show,
+    key: key,
+  })
+}
+
+
+/**
+ * 获取是否有童锁
+ */
+function getChildLockStatus(deviceId) {
+  let key = _CHILD_LOCK_KEY + deviceId;
+  var show = wx.getStorageSync(key);
+  if (show) {
+    return true;
+  }
+  return false;
+}
+
+/**
+ * 设置童锁状态
+ * @param {*} show 
+ */
+function putChildLockSwitch(open, deviceId) {
+  let key = _CHILD_LOCK_STATUS_KEY + deviceId;
+  wx.setStorage({
+    data: open,
+    key: key,
+  })
+}
+
+
+/**
+ * 获取获取童锁状态
+ */
+function getChildLockSwitch(deviceId) {
+  let key = _CHILD_LOCK_STATUS_KEY + deviceId;
+  var show = wx.getStorageSync(key);
+  if (show) {
+    return true;
+  }
+  return false;
+}
+
+
 
 module.exports = {
   _PROPS,
@@ -487,5 +565,11 @@ module.exports = {
   putLengNuanData,
   getLengNuanData,
   putAlarmAudio,
-  getAlarmAudio
+  getAlarmAudio,
+  putLengNuanAlarm,
+  getLengNuanAlarm,
+  putChildLockStatus,
+  getChildLockStatus,
+  putChildLockSwitch,
+  getChildLockSwitch
 }

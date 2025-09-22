@@ -523,7 +523,6 @@ Page({
       },
       complete: function () {
         wx.hideLoading();
-
       }
     })
   },
@@ -537,6 +536,12 @@ Page({
     var connected = this.data.connected;
     var connectedStr = JSON.stringify(connected);
     var name = connected.name;
+
+    if (app.globalData.skin == 'blue') {//如果是蓝色风格，先初始化掉主题风格
+      configManager.setSkin('dark')
+      app.globalData.skin = 'dark'
+    }
+
     //判断是否是TL-Q设备
     console.log(name.indexOf('TL-Q') > -1)
     if (name.indexOf('TL-Q') > -1) {//新版零睡吧
@@ -559,21 +564,18 @@ Page({
       var kuaijieType = this.getKuaijieType(name);
       var weitiaoType = this.getWeitiaoType(name);
       var anmoType = this.getAnMoType(name);
-
-      if (kuaijieType == 'K17') {//蓝色风格
+      
+      if (kuaijieType == 'K17') {//设置K17为蓝色风格
         configManager.setSkin('blue')
         app.globalData.skin = 'blue'
-      } else {
-        if (app.globalData.skin == 'blue') {
-          configManager.setSkin('dark')
-          app.globalData.skin = 'dark'
-        }
       }
       console.info('turnToMain', connected, kuaijieType, weitiaoType);
-      // TODO 还需要过滤类型
-      wx.navigateTo({
-        url: '../main/main?first=' + first + '&connected=' + connectedStr + '&kuaijieType=' + kuaijieType + '&weitiaoType=' + weitiaoType + '&anmoType=' + anmoType,
-      })
+      setTimeout(() => {
+        // TODO 还需要过滤类型
+        wx.navigateTo({
+          url: '../main/main?first=' + first + '&connected=' + connectedStr + '&kuaijieType=' + kuaijieType + '&weitiaoType=' + weitiaoType + '&anmoType=' + anmoType,
+        })
+      }, 500)
     }
   },
 
@@ -668,7 +670,7 @@ Page({
         name.indexOf('QMS2') >= 0 ||
         name.indexOf('S4-4-N93H') >= 0 ||
         name.indexOf('S4-2-N93T') >= 0) {
-        return 'K2';//K2
+        return 'K2';
       } else if (name.indexOf('QMS-KQ2') >= 0 ||
         name.indexOf('QMS-K12') >= 0) {
         return 'K6';
@@ -739,11 +741,11 @@ Page({
         name.indexOf('QMS4') >= 0 ||
         name.indexOf('S4-ZM') >= 0 ||
         name.indexOf('S4-N') >= 0) {
-        return 'W2'//W2
+        return 'W2'
       } else if (name.indexOf('QMS-NQ') >= 0 || name.indexOf('S3-ZM') >= 0 || name.indexOf('QMS3') >= 0) {
         return 'W3'
       } else if (name.indexOf('QMS-MQ') >= 0 || name.indexOf('S2-ZM') >= 0 || name.indexOf('QMS2') >= 0) {
-        return 'W4'
+        return 'W4';
       } else if (name.indexOf('QMS-U700') >= 0) {
         return 'W9';
       } else if (
@@ -812,8 +814,8 @@ Page({
         return 'A0';
       }
     }
-    // 默认K1
-    return 'W1';
+    // 默认A0
+    return 'A0';
   },
 },
 )

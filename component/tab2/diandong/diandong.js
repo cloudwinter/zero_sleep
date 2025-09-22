@@ -25,7 +25,13 @@ Component({
   /**
    * 组件的属性列表
    */
-  properties: {},
+  properties: {
+    // 可以通过外部传入控制显示的属性
+    visible: {
+      type: Boolean,
+      value: true
+    }
+  },
 
   options: {
     addGlobalClass: true,
@@ -102,6 +108,7 @@ Component({
     showZhinengjiance: false,//是否有智能检测
     zhinengjianceType: '00',//智能检测类型
     isFirstAlarm: false,//是否首次设置闹钟
+    selectIndex: -1,//0:看电视 1：止鼾 2：零压 3：记忆1 4：摇篮 5：记忆2 6：放平
   },
 
   /**
@@ -144,7 +151,7 @@ Component({
       })
       setTimeout(() => {
         that.askJiyiStatus(that);
-      }, 100)
+      }, 200)
     },
     attached: function () {
       // 在组件实例进入页面节点树时执行
@@ -175,7 +182,6 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
     /**
    * 连接后初始化
    * @param {*} connected 
@@ -262,17 +268,9 @@ Component({
 
         var type = cmd.substr(18, 2).toUpperCase();
         if (type != '00') {
-          that.setData({
-            showZhinengjiance: true,
-            zhinengjianceType: type
-          })
-          // var macCmd = cmd.substr(22, 12);
-          // app.globalData.mac = macCmd;
-          // if (type == '01') {
-          //   app.globalData.appId = 'wxbbdd4b1b88358610';
-          // } else if (type == '02') {
-          //   app.globalData.appId = 'wx89783978e44773d0';
-          // }
+          setTimeout(() => {
+            that.sendAskBlueCmd("FFFFFFFF01000C0B0F2304")
+          }, 200)
         }
 
         var anMost = cmd.substr(20, 2).toUpperCase();
@@ -305,6 +303,27 @@ Component({
         // 有闹钟功能
         that.setAlarm(that, cmd, deviceId);
         return;
+      } else if (cmd.indexOf('FFFFFFFF01000C11') > -1) {//查询心率带mac地址以及类型
+        var type = cmd.substr(16, 2).toUpperCase();
+        var macCmd = cmd.substr(18, 12).toUpperCase;
+        var showZhinengjiance = false
+        var appId = ""
+        if (type == '01') {
+          showZhinengjiance = true
+          appId = "wxbbdd4b1b88358610"
+        } else if (type == '02') {
+          showZhinengjiance = true
+          appId = "wx89783978e44773d0"
+        } else if (type == '03') {
+          showZhinengjiance = true
+        }
+        that.setData({
+          showZhinengjiance: true,
+          zhinengjianceType: type
+        })
+        var macCmd = cmd.substr(22, 12);
+        app.globalData.mac = macCmd;
+        app.globalData.appId = appId;
       }
     },
 
@@ -445,10 +464,14 @@ Component({
       return false;
     },
 
+
     /**
      * 记忆1的点击事件
      */
     tapJiyi1() {
+      this.setData({
+        selectIndex: 3
+      })
       console.info("tapJiyi1");
       var that = this;
       var longClick = this.longClick();
@@ -495,6 +518,9 @@ Component({
 
 
     tapJiyi2() {
+      this.setData({
+        selectIndex: 5
+      })
       console.info("tapJiyi2");
       var that = this;
       var longClick = this.longClick();
@@ -543,6 +569,9 @@ Component({
      * 看电视的点击事件
      */
     tapKandianshi() {
+      this.setData({
+        selectIndex: 0
+      })
       console.info("tapKandianshi");
       this.setData({
         currentAnjian: {
@@ -600,6 +629,9 @@ Component({
      * 零压力的点击事件
      */
     tapLingyali() {
+      this.setData({
+        selectIndex: 2
+      })
       console.info("tapLingyali");
       this.setData({
         currentAnjian: {
@@ -656,6 +688,9 @@ Component({
      * 止鼾的点击事件
      */
     tapZhihan() {
+      this.setData({
+        selectIndex: 1
+      })
       console.info("tapZhihan");
       this.setData({
         currentAnjian: {
@@ -713,6 +748,9 @@ Component({
      * @param {*} e 
      */
     tapYaoLan(e) {
+      this.setData({
+        selectIndex: 4
+      })
       // 单击
       this.sendBlueCmd('006A572F');
     },
@@ -722,6 +760,9 @@ Component({
      * @param {*} e 
      */
     tapFangping(e) {
+      this.setData({
+        selectIndex: 6
+      })
       // 单击
       this.sendBlueCmd('0008D6C6');
     },
@@ -754,7 +795,7 @@ Component({
             anjian: 'beibutz',
             name: '背部调整'
           },
-          beibutzTop: true
+          beibutzTop: true,
         });
         this.donghua(true, this);
         this.tapBeibutz(true, true);
@@ -882,9 +923,9 @@ Component({
     //点击按摩
     anmoChange(event) {
       if (event.detail.value) {//按摩开
-        sendBlueCmd("011CD6C9");
+        this.sendBlueCmd("011CD759");
       } else {//按摩关
-        sendBlueCmd("001CD6C9");
+        this.sendBlueCmd("001CD6C9");
       }
     },
 
@@ -1015,6 +1056,25 @@ Component({
       }
     },
 
+    /**
+     * 长按按摩区域 解绑心率带 透传MAC 时，增加1D
+     */
+    tapZhinengCancel() {
+      var longClick = this.longClick();
+      if (longClick) {
+        var type = this.data.zhinengjianceType;
+        if (type == '01' || type == '02') {
+          var jumpPath = 'pages/index/index?mac=' + app.globalData.mac + '&type=1D';
+          console.log("开始跳转", jumpPath, app.globalData.appId)
+          wx.navigateToMiniProgram({
+            appId: app.globalData.appId,
+            path: jumpPath,
+            envVersion: 'trial', //develop,trial,release
+          })
+        }
+      }
+    },
+
     //点击智能监测
     tapZhinengjiance() {
       var type = this.data.zhinengjianceType;
@@ -1029,6 +1089,8 @@ Component({
         wx.navigateTo({
           url: '/pages/mainv2/zhinengjiance/zhinengjiance',
         })
+      } else {
+        this.sendAskBlueCmd("FFFFFFFF01000C0B0F2304")
       }
     },
 

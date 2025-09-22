@@ -1,6 +1,7 @@
 // component/kuaijie/kuaijie-K5.js
 
 const util = require('../../../utils/util')
+const configManager = require('../../../utils/configManager')
 const WxNotificationCenter = require('../../../utils/WxNotificationCenter')
 const app = getApp();
 const askPrefix = 'FFFFFFFF0300'; // 询问码前缀
@@ -10,7 +11,13 @@ Component({
   /**
    * 组件的属性列表
    */
-  properties: {},
+  properties: {
+    // 可以通过外部传入控制显示的属性
+    visible: {
+      type: Boolean,
+      value: true
+    }
+  },
 
   options: {
     addGlobalClass: true,
@@ -22,6 +29,7 @@ Component({
   data: {
     skin: app.globalData.skin,
     display: app.globalData.display,
+    containerHeight: '',
     connected: {},
     currentAnjian: {
       anjian: 'kandianshi', // kandianshi,jiyi,fuyuan
@@ -33,7 +41,9 @@ Component({
     jiyiLeft: false,
     jiyiRight: false,
     tongbukzShow: false, // 同步控制显示
-    tongbukzStatus: false // 同步控制状态
+    tongbukzStatus: false, // 同步控制状态
+    childLock: false,//童锁显示
+    childLockSwitch: false,//童锁状态
   },
 
 
@@ -42,9 +52,13 @@ Component({
    */
   pageLifetimes: {
     show: function () {
+      var childLock = configManager.getChildLockStatus(this.data.connected.deviceId)
+      var childLockSwitch = configManager.getChildLockSwitch(this.data.connected.deviceId)
       // 设置当前的皮肤样式
       this.setData({
-        skin: app.globalData.skin
+        skin: app.globalData.skin,
+        childLock: childLock,
+        childLockSwitch: childLockSwitch,
       })
     }
   },
@@ -60,12 +74,22 @@ Component({
     ready: function () {
       // 在组件在视图层布局完成后执行
       console.info("kuaijie-k5-->ready");
+      var that = this;
+      var childLock = configManager.getChildLockStatus(that.data.connected.deviceId)
+      var childLockSwitch = configManager.getChildLockSwitch(that.data.connected.deviceId)
+
+      that.setData({
+        childLock: childLock,
+        childLockSwitch: childLockSwitch
+      })
     },
     attached: function () {
       // 在组件实例进入页面节点树时执行
       console.info("attached");
       this.setData({
-        display: app.globalData.display
+        display: app.globalData.display,
+        // 屏幕高度-顶部高度-tab高度-预留5px底部距离
+        containerHeight: app.globalData.screenHeight - app.globalData.navHeight - 62
       })
     },
     detached: function () {
@@ -90,33 +114,37 @@ Component({
       that.setData({
         connected: connected,
       })
-      WxNotificationCenter.removeNotification("INIT",that);
-      that.askJiyiStatus(connected,that);
+      WxNotificationCenter.removeNotification("INIT", that);
+      that.askJiyiStatus(connected, that);
     },
 
     /**
      * 询问记忆状态
      */
-    askJiyiStatus(connected,cur) {
+    askJiyiStatus(connected, cur) {
       // 看电视左
       setTimeout(() => {
         cur.sendAskBlueCmd('640009DED9')
       }, 200);
-      
+
       // 看电视右
       setTimeout(() => {
         cur.sendAskBlueCmd('6D00090EDB')
       }, 400);
-      
+
       // 记忆左
       setTimeout(() => {
         cur.sendAskBlueCmd('7600097EDC')
       }, 600);
-      
+
       // 记忆右
       setTimeout(() => {
         cur.sendAskBlueCmd('7F0009AEDE')
       }, 800);
+
+      setTimeout(() => {
+        // cur.sendBlueFullCmd('FFFFFFFF0500000F0CD2F5');//查询童锁的状态
+      }, 1000)
 
     },
 
@@ -126,7 +154,7 @@ Component({
      */
     blueReply(cmd) {
       var that = this.observer;
-      console.error('kuaijie-K5->blueReply',cmd);
+      console.error('kuaijie-K5->blueReply', cmd);
       cmd = cmd.toUpperCase();
       if (cmd.indexOf('FFFFFFFF01000A0B') >= 0 || cmd.indexOf('FFFFFFFF0100090B') >= 0) {
         // 同步控制回码
@@ -166,6 +194,34 @@ Component({
           })
         }
       }
+
+      if (cmd.indexOf('FFFFFFFF0500050A0CC1A4') >= 0) {//回复关锁成功
+        configManager.putChildLockSwitch(false, that.data.connected.deviceId)
+        that.setData({
+          childLockSwitch: false
+        })
+      } else if (cmd.indexOf('FFFFFFFF050005000CC704') >= 0) {//回复开锁成功
+        configManager.putChildLockSwitch(true, that.data.connected.deviceId)
+        that.setData({
+          childLockSwitch: true
+        })
+      } else if (cmd.indexOf('FFFFFFFF0500000C0CD205') >= 0) {//童锁状态
+        configManager.putChildLockStatus(true, that.data.connected.deviceId)//有童锁
+        configManager.putChildLockSwitch(true, that.data.connected.deviceId)//童锁开启状态
+
+        that.setData({
+          childLock: true,
+          childLockSwitch: true
+        })
+      } else if (cmd.indexOf('FFFFFFFF0500000A0CD1A5') >= 0) {//非童锁状态
+        console.log(that.data.connected.deviceId, "设置童锁")
+        configManager.putChildLockStatus(true, that.data.connected.deviceId)//有童锁
+        configManager.putChildLockSwitch(false, that.data.connected.deviceId)//童锁关闭状态
+        that.setData({
+          childLock: true,
+          childLockSwitch: false
+        })
+      }
     },
 
     /**
@@ -192,7 +248,7 @@ Component({
      */
     sendBlueFullCmd(cmd) {
       var connected = this.data.connected;
-      util.sendBlueCmd(connected, cmd,null);
+      util.sendBlueCmd(connected, cmd, null);
     },
 
 
@@ -227,9 +283,9 @@ Component({
       this.sendBlueCmd('0000D700');
     },
 
-  /**
-     * 同步控制的点击事件
-     */
+    /**
+       * 同步控制的点击事件
+       */
     tongbukzTab() {
       var tongbukzStatus = this.data.tongbukzStatus;
       let cmd;
@@ -401,7 +457,7 @@ Component({
             }
           }));
         } else {
-          
+
         }
       } else {
         // 有记忆
@@ -457,7 +513,7 @@ Component({
             }
           }));
         } else {
-         
+
         }
       } else {
         // 有记忆

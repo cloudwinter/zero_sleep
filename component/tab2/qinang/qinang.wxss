@@ -105,6 +105,7 @@
   border-radius: 120rpx;
   display: flex;                                   
   align-items: center;
+  justify-content: center;
   box-sizing: border-box;     
 }
 
@@ -133,16 +134,8 @@
   z-index: -1;
 }
 
-
-.jiyi .button .dian {
-  width: 28rpx;
-  height: 28rpx;
-  padding-left: 52rpx;
-}
-
 .jiyi .button .name {
   color: white;
-  padding-left: 60rpx;
   font-size: 28rpx;
 }
 

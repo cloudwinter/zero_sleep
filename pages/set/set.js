@@ -59,6 +59,7 @@ Page({
     },
     networkDialogShow: false,
     networkDialogTitle: '',
+    isShowSkip: true,//是否显示选择模式
   },
 
   /**
@@ -73,21 +74,27 @@ Page({
     let alarmSwitch = false;
     let status = this.data.status;
     let faultDebugShow = false;
+    let isShowSkip = this.data.isShowSkip
     let xunhuanModeItemShow = this.data.xunhuanModeItemShow;
     if (util.isNotEmptyObject(connected)) {
       status = '已连接';
       alarmSwitch = configManager.showAlarmSwitch(connected.deviceId);
       faultDebugShow = this.isShowFaultDebug(connected.name);
       if (connected.name.indexOf('S4-HL') >= 0 || connected.name.indexOf('S5-Y2') >= 0 ||
-        connected.name.indexOf('S3-5') >= 0 ||connected.name.indexOf('S3-7') >= 0|| connected.name.indexOf('S5-Y3') >= 0 ||
+        connected.name.indexOf('S3-5') >= 0 || connected.name.indexOf('S3-7') >= 0 || connected.name.indexOf('S5-Y3') >= 0 ||
         connected.name.indexOf('S4-Y2') >= 0) {
         xunhuanModeItemShow = true;
+      }
+
+      if (connected.name.indexOf('S4-6') >= 0) {
+        isShowSkip = false
       }
     } else {
       status = '未连接';
     }
     this.setData({
       skin: app.globalData.skin,
+      isShowSkip: isShowSkip,
       selectedRadio: app.globalData.skin,
       connected: connected,
       status: status,

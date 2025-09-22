@@ -91,12 +91,12 @@
 .mode-child .mode-icon {
   width: 28rpx;
   height: 28rpx;
+  margin-right: 12rpx;
 }
 
 .mode-child .name {
   color: white;
   font-size: 24rpx;
-  margin-left: 24rpx;
 }
 
 
@@ -117,7 +117,7 @@
 
 .tiaozheng-button-bg {
   width: 120rpx;
-  border-radius: 120rpx;
+  /* border-radius: 120rpx; */
   margin: 0 70rpx;
   /* background: #1E1F24; */
   /* position: absolute;
@@ -125,7 +125,13 @@
 }
 
 .tiaozheng-button-top-left {
-  width: 64rpx;
+  width: 120rpx;
+  border-top-left-radius: 120rpx;
+  border-top-right-radius: 120rpx;
+  border-style: solid;
+  border-width: 1rpx;
+  box-sizing: border-box;
+  background: #1E1F24;
   height: 100rpx;
   display: flex;
   align-items: center;
@@ -133,14 +139,22 @@
 }
 
 .tiaozheng-button-top-right {
-  width: 64rpx;
+  width: 120rpx;
   height: 100rpx;
+  border-bottom-left-radius: 120rpx;
+  border-bottom-right-radius: 120rpx;
+  background: #1E1F24;
+  border-style: solid;
+  border-width: 1rpx;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .tiaozheng-button-top-middle {
+  width: 120rpx;
+  background: #1E1F24;
   flex: auto;
   display: flex;
   align-items: center;
@@ -167,7 +181,6 @@
 .footer {
   height: 120rpx;
   border-radius: 120rpx;
-  margin-top: 20rpx;
   padding: 30rpx;
   box-sizing: border-box;
   display: flex;
@@ -200,12 +213,12 @@
 
 
 .anjian-content {
+  width: 100%;
   display: flex;
   align-items: center;
-  height: 120rpx;
+  height: 100rpx;
   border-radius: 60rpx;
   background-color: #1E1F24;
-  margin-top: 40rpx;
   padding: 0 32rpx;
   color: #FFF;
 }

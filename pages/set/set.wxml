@@ -13,7 +13,7 @@
 				</view>
 			</view>
 
-			<view class="shezhi-content shezhi-button-bg" bindtap="changeSkip">
+			<view class="shezhi-content shezhi-button-bg" bindtap="changeSkip" wx:if="{{isShowSkip}}">
 				<!-- <button class="shezhi-button-bg"></button> -->
 				<view class="shezhi-button-left">模式选择</view>
 				<view class="shezhi-button-right">

@@ -33,24 +33,42 @@ Page({
       name: '加热',
     }
     ],
-    modeSelectRadio: '',
+    modeSelectRadio: '',//选择的模式
+    provisionModeRadioChange: '',//临时选择的模式
     modeSelectName: '',
     modeDialogShow: false,
-    gearItems: [{
+    gearHotItems: [{
       value: '01',
-      name: '1档',
+      name: '30°c',
     },
     {
       value: '02',
-      name: '2档',
+      name: '35°c',
     },
     {
       value: '03',
-      name: '3档',
+      name: '40°c',
     },
     {
       value: '04',
-      name: '4档',
+      name: '45°c',
+    }
+    ],
+    gearCoolItems: [{
+      value: '01',
+      name: '20°c',
+    },
+    {
+      value: '02',
+      name: '15°c',
+    },
+    {
+      value: '03',
+      name: '10°c',
+    },
+    {
+      value: '04',
+      name: '5°c',
     }
     ],
     workGear: '',
@@ -72,18 +90,25 @@ Page({
     var lengnuanModel = configManager.getLengNuanData(connected.deviceId)
     if (lengnuanModel) {
       var modeSelectName
+      var gearSelectName;
       if (lengnuanModel.workMode == '01') {
         modeSelectName = '加热'
+        this.data.gearHotItems.forEach(obj => {
+          if (lengnuanModel.workGear == obj.value) {
+            gearSelectName = obj.name;
+          }
+        });
       } else if (lengnuanModel.workMode == '02') {
         modeSelectName = '制冷'
+        this.data.gearCoolItems.forEach(obj => {
+          if (lengnuanModel.workGear == obj.value) {
+            gearSelectName = obj.name;
+          }
+        });
       }
 
-      var gearSelectName;
-      this.data.gearItems.forEach(obj => {
-        if (lengnuanModel.workGear == obj.value) {
-          gearSelectName = obj.name;
-        }
-      });
+
+
       this.setData({
         modeSelectRadio: lengnuanModel.workMode,
         modeSelectName: modeSelectName,
@@ -97,9 +122,9 @@ Page({
     WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
   },
 
-    /**
-   * 生命周期函数--监听页面卸载
-   */
+  /**
+ * 生命周期函数--监听页面卸载
+ */
   onUnload: function () {
     WxNotificationCenter.removeNotification("BLUEREPLY", this);
   },
@@ -118,7 +143,7 @@ Page({
    */
   modeRadioChange: function (e) {
     this.setData({
-      modeSelectRadio: e.detail.value
+      provisionModeRadioChange: e.detail.value
     })
   },
 
@@ -134,6 +159,9 @@ Page({
       })
       return;
     }
+    this.setData({//点击确认按钮后，选择为当前模式
+      modeSelectRadio: this.data.provisionModeRadioChange
+    })
     let modeSelectRadio = this.data.modeSelectRadio;
     var modeSelectName;
     this.data.modeItems.forEach(obj => {
@@ -141,10 +169,29 @@ Page({
         modeSelectName = obj.name;
       }
     });
+
+    var gearSelectName;
+    var gearSelectRadio = this.data.gearSelectRadio
+    if (modeSelectRadio == '02') {//制冷
+      this.data.gearCoolItems.forEach(obj => {
+        if (gearSelectRadio == obj.value) {
+          gearSelectName = obj.name;
+        }
+      });
+    } else {//制热
+      this.data.gearHotItems.forEach(obj => {
+        if (gearSelectRadio == obj.value) {
+          gearSelectName = obj.name;
+        }
+      });
+    }
+    console.log("gearSelectName", gearSelectName)
+
     this.setData({
       modeDialogShow: false,
       modeSelectRadio: modeSelectRadio,
       modeSelectName: modeSelectName,
+      gearSelectName: gearSelectName
     })
   },
 
@@ -180,11 +227,20 @@ Page({
     }
     let gearSelectRadio = this.data.gearSelectRadio;
     var gearSelectName;
-    this.data.gearItems.forEach(obj => {
-      if (gearSelectRadio == obj.value) {
-        gearSelectName = obj.name;
-      }
-    });
+    if (this.data.modeSelectRadio == '02') {//制冷
+      this.data.gearCoolItems.forEach(obj => {
+        if (gearSelectRadio == obj.value) {
+          gearSelectName = obj.name;
+        }
+      });
+    } else {//制热
+      this.data.gearHotItems.forEach(obj => {
+        if (gearSelectRadio == obj.value) {
+          gearSelectName = obj.name;
+        }
+      });
+    }
+
     console.log("gearSelectName:", gearSelectName)
     this.setData({
       gearDialogShow: false,

@@ -3,25 +3,25 @@
 
   <view class="anjianqu" style="padding-top:10rpx;">
     <view class="anjian-left">
-      <image class="anjian-bg" style="border: 2rpx solid {{quanshen?'#41B67C':'#1E1F24'}};"></image>
+      <image class="anjian-bg" style="border: 2rpx solid {{selectIndex==0?'#41B67C':'#1E1F24'}};"></image>
       <view class="anjiian-content" catchtap="selectMode" data-type="quanshen" bindtouchstart="touchStart" bindtouchend="touchEnd">
         <image class="anjian-icon" src="../../../images/{{skin}}/lingyali-xiao@3x.png"></image>
-        <view class="name"><text>全身按摩</text></view>
+        <view class="name" style="color:{{quanshen?'#41B67C':'#FFF'}};"><text>组合按摩</text></view>
       </view>
     </view>
 
     <view class="anjian-right">
-      <image class="anjian-bg" style="border: 2rpx solid {{beibu?'#41B67C':'#1E1F24'}}"></image>
+      <image class="anjian-bg" style="border: 2rpx solid {{selectIndex==1?'#41B67C':'#1E1F24'}}"></image>
       <view class="anjiian-content" catchtap="selectMode" data-type="beibu" bindtouchstart="touchStart" bindtouchend="touchEnd">
         <image class="anjian-icon" src="../../../images/{{skin}}/zhihan-xiao@3x.png"></image>
-        <view class="name"><text>背部按摩</text></view>
+        <view class="name" style="color: {{beibu?'#41B67C':'#FFF'}}"><text>波浪按摩</text></view>
       </view>
     </view>
   </view>
 
   <view class="anjianqu" style="padding-top:10rpx;">
     <view class="anjian-left">
-      <image class="anjian-bg"></image>
+      <image class="anjian-bg" style="border: 2rpx solid {{selectIndex==2?'#41B67C':'#1E1F24'}}"></image>
       <view class="anjiian-content" catchtap="selectMode" data-type="yaobu">
         <image class="anjian-icon" src="../../../images/{{skin}}/tunbuxunhuan-xiao@3x.png"></image>
         <view class="name"><text>腰部按摩</text></view>
@@ -29,7 +29,7 @@
     </view>
 
     <view class="anjian-right">
-      <image class="anjian-bg"></image>
+      <image class="anjian-bg" style="border: 2rpx solid {{selectIndex==3?'#41B67C':'#1E1F24'}}"></image>
       <view class="anjiian-content" catchtap="selectMode" data-type="jingbu">
         <image class="anjian-icon" src="../../../images/{{skin}}/toubuxunhuan-xiao@3x.png"></image>
         <view class="name"><text>颈部按摩</text></view>
@@ -39,7 +39,7 @@
 
   <view class="anjianqu" style="padding-top:10rpx;">
     <view class="anjian-left">
-      <image class="anjian-bg"></image>
+      <image class="anjian-bg" style="border: 2rpx solid {{selectIndex==4?'#41B67C':'#1E1F24'}}"></image>
       <view class="anjiian-content" catchtap="selectMode" data-type="yujia">
         <image class="anjian-icon" src="../../../images/{{skin}}/yujia_xiao@2x.png"></image>
         <view class="name"><text>瑜伽</text></view>
@@ -55,15 +55,13 @@
   </view>
 
   <view class="jiyi">
-    <view class="button left button-bg" catchtap="selectMode" data-type="anmotingzhi">
+    <view class="button left button-bg" style="border: 2rpx solid {{selectIndex==5?'#41B67C':'#1E1F24'}}" catchtap="selectMode" data-type="anmotingzhi">
       <!-- <image class="dian" wx:if="{{modeType=='anmotingzhi'}}" src="../../../images/{{skin}}/dian-green@3x.png"></image> -->
-      <image class="dian" src="../../../images/{{skin}}/dian-black@3x.png"></image>
       <view class="name">按摩停止</view>
     </view>
     <view class="middle"></view>
-    <view class="button right button-bg" catchtap="selectMode" data-type="fangqi">
+    <view class="button right button-bg" style="border: 2rpx solid {{selectIndex==6?'#41B67C':'#1E1F24'}}" catchtap="selectMode" data-type="fangqi">
       <!-- <image class="dian" wx:if="{{modeType=='fangqi'}}" src="../../../images/{{skin}}/dian-green@3x.png"></image> -->
-      <image class="dian" src="../../../images/{{skin}}/dian-black@3x.png"></image>
       <view class="name">放气</view>
     </view>
   </view>

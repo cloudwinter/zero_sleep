@@ -11,7 +11,13 @@ Component({
   /**
    * 组件的属性列表
    */
-  properties: {},
+  properties: {
+    // 可以通过外部传入控制显示的属性
+    visible: {
+      type: Boolean,
+      value: true
+    }
+  },
 
   options: {
     addGlobalClass: true,
@@ -75,7 +81,8 @@ Component({
     interval5: '',//定时器循环查询温度
     tempRange: [
       5.75, 38.25, 70.75, 103.25, 168.25, 200.75, 233.25, 265.75, 282
-    ]
+    ],
+    waterLevel: ''
   },
 
   /**
@@ -89,7 +96,8 @@ Component({
         skin: app.globalData.skin
       })
       var lengnuanModel = configManager.getLengNuanData(this.data.connected.deviceId)
-      if (lengnuanModel) {
+      var isTimer = configManager.getLengNuanAlarm(this.data.connected.deviceId)
+      if (lengnuanModel && isTimer) {
         this.setData({
           timeStr: lengnuanModel.hour + ":" + lengnuanModel.mins
         })
@@ -120,11 +128,13 @@ Component({
       console.log(that.data.connected)
       setTimeout(() => {
         that.askJiyiStatus(that.data.connected, that);
-      }, 100)
+      }, 450)
       var interval5 = setInterval(() => {
-        var cmd = 'FFFFFFFFFE1000010000000000AA'
-        cmd = cmd + crcUtil.swapHexByteOrder(crcUtil.crc16(cmd));
-        that.sendBlueCmd(cmd)
+        if (that.data.visible) {//页面显示时在进行轮询冷暖的状态
+          var cmd = 'FFFFFFFFFE1000010000000000AA'
+          cmd = cmd + crcUtil.swapHexByteOrder(crcUtil.crc16(cmd));
+          that.sendBlueCmd(cmd)
+        }
       }, 5000)
       that.setData({
         interval5: interval5
@@ -272,6 +282,8 @@ Component({
           configManager.putLengNuanData(lengnuanModel, that.data.connected.deviceId)
         }
 
+        configManager.putLengNuanAlarm(isTimer, that.data.connected.deviceId)
+
         //温度
         var temp1 = cmd.substr(30, 2).toUpperCase();
         var temp2 = cmd.substr(32, 2).toUpperCase();
@@ -293,6 +305,17 @@ Component({
           waterLevel, waterLevel,
           buttonLeft: buttonLeft
         })
+
+        console.log("waterLevel", waterLevel, that.data.visible && that.data.waterLevel && that.data.waterLevel < 20)
+        if (that.data.visible && that.data.waterLevel && that.data.waterLevel < 20) {
+          wx.showModal({
+            title: '提示',
+            content: '当前水量不足，请加500毫升水',
+            showCancel: false,
+            complete: (res) => {
+            }
+          })
+        }
       } else if (cmd.indexOf("FFFFFFFFFE14000701") > -1) {//实时时间回码
         console.log("实时时间回码:" + cmd)
       } else if (cmd.indexOf("FFFFFFFFFE14000101") > -1) {
@@ -306,38 +329,55 @@ Component({
           temp: temp
         })
 
-       // 提取高四位和低四位
-       var stateHigh = cmd.substr(19, 1).toUpperCase();
-       const workState = parseInt(stateHigh, 16);
+        // 提取高四位和低四位
+        var stateHigh = cmd.substr(19, 1).toUpperCase();
+        const workState = parseInt(stateHigh, 16);
 
-       console.log("workState:" + workState)
+        console.log("workState:" + workState)
 
-       var gear = cmd.substr(20, 2).toUpperCase();
-       var selectScaleIndex = 0
-       if (workState == 0) {//空闲
-         selectScaleIndex = 4
-       } else if (workState == 1) {//加热
-         selectScaleIndex = 4 + parseInt(gear)
-       } else if (workState == 2) {//制冷
-         selectScaleIndex = 4 - parseInt(gear)
-         console.log("档位：", parseInt(gear))
-       } else if (workState == 3) {//水位低
-         selectScaleIndex = 4
-       } else if (workState == 4) {//故障
-         selectScaleIndex = 4
-       }
-       console.log("gear:" + gear, "selectScaleIndex:" + selectScaleIndex)
+        var gear = cmd.substr(20, 2).toUpperCase();
+        var selectScaleIndex = 0
+        if (workState == 0) {//空闲
+          selectScaleIndex = 4
+        } else if (workState == 1) {//加热
+          selectScaleIndex = 4 + parseInt(gear)
+        } else if (workState == 2) {//制冷
+          selectScaleIndex = 4 - parseInt(gear)
+          console.log("档位：", parseInt(gear))
+        } else if (workState == 3) {//水位低
+          selectScaleIndex = 4
+        } else if (workState == 4) {//故障
+          selectScaleIndex = 4
+        }
+        console.log("gear:" + gear, "selectScaleIndex:" + selectScaleIndex)
 
-       if (selectScaleIndex != that.data.selectScaleIndex) {//返回的状态与当前的状态不一致
-        var buttonLeft = (5 * (selectScaleIndex + 1) - 2.5) * 6.5 - 10.5
-        console.log("buttonLeft", buttonLeft)
+        if (selectScaleIndex != that.data.selectScaleIndex) {//返回的状态与当前的状态不一致
+          var buttonLeft = (5 * (selectScaleIndex + 1) - 2.5) * 6.5 - 10.5
+          console.log("buttonLeft", buttonLeft)
 
-        that.setData({
-          workState: workState,
-          selectScaleIndex: selectScaleIndex,
-          buttonLeft: buttonLeft
-        })
-       }
+          that.setData({
+            workState: workState,
+            selectScaleIndex: selectScaleIndex,
+            buttonLeft: buttonLeft
+          })
+        }
+      }else if(cmd.indexOf('FFFFFFFFFE10000301')>-1){
+        var status = cmd.substr(20, 2).toUpperCase();
+        console.log("putLengNuanAlarm:",status)
+        if(status == '00'){//关闭
+          configManager.putLengNuanAlarm(false, that.data.connected.deviceId)
+          that.setData({
+            timeStr: ''
+          })
+        }else{//开启
+          configManager.putLengNuanAlarm(true, that.data.connected.deviceId)
+          var lengnuanModel = configManager.getLengNuanData(that.data.connected.deviceId)
+          if (lengnuanModel) {
+            that.setData({
+              timeStr: lengnuanModel.hour + ":" + lengnuanModel.mins
+            })
+          }
+        }
       }
     },
 

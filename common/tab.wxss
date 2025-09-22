@@ -6,6 +6,17 @@
   justify-content: center;
 }
 
+.blue .donghuaqu {
+  width: 468rpx;
+  height: 468rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url("https://yhjx.oss-cn-beijing.aliyuncs.com/ddc/zero_sleep/20250804142759_1519.png");
+  background-position: 50% 50%;
+  background-size: cover;  
+}
+
 .dark .donghuaqu {
   width: 468rpx;
   height: 468rpx;
@@ -45,6 +56,10 @@
 
 .dh-content .dh-name{
   color: #41B67D;
+}
+
+.blue .dh-content .dh-name{
+  color: #1C3D66;
 }
 
 

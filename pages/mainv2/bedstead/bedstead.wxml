@@ -5,14 +5,14 @@
 
   <!-- 页面容器 -->
   <view class="container">
-    <view class="tab-container" wx:if="{{nowPage=='diandong'}}">
-      <diandong></diandong>
+    <view class="tab-container" hidden="{{nowPage!='diandong'}}">
+      <diandong visible="{{nowPage=='diandong'?true:false}}"></diandong>
     </view>
-    <view class="tab-container" wx:if="{{nowPage=='qinang'}}">
-      <qinang></qinang>
+    <view class="tab-container" hidden="{{nowPage!='qinang'}}">
+      <qinang visible="{{nowPage=='qinang'?true:false}}"></qinang>
     </view>
-    <view class="tab-container" wx:if="{{nowPage=='lengnuan'}}">
-      <lengnuan></lengnuan>
+    <view class="tab-container" hidden="{{nowPage!='lengnuan'}}">
+      <lengnuan visible="{{nowPage=='lengnuan'?true:false}}"></lengnuan>
     </view>
   </view>
 

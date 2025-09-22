@@ -16,7 +16,7 @@ const weekArray = [
 
 Page({
   data: {
-    skin: app.globalData.skin,
+    skin: configManager.getSkin(),
     navbar: {
       loading: false,
       color: '#FFFFFF',
@@ -110,9 +110,9 @@ Page({
       checked: false
     },
     ],
-    kuaijieType: 'K17', // 这边不能添加默认值 K1
-    weitiaoType: 'W21', // 这边不能添加默认值 W1
-    anMoType: 'A0',
+    kuaijieType: 'K1', // 这边不能添加默认值 K1
+    weitiaoType: '', // 这边不能添加默认值 W1
+    anMoType: '',
     connected: {},
     smartSleepClickTime: 0,
     zhinengjianceType: '', // 智能检测的类型
@@ -122,50 +122,30 @@ Page({
    * 初始化加载
    */
   onLoad: function (option) {
-    console.info('main.Onshow');
-    // let contectedTest = {
-    //   deviceId: '111',
-    //   name:''
-    // };
-    // option = {
-    //   connected: JSON.stringify(contectedTest)
-    // }
     if (option && option.connected) {
       console.info("main.onLoad option", option);
       var connected = JSON.parse(option.connected);
       console.info("main->onLoad connected:", connected);
       this.setData({
+        skin: app.globalData.skin,
         connected: connected,
         kuaijieType: option.kuaijieType,
         weitiaoType: option.weitiaoType,
-        anMoType: option.anMoType
+        anmoType: option.anmoType
       })
+
       if (connected.name.indexOf('S4-HL') >= 0) {
         //this.showNurseTab();
       }
       this.notifyBLECharacteristicValueChange();
-
-      //this.getBLService(connected.deviceId);
     }
 
-    if (this.data.kuaijieType == 'K16') {
-      let tabbar = this.data.tabBar;
-      tabbar[2].show = false;
-      this.setData({
-        tabBar: tabbar,
-      })
-    } else if (this.data.kuaijieType == 'K17') {//蓝色模式 没有灯光模块，tab图标文字颜色根据theme更换
-      let tabbar = this.data.tabBar;
-      tabbar[3].show = false;
-      tabbar[0].selectedIconPath = "../../images/" + app.globalData.skin + "/tab_kuaijie_selected2@2x.png"
-      tabbar[0].iconPath = "../../images/" + app.globalData.skin + "/tab_kuaijie_normal2@2x.png"
-      tabbar[1].selectedIconPath = "../../images/" + app.globalData.skin + "/tab_weitiao_selected2@2x.png"
-      tabbar[1].iconPath = "../../images/" + app.globalData.skin + "/tab_weitiao_normal2@2x.png"
-      tabbar[2].selectedIconPath = "../../images/" + app.globalData.skin + "/tab_anno_selected2@2x.png"
-      tabbar[2].iconPath = "../../images/" + app.globalData.skin + "/tab_anno_normal2@2x.png"
-      this.setData({
-        tabBar: tabbar
-      })
+    if (this.data.kuaijieType == 'K16') {//无按摩模块
+      this.showS3_6Tab()
+    } else if (this.data.kuaijieType == 'K17') {
+      this.showS4_6Tab()
+    } else {
+      this.showDefaultTab()
     }
   },
 
@@ -174,31 +154,10 @@ Page({
    */
   onShow: function () {
     // 获取皮肤
-    console.info('main.Onshow');
     var skin = app.globalData.skin;
     this.setData({
       skin: skin
     })
-    // WxNotificationCenter.postNotificationName('INIT',this.data.connected);
-
-    // this.executeInitCmdTasks();
-
-    // setTimeout(() => {
-    //   let connected = {
-    //     deviceId:'11',
-    //     deviceName:'SN'
-    //   }
-    //   let received = 'ffffffff01000c1103806599ffffffff01000c11';
-    //   //this.blueReply('ffffffff01000c1103806599ffffffff01000c11',connected);
-
-    //   this.blueReply(received, connected);
-    //   //received = 'FFFFFFFF01000413AF08300026010301019897';
-    //   //received = 'FFFFFFFF01000A0B011304';
-    //   WxNotificationCenter.postNotificationName('BLUEREPLY', received);
-    // },2000)
-
-
-
   },
 
 
@@ -216,7 +175,6 @@ Page({
     console.log('sendRequestAlarmCmd:', cmd);
 
     this.sendBlueCmd(cmd);
-
   },
 
   /**
@@ -316,12 +274,92 @@ Page({
 
   /**
    * 设置默认显示的tab
+   * 
    */
   showDefaultTab() {
+    this.setData({
+      tabBar: [{
+        "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_kuaijie_selected@2x.png",
+        "iconPath": "../../images/" + app.globalData.skin + "/tab_kuaijie_normal@2x.png",
+        "text": "快捷",
+        "tapFunction": "toKuaijie",
+        "active": "active",
+        "show": true
+      },
+      {
+        "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_weitiao_selected@2x.png",
+        "iconPath": "../../images/" + app.globalData.skin + "/tab_weitiao_normal@2x.png",
+        "text": "微调",
+        "tapFunction": "toWeitiao",
+        "active": "",
+        "show": true
+      },
+      {
+        "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_anno_selected@2x.png",
+        "iconPath": "../../images/" + app.globalData.skin + "/tab_anno_normal@2x.png",
+        "text": "按摩",
+        "tapFunction": "toAnmo",
+        "active": "active",
+        "show": true
+      },
+      {
+        "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_dengguang_selected@2x.png",
+        "iconPath": "../../images/" + app.globalData.skin + "/tab_dengguang_normal@2x.png",
+        "text": "灯光",
+        "tapFunction": "toDengguang",
+        "active": "",
+        "show": true
+      },
+      {
+        "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_sleep_selected@2x.png",
+        "iconPath": "../../images/" + app.globalData.skin + "/tab_sleep_normal@2x.png",
+        "text": "智能睡眠",
+        "tapFunction": "toSmartSleep",
+        "active": "",
+        "show": false
+      },
+      {
+        "selectedIconPath": "../../images/" + app.globalData.skin + "/tab_znjc_selected@2x.png",
+        "iconPath": "../../images/" + app.globalData.skin + "/tab_znjc_normal@2x.png",
+        "text": "智能监测",
+        "tapFunction": "toZhinengjiance",
+        "active": "",
+        "show": false
+      },
+      ]
+    })
+  },
+
+  /**
+   * 设置默认显示的tab
+   * S3-6型号设备
+   * 不显示按摩模块
+   */
+  showS3_6Tab() {
     let tabbar = this.data.tabBar;
-    tabbar[4].show = false;
+    tabbar[2].show = false;
     this.setData({
       tabBar: tabbar,
+    })
+  },
+
+  /**
+   * 设置显示的tab
+   * S4-6型号设备
+   * 蓝色模式 没有灯光模块，tab图标文字颜色根据theme更换
+   */
+  showS4_6Tab() {
+    console.log("设置S4-6")
+    let tabbar = this.data.tabBar;
+    tabbar[3].show = false;
+    tabbar[0].selectedIconPath = "../../images/" + app.globalData.skin + "/tab_kuaijie_selected2@2x.png"
+    tabbar[0].iconPath = "../../images/" + app.globalData.skin + "/tab_kuaijie_normal2@2x.png"
+    tabbar[1].selectedIconPath = "../../images/" + app.globalData.skin + "/tab_weitiao_selected2@2x.png"
+    tabbar[1].iconPath = "../../images/" + app.globalData.skin + "/tab_weitiao_normal2@2x.png"
+    tabbar[2].selectedIconPath = "../../images/" + app.globalData.skin + "/tab_anno_selected2@2x.png"
+    tabbar[2].iconPath = "../../images/" + app.globalData.skin + "/tab_anno_normal2@2x.png"
+    this.setData({
+      tabBar: tabbar
     })
   },
 
@@ -531,6 +569,16 @@ Page({
       this.setZhinengjiance(received);
     }
 
+    //童锁回码
+    if (received.indexOf('FFFFFFFF0500000C0CD205') >= 0) {//童锁状态
+      configManager.putChildLockStatus(true, this.data.connected.deviceId)//有童锁
+      configManager.putChildLockSwitch(true, this.data.connected.deviceId)//童锁开启状态
+    } else if (received.indexOf('FFFFFFFF0500000A0CD1A5') >= 0) {//非童锁状态
+      console.log(this.data.connected.deviceId, "设置童锁")
+      configManager.putChildLockStatus(true, this.data.connected.deviceId)//有童锁
+      configManager.putChildLockSwitch(false, this.data.connected.deviceId)//童锁关闭状态
+    }
+
   },
 
   /**
@@ -627,7 +675,11 @@ Page({
       let cmdMode = cmd.substr(28, 2);
       if ('01' == cmdMode) {
         alarm.modeVal = 'lingyali';
-        alarm.modeName = '零压力';
+        if(this.data.kuaijieType == 'K17'){
+          alarm.modeName = '零压力位起床';
+        }else{
+          alarm.modeName = '零压力'
+        }
       } else if ('02' == cmdMode) {
         alarm.modeVal = 'jiyi1';
         alarm.modeName = '记忆一';
@@ -640,9 +692,16 @@ Page({
       } else if ('06' == cmdMode) {
         alarm.modeVal = 'lingyaliAll';
         alarm.modeName = '零压力';
+      } else if ('07' == cmdMode) {
+        alarm.modeVal = 'sanduanshi';
+        alarm.modeName = '三段渐进式闹钟';
       } else {
         alarm.modeVal = 'close';
-        alarm.modeName = '不动作';
+        if(this.data.kuaijieType == 'K17'){
+          alarm.modeName = '躺平';
+        }else{
+          alarm.modeName = '不动作'
+        }
       }
 
       // 按摩

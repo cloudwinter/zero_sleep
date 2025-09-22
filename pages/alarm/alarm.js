@@ -44,6 +44,19 @@ Page({
       name: '不动作',
     },
     ],
+    mode3Items: [{
+      value: 'lingyali',
+      name: '零压力位起床',
+    },
+    {
+      value: 'sanduanshi',
+      name: '三段渐进式起床',
+    },
+    {
+      value: 'close',
+      name: '躺平',
+    },
+    ],
     dialogShow: false,
     alarm: { // 闹钟设置
       isOpenAlarm: false, // 闹钟开关
@@ -100,7 +113,9 @@ Page({
     modeDialogShow: false,
     mode2DialogShow: false,
     modeSelectRadio: '',
-    isMode2: false, // 是否是模式2
+    mode3DialogShow: false,
+    mode3SelectRadio: '',
+    modeValue: 1, // 模式类型
     tempLeftLingyaliChecked: false,
     tempRightLingyaliChecked: false,
     leftLingyaliChecked: false,
@@ -113,26 +128,27 @@ Page({
    */
   onLoad: function (options) {
     let connected = configManager.getCurrentConnected();
-    let isMode2 = this.data.isMode2;
+    let modeValue = this.data.modeValue;
     if (connected.name.indexOf('QMS-DFQ') >= 0 || connected.name.indexOf('QMS-430') >= 0
       || connected.name.indexOf('QMS-444') >= 0 || connected.name.indexOf('S4-HL') >= 0
       || connected.name.indexOf('QMS-443') >= 0 || connected.name.indexOf('S5-N05') >= 0) {
-      isMode2 = true;
+      modeValue = 2;
+    } else if (connected.name.indexOf('S4-6') >= 0) {
+      modeValue = 3;
     } else {
-      isMode2 = false;
+      modeValue = 1;
     }
     this.setData({
       skin: app.globalData.skin,
-      // skin:'orange',
       connected: connected,
-      isMode2: isMode2
+      modeValue: modeValue
     })
 
     //let connected = this.data.connected;
     if (util.isNotEmptyObject(connected)) {
-
       // 如果缓存中有设置缓存回显
       let alarm = configManager.getAlarm(connected.deviceId);
+      console.log(alarm)
       if (util.isNotEmptyObject(alarm)) {
         let periodList = this.data.periodList;
         if (alarm.period.length > 0) {
@@ -146,7 +162,6 @@ Page({
           alarm: alarm,
           periodList: periodList
         });
-
       }
 
       //this.sendRequestAlarmCmd();
@@ -314,8 +329,8 @@ Page({
    * @param {*} e 
    */
   modeTap: function (e) {
-    let isMode2 = this.data.isMode2;
-    if (isMode2) {
+    let modeValue = this.data.modeValue;
+    if (modeValue == 2) {//模式2
       let leftLingyaliChecked = this.data.leftLingyaliChecked;
       let rightLingyaliChecked = this.data.rightLingyaliChecked;
       let modeVal = this.data.alarm.modeVal;
@@ -335,7 +350,11 @@ Page({
         tempLeftLingyaliChecked: leftLingyaliChecked,
         tempRightLingyaliChecked: rightLingyaliChecked
       });
-    } else {
+    } else if (modeValue == 3) {//模式3
+      this.setData({
+        mode3DialogShow: true
+      });
+    } else {//模式1
       this.setData({
         modeDialogShow: true
       });
@@ -343,7 +362,7 @@ Page({
   },
 
   /**
-   * 模式选择
+   * 模式1选择
    * @param {*} e 
    */
   modeRadioChange: function (e) {
@@ -352,8 +371,9 @@ Page({
     })
   },
 
+
   /**
-   * 模式选择点击
+   * 模式1选择点击
    * @param {*} e 
    */
   onModalModeClick: function (e) {
@@ -375,6 +395,42 @@ Page({
       modeDialogShow: false,
       ['alarm.modeVal']: modeSelectRadio,
       ['alarm.modeName']: modeSelectName,
+    })
+  },
+
+  /**
+* 模式3选择
+* @param {*} e 
+*/
+  mode3RadioChange: function (e) {
+    this.setData({
+      mode3SelectRadio: e.detail.value
+    })
+  },
+
+  /**
+  * 模式3选择点击
+  * @param {*} e 
+  */
+  onModal3ModeClick: function (e) {
+    let cType = e.currentTarget.dataset.ctype;
+    if (cType == 'cancel') {
+      this.setData({
+        mode3DialogShow: false
+      })
+      return;
+    }
+    let mode3SelectRadio = this.data.mode3SelectRadio;
+    let mode3SelectName;
+    this.data.mode3Items.forEach(obj => {
+      if (mode3SelectRadio == obj.value) {
+        mode3SelectName = obj.name;
+      }
+    });
+    this.setData({
+      mode3DialogShow: false,
+      ['alarm.modeVal']: mode3SelectRadio,
+      ['alarm.modeName']: mode3SelectName,
     })
   },
 
@@ -533,6 +589,8 @@ Page({
       sendAlarmCmdPre += '05';
     } else if ('lingyaliALL' == mode) {
       sendAlarmCmdPre += '06';
+    } else if ('sanduanshi' == mode) {
+      sendAlarmCmdPre += '07';
     } else {
       sendAlarmCmdPre += '03';
     }
@@ -560,7 +618,12 @@ Page({
     console.log('saveTap->', cmd);
     util.sendBlueCmd(connected, cmd);
 
+    console.log(this.data.alarm)
+
+
     configManager.putAlarm(this.data.alarm, connected.deviceId);
+
+    console.log(configManager.getAlarm(connected.deviceId))
 
     wx.showLoading({
       title: '保存中...'

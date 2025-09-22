@@ -8,7 +8,7 @@
 
 .dark .button-bg-selected {
   background-color: #1E1F24;
-  border:3rpx solid #5A9927;
+  border: 3rpx solid #5A9927;
 }
 
 
@@ -18,7 +18,7 @@
 
 .orange .button-bg-selected {
   background-color: #6E269A;
-  border:3rpx solid #FF9704;
+  border: 3rpx solid #FF9704;
 }
 
 .layer {
@@ -38,7 +38,7 @@
   align-items: center;
 }
 
-.layer .button .dian{
+.layer .button .dian {
   width: 28rpx;
   height: 28rpx;
   padding-left: 52rpx;
@@ -113,7 +113,7 @@
 
 
 
-.jiyi .button .dian{
+.jiyi .button .dian {
   width: 28rpx;
   height: 28rpx;
   padding-left: 52rpx;
@@ -176,13 +176,43 @@
   position: absolute;
 }
 
-.anjiian-content .anjian-icon{
+.anjiian-content .anjian-icon {
   width: 100rpx;
   height: 80rpx;
   margin-top: 20rpx;
 }
 
-.anjiian-content .name{
+.anjiian-content .name {
   color: white;
   font-size: 24rpx;
+}
+
+
+/********童锁************** */
+.child-lock {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.lock {
+  width: 100rpx;
+  height: 70rpx;
+}
+
+.lock-title {
+  color: #FFF;
+  font-size: 26rpx;
+  margin-top: 10rpx;
+}
+
+.lock-hint {
+  color: #FFF;
+  margin-top: 40rpx;
+  margin-bottom: 20rpx;
+  display: flex;
+  font-size: 26rpx;
+  justify-content: center;
+  align-items: center;
 }

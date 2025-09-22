@@ -2,7 +2,7 @@
 <view class="page-{{skin}}">
   <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}" set="{{navbar.set}}" setType="1" background="{{navbar.background}}"></navbar>
 
-  <view class="{{skin}}">
+  <view class="content" style="height: {{containerHeight}}px;">
     <view class="taly-module">
       <image src="/images/dark/taly.png" mode="aspectFit" class="taly"></image>
     </view>

@@ -1,5 +1,7 @@
 <!--component/kuaijie/kuaijie-K5.wxml-->
-<view class="{{skin}}" bindtap="tapBlank" data-blank="blank">
+<scroll-view scroll-y="true" class="{{skin}}" bindtap="tapBlank" data-blank="blank" enhanced="true" showScrollbar="false" style="height:{{containerHeight}}px">
+
+<view class="{{skin}}">
 
   <view class="layer" wx:if="{{tongbukzShow}}" bindtap="tongbukzTab">
 		<view class="button title button-bg">
@@ -27,6 +29,13 @@
 				<view class="dh-name">{{currentAnjian.name}}</view>
 			</view>
 		</view>
+	</view>
+
+	<view class="child-lock" style="margin-top:20rpx;" wx:if="{{childLock}}">
+		<image class="lock" bindtap="childLockTap" src="../../../images/{{skin}}/lock.png" wx:if="{{childLockSwitch}}"></image>
+		<image class="lock" bindtap="childLockTap" src="../../../images/{{skin}}/unlock.png" wx:else></image>
+		<view class="lock-title lock-text" bindtap="childLockTap">童锁</view>
+		<view class="lock-title lock-text">点击图标上锁/解锁</view>
 	</view>
 
 	<view class="fenti" hidden="{{currentType!='fenti'}}">
@@ -76,7 +85,7 @@
 
 		<view class="anjianqu" style="margin-top:30rpx">
 			<view class="anjian-left">
-				<view class="anjiian-content anjian-button-bg button-bg}}" catchtap="tapFuyuanLeft" bindtouchstart="touchStart" bindtouchend="touchEnd">
+				<view class="anjiian-content anjian-button-bg button-bg" catchtap="tapFuyuanLeft" bindtouchstart="touchStart" bindtouchend="touchEnd">
 					<image class="anjian-icon" src="../../../images/{{skin}}/fuyuan-xiao@3x.png"></image>
 					<view class="name">复原</view>
 				</view>
@@ -133,5 +142,6 @@
 			</view>
 		</view>
 	</view>
-
 </view>
+	<view class="lock-hint lock-text" wx:if="{{childLock}}">童锁状态下，小程序可以控制，遥控器不能控制</view>
+</scroll-view>

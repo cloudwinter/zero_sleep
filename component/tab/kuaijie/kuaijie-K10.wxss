@@ -138,3 +138,33 @@
   color: white;
   font-size: 24rpx;
 }
+
+
+/********童锁************** */
+.child-lock {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.lock {
+  width: 100rpx;
+  height: 70rpx;
+}
+
+.lock-title {
+  color: #FFF;
+  font-size: 26rpx;
+  margin-top: 10rpx;
+}
+
+.lock-hint {
+  color: #FFF;
+	margin-top: 0rpx;
+	margin-bottom: 20rpx;
+  display: flex;
+  font-size: 26rpx;
+  justify-content: center;
+  align-items: center;
+}

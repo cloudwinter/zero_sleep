@@ -1,6 +1,7 @@
 // pages/mainv2/zhinengjiance/zhinengjiance.js
 const app = getApp();
 const util = require('../../../utils/util')
+const time = require('../../../utils/time')
 const configManager = require('../../../utils/configManager')
 const WxNotificationCenter = require('../../../utils/WxNotificationCenter')
 const crcUtil = require('../../../utils/crcUtil');

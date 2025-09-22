@@ -8,7 +8,18 @@
   color: white;
 }
 
+/*** common blue  */
+.blue .text-selected {
+  color: #FFF;
+}
 
+.blue .button-bg {
+  background: #6181AB;
+}
+
+.blue .button-bg-selected {
+  background-color: #335683;
+}
 
 /*** common dark  */
 .dark .text-selected {
@@ -20,7 +31,7 @@
 }
 
 .dark .button-bg-selected {
-  background-color: #1E1F24;
+  background-color: #335683;
   border:3rpx solid #5A9927;
 }
 
@@ -46,6 +57,11 @@
   background-color: #FF9704;
 }
 
+.blue .line-color {
+  background-color: #FFF;
+}
+
+
 
 
 
@@ -61,6 +77,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .shijian .left {
@@ -84,7 +101,7 @@
   width: 176rpx;
   height: 120rpx;
   border-radius: 60rpx;
-  background: #1E1F24;
+  background: #6181AB;
   /* position: absolute;
   z-index: -1; */
 }
@@ -93,12 +110,12 @@
   display: flex;
   align-items: center;
   flex-direction: column;
+  justify-content: center;
 }
 
 .shijian-button .shijian-icon {
   width: 41rpx;
   height: 41rpx;
-  margin-top: 17rpx;
 }
 
 .shijian-button .name {
@@ -130,7 +147,7 @@
   width: 90% !important;
   height: 120rpx;
   border-radius: 120rpx;
-  background: #1E1F24;
+  background: #6181AB;
   /* position: absolute;
   z-index: -1; */
 }
@@ -180,7 +197,7 @@
 .line4 {
   width: 24%;
   height: 4rpx;
-  background: #05BF74;
+  background: #FFF;
   border-radius: 4rpx;
   margin-right: 2rpx;
 }
@@ -188,7 +205,7 @@
 .line3 {
   width: 33%;
   height: 4rpx;
-  background: #05BF74;
+  background: #FFF;
   border-radius: 4rpx;
   margin-right: 2rpx;
 }

@@ -1,4 +1,11 @@
 /* pages/set.wxss */
+.blue .shezhi-button-bg {
+  width: 90% !important;
+  height: 120rpx;
+  border-radius: 120rpx;
+  background: #6181AB;
+}
+
 .dark .shezhi-button-bg {
   width: 90% !important;
   height: 120rpx;
@@ -48,6 +55,10 @@
 .shezhi-button-name {
   color: #59B84D;
   font-size: 28rpx;
+}
+
+.blue .shezhi-button-name{
+  color: #FFF;
 }
 
 .shezhi-button-icon {

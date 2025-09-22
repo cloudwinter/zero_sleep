@@ -1,5 +1,6 @@
 // component/tab/kuaijie/kuaijie-K8.js
 const util = require('../../../utils/util')
+const configManager = require('../../../utils/configManager')
 const WxNotificationCenter = require('../../../utils/WxNotificationCenter')
 const app = getApp();
 const askPrefix = 'FFFFFFFF0300'; // 询问码前缀
@@ -9,7 +10,13 @@ Component({
   /**
    * 组件的属性列表
    */
-  properties: {},
+  properties: {
+    // 可以通过外部传入控制显示的属性
+    visible: {
+      type: Boolean,
+      value: true
+    }
+  },
 
   options: {
     addGlobalClass: true,
@@ -21,6 +28,7 @@ Component({
   data: {
     skin: app.globalData.skin,
     display: app.globalData.display,
+    containerHeight: '',
     connected: {},
     currentAnjian: {
       anjian: 'kandianshi', // kandianshi,lingyali,dingyao,fuyuan
@@ -34,7 +42,9 @@ Component({
     startTime: '',
     endTime: '',
     tongbukzShow: false, // 同步控制显示
-    tongbukzStatus: false // 同步控制状态
+    tongbukzStatus: false, // 同步控制状态
+    childLock: false,//童锁显示
+    childLockSwitch: false,//童锁状态
   },
 
 
@@ -43,9 +53,13 @@ Component({
    */
   pageLifetimes: {
     show: function () {
+      var childLock = configManager.getChildLockStatus(this.data.connected.deviceId)
+      var childLockSwitch = configManager.getChildLockSwitch(this.data.connected.deviceId)
       // 设置当前的皮肤样式
       this.setData({
-        skin: app.globalData.skin
+        skin: app.globalData.skin,
+        childLock: childLock,
+        childLockSwitch: childLockSwitch,
       })
     }
   },
@@ -61,12 +75,22 @@ Component({
     ready: function () {
       // 在组件在视图层布局完成后执行
       console.info("kuaijie-K3-->ready");
+      var that = this;
+      var childLock = configManager.getChildLockStatus(that.data.connected.deviceId)
+      var childLockSwitch = configManager.getChildLockSwitch(that.data.connected.deviceId)
+
+      that.setData({
+        childLock: childLock,
+        childLockSwitch: childLockSwitch
+      })
     },
     attached: function () {
       // 在组件实例进入页面节点树时执行
       console.info("attached");
       this.setData({
-        display: app.globalData.display
+        display: app.globalData.display,
+         // 屏幕高度-顶部高度-tab高度-预留5px底部距离
+         containerHeight: app.globalData.screenHeight - app.globalData.navHeight - 62
       })
     },
     detached: function () {
@@ -121,6 +145,9 @@ Component({
       setTimeout(() => {
         this.sendAskBlueCmd(lingyali)
       }, 400);
+      setTimeout(() => {
+        // cur.sendFullBlueCmd('FFFFFFFF0500000F0CD2F5');//查询童锁的状态
+      }, 500)
     },
 
     /**
@@ -168,6 +195,34 @@ Component({
           })
         }
       }
+
+      if (cmd.indexOf('FFFFFFFF0500050A0CC1A4') >= 0) {//回复关锁成功
+        configManager.putChildLockSwitch(false, that.data.connected.deviceId)
+        that.setData({
+          childLockSwitch: false
+        })
+      } else if (cmd.indexOf('FFFFFFFF050005000CC704') >= 0) {//回复开锁成功
+        configManager.putChildLockSwitch(true, that.data.connected.deviceId)
+        that.setData({
+          childLockSwitch: true
+        })
+      } else if (cmd.indexOf('FFFFFFFF0500000C0CD205') >= 0) {//童锁状态
+        configManager.putChildLockStatus(true, that.data.connected.deviceId)//有童锁
+        configManager.putChildLockSwitch(true, that.data.connected.deviceId)//童锁开启状态
+
+        that.setData({
+          childLock: true,
+          childLockSwitch: true
+        })
+      } else if (cmd.indexOf('FFFFFFFF0500000A0CD1A5') >= 0) {//非童锁状态
+        console.log(that.data.connected.deviceId,"设置童锁")
+        configManager.putChildLockStatus(true, that.data.connected.deviceId)//有童锁
+        configManager.putChildLockSwitch(false, that.data.connected.deviceId)//童锁关闭状态
+        that.setData({
+          childLock: true,
+          childLockSwitch: false
+        })
+      }
     },
 
     /**
@@ -185,6 +240,16 @@ Component({
     sendBlueCmd(cmd, options) {
       var connected = this.data.connected;
       util.sendBlueCmd(connected, sendPrefix + cmd, options);
+    },
+
+    /**
+     * 发送完整的蓝牙命令
+     * @param {} cmd 
+     * @param {*} options 
+     */
+    sendFullBlueCmd(cmd, options) {
+      var connected = this.data.connected;
+      util.sendBlueCmd(connected, cmd, options);
     },
 
 

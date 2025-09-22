@@ -1,5 +1,6 @@
 <!--component/tab/kuaijie/kuaijie-K8.wxml-->
 <!--component/kuaijie/kuaijie-K3.wxml-->
+<scroll-view scroll-y="true" class="{{skin}}" bindtap="tapBlank" data-blank="blank" enhanced="true" showScrollbar="false" style="height:{{containerHeight}}px">
 
 <view class="{{skin}}" bindtap="tapBlank" data-blank="blank">
   <view class="layer" wx:if="{{tongbukzShow}}" bindtap="tongbukzTab">
@@ -37,6 +38,13 @@
       </view>
     </view>
   </view>
+
+  <view class="child-lock" style="margin-top:20rpx;" wx:if="{{childLock}}">
+		<image class="lock" bindtap="childLockTap" src="../../../images/{{skin}}/lock.png" wx:if="{{childLockSwitch}}"></image>
+		<image class="lock" bindtap="childLockTap" src="../../../images/{{skin}}/unlock.png" wx:else></image>
+		<view class="lock-title lock-text" bindtap="childLockTap">童锁</view>
+		<view class="lock-title lock-text">点击图标上锁/解锁</view>
+	</view>
 
   <view class="jiyi">
     <view class="button left {{jiyi1?'button-bg-selected':'button-bg'}}" catchtap="tapJiyi1" bindtouchstart="touchStart" bindtouchend="touchEnd">
@@ -118,5 +126,6 @@
     </view>
 
   </view>
-
 </view>
+	<view class="lock-hint lock-text" wx:if="{{childLock}}">童锁状态下，小程序可以控制，遥控器不能控制</view>
+</scroll-view>

@@ -20,7 +20,11 @@ Component({
    * 组件的属性列表
    */
   properties: {
-
+    // 可以通过外部传入控制显示的属性
+    visible: {
+      type: Boolean,
+      value: true
+    }
   },
 
   /**

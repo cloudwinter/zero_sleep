@@ -9,7 +9,13 @@ Component({
   /**
    * 组件的属性列表
    */
-  properties: {},
+  properties: {
+    // 可以通过外部传入控制显示的属性
+    visible: {
+      type: Boolean,
+      value: true
+    }
+  },
 
   options: {
     addGlobalClass: true,
@@ -33,6 +39,7 @@ Component({
     beibu: false,//是否联动
     startTime: '',
     endTime: '',
+    selectIndex:-1,//0:全身按摩 1：背部按摩 2：腰部按摩 3：颈部按摩 4：瑜伽 5：按摩停止 6：放气
   },
 
   /**
@@ -67,7 +74,7 @@ Component({
       })
       setTimeout(() => {
         that.askQiNangStatus(that.data.connected, that);
-      }, 100)
+      }, 350)
     },
     attached: function () {
       // 在组件实例进入页面节点树时执行
@@ -197,9 +204,11 @@ Component({
       var name = ''
       var cmd = ''
       var anjian = ''
+      var selectIndex = -1
       if (type == 'quanshen') {
         name = '全身按摩'
         anjian = 'quanshen'
+        selectIndex = 0
         var longClick = this.longClick();
         var quanshen = this.data.quanshen;
         if (!quanshen) {
@@ -224,6 +233,7 @@ Component({
       } else if (type == 'beibu') {
         name = '背部按摩'
         anjian = 'beibu'
+        selectIndex = 1
         var longClick = this.longClick();
         var beibu = this.data.beibu;
         if (!beibu) {
@@ -248,22 +258,27 @@ Component({
       } else if (type == 'yaobu') {
         name = '腰部按摩'
         anjian = 'yaobu'
+        selectIndex = 2
         cmd = 'FFFFFFFFFF0B010500'
       } else if (type == 'jingbu') {
         name = '颈部按摩'
         anjian = 'jingbu'
+        selectIndex = 3
         cmd = 'FFFFFFFFFF0B010400'
       } else if (type == 'yujia') {
         name = '瑜伽'
         anjian = 'yujia'
+        selectIndex = 4
         cmd = 'FFFFFFFFFF0B010C00'
       } else if (type == 'anmotingzhi') {
         name = '按摩停止'
         anjian = 'anmotingzhi'
+        selectIndex = 5
         cmd = 'FFFFFFFFFF0B010000'
       } else if (type == 'fangqi') {
         name = '放气'
         anjian = 'fangqi'
+        selectIndex = 6
         cmd = 'FFFFFFFFFF0B010600'
       }
       this.setData({
@@ -271,7 +286,8 @@ Component({
         currentAnjian: {
           anjian: anjian,
           name: name
-        }
+        },
+        selectIndex:selectIndex
       })
       cmd = cmd + crcUtil.swapHexByteOrder(crcUtil.crc16(cmd));
       util.sendBlueCmd(this.data.connected, cmd);

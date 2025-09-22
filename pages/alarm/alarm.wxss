@@ -1,5 +1,12 @@
 /* pages/alarm/alarm.wxss */
 /* pages/set.wxss */
+.blue .shezhi-button-bg {
+  width: 90% !important;
+  height: 120rpx;
+  border-radius: 120rpx;
+  background: #6181AB;
+}
+
 .dark .shezhi-button-bg {
   width: 90% !important;
   height: 120rpx;
@@ -8,13 +15,20 @@
 }
 
 .orange .shezhi-button-bg {
-  
+
   width: 90% !important;
   height: 120rpx;
   border-radius: 120rpx;
   background: #6E269A;
 }
 
+.blue .item {
+  width: 100%;
+  height: 88rpx;
+  background: #6181AB;
+  display: flex;
+  align-items: center;
+}
 
 .dark .item {
   width: 100%;
@@ -30,6 +44,11 @@
   background: #4E1277;
   display: flex;
   align-items: center;
+}
+
+.blue .item-right-name {
+  color: #FFF;
+  font-size: 28rpx;
 }
 
 
@@ -108,27 +127,38 @@
 }
 
 /** 复选框 */
-.dark .wx-switch-input{
-  width:88rpx !important;
-  height:44rpx !important;
-  background: #59B84D !important;
-  border: #59B84D !important; /* 2018-07-18 重置开关边框颜色 */
+.blue .wx-switch-input {
+  width: 88rpx !important;
+  height: 44rpx !important;
+  background: #335683 !important;
+  border: #335683 !important;
+  /* 2018-07-18 重置开关边框颜色 */
 }
 
-.orange .wx-switch-input{
-  width:88rpx !important;
-  height:44rpx !important;
+.dark .wx-switch-input {
+  width: 88rpx !important;
+  height: 44rpx !important;
+  background: #59B84D !important;
+  border: #59B84D !important;
+  /* 2018-07-18 重置开关边框颜色 */
+}
+
+.orange .wx-switch-input {
+  width: 88rpx !important;
+  height: 44rpx !important;
   background: #FF9704 !important;
-  border: #FF9704 !important; /* 2018-07-18 重置开关边框颜色 */
+  border: #FF9704 !important;
+  /* 2018-07-18 重置开关边框颜色 */
 }
 
 /*白色样式（false的样式）*/
-.wx-switch-input::before{
-  width:88rpx !important;
+.wx-switch-input::before {
+  width: 88rpx !important;
   height: 44rpx !important;
 }
+
 /*绿色样式（true的样式）*/
-.wx-switch-input::after{
+.wx-switch-input::after {
   width: 48rpx !important;
   height: 44rpx !important;
 }
@@ -136,18 +166,21 @@
 
 /** 对话框 */
 .sure {
-  color:green;
+  color: green;
 }
 
 
 .model-line {
-  width:100%;height:1rpx;background:#eee;
+  width: 100%;
+  height: 1rpx;
+  background: #eee;
 }
 
 .modal-box-body {
   background: #2B2D36;
   width: 100%;
 }
+
 .dialog-item {
   height: 80rpx;
   width: 100%;
@@ -164,10 +197,27 @@
   margin-left: 10rpx;
 }
 
-.model-label{
+.dialog-item-name3 {
+  margin-left: 10rpx;
+  color: #335683;
+  font-size: 26rpx;
+  flex: 1;
+}
+
+.model-label {
   display: flex;
   align-items: center;
   height: 120rpx;
+}
+
+.model-label3 {
+  display: flex;
+  align-items: center;
+  height: 90rpx;
+  padding: 0 30rpx;
+  margin: 30rpx;
+  background-color: #6181AB33;
+  border-radius: 60rpx;
 }
 
 .radio {

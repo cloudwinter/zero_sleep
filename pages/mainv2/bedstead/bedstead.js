@@ -203,6 +203,11 @@ Page({
     })
   },
   toLengNuan() {
+    // 冷暖合并询问码
+    var cmd = 'FFFFFFFFFE1000000000000000AA';
+    cmd = cmd + crcUtil.swapHexByteOrder(crcUtil.crc16(cmd));
+    console.log(cmd)
+    this.sendBlueCmd(cmd);
     this.setData({
       nowPage: "lengnuan",
       nowIndex: 2,

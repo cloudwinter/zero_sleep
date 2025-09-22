@@ -1,6 +1,15 @@
 /**search.wxss**/
 
 /***  common **/
+.blue .button-bg {
+  background: #6181AB;
+}
+
+.blue .button {
+  color: #59B84D;
+  border-color: #59B84D;
+}
+
 .dark .button-bg {
   background: #1E1F24;
 }
