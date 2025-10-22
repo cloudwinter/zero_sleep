@@ -9,7 +9,7 @@
     <view class="module">
       <view class="button  button-bg" catchtap="tapSearch" data-type="diandong">
         <image class="icon" src="../../images/{{skin}}/bedstead@2x.png"></image>
-        <view class="name">智能床架</view>
+        <view class="name">智能床</view>
       </view>
     </view>
 

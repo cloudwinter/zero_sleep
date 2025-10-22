@@ -39,7 +39,7 @@ Component({
     beibu: false,//是否联动
     startTime: '',
     endTime: '',
-    selectIndex:-1,//0:全身按摩 1：背部按摩 2：腰部按摩 3：颈部按摩 4：瑜伽 5：按摩停止 6：放气
+    selectIndex: -1,//0:全身按摩 1：背部按摩 2：腰部按摩 3：颈部按摩 4：瑜伽 5：按摩停止 6：放气
   },
 
   /**
@@ -270,6 +270,11 @@ Component({
         anjian = 'yujia'
         selectIndex = 4
         cmd = 'FFFFFFFFFF0B010C00'
+      } else if (type == 'shuimian') {
+        name = '睡眠模式'
+        anjian = 'shuimian'
+        selectIndex = 7
+        cmd = 'FFFFFFFFFF0B010900'
       } else if (type == 'anmotingzhi') {
         name = '按摩停止'
         anjian = 'anmotingzhi'
@@ -287,7 +292,7 @@ Component({
           anjian: anjian,
           name: name
         },
-        selectIndex:selectIndex
+        selectIndex: selectIndex
       })
       cmd = cmd + crcUtil.swapHexByteOrder(crcUtil.crc16(cmd));
       util.sendBlueCmd(this.data.connected, cmd);

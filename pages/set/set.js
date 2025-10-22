@@ -60,6 +60,10 @@ Page({
     networkDialogShow: false,
     networkDialogTitle: '',
     isShowSkip: true,//是否显示选择模式
+    setType: 0,//设置页面的模式，0为正常设备，非0为太一组合款
+    isShowChangeDevice: false,//是否显示更换设备，太一组合床使用
+    startTime: '',
+    endTime: '',
   },
 
   /**
@@ -75,6 +79,7 @@ Page({
     let status = this.data.status;
     let faultDebugShow = false;
     let isShowSkip = this.data.isShowSkip
+    let setType = options.type ? options.type : 0
     let xunhuanModeItemShow = this.data.xunhuanModeItemShow;
     if (util.isNotEmptyObject(connected)) {
       status = '已连接';
@@ -86,7 +91,11 @@ Page({
         xunhuanModeItemShow = true;
       }
 
-      if (connected.name.indexOf('S4-6') >= 0) {
+      if (connected.name.indexOf('S4-6') >= 0) {//S4-6组合不需要显示换皮肤
+        isShowSkip = false
+      }
+      if (setType != 0) {//太一组合，不需要显示闹钟和皮肤
+        alarmSwitch = false
         isShowSkip = false
       }
     } else {
@@ -100,7 +109,8 @@ Page({
       status: status,
       faultDebugShow: faultDebugShow,
       alarmSwitch: alarmSwitch,
-      xunhuanModeItemShow: xunhuanModeItemShow
+      xunhuanModeItemShow: xunhuanModeItemShow,
+      setType: setType
     })
     WxNotificationCenter.addNotification("BLUEREPLY", this.blueReply, this);
 
@@ -162,14 +172,16 @@ Page({
 
 
     // 发送同步控制指令码
-    let cmd = 'FFFFFFFF01000A0B0F2104';
-    util.sendBlueCmd(connected, cmd);
+    if (this.data.setType == 0) {//太一组合不需要发码询问
+      let cmd = 'FFFFFFFF01000A0B0F2104';
+      util.sendBlueCmd(connected, cmd);
 
-    // 发码询问主板是否连接心率带
-    setTimeout(() => {
-      let inquiryCmd = 'FFFFFFFF01000C0B0F2304';
-      util.sendBlueCmd(connected, inquiryCmd);
-    }, 200);
+      // 发码询问主板是否连接心率带
+      setTimeout(() => {
+        let inquiryCmd = 'FFFFFFFF01000C0B0F2304';
+        util.sendBlueCmd(connected, inquiryCmd);
+      }, 200);
+    }
   },
 
 
@@ -361,12 +373,51 @@ Page({
    * @param {}} e 
    */
   set: function (e) {
-    wx.navigateBack({
-      delta: 2,
-      complete: (res) => {
-        console.info('返回蓝牙搜索界面')
-      },
+    var longClick = this.longClick();
+    if (longClick && this.data.setType != 0) {//太一组合床
+      this.setData({
+        isShowChangeDevice: true
+      })
+    } else {
+      var delta = 2
+      if (this.data.setType != 0) {//针对太一组合返回的层级
+        delta = parseInt(this.data.setType) + 1
+      }
+      console.log("返回层数", delta)
+      wx.navigateBack({
+        delta: delta,
+        complete: (res) => {
+          console.info('返回蓝牙搜索界面')
+        },
+      })
+    }
+  },
+
+  //更换设备
+  changeDevice() {
+    wx.navigateTo({
+      url: '/pages/set2/set2',
     })
+  },
+
+  /*************-------------点击事件--------------------*********** */
+  touchStart(e) {
+    this.startTime = e.timeStamp;
+  },
+  touchEnd(e) {
+    this.endTime = e.timeStamp;
+  },
+
+  /**
+ * 判断单击 1 和长按 2 事件 其他0
+ * @param {*} e 
+ */
+  longClick() {
+    if (this.endTime - this.startTime > 1000) {
+      console.log("长按了");
+      return true;
+    }
+    return false;
   },
 
   /**

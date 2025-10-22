@@ -34,7 +34,7 @@ Page({
     tabBar: [{
       "selectedIconPath": "../../../images/" + app.globalData.skin + "/tab_diandong_selected@2x.png",
       "iconPath": "../../../images/" + app.globalData.skin + "/tab_diandong_normal@2x.png",
-      "text": "电动床",
+      "text": "智能床",
       "tapFunction": "toDianDongChuang",
       "active": "active",
       "show": true

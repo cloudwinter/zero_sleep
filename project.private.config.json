@@ -4,6 +4,13 @@
     "miniprogram": {
       "list": [
         {
+          "name": "pages/network/network",
+          "pathName": "pages/network/network",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
           "name": "pages/mainv2/timeset/timeset",
           "pathName": "pages/mainv2/timeset/timeset",
           "query": "",

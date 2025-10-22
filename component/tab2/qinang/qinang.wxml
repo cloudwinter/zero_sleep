@@ -1,5 +1,5 @@
 <!--component/qinang/qinang.wxml-->
-<scroll-view scroll-y="true" class="{{skin}}" enhanced="true" showScrollbar="false" style="height:{{containerHeight}}px">
+<scroll-view scroll-y="true" class="{{skin}}" enhanced="true" showScrollbar="{{false}}" style="height:{{containerHeight}}px">
 
   <view class="anjianqu" style="padding-top:10rpx;">
     <view class="anjian-left">
@@ -46,12 +46,19 @@
       </view>
     </view>
     <view class="anjian-right">
+      <image class="anjian-bg" style="border: 2rpx solid {{selectIndex==7?'#41B67C':'#1E1F24'}}"></image>
+      <view class="anjiian-content" catchtap="selectMode" data-type="shuimian">
+        <image class="anjian-icon" src="../../../images/{{skin}}/fuyuan-xiao@3x.png"></image>
+        <view class="name"><text>睡眠模式</text></view>
+      </view>
+    </view>
+    <!-- <view class="anjian-right">
       <image class="anjian-bg"></image>
       <view class="anjiian-content">
         <view class="name"><text>自适应</text></view>
         <switch checked="{{zishiying}}" bindchange="ziShiYingSwitch" style="transform: scale(0.6);margin-top: 10rpx;"></switch>
       </view>
-    </view>
+    </view> -->
   </view>
 
   <view class="jiyi">

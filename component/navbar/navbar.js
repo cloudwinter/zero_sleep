@@ -99,16 +99,9 @@ Component({
       }, {});
     },
     set: function set() {
-      if (this.data.setType == 0) {
-        wx.navigateTo({
-          url: '/pages/set/set',
-        })
-      } else {
-        wx.navigateTo({
-          url: '/pages/set2/set2?delta='+this.data.setType,
-        })
-      }
-
+      wx.navigateTo({
+        url: '/pages/set/set?type=' + this.data.setType,
+      })
     },
 
     touchStart: function touchStart(e) {

@@ -27,56 +27,9 @@ Page({
     }, // 导航栏
     currentModeSelected: '',//选择模式
     currentModeValue: '0300',//模式值
-    qingduUpperLimitIndex: 0,//按摩强度上限 挡位：3、4、5、6、7、8
-    qingduLowerLimitIndex: 0,//按摩强度下限 挡位：1、2、3、4、5、6
     currentTimeSelected: '',//按摩时间
     currentTimeValue: '',//时间值
-    upperLimitList: [
-      {
-        "gear": 2,
-        "value": 20
-      },
-      {
-        "gear": 3,
-        "value": 30
-      }, {
-        "gear": 4,
-        "value": 40
-      }, {
-        "gear": 5,
-        "value": 50
-      }, {
-        "gear": 6,
-        "value": 60
-      }, {
-        "gear": 7,
-        "value": 70
-      }, {
-        "gear": 8,
-        "value": 80
-      }
-    ],
-    lowerLimitList: [
-      {
-        "gear": 1,
-        "value": 10
-      }, {
-        "gear": 2,
-        "value": 20
-      }, {
-        "gear": 3,
-        "value": 30
-      }, {
-        "gear": 4,
-        "value": 40
-      }, {
-        "gear": 5,
-        "value": 50
-      }, {
-        "gear": 6,
-        "value": 60
-      }
-    ]
+    qingduLimitIndex: 1,//按摩强度上限 挡位：1、2、3、4、5、6、7、8
   },
 
   /**
@@ -139,28 +92,20 @@ Page({
       var upperStatus = cmd.substr(22, 2).toUpperCase() + cmd.substr(20, 2).toUpperCase();
       var lowerStatus = cmd.substr(26, 2).toUpperCase() + cmd.substr(24, 2).toUpperCase();;
       var upperValue = util.str16To10('0x' + upperStatus);
-      console.log("upperValue",upperValue)
-      var qingduUpperLimitIndex = 0
-      this.data.upperLimitList.forEach((item, index) => {
-        if (item.value == upperValue) {
-          qingduUpperLimitIndex = index
-        }
-      })
+      console.log("upperValue", upperValue)
+      var qingduLimitIndex = 2
+      if (upperValue) {
+        qingduLimitIndex = upperValue / 10
+      }
       var lowerValue = util.str16To10('0x' + lowerStatus);
-      console.log("lowerValue",lowerValue)
-      var qingduLowerLimitIndex = 0
-      this.data.lowerLimitList.forEach((item, index) => {
-        if (item.value == lowerValue) {
-          qingduLowerLimitIndex = index
-        }
-      })
+      console.log("lowerValue", lowerValue)
+
       this.setData({
         currentModeSelected: mode,
         currentModeValue: modeStatus,
         currentTimeSelected: timeValue,
         currentTimeValue: timeStatus,
-        qingduUpperLimitIndex: qingduUpperLimitIndex,
-        qingduLowerLimitIndex: qingduLowerLimitIndex
+        qingduLimitIndex: qingduLimitIndex
       })
     } else if (cmd.indexOf('FFFFFFFFFF14030E01') > -1) {
       wx.showToast({
@@ -203,80 +148,64 @@ Page({
 
   //强度上限
   upperTap() {
-    var qingduUpperGear = this.data.upperLimitList[this.data.qingduUpperLimitIndex].gear
-    if (qingduUpperGear == 8) {
-      qingduUpperGear = 2
-    } else {
-      qingduUpperGear++
+    var qingduLimitIndex = this.data.qingduLimitIndex
+    if (qingduLimitIndex < 8) {
+      qingduLimitIndex++
     }
-    var qingduUpperLimitIndex = 0
-    this.data.upperLimitList.forEach((item, index) => {
-      if (qingduUpperGear == item.gear) {
-        qingduUpperLimitIndex = index
-      }
-    })
     this.setData({
-      qingduUpperLimitIndex: qingduUpperLimitIndex
+      qingduLimitIndex: qingduLimitIndex
     })
   },
 
   //强度下限
   lowerTap() {
-    var qingduLowerGear = this.data.lowerLimitList[this.data.qingduLowerLimitIndex].gear
-    if (qingduLowerGear == 6) {
-      qingduLowerGear = 1
-    } else {
-      qingduLowerGear++
+    var qingduLimitIndex = this.data.qingduLimitIndex
+    if (qingduLimitIndex > 1) {
+      qingduLimitIndex--
     }
-    var qingduLowerLimitIndex = 0
-    this.data.lowerLimitList.forEach((item, index) => {
-      if (qingduLowerGear == item.gear) {
-        qingduLowerLimitIndex = index
-      }
-    })
     this.setData({
-      qingduLowerLimitIndex: qingduLowerLimitIndex
+      qingduLimitIndex: qingduLimitIndex
     })
   },
 
   //点击确认
   confirmTap() {
     var that = this
-    var qingduUpperGear = this.data.upperLimitList[this.data.qingduUpperLimitIndex].gear
-    var qingduLowerGear = this.data.lowerLimitList[this.data.qingduLowerLimitIndex].gear
+    // var qingduUpperGear = this.data.qingduLimitIndex*10
+    // var qingduLowerGear = 0
 
-    if (qingduUpperGear - qingduLowerGear < 1) {
-      wx.showModal({
-        title: '提示',
-        content: '按摩强度上限至少要比下限大1档',
-        complete: (res) => {
-          if (res.cancel) {
-          }
+    // if (qingduUpperGear - qingduLowerGear < 1) {
+    //   wx.showModal({
+    //     title: '提示',
+    //     content: '按摩强度上限至少要比下限大1档',
+    //     complete: (res) => {
+    //       if (res.cancel) {
+    //       }
 
-          if (res.confirm) {
-            qingduUpperGear = qingduLowerGear + 2
-            that.data.upperLimitList.forEach((item, index) => {
-              if (qingduUpperGear == item.gear) {
-                that.setData({
-                  qingduUpperLimitIndex: index
-                })
-              }
-            })
-            console.log(that.data.upperLimitList[that.data.qingduUpperLimitIndex].value)
-            console.log(that.data.lowerLimitList[that.data.qingduLowerLimitIndex].value)
-            var cmd = "FFFFFFFFFF14030E00" + that.data.currentModeValue.substr(0, 2) + util.str10To16(that.data.upperLimitList[that.data.qingduUpperLimitIndex].value) + "00" + util.str10To16(that.data.lowerLimitList[that.data.qingduLowerLimitIndex].value) + "00" + that.data.currentTimeValue + "000000"
-            cmd = cmd + crcUtil.swapHexByteOrder(crcUtil.crc16(cmd));
-            console.log(cmd)
-            util.sendBlueCmd(that.data.connected, cmd);
-          }
-        }
-      })
-    } else {
-      var cmd = "FFFFFFFFFF14030E00" + that.data.currentModeValue.substr(0, 2) + util.str10To16(that.data.upperLimitList[that.data.qingduUpperLimitIndex].value) + "00" + util.str10To16(that.data.lowerLimitList[that.data.qingduLowerLimitIndex].value) + "00" + that.data.currentTimeValue + "000000"
-      cmd = cmd + crcUtil.swapHexByteOrder(crcUtil.crc16(cmd));
-      console.log(cmd)
-      util.sendBlueCmd(that.data.connected, cmd);
-    }
+    //       if (res.confirm) {
+    //         qingduUpperGear = qingduLowerGear + 2
+    //         that.data.upperLimitList.forEach((item, index) => {
+    //           if (qingduUpperGear == item.gear) {
+    //             that.setData({
+    //               qingduUpperLimitIndex: index
+    //             })
+    //           }
+    //         })
+    //         console.log(that.data.upperLimitList[that.data.qingduUpperLimitIndex].value)
+    //         console.log(that.data.lowerLimitList[that.data.qingduLowerLimitIndex].value)
+    //         var cmd = "FFFFFFFFFF14030E00" + that.data.currentModeValue.substr(0, 2) + util.str10To16(that.data.upperLimitList[that.data.qingduUpperLimitIndex].value) + "00" + util.str10To16(that.data.lowerLimitList[that.data.qingduLowerLimitIndex].value) + "00" + that.data.currentTimeValue + "000000"
+    //         cmd = cmd + crcUtil.swapHexByteOrder(crcUtil.crc16(cmd));
+    //         console.log(cmd)
+    //         util.sendBlueCmd(that.data.connected, cmd);
+    //       }
+    //     }
+    //   })
+    // } else {
+    var cmd = "FFFFFFFFFF14030E00" + that.data.currentModeValue.substr(0, 2) + util.str10To16(that.data.qingduLimitIndex * 10) + "00" + "00" + "00" + that.data.currentTimeValue + "000000"
+    cmd = cmd + crcUtil.swapHexByteOrder(crcUtil.crc16(cmd));
+    console.log(cmd)
+    util.sendBlueCmd(that.data.connected, cmd);
+    // }
   },
 
   /**
