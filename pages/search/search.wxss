@@ -74,6 +74,12 @@
   border-color: #59B84D; */
 }
 
+.scroll{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 90rpx;
+}
 
 .list-item {
   width: 90%;

@@ -7,6 +7,7 @@ const defaultTime = 3;
 Page({
   data: {
     skin: app.globalData.skin, //当前皮肤样式
+    containerHeight: '',
     navbar: {
       loading: false,
       color: '#FFFFFF',
@@ -42,7 +43,9 @@ Page({
     console.info("search-->onShow")
     // 设置当前的皮肤样式
     this.setData({
-      skin: app.globalData.skin
+      skin: app.globalData.skin,
+      // 屏幕高度-顶部高度-tab高度-预留5px底部距离
+      containerHeight: app.globalData.screenHeight - app.globalData.navHeight - 52 - 82
     })
   },
 
@@ -186,8 +189,10 @@ Page({
         if (!isexist && res.devices[0].localName) {
           var name = util.transSpecialChar(res.devices[0].localName);
           console.error('蓝牙名称装换hex:' + name)
-          if (devs.length >= 6) {
-            console.error('蓝牙列表已超过6个', name);
+          if (devs.length >= 15) {
+            console.error('蓝牙列表已超过15个', name);
+            // 停止搜索
+            that.stopDevicesDiscovery();
           } else {
             if (!that.isValidBlueName(name)) {
               console.error('不是有效的蓝牙名称', name);
@@ -195,7 +200,6 @@ Page({
               if (res.devices[0].RSSI < -95) {
                 console.error('蓝牙强度小于-80', res.devices[0].RSSI);
               } else {
-
                 devs.push({
                   name: name,
                   mac: mac,
@@ -203,6 +207,9 @@ Page({
                   deviceId: res.devices[0].deviceId
                 })
                 console.log("当前 devicesList", devs);
+                devs.sort((a, b) => {
+                  return b.RSSI - a.RSSI; // 降序：后减前
+                });
                 that.setData({
                   devices: devs
                 });
@@ -289,7 +296,12 @@ Page({
   },
 
 
+  /**
+   * 对列表按照RSSI从大到小的顺序进行排列
+   */
+  sortByRSSI(dev, devs) {
 
+  },
 
 
 
@@ -326,12 +338,10 @@ Page({
   },
 
 
-
   /**
    * 蓝牙搜索
    */
   search: function () {
-
     // 搜索前先clear设备列表
     this.setData({
       devices: []
@@ -343,8 +353,6 @@ Page({
     // }
     this.startDevicesDiscovery();
   },
-
-
 
 
   /**
@@ -564,7 +572,7 @@ Page({
       var kuaijieType = this.getKuaijieType(name);
       var weitiaoType = this.getWeitiaoType(name);
       var anmoType = this.getAnMoType(name);
-      
+
       if (kuaijieType == 'K17') {//设置K17为蓝色风格
         configManager.setSkin('blue')
         app.globalData.skin = 'blue'
