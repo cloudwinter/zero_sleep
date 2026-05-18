@@ -138,6 +138,7 @@ Page({
         //this.showNurseTab();
       }
       this.notifyBLECharacteristicValueChange();
+      // this.getBLService(connected.deviceId)
     }
 
     if (this.data.kuaijieType == 'K16') {//无按摩模块
@@ -415,10 +416,10 @@ Page({
       deviceId: deviceId,
       serviceId: serviceId,
       success: function (res) {
-        console.log("getBLcharac", res);
+        console.log("getBLcharac全部", res);
         for (var i = 0; i < res.characteristics.length; i++) {
           if (res.characteristics[i].properties.notify) {
-            console.log("getBLcharac", res.characteristics[i].uuid);
+            console.log("getBLcharac====", res.characteristics[i].uuid);
             that.setData({
               ['connected.notifyCharacId']: res.characteristics[i].uuid
             })

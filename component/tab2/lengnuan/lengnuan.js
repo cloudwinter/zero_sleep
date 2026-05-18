@@ -135,7 +135,7 @@ Component({
           cmd = cmd + crcUtil.swapHexByteOrder(crcUtil.crc16(cmd));
           that.sendBlueCmd(cmd)
         }
-      }, 5000)
+      }, 1500)
       that.setData({
         interval5: interval5
       })
@@ -318,15 +318,21 @@ Component({
         }
       } else if (cmd.indexOf("FFFFFFFFFE14000701") > -1) {//实时时间回码
         console.log("实时时间回码:" + cmd)
-      } else if (cmd.indexOf("FFFFFFFFFE14000101") > -1) {
+      } else if (cmd.indexOf("FFFFFFFFFE14000101") > -1) {//每5s查询一次的状态
         //温度
         var temp1 = cmd.substr(30, 2).toUpperCase();
         var temp2 = cmd.substr(32, 2).toUpperCase();
         var temp = parseInt(temp1) + "." + parseInt(temp2)
         console.log("temp1:" + temp1, "temp2:" + temp2)
 
+        //水位
+        var waterLevelStatus = cmd.substr(34, 2).toUpperCase();
+        var waterLevel = parseInt(waterLevelStatus)
+        console.log("waterLevel:" + waterLevel)
+
         that.setData({
-          temp: temp
+          temp: temp,
+          waterLevel, waterLevel
         })
 
         // 提取高四位和低四位
@@ -361,15 +367,15 @@ Component({
             buttonLeft: buttonLeft
           })
         }
-      }else if(cmd.indexOf('FFFFFFFFFE10000301')>-1){
+      } else if (cmd.indexOf('FFFFFFFFFE10000301') > -1) {
         var status = cmd.substr(20, 2).toUpperCase();
-        console.log("putLengNuanAlarm:",status)
-        if(status == '00'){//关闭
+        console.log("putLengNuanAlarm:", status)
+        if (status == '00') {//关闭
           configManager.putLengNuanAlarm(false, that.data.connected.deviceId)
           that.setData({
             timeStr: ''
           })
-        }else{//开启
+        } else {//开启
           configManager.putLengNuanAlarm(true, that.data.connected.deviceId)
           var lengnuanModel = configManager.getLengNuanData(that.data.connected.deviceId)
           if (lengnuanModel) {
