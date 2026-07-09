@@ -1,189 +1,189 @@
 <!--pages/set.wxml-->
 <view class="page-{{skin}}">
-	<navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}" background="{{navbar.background}}" title="设置"></navbar>
+  <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}" background="{{navbar.background}}" title="设置"></navbar>
 
-	<view class="{{skin}}">
-		<view class="content">
-			<view class="shezhi-content shezhi-button-bg" bindtouchstart="touchStart" bindtouchend="touchEnd" catchtap="set">
-				<!-- <button class="shezhi-button-bg"></button> -->
-				<view class="shezhi-button-left">连接设备</view>
-				<view class="shezhi-button-right">
-					<view class="shezhi-button-name">{{status}}</view>
-					<image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
-				</view>
-			</view>
+  <view class="{{skin}}">
+    <view class="content">
+      <view class="shezhi-content shezhi-button-bg" bindtouchstart="touchStart" bindtouchend="touchEnd" catchtap="set">
+        <!-- <button class="shezhi-button-bg"></button> -->
+        <view class="shezhi-button-left">连接设备</view>
+        <view class="shezhi-button-right">
+          <view class="shezhi-button-name">{{status}}</view>
+          <image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+        </view>
+      </view>
 
-			<view class="shezhi-content shezhi-button-bg" bindtap="changeSkip" wx:if="{{isShowSkip}}">
-				<!-- <button class="shezhi-button-bg"></button> -->
-				<view class="shezhi-button-left">模式选择</view>
-				<view class="shezhi-button-right">
-					<view class="shezhi-button-name">{{skin=='dark'?'深黑':'紫色'}}</view>
-					<image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
-				</view>
-			</view>
+      <view class="shezhi-content shezhi-button-bg" bindtap="changeSkip" wx:if="{{isShowSkip}}">
+        <!-- <button class="shezhi-button-bg"></button> -->
+        <view class="shezhi-button-left">模式选择</view>
+        <view class="shezhi-button-right">
+          <view class="shezhi-button-name">{{skin=='dark'?'深黑':'紫色'}}</view>
+          <image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+        </view>
+      </view>
 
-			<view class="shezhi-content shezhi-button-bg" bindtap="alarm" hidden="{{!alarmSwitch}}">
-				<view class="shezhi-button-left">闹钟设置</view>
-				<view class="shezhi-button-right">
-					<view class="shezhi-button-name">{{alarmStatus}}</view>
-					<image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
-				</view>
-			</view>
+      <view class="shezhi-content shezhi-button-bg" bindtap="alarm" hidden="{{!alarmSwitch}}">
+        <view class="shezhi-button-left">闹钟设置</view>
+        <view class="shezhi-button-right">
+          <view class="shezhi-button-name">{{alarmStatus}}</view>
+          <image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+        </view>
+      </view>
 
-			<view class="shezhi-content shezhi-button-bg" bindtap="changeDevice" wx:if="{{isShowChangeDevice}}">
-				<!-- <button class="shezhi-button-bg"></button> -->
-				<view class="shezhi-button-left">更换设备</view>
-				<view class="shezhi-button-right">
-					<view class="shezhi-button-name"></view>
-					<image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
-				</view>
-			</view>
+      <view class="shezhi-content shezhi-button-bg" bindtap="changeDevice" wx:if="{{isShowChangeDevice}}">
+        <!-- <button class="shezhi-button-bg"></button> -->
+        <view class="shezhi-button-left">更换设备</view>
+        <view class="shezhi-button-right">
+          <view class="shezhi-button-name"></view>
+          <image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+        </view>
+      </view>
 
-			<view class="shezhi-content shezhi-button-bg" bindtap="xunhuanModeItemTap" hidden="{{!xunhuanModeItemShow}}">
-				<view class="shezhi-button-left">循环模式</view>
-				<view class="shezhi-button-right">
-					<!-- <view class="shezhi-button-name"></view> -->
-					<image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
-				</view>
-			</view>
+      <view class="shezhi-content shezhi-button-bg" bindtap="xunhuanModeItemTap" hidden="{{!xunhuanModeItemShow}}">
+        <view class="shezhi-button-left">循环模式</view>
+        <view class="shezhi-button-right">
+          <!-- <view class="shezhi-button-name"></view> -->
+          <image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+        </view>
+      </view>
 
-			<view class="shezhi-content shezhi-button-bg" bindtap="zhinengshuimianModeItemTap" hidden="{{!zhinengshuimianItemShow}}">
-				<view class="shezhi-button-left">智能睡眠</view>
-				<view class="shezhi-button-right">
-					<!-- <view class="shezhi-button-name"></view> -->
-					<image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
-				</view>
-			</view>
-
-
-			<view class="shezhi-content shezhi-button-bg" bindtap="faultDebug" hidden="{{!faultDebugShow}}">
-				<view class="shezhi-button-left">故障调试</view>
-				<view class="shezhi-button-right">
-					<!-- <view class="shezhi-button-name"></view> -->
-					<image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
-				</view>
-			</view>
-
-			<view class="shezhi-content shezhi-button-bg" hidden="true">
-				<view class="shezhi-button-left">同步控制</view>
-				<view class="shezhi-button-right">
-					<!-- <view class="shezhi-button-name"></view> -->
-					<switch checked="{{tongbukongzhiSWitch}}" bindchange="tongbuItemSwitch" />
-				</view>
-			</view>
+      <view class="shezhi-content shezhi-button-bg" bindtap="zhinengshuimianModeItemTap" hidden="{{!zhinengshuimianItemShow}}">
+        <view class="shezhi-button-left">智能睡眠</view>
+        <view class="shezhi-button-right">
+          <!-- <view class="shezhi-button-name"></view> -->
+          <image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+        </view>
+      </view>
 
 
-			<!-- 配网 -->
-			<view class="shezhi-content shezhi-button-bg" bindtap="networkClick" hidden="true">
-				<view class="shezhi-button-left">{{network.title}}</view>
-				<view class="shezhi-button-right">
-					<view class="shezhi-button-name">{{network.desc}}</view>
-					<image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
-				</view>
-			</view>
+      <view class="shezhi-content shezhi-button-bg" bindtap="faultDebug" hidden="{{!faultDebugShow}}">
+        <view class="shezhi-button-left">故障调试</view>
+        <view class="shezhi-button-right">
+          <!-- <view class="shezhi-button-name"></view> -->
+          <image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+        </view>
+      </view>
 
-			<view class="shezhi-content shezhi-button-bg" bindtap="shishixinlvItemShowTap" hidden="true">
-				<view class="shezhi-button-left">实时心率数据</view>
-				<view class="shezhi-button-right">
-					<!-- <view class="shezhi-button-name"></view> -->
-					<image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
-				</view>
-			</view>
-
-			<view class="shezhi-content shezhi-button-bg" bindtap="shuimianbaogaoItemShowTap" hidden="true">
-				<view class="shezhi-button-left">睡眠报告</view>
-				<view class="shezhi-button-right">
-					<!-- <view class="shezhi-button-name"></view> -->
-					<image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
-				</view>
-			</view>
-
-		</view>
-	</view>
+      <view class="shezhi-content shezhi-button-bg" hidden="true">
+        <view class="shezhi-button-left">同步控制</view>
+        <view class="shezhi-button-right">
+          <!-- <view class="shezhi-button-name"></view> -->
+          <switch checked="{{tongbukongzhiSWitch}}" bindchange="tongbuItemSwitch" />
+        </view>
+      </view>
 
 
+      <!-- 配网 -->
+      <view class="shezhi-content shezhi-button-bg" bindtap="networkClick" hidden="true">
+        <view class="shezhi-button-left">{{network.title}}</view>
+        <view class="shezhi-button-right">
+          <view class="shezhi-button-name">{{network.desc}}</view>
+          <image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+        </view>
+      </view>
 
-	<view class="modal-dialog" hidden="{{!dialogShow}}">
-		<view class="modal-box">
-			<text class="modal-box-title" style="margin-bottom:30rpx;margin-top:30rpx;">模式选择</text>
-			<view style="width:100%;height:1px;background:#eee"></view>
+      <view class="shezhi-content shezhi-button-bg" bindtap="shishixinlvItemShowTap" hidden="true">
+        <view class="shezhi-button-left">实时心率数据</view>
+        <view class="shezhi-button-right">
+          <!-- <view class="shezhi-button-name"></view> -->
+          <image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+        </view>
+      </view>
 
-			<view class="model-content">
-				<radio-group bindchange="radioChange" class="radio-group">
-					<block wx:for="{{items}}" wx:key="key">
-						<label class="model-label">
-							<view>
-								<radio class="radio" value="{{item.value}}" checked="{{item.value==selectedRadio}}" />
-							</view>
-							<view class="model-item-name">{{item.name}}</view>
-						</label>
-						<view style="width:100%;height:1px;background:#eee"></view>
-					</block>
-				</radio-group>
-			</view>
+      <view class="shezhi-content shezhi-button-bg" bindtap="shuimianbaogaoItemShowTap" hidden="true">
+        <view class="shezhi-button-left">睡眠报告</view>
+        <view class="shezhi-button-right">
+          <!-- <view class="shezhi-button-name"></view> -->
+          <image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+        </view>
+      </view>
 
-			<view style="width:100%;height:1px;background:#eee"></view>
-			<view class="modal-box-bottom" style="height:100rpx;">
-				<view bindtap="onModalClick" data-ctype="cancel" class="modal-box-button" hover-class="modal-box-button-hover" style="flex-grow:1;color:black">取消</view>
-				<view style="width:1rpx;height:100%;background:#eee"></view>
-				<view bindtap="onModalClick" data-ctype="confirm" class="modal-box-button" hover-class="modal-box-button-hover" style="flex-grow:1;color:#59B84D;">确定</view>
-			</view>
-		</view>
-	</view>
+    </view>
+  </view>
 
-	<!-- 故障调试对话框 -->
-	<view class="modal-dialog" hidden="{{!debugDialogShow}}">
-		<view class="modal-box">
-			<text class="modal-box-title" style="margin-bottom:30rpx;margin-top:30rpx;">故障调试</text>
-			<view style="width:100%;height:1px;background:#eee"></view>
 
-			<view class="model-content" style="height:180rpx;">
-				<view class="model-row">
-					<view class="model-title">故障部件</view>
-					<view class="model-title">故障类型</view>
-				</view>
-				<view class="model-row">
-					<view class="model-body">{{faultPart}}</view>
-					<view class="model-body">{{faultCause}}</view>
-				</view>
-			</view>
 
-			<view style="width:100%;height:1px;background:#eee"></view>
-			<view class="modal-box-bottom" style="height:100rpx;">
-				<view bindtap="onModalDebugClick" data-ctype="close" class="modal-box-button" hover-class="modal-box-button-hover" style="flex-grow:1;color:black;">关闭</view>
-			</view>
-		</view>
-	</view>
+  <view class="modal-dialog" hidden="{{!dialogShow}}">
+    <view class="modal-box">
+      <text class="modal-box-title" style="margin-bottom:30rpx;margin-top:30rpx;">模式选择</text>
+      <view style="width:100%;height:1px;background:#eee"></view>
 
-	<!--配网对话框 -->
-	<view class="modal-dialog" hidden="{{!networkDialogShow}}">
-		<view class="modal-box" style="margin-bottom: 700rpx;">
-			<view class="model-content">
-				{{networkDialogTitle}}
-			</view>
-			<view style="width:100%;height:1rpx;background:#FFF;margin-top:10rpx"></view>
-			<block wx:if="{{network.GH == '00'}}">
-				<view class="modal-box-bottom" style="height:100rpx;">
-					<view bindtap="networkConnect" class="modal-box-button" hover-class="modal-box-button-hover" style="flex-grow:1;color:#59B84D;">配网</view>
-					<view style="width:1rpx;height:100%;background:#FFF"></view>
-					<view bindtap="networkCancel" class="modal-box-button" hover-class="modal-box-button-hover" style="flex-grow:1;color:#FFFFFF">忽略</view>
-				</view>
-			</block>
-			<block wx:if="{{network.GH == '01'}}">
-				<view class="modal-box-bottom" style="height:100rpx;">
-					<view bindtap="networkConnect" class="modal-box-button" hover-class="modal-box-button-hover" style="flex-grow:1;color:#59B84D;">更换</view>
-					<view style="width:1rpx;height:100%;background:#FFF"></view>
-					<view bindtap="networkCancel" class="modal-box-button" hover-class="modal-box-button-hover" style="flex-grow:1;color:#FFFFFF">知道了</view>
-				</view>
-			</block>
-			<block wx:if="{{network.GH == '0A'}}">
-				<view class="modal-box-bottom" style="height:100rpx;">
-					<view bindtap="networkConnect" class="modal-box-button" hover-class="modal-box-button-hover" style="flex-grow:1;color:#59B84D;">更换</view>
-					<view style="width:1rpx;height:100%;background:#FFF"></view>
-					<view bindtap="networkCancel" class="modal-box-button" hover-class="modal-box-button-hover" style="flex-grow:1;color:#FFFFFF">忽略</view>
-				</view>
-			</block>
+      <view class="model-content">
+        <radio-group bindchange="radioChange" class="radio-group">
+          <block wx:for="{{items}}" wx:key="key">
+            <label class="model-label">
+              <view>
+                <radio class="radio" value="{{item.value}}" checked="{{item.value==selectedRadio}}" />
+              </view>
+              <view class="model-item-name">{{item.name}}</view>
+            </label>
+            <view style="width:100%;height:1px;background:#eee"></view>
+          </block>
+        </radio-group>
+      </view>
 
-		</view>
-	</view>
+      <view style="width:100%;height:1px;background:#eee"></view>
+      <view class="modal-box-bottom" style="height:100rpx;">
+        <view bindtap="onModalClick" data-ctype="cancel" class="modal-box-button" hover-class="modal-box-button-hover" style="flex-grow:1;color:black">取消</view>
+        <view style="width:1rpx;height:100%;background:#eee"></view>
+        <view bindtap="onModalClick" data-ctype="confirm" class="modal-box-button" hover-class="modal-box-button-hover" style="flex-grow:1;color:#59B84D;">确定</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 故障调试对话框 -->
+  <view class="modal-dialog" hidden="{{!debugDialogShow}}">
+    <view class="modal-box">
+      <text class="modal-box-title" style="margin-bottom:30rpx;margin-top:30rpx;">故障调试</text>
+      <view style="width:100%;height:1px;background:#eee"></view>
+
+      <view class="model-content" style="height:180rpx;">
+        <view class="model-row">
+          <view class="model-title">故障部件</view>
+          <view class="model-title">故障类型</view>
+        </view>
+        <view class="model-row">
+          <view class="model-body">{{faultPart}}</view>
+          <view class="model-body">{{faultCause}}</view>
+        </view>
+      </view>
+
+      <view style="width:100%;height:1px;background:#eee"></view>
+      <view class="modal-box-bottom" style="height:100rpx;">
+        <view bindtap="onModalDebugClick" data-ctype="close" class="modal-box-button" hover-class="modal-box-button-hover" style="flex-grow:1;color:black;">关闭</view>
+      </view>
+    </view>
+  </view>
+
+  <!--配网对话框 -->
+  <view class="modal-dialog" hidden="{{!networkDialogShow}}">
+    <view class="modal-box" style="margin-bottom: 700rpx;">
+      <view class="model-content">
+        {{networkDialogTitle}}
+      </view>
+      <view style="width:100%;height:1rpx;background:#FFF;margin-top:10rpx"></view>
+      <block wx:if="{{network.GH == '00'}}">
+        <view class="modal-box-bottom" style="height:100rpx;">
+          <view bindtap="networkConnect" class="modal-box-button" hover-class="modal-box-button-hover" style="flex-grow:1;color:#59B84D;">配网</view>
+          <view style="width:1rpx;height:100%;background:#FFF"></view>
+          <view bindtap="networkCancel" class="modal-box-button" hover-class="modal-box-button-hover" style="flex-grow:1;color:#FFFFFF">忽略</view>
+        </view>
+      </block>
+      <block wx:if="{{network.GH == '01'}}">
+        <view class="modal-box-bottom" style="height:100rpx;">
+          <view bindtap="networkConnect" class="modal-box-button" hover-class="modal-box-button-hover" style="flex-grow:1;color:#59B84D;">更换</view>
+          <view style="width:1rpx;height:100%;background:#FFF"></view>
+          <view bindtap="networkCancel" class="modal-box-button" hover-class="modal-box-button-hover" style="flex-grow:1;color:#FFFFFF">知道了</view>
+        </view>
+      </block>
+      <block wx:if="{{network.GH == '0A'}}">
+        <view class="modal-box-bottom" style="height:100rpx;">
+          <view bindtap="networkConnect" class="modal-box-button" hover-class="modal-box-button-hover" style="flex-grow:1;color:#59B84D;">更换</view>
+          <view style="width:1rpx;height:100%;background:#FFF"></view>
+          <view bindtap="networkCancel" class="modal-box-button" hover-class="modal-box-button-hover" style="flex-grow:1;color:#FFFFFF">忽略</view>
+        </view>
+      </block>
+
+    </view>
+  </view>
 </view>

@@ -624,13 +624,13 @@ Page({
     console.error('main->setAlarm-->开启闹钟设置', cmd, deviceId);
     let alarm = {};
     if (cmd.indexOf('FFFFFFFF0100030B00') >= 0) {
-      // 有闹钟未设置
+      // 有闹钟功能未设置闹钟
       configManager.putAlarmSwitch(true, deviceId);
       alarm.isOpenAlarm = false;
       configManager.putAlarm(alarm, deviceId);
     } else if (cmd.indexOf('FFFFFFFF01000413') >= 0) {
 
-      // 有闹钟已设置
+      // 有闹钟功能且闹钟已设置
       configManager.putAlarmSwitch(true, deviceId)
       let cmdStatus = cmd.substr(16, 2);
       if ('0F' == cmdStatus) {
@@ -640,6 +640,7 @@ Page({
         // 关闭
         alarm.isOpenAlarm = false;
       }
+
       // 时间
       let timeHour = cmd.substr(18, 2);
       let timeMin = cmd.substr(20, 2);
@@ -676,9 +677,9 @@ Page({
       let cmdMode = cmd.substr(28, 2);
       if ('01' == cmdMode) {
         alarm.modeVal = 'lingyali';
-        if(this.data.kuaijieType == 'K17'){
+        if (this.data.kuaijieType == 'K17') {
           alarm.modeName = '零压力位起床';
-        }else{
+        } else {
           alarm.modeName = '零压力'
         }
       } else if ('02' == cmdMode) {
@@ -698,9 +699,9 @@ Page({
         alarm.modeName = '三段渐进式闹钟';
       } else {
         alarm.modeVal = 'close';
-        if(this.data.kuaijieType == 'K17'){
+        if (this.data.kuaijieType == 'K17') {
           alarm.modeName = '躺平';
-        }else{
+        } else {
           alarm.modeName = '不动作'
         }
       }

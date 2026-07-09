@@ -52,10 +52,10 @@
 
 					</view>
 					<view class="anmo-button-bottom">
-						<view wx:if="{{anmopinglv>=1}}" class="line4 line-color"></view>
+            <view wx:if="{{anmopinglv>=1}}" class="line4 line-color"></view>
 						<view wx:if="{{anmopinglv>=2}}" class="line4 line-color"></view>
 						<view wx:if="{{anmopinglv>=3}}" class="line4 line-color"></view>
-						<view wx:if="{{anmopinglv==4}}" class="line4 line-color"></view>
+						<view wx:if="{{anmopinglv>=4}}" class="line4 line-color"></view>
 					</view>
 					<view></view>
 				</view>

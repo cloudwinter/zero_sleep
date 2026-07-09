@@ -257,7 +257,7 @@ Page({
     } else if (cmd.indexOf('FFFFFFFF02000A14') >= 0) {
       this.setPeiWang(cmd);
       return;
-    }
+    } 
     if (cmd.indexOf('FFFFFFFF0304') >= 0) {
       this.setFault(cmd);
     }
@@ -649,10 +649,8 @@ Page({
       debugDialogShow: false,
       faultPart: '',
       faultCause: ''
-
     })
   },
-
 
 
   /**----------蓝牙连接--------- */

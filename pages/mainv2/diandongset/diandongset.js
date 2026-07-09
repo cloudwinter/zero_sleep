@@ -907,24 +907,27 @@ Page({
 
 
     if (cmd.indexOf("FFFFFFFF01001C1402") > -1) {//查询灯光状态回码
+      // ffffffff01001c1402000 00 00 000000000002f04
+      // ffffffff01001c1402000 60 20 000000000003704
       var dgLevel = cmd.substr(20, 2);//灯光亮度
       var dengguang = util.str16To10(dgLevel)
       var lineItems = []
-      for (var i = 0; i++; i < dengguang) {
-        lineItems.push(1)
-      }
       console.log("dengguang", dengguang)
+      for (var i = 0; i < dengguang; i++) {
+        lineItems.push(1)
+        console.log("dengguang", lineItems)
+      }
       console.log("lineItems", lineItems)
 
       var dgTime = cmd.substr(22, 2);//灯光时间
       var currentDengguangSelected = ''
       if (dgTime == "00") {//关闭状态
         currentDengguangSelected = ''
-      } else if (TextUtils.equals(dgTime, "01")) {
+      } else if (dgTime == "01") {
         currentDengguangSelected = '10min'
-      } else if (TextUtils.equals(dgTime, "02")) {
+      } else if (dgTime == "02") {
         currentDengguangSelected = '8h'
-      } else if (TextUtils.equals(dgTime, "03")) {
+      } else if (dgTime == "03") {
         currentDengguangSelected = '10h'
       }
 
@@ -934,7 +937,7 @@ Page({
       })
 
     } else if (cmd.indexOf("FFFFFFFF01001C1404") > -1) {//查询按摩状态回码
-
+      //ffffffff01001c1404 00 00 00 00 00000000003104
       let toubuLevel = cmd.substr(18, 2);//头部按摩
       var toubu = util.str16To10(toubuLevel)
 
@@ -947,12 +950,13 @@ Page({
       let anmoTime = cmd.substr(24, 2);//按摩时长
       var currentTimeSelected = ''
       if (anmoTime == "00") {
-        currentTimeSelected == '10min'
-      } else if (TextUtils.equals(anmoTime, "01")) {
-        currentTimeSelected == '20min'
-      } else if (TextUtils.equals(anmoTime, "02")) {
-        currentTimeSelected == '30min'
+        currentTimeSelected = '10min'
+      } else if (anmoTime == "01") {
+        currentTimeSelected = '20min'
+      } else if (anmoTime == "02") {
+        currentTimeSelected = '30min'
       }
+      console.log(toubu, tuibu, anmopinglv, anmoTime, currentTimeSelected)
       this.setData({
         toubu: toubu,
         tuibu: tuibu,
