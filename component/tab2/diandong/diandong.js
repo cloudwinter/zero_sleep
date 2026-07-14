@@ -125,6 +125,7 @@ Component({
         if (alarm) {
           isOpenAlarm = alarm.isOpenAlarm
         }
+        
         console.log("闹钟功能", isOpenAlarm)
       }
       this.setData({
