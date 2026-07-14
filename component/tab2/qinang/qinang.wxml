@@ -23,16 +23,16 @@
     <view class="anjian-left">
       <image class="anjian-bg" style="border: 2rpx solid {{selectIndex==2?'#41B67C':'#1E1F24'}}"></image>
       <view class="anjiian-content" catchtap="selectMode" data-type="yaobu">
-        <image class="anjian-icon" src="../../../images/{{skin}}/tunbuxunhuan-xiao@3x.png"></image>
-        <view class="name"><text>腰部按摩</text></view>
+        <image class="anjian-icon" src="../../../images/{{skin}}/zhihan-xiao@3x.png"></image>
+        <view class="name"><text>背部按摩</text></view>
       </view>
     </view>
 
     <view class="anjian-right">
       <image class="anjian-bg" style="border: 2rpx solid {{selectIndex==3?'#41B67C':'#1E1F24'}}"></image>
       <view class="anjiian-content" catchtap="selectMode" data-type="jingbu">
-        <image class="anjian-icon" src="../../../images/{{skin}}/toubuxunhuan-xiao@3x.png"></image>
-        <view class="name"><text>颈部按摩</text></view>
+        <image class="anjian-icon" src="../../../images/{{skin}}/lingyali-xiao@3x.png"></image>
+        <view class="name"><text>摇篮模式</text></view>
       </view>
     </view>
   </view>
@@ -85,6 +85,17 @@
     </view>
   </view>
 
+  <view class="speed">
+    <view class="speed-content">
+      <view class="speed-btn " style="border: 2rpx solid {{speedIndex==2?'#41B67C':'#1E1F24'}}" catchtap="speedTap" data-type="slow">慢</view>
+    </view>
+    <view class="speed-content">
+      <view class="speed-btn " style="border: 2rpx solid {{speedIndex==1?'#41B67C':'#1E1F24'}}" catchtap="speedTap" data-type="middle">中</view>
+    </view>
+    <view class="speed-content">
+      <view class="speed-btn " style="border: 2rpx solid {{speedIndex==0?'#41B67C':'#1E1F24'}}" catchtap="speedTap" data-type="fast">快</view>
+    </view>
+  </view>
 
 
 </scroll-view>

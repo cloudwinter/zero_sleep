@@ -211,13 +211,13 @@ function getCurrentConnected() {
  * 存储当前连接的设备
  * @param {*} connected 
  */
-function putAlarm(alarm,deviceId) {
+function putAlarm(alarm, deviceId) {
   var dataVal = JSON.stringify(alarm);
   wx.setStorage({
     data: deviceId,
     key: _ALARM_KEY,
   })
-  let key = _ALARM_KEY+deviceId;
+  let key = _ALARM_KEY + deviceId;
   wx.setStorage({
     data: dataVal,
     key: key,
@@ -232,7 +232,7 @@ function getAlarm(deviceId) {
   var cacheDeviceId = wx.getStorageSync(_ALARM_KEY);
   var alarm;
   if (deviceId == cacheDeviceId) {
-    let key = _ALARM_KEY+deviceId;
+    let key = _ALARM_KEY + deviceId;
     var dataVal = wx.getStorageSync(key);
     if (dataVal) {
       alarm = JSON.parse(dataVal);
@@ -249,8 +249,8 @@ function getAlarm(deviceId) {
  * @param {*} show 
  * @param {*} deviceId 
  */
-function putAlarmSwitch(show,deviceId) {
-  let key = _ALARM_SHOW_KEY+deviceId;
+function putAlarmSwitch(show, deviceId) {
+  let key = _ALARM_SHOW_KEY + deviceId;
   wx.setStorage({
     data: show,
     key: key,
@@ -262,9 +262,9 @@ function putAlarmSwitch(show,deviceId) {
  * @param {*} deviceId 
  */
 function showAlarmSwitch(deviceId) {
-  let key = _ALARM_SHOW_KEY+deviceId;
+  let key = _ALARM_SHOW_KEY + deviceId;
   var show = wx.getStorageSync(key);
-  if(show) {
+  if (show) {
     return true;
   }
   return false;
@@ -275,8 +275,8 @@ function showAlarmSwitch(deviceId) {
  * @param {*} show 
  * @param {*} deviceId 
  */
-function putAlarmAudio(show,deviceId) {
-  let key = _ALARM_AUDIO_KEY+deviceId;
+function putAlarmAudio(show, deviceId) {
+  let key = _ALARM_AUDIO_KEY + deviceId;
   wx.setStorage({
     data: show,
     key: key,
@@ -288,22 +288,21 @@ function putAlarmAudio(show,deviceId) {
  * @param {*} deviceId 
  */
 function getAlarmAudio(deviceId) {
-  let key = _ALARM_AUDIO_KEY+deviceId;
+  let key = _ALARM_AUDIO_KEY + deviceId;
   var show = wx.getStorageSync(key);
-  if(show) {
+  if (show) {
     return true;
   }
   return false;
 }
-
 
 /**
  * 设置冷暖是否有定时
  * @param {*} show 
  * @param {*} deviceId 
  */
-function putLengNuanAlarm(show,deviceId) {
-  let key = _ALARM_LENGNUAM_KEY+deviceId;
+function putLengNuanAlarm(show, deviceId) {
+  let key = _ALARM_LENGNUAM_KEY + deviceId;
   wx.setStorage({
     data: show,
     key: key,
@@ -315,9 +314,9 @@ function putLengNuanAlarm(show,deviceId) {
  * @param {*} deviceId 
  */
 function getLengNuanAlarm(deviceId) {
-  let key = _ALARM_LENGNUAM_KEY+deviceId;
+  let key = _ALARM_LENGNUAM_KEY + deviceId;
   var show = wx.getStorageSync(key);
-  if(show) {
+  if (show) {
     return true;
   }
   return false;
@@ -343,7 +342,7 @@ function putShishiSwitch(open) {
 function getShishiSwitch() {
   let key = _SHISHI_KEY;
   var show = wx.getStorageSync(key);
-  if(show) {
+  if (show) {
     return true;
   }
   return false;
@@ -369,7 +368,7 @@ function putStartDataEntrySwitch(open) {
 function getStartDataEntrySwitch() {
   let key = _STARTDATAENTRY_KEY;
   var open = wx.getStorageSync(key);
-  if(open) {
+  if (open) {
     return true;
   }
   return false;
@@ -380,8 +379,8 @@ function getStartDataEntrySwitch() {
  * @param {*} show 
  * @param {*} deviceId 
  */
-function putTongbukzShow(show,deviceId) {
-  let key = _TONGBUKZ_SHOW_KEY+deviceId;
+function putTongbukzShow(show, deviceId) {
+  let key = _TONGBUKZ_SHOW_KEY + deviceId;
   wx.setStorage({
     data: show,
     key: key,
@@ -394,9 +393,9 @@ function putTongbukzShow(show,deviceId) {
  * @param {*} deviceId 
  */
 function getTongbukzShow(deviceId) {
-  let key = _TONGBUKZ_SHOW_KEY+deviceId;
+  let key = _TONGBUKZ_SHOW_KEY + deviceId;
   var show = wx.getStorageSync(key);
-  if(show) {
+  if (show) {
     return true;
   }
   return false;
@@ -408,8 +407,8 @@ function getTongbukzShow(deviceId) {
  * @param {*} show 
  * @param {*} deviceId 
  */
-function putTongbukzSwitch(open,deviceId) {
-  let key = _TONGBUKZ_STATUS_KEY+deviceId;
+function putTongbukzSwitch(open, deviceId) {
+  let key = _TONGBUKZ_STATUS_KEY + deviceId;
   wx.setStorage({
     data: open,
     key: key,
@@ -422,16 +421,16 @@ function putTongbukzSwitch(open,deviceId) {
  * @param {*} deviceId 
  */
 function getTongbukzSwitch(deviceId) {
-  let key = _TONGBUKZ_STATUS_KEY+deviceId;
+  let key = _TONGBUKZ_STATUS_KEY + deviceId;
   var open = wx.getStorageSync(key);
-  if(open) {
+  if (open) {
     return true;
   }
   return false;
 }
 
 
-function putWifiPwd(ssid,pwd) {
+function putWifiPwd(ssid, pwd) {
   wx.setStorage({
     data: pwd,
     key: ssid,
@@ -448,13 +447,13 @@ function getWifiPwd(ssid) {
  * 存储冷暖模块定时数据
  * @param {*} connected 
  */
-function putLengNuanData(lengnuanModel,deviceId) {
+function putLengNuanData(lengnuanModel, deviceId) {
   var dataVal = JSON.stringify(lengnuanModel);
   wx.setStorage({
     data: deviceId,
     key: _LENGNUAM_KEY,
   })
-  let key = _LENGNUAM_KEY+deviceId;
+  let key = _LENGNUAM_KEY + deviceId;
   wx.setStorage({
     data: dataVal,
     key: key,
@@ -469,7 +468,7 @@ function getLengNuanData(deviceId) {
   var cacheDeviceId = wx.getStorageSync(_LENGNUAM_KEY);
   var lengnuanModel;
   if (deviceId == cacheDeviceId) {
-    let key = _LENGNUAM_KEY+deviceId;
+    let key = _LENGNUAM_KEY + deviceId;
     var dataVal = wx.getStorageSync(key);
     if (dataVal) {
       lengnuanModel = JSON.parse(dataVal);

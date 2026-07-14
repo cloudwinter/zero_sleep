@@ -40,6 +40,7 @@ Component({
     startTime: '',
     endTime: '',
     selectIndex: -1,//0:全身按摩 1：背部按摩 2：腰部按摩 3：颈部按摩 4：瑜伽 5：按摩停止 6：放气
+    speedIndex: -1,//0:快  1:中 2:慢
   },
 
   /**
@@ -110,7 +111,7 @@ Component({
       that.setData({
         connected: connected,
       })
-      // that.askQiNangStatus(connected, that);
+      that.askQiNangStatus(connected, that);
       // 删除回调
       WxNotificationCenter.removeNotification("INIT", that);
     },
@@ -119,7 +120,7 @@ Component({
     * 询问记忆状态 （合并询问码）
     */
     askQiNangStatus(connected, cur) {
-      // 合并询问码
+      // 合并询问码   慢、中、快发码询问
       var cmd = 'FFFFFFFFFF14020900000000000000000000';
       cmd = cmd + crcUtil.swapHexByteOrder(crcUtil.crc16(cmd));
       console.log(cmd)
@@ -137,6 +138,7 @@ Component({
       if (cmd.indexOf("FFFFFFFFFF14020901") > -1) {//询问码回复
         var anmoStatus = cmd.substr(18, 2).toUpperCase();
         var zishiyingStatus = cmd.substr(20, 2).toUpperCase();
+        var speedStatus = cmd.substr(22, 2).toUpperCase();
         if (anmoStatus == '01') {
           that.setData({
             quanshen: true
@@ -156,6 +158,19 @@ Component({
         if (zishiyingStatus == '01') {
           that.setData({
             zishiying: true
+          })
+        }
+        if (speedStatus == '02') {
+          that.setData({
+            speedIndex: 2
+          })
+        } else if (speedStatus == '03') {
+          that.setData({
+            speedIndex: 1
+          })
+        } else if (speedStatus == '04') {
+          that.setData({
+            speedIndex: 0
           })
         }
       } else if (cmd.indexOf("FFFFFFFFFF0D030C01") > -1) {//自适应开关回码
@@ -325,6 +340,29 @@ Component({
       wx.navigateTo({
         url: '/pages/mainv2/anmoset/anmoset',
       })
+    },
+
+    //点击速度
+    speedTap(e) {
+      var type = e.currentTarget.dataset.type
+      console.log(type)
+      var cmd = ''
+      var speedIndex = this.data.speedIndex
+      if (type == 'fast') {
+        speedIndex = 0
+        cmd = 'FFFFFFFFFF0B012004'
+      } else if (type == 'middle') {
+        speedIndex = 1
+        cmd = 'FFFFFFFFFF0B012003'
+      } else if (type == 'slow') {
+        speedIndex = 2
+        cmd = 'FFFFFFFFFF0B012002'
+      }
+      this.setData({
+        speedIndex: speedIndex
+      })
+      cmd = cmd + crcUtil.swapHexByteOrder(crcUtil.crc16(cmd));
+      util.sendBlueCmd(this.data.connected, cmd);
     },
 
     /*************-------------点击事件--------------------*********** */

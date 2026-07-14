@@ -177,3 +177,29 @@
   width: 54rpx;
   height: 54rpx;
 }
+
+.speed {
+  display: flex;
+  align-items: center;
+  margin-top: 60rpx;
+}
+
+.speed-content{
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.speed-btn{
+  border-radius: 100rpx;
+  font-size: 28rpx;
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 60rpx;
+  background-color: #1E1F24;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

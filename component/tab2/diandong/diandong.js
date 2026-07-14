@@ -130,6 +130,9 @@ Component({
       this.setData({
         isOpenAlarm: isOpenAlarm
       })
+      setTimeout(() => {
+        this.askJiyiStatus(this);
+      }, 400)
     }
   },
 
@@ -149,9 +152,6 @@ Component({
       that.setData({
         connected: connected,
       })
-      setTimeout(() => {
-        that.askJiyiStatus(that);
-      }, 200)
     },
     attached: function () {
       // 在组件实例进入页面节点树时执行
@@ -770,7 +770,7 @@ Component({
     //点击电动床设置
     diandongSetTap() {
       wx.navigateTo({
-        url: '/pages/mainv2/diandongset/diandongset',
+        url: '/pages/mainv2/diandongset/diandongset'
       })
     },
 

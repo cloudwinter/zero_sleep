@@ -1,6 +1,46 @@
 {
   "description": "项目私有配置文件。此文件中的内容将覆盖 project.config.json 中的相同字段。项目的改动优先同步到此文件中。详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
-  "condition": {},
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "pages/main/main",
+          "pathName": "pages/main/main",
+          "query": "",
+          "scene": null,
+          "launchMode": "default"
+        },
+        {
+          "name": "pages/mainv2/diandongset/diandongset",
+          "pathName": "pages/mainv2/diandongset/diandongset",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/set/set",
+          "pathName": "pages/set/set",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/mainv2/bedstead/bedstead",
+          "pathName": "pages/mainv2/bedstead/bedstead",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/mainv2/mainv2",
+          "pathName": "pages/mainv2/mainv2",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        }
+      ]
+    }
+  },
   "projectname": "zero_sleep",
   "setting": {
     "compileHotReLoad": true,
