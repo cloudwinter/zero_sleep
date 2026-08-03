@@ -9,7 +9,7 @@
       <!-- 在床数据 -->
       <view class="item">
         <view class="item-title">
-          <image class="item-title-icon" src="../../images/{{skin}}/time_fansheng@3x.png"></image>
+          <image class="item-title-icon" src="/images/{{skin}}/time_fansheng@3x.png"></image>
           <view class="item-title-desc">在床数据</view>
         </view>
 
@@ -47,7 +47,7 @@
       <!-- 翻身数据 -->
       <view class="item">
         <view class="item-title">
-          <image class="item-title-icon" src="../../images/{{skin}}/time_fansheng@3x.png"></image>
+          <image class="item-title-icon" src="/images/{{skin}}/time_fansheng@3x.png"></image>
           <view class="item-title-desc">翻身数据</view>
         </view>
 
@@ -86,7 +86,7 @@
       <!-- 平躺/侧躺时间 -->
       <view class="item">
         <view class="item-title">
-          <image class="item-title-icon" src="../../images/{{skin}}/time_cetang@3x.png"></image>
+          <image class="item-title-icon" src="/images/{{skin}}/time_cetang@3x.png"></image>
           <view class="item-title-desc">平躺/侧躺时间</view>
         </view>
 

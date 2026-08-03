@@ -55,7 +55,7 @@
       </view>
 
       <view class="hint" hidden="true">
-        <image class="zhengtou" src="../../images/{{skin}}/ic_zhengtou@2x.png"></image>
+        <image class="zhengtou" src="/images/{{skin}}/ic_zhengtou@2x.png"></image>
         <view class="rectangle">
           <view class="rectangle-text" style="margin-top:50rpx">智</view>
           <view class="rectangle-text">能</view>
@@ -63,7 +63,7 @@
         </view>
         <view class="hint-right">
           <view class="tips-text" style="width:100%;display:flex;justify-content:center">70厘米</view>
-          <image class="line-jiantou" src="../../images/{{skin}}/ic_line_row@2x.png"></image>
+          <image class="line-jiantou" src="/images/{{skin}}/ic_line_row@2x.png"></image>
         </view>
       </view>
 

@@ -1,33 +1,47 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/set2/set2",
-    "pages/set/set",
-    "pages/mainv2/mainv2",
-    "pages/mainv2/searchv2/searchv2",
-    "pages/mainv2/anmo/anmo",
-    "pages/mainv2/dengguang/dengguang",
-    "pages/mainv2/bedstead/bedstead",
     "pages/search/search",
-    "pages/main/main",
+    "pages/set/set",
+    "pages/set2/set2",
     "pages/alarm/alarm",
-    "pages/report/report",
-    "pages/wmreport/wmreport",
-    "pages/induction/induction",
-    "pages/dataentry/dataentry",
-    "pages/sleepadjust/sleepadjust",
     "pages/nurseset/nurseset",
+    "pages/nurseset/nurseset2",
+    "pages/nurseset/nurseset3",
     "pages/network/network",
     "pages/wifiselect/wifiselect",
-    "pages/nurseset/nurseset2",
     "pages/webhtml/webhtml",
-    "pages/nurseset/nurseset3",
-    "pages/mainv2/pressure/pressure",
-    "pages/mainv2/zhinengjiance/zhinengjiance",
-    "pages/mainv2/anmoset/anmoset",
-    "pages/mainv2/diandongset/diandongset",
-    "pages/singlemain/singlemain",
-    "pages/mainv2/timeset/timeset"
+    "pages/dataentry/dataentry",
+    "pages/sleepadjust/sleepadjust",
+    "pages/induction/induction",
+    "pages/report/report",
+    "pages/wmreport/wmreport"
+  ],
+  "subPackages": [
+    {
+      "root": "packageV1",
+      "name": "packageV1",
+      "pages": [
+        "pages/main/main"
+      ]
+    },
+    {
+      "root": "packageV2",
+      "name": "packageV2",
+      "pages": [
+        "pages/mainv2/mainv2",
+        "pages/mainv2/searchv2/searchv2",
+        "pages/mainv2/anmo/anmo",
+        "pages/mainv2/dengguang/dengguang",
+        "pages/mainv2/bedstead/bedstead",
+        "pages/mainv2/pressure/pressure",
+        "pages/mainv2/zhinengjiance/zhinengjiance",
+        "pages/mainv2/anmoset/anmoset",
+        "pages/mainv2/diandongset/diandongset",
+        "pages/mainv2/timeset/timeset",
+        "pages/singlemain/singlemain"
+      ]
+    }
   ],
   "window": {
     "backgroundTextStyle": "light",

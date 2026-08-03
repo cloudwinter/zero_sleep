@@ -13,7 +13,7 @@
         <view class="row">
           <view class="column">
             <view class="column-title">
-              <image class="column-title-icon" src="../../images/{{skin}}/time_shuimian@3x.png"></image>
+              <image class="column-title-icon" src="/images/{{skin}}/time_shuimian@3x.png"></image>
               <view class="column-title-content">在床时间</view>
             </view>
             <view class="column-body">
@@ -25,7 +25,7 @@
 
           <view class="column">
             <view class="column-title">
-              <image class="column-title-icon" src="../../images/{{skin}}/time_fansheng@3x.png"></image>
+              <image class="column-title-icon" src="/images/{{skin}}/time_fansheng@3x.png"></image>
               <view class="column-title-content">翻身次数</view>
             </view>
             <view class="column-body">
@@ -43,7 +43,7 @@
         <view class="row">
           <view class="column">
             <view class="column-title">
-              <image class="column-title-icon" src="../../images/{{skin}}/time_cetang@3x.png"></image>
+              <image class="column-title-icon" src="/images/{{skin}}/time_cetang@3x.png"></image>
               <view class="column-title-content">侧躺时间</view>
             </view>
             <view class="column-body">
@@ -54,7 +54,7 @@
           <view class="column-line" style="margin-bottom: 30rpx;"></view>
           <view class="column">
             <view class="column-title">
-              <image class="column-title-icon" src="../../images/{{skin}}/time_pingtang@3x.png"></image>
+              <image class="column-title-icon" src="/images/{{skin}}/time_pingtang@3x.png"></image>
               <view class="column-title-content">平躺时间</view>
             </view>
             <view class="column-body">

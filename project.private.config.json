@@ -4,39 +4,11 @@
     "miniprogram": {
       "list": [
         {
-          "name": "pages/main/main",
-          "pathName": "pages/main/main",
+          "name": "packageV1/pages/main/main",
+          "pathName": "packageV1/pages/main/main",
           "query": "",
           "scene": null,
           "launchMode": "default"
-        },
-        {
-          "name": "pages/mainv2/diandongset/diandongset",
-          "pathName": "pages/mainv2/diandongset/diandongset",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "pages/set/set",
-          "pathName": "pages/set/set",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "pages/mainv2/bedstead/bedstead",
-          "pathName": "pages/mainv2/bedstead/bedstead",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "pages/mainv2/mainv2",
-          "pathName": "pages/mainv2/mainv2",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
         }
       ]
     }

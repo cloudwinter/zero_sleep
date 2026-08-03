@@ -1,0 +1,105 @@
+/* component/tab/kuaijie/kuaijie-K18.wxss */
+@import './../../../common/tab.wxss';
+
+/************common****************** */
+.dark .button-bg {
+  background: #1E1F24;
+}
+
+.dark .button-bg-selected {
+  background-color: #1E1F24;
+  border:3rpx solid #5A9927;
+  box-sizing: border-box;
+}
+
+
+
+
+.anjianqu {
+	display: flex;
+	margin-left: 60rpx;
+	margin-right: 60rpx;
+	margin-top: 20rpx;
+	align-items: center;
+}
+
+.anjianqu .anjian-left {
+	flex: auto;
+	height: 92rpx;
+	flex: 1;
+	border-radius: 46rpx;
+	display: flex;
+	margin-right: 30rpx;
+	align-items: center;
+	justify-content: center;
+}
+
+
+.anjianqu .anjian-right {
+	flex: auto;
+	height: 92rpx;
+	border-radius: 46rpx;
+	margin-left: 30rpx;
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.anjian-bg {
+	width: 204rpx;
+	height: 204rpx;
+}
+
+.anjiian-content {
+	display: flex;
+	height: 92rpx;
+	align-items: center;
+}
+
+.anjiian-content .anjian-icon {
+	width: 100rpx;
+	height: 80rpx;
+}
+
+.anjiian-content .name {
+	color: white;
+	font-size: 24rpx;
+	margin-left: 20rpx;
+}
+
+.anjiian-content .select-name {
+	color: #5A9927;
+	font-size: 24rpx;
+	margin-left: 20rpx;
+}
+
+
+/********童锁************** */
+.child-lock {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.lock {
+  width: 100rpx;
+  height: 70rpx;
+}
+
+.lock-title {
+	color: #5EA2D7;
+  font-size: 26rpx;
+  margin-top: 10rpx;
+}
+
+.lock-hint {
+	color: #5EA2D7;
+	margin-top: 20rpx;
+	margin-bottom: 20rpx;
+  display: flex;
+  font-size: 26rpx;
+  justify-content: center;
+  align-items: center;
+}

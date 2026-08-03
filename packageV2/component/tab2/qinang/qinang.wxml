@@ -1,0 +1,101 @@
+<!--component/qinang/qinang.wxml-->
+<scroll-view scroll-y="true" class="{{skin}}" enhanced="true" showScrollbar="{{false}}" style="height:{{containerHeight}}px">
+
+  <view class="anjianqu" style="padding-top:10rpx;">
+    <view class="anjian-left">
+      <image class="anjian-bg" style="border: 2rpx solid {{selectIndex==0?'#41B67C':'#1E1F24'}};"></image>
+      <view class="anjiian-content" catchtap="selectMode" data-type="quanshen" bindtouchstart="touchStart" bindtouchend="touchEnd">
+        <image class="anjian-icon" src="/images/{{skin}}/lingyali-xiao@3x.png"></image>
+        <view class="name" style="color:{{quanshen?'#41B67C':'#FFF'}};"><text>组合按摩</text></view>
+      </view>
+    </view>
+
+    <view class="anjian-right">
+      <image class="anjian-bg" style="border: 2rpx solid {{selectIndex==1?'#41B67C':'#1E1F24'}}"></image>
+      <view class="anjiian-content" catchtap="selectMode" data-type="beibu" bindtouchstart="touchStart" bindtouchend="touchEnd">
+        <image class="anjian-icon" src="/images/{{skin}}/zhihan-xiao@3x.png"></image>
+        <view class="name" style="color: {{beibu?'#41B67C':'#FFF'}}"><text>波浪按摩</text></view>
+      </view>
+    </view>
+  </view>
+
+  <view class="anjianqu" style="padding-top:10rpx;">
+    <view class="anjian-left">
+      <image class="anjian-bg" style="border: 2rpx solid {{selectIndex==2?'#41B67C':'#1E1F24'}}"></image>
+      <view class="anjiian-content" catchtap="selectMode" data-type="yaobu">
+        <image class="anjian-icon" src="/images/{{skin}}/zhihan-xiao@3x.png"></image>
+        <view class="name"><text>背部按摩</text></view>
+      </view>
+    </view>
+
+    <view class="anjian-right">
+      <image class="anjian-bg" style="border: 2rpx solid {{selectIndex==3?'#41B67C':'#1E1F24'}}"></image>
+      <view class="anjiian-content" catchtap="selectMode" data-type="jingbu">
+        <image class="anjian-icon" src="/images/{{skin}}/lingyali-xiao@3x.png"></image>
+        <view class="name"><text>摇篮模式</text></view>
+      </view>
+    </view>
+  </view>
+
+  <view class="anjianqu" style="padding-top:10rpx;">
+    <view class="anjian-left">
+      <image class="anjian-bg" style="border: 2rpx solid {{selectIndex==4?'#41B67C':'#1E1F24'}}"></image>
+      <view class="anjiian-content" catchtap="selectMode" data-type="yujia">
+        <image class="anjian-icon" src="/images/{{skin}}/yujia_xiao@2x.png"></image>
+        <view class="name"><text>瑜伽</text></view>
+      </view>
+    </view>
+    <view class="anjian-right">
+      <image class="anjian-bg" style="border: 2rpx solid {{selectIndex==7?'#41B67C':'#1E1F24'}}"></image>
+      <view class="anjiian-content" catchtap="selectMode" data-type="shuimian">
+        <image class="anjian-icon" src="/images/{{skin}}/fuyuan-xiao@3x.png"></image>
+        <view class="name"><text>睡眠模式</text></view>
+      </view>
+    </view>
+    <!-- <view class="anjian-right">
+      <image class="anjian-bg"></image>
+      <view class="anjiian-content">
+        <view class="name"><text>自适应</text></view>
+        <switch checked="{{zishiying}}" bindchange="ziShiYingSwitch" style="transform: scale(0.6);margin-top: 10rpx;"></switch>
+      </view>
+    </view> -->
+  </view>
+
+  <view class="jiyi">
+    <view class="button left button-bg" style="border: 2rpx solid {{selectIndex==5?'#41B67C':'#1E1F24'}}" catchtap="selectMode" data-type="anmotingzhi">
+      <!-- <image class="dian" wx:if="{{modeType=='anmotingzhi'}}" src="/images/{{skin}}/dian-green@3x.png"></image> -->
+      <view class="name">按摩停止</view>
+    </view>
+    <view class="middle"></view>
+    <view class="button right button-bg" style="border: 2rpx solid {{selectIndex==6?'#41B67C':'#1E1F24'}}" catchtap="selectMode" data-type="fangqi">
+      <!-- <image class="dian" wx:if="{{modeType=='fangqi'}}" src="/images/{{skin}}/dian-green@3x.png"></image> -->
+      <view class="name">放气</view>
+    </view>
+  </view>
+
+  <view class="mode">
+    <view class="mode-content left" catchtap="anmoTap">
+      <view class="mode-name"><text>按摩设置</text></view>
+      <image src="/images/dark/row@3x.png" class="mode-row"></image>
+    </view>
+
+    <view class="mode-content right" catchtap="pressureTap">
+      <view class="mode-name"><text>压力设置</text></view>
+      <image src="/images/dark/row@3x.png" class="mode-row"></image>
+    </view>
+  </view>
+
+  <view class="speed">
+    <view class="speed-content">
+      <view class="speed-btn " style="border: 2rpx solid {{speedIndex==2?'#41B67C':'#1E1F24'}}" catchtap="speedTap" data-type="slow">慢</view>
+    </view>
+    <view class="speed-content">
+      <view class="speed-btn " style="border: 2rpx solid {{speedIndex==1?'#41B67C':'#1E1F24'}}" catchtap="speedTap" data-type="middle">中</view>
+    </view>
+    <view class="speed-content">
+      <view class="speed-btn " style="border: 2rpx solid {{speedIndex==0?'#41B67C':'#1E1F24'}}" catchtap="speedTap" data-type="fast">快</view>
+    </view>
+  </view>
+
+
+</scroll-view>

@@ -147,7 +147,7 @@ Page({
       setTimeout(() => {
         wx.hideLoading()
         wx.navigateTo({
-          url: '/pages/mainv2/searchv2/searchv2?type=' + that.data.deviceName,
+          url: '/packageV2/pages/mainv2/searchv2/searchv2?type=' + that.data.deviceName,
         })
       }, 2000);
     }

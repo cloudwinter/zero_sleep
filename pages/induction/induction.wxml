@@ -15,7 +15,7 @@
 				<view class="shezhi-button-left">实时在床数据</view>
 				<view class="shezhi-button-right">
 					<view class="shezhi-button-name"></view>
-					<image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+					<image class="shezhi-button-icon" src="/images/{{skin}}/row@3x.png"></image>
 				</view>
 			</view>
 
@@ -24,7 +24,7 @@
 				<view class="shezhi-button-left">月报告</view>
 				<view class="shezhi-button-right">
 					<view class="shezhi-button-name"></view>
-					<image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+					<image class="shezhi-button-icon" src="/images/{{skin}}/row@3x.png"></image>
 				</view>
 			</view>
 
@@ -33,7 +33,7 @@
 				<view class="shezhi-button-left">入睡时间</view>
 				<view class="shezhi-button-right">
 					<view class="shezhi-button-name">{{OZ.value}}</view>
-					<image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+					<image class="shezhi-button-icon" src="/images/{{skin}}/row@3x.png"></image>
 				</view>
 			</view>
 

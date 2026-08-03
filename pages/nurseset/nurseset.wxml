@@ -14,7 +14,7 @@
       <view class="item" style="margin-top:1rpx;" bindtap="anmoTap">
         <view class="item-left">按摩功能</view>
         <view class="item-right">
-          <image class="item-right-icon" src="../../images/{{skin}}/{{anmoChecked?'ic_checkbox_selected@3x.png':'ic_checkbox_normal@3x.png'}}"></image>
+          <image class="item-right-icon" src="/images/{{skin}}/{{anmoChecked?'ic_checkbox_selected@3x.png':'ic_checkbox_normal@3x.png'}}"></image>
         </view>
       </view>
 
@@ -22,21 +22,21 @@
       <view class="item" style="margin-top:44rpx;" bindtap="periodTap" bindtap="xunhuanTap" data-type="bbxh">
         <view class="item-left">背部循环</view>
         <view class="item-right">
-          <image class="item-right-icon" src="../../images/{{skin}}/{{bbxhChecked?'ic_checkbox_selected@3x.png':'ic_checkbox_normal@3x.png'}}"></image>
+          <image class="item-right-icon" src="/images/{{skin}}/{{bbxhChecked?'ic_checkbox_selected@3x.png':'ic_checkbox_normal@3x.png'}}"></image>
         </view>
       </view>
 
       <view class="item" style="margin-top:1rpx;" bindtap="periodTap" bindtap="xunhuanTap" data-type="tbxh">
         <view class="item-left">腿部循环</view>
         <view class="item-right">
-          <image class="item-right-icon" src="../../images/{{skin}}/{{tbxhChecked?'ic_checkbox_selected@3x.png':'ic_checkbox_normal@3x.png'}}"></image>
+          <image class="item-right-icon" src="/images/{{skin}}/{{tbxhChecked?'ic_checkbox_selected@3x.png':'ic_checkbox_normal@3x.png'}}"></image>
         </view>
       </view>
 
       <view class="item" style="margin-top:1rpx;" bindtap="periodTap" bindtap="xunhuanTap" data-type="btxh">
         <view class="item-left">背腿循环</view>
         <view class="item-right">
-          <image class="item-right-icon" src="../../images/{{skin}}/{{btxhChecked?'ic_checkbox_selected@3x.png':'ic_checkbox_normal@3x.png'}}"></image>
+          <image class="item-right-icon" src="/images/{{skin}}/{{btxhChecked?'ic_checkbox_selected@3x.png':'ic_checkbox_normal@3x.png'}}"></image>
         </view>
       </view>
 
@@ -46,31 +46,31 @@
       <view class="item" style="margin-top:1rpx;" bindtap="timeTap" data-type="0700">
         <view class="item-left">07:00</view>
         <view class="item-right">
-          <image class="item-right-icon" src="../../images/{{skin}}/{{time0700Checked?'ic_checkbox_selected@3x.png':'ic_checkbox_normal@3x.png'}}"></image>
+          <image class="item-right-icon" src="/images/{{skin}}/{{time0700Checked?'ic_checkbox_selected@3x.png':'ic_checkbox_normal@3x.png'}}"></image>
         </view>
       </view>
       <view class="item" style="margin-top:1rpx;" bindtap="timeTap" data-type="1000">
         <view class="item-left">10:00</view>
         <view class="item-right">
-          <image class="item-right-icon" src="../../images/{{skin}}/{{time1000Checked?'ic_checkbox_selected@3x.png':'ic_checkbox_normal@3x.png'}}"></image>
+          <image class="item-right-icon" src="/images/{{skin}}/{{time1000Checked?'ic_checkbox_selected@3x.png':'ic_checkbox_normal@3x.png'}}"></image>
         </view>
       </view>
       <view class="item" style="margin-top:1rpx;" bindtap="timeTap" data-type="1400">
         <view class="item-left">14:00</view>
         <view class="item-right">
-          <image class="item-right-icon" src="../../images/{{skin}}/{{time1400Checked?'ic_checkbox_selected@3x.png':'ic_checkbox_normal@3x.png'}}"></image>
+          <image class="item-right-icon" src="/images/{{skin}}/{{time1400Checked?'ic_checkbox_selected@3x.png':'ic_checkbox_normal@3x.png'}}"></image>
         </view>
       </view>
       <view class="item" style="margin-top:1rpx;" bindtap="timeTap" data-type="1700">
         <view class="item-left">17:00</view>
         <view class="item-right">
-          <image class="item-right-icon" src="../../images/{{skin}}/{{time1700Checked?'ic_checkbox_selected@3x.png':'ic_checkbox_normal@3x.png'}}"></image>
+          <image class="item-right-icon" src="/images/{{skin}}/{{time1700Checked?'ic_checkbox_selected@3x.png':'ic_checkbox_normal@3x.png'}}"></image>
         </view>
       </view>
       <view class="item" style="margin-top:1rpx;" bindtap="timeTap" data-type="2000">
         <view class="item-left">20:00</view>
         <view class="item-right">
-          <image class="item-right-icon" src="../../images/{{skin}}/{{time2000Checked?'ic_checkbox_selected@3x.png':'ic_checkbox_normal@3x.png'}}"></image>
+          <image class="item-right-icon" src="/images/{{skin}}/{{time2000Checked?'ic_checkbox_selected@3x.png':'ic_checkbox_normal@3x.png'}}"></image>
         </view>
       </view>
 

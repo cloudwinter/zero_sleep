@@ -1,0 +1,146 @@
+<!--component/tab/kuaijie/kuaijie-K18.wxml-->
+<scroll-view scroll-y="true" class="{{skin}}" bindtap="tapBlank" data-blank="blank" enhanced="true" showScrollbar="false" style="height:{{containerHeight}}px">
+  <view class="layer" wx:if="{{tongbukzShow}}" bindtap="tongbukzTab">
+    <view class="button title button-bg">
+      <view class="button-left">同步控制</view>
+      <view class="button-right">
+        <view class="button-name">{{tongbukzStatus?'开启':'关闭'}}</view>
+        <image style="width:20rpx;height:20rpx;margin-left:10rpx;" src="/images/{{skin}}/dian_{{tongbukzStatus?'normal':'selected'}}@2x.png"></image>
+      </view>
+    </view>
+  </view>
+  <view wx:else style="margin-top:{{display=='high'?40:0}}rpx;"></view>
+  <view class="top">
+    <view class="donghuaqu">
+      <view class="dh-content">
+        <block wx:if="{{currentAnjian.anjian=='lingya'}}">
+          <image class="dh-icon" src="/images/{{skin}}/lingya-da@2x.png"></image>
+        </block>
+        <block wx:if="{{currentAnjian.anjian=='xiuxian'}}">
+          <image class="dh-icon" src="/images/{{skin}}/xiuxian-da@2x.png"></image>
+        </block>
+        <block wx:if="{{currentAnjian.anjian=='guanying' }}">
+          <image class="dh-icon" src="/images/{{skin}}/guanying-da@2x.png"></image>
+        </block>
+        <block wx:if="{{currentAnjian.anjian=='weixunxiaoqi'}}">
+          <image class="dh-icon" src="/images/{{skin}}/weixunxiaoqi-da@2x.png"></image>
+        </block>
+        <block wx:if="{{currentAnjian.anjian=='hufutang'}}">
+          <image class="dh-icon" src="/images/{{skin}}/hufutang-da@2x.png"></image>
+        </block>
+        <block wx:if="{{currentAnjian.anjian=='clashen'}}">
+          <image class="dh-icon" src="/images/{{skin}}/clashen-da@2x.png"></image>
+        </block>
+        <block wx:if="{{currentAnjian.anjian=='vjuanfu'}}">
+          <image class="dh-icon" src="/images/{{skin}}/vjuanfu-da@2x.png"></image>
+        </block>
+        <block wx:if="{{currentAnjian.anjian=='tangyilxing'}}">
+          <image class="dh-icon" src="/images/{{skin}}/tangyilxing-da@2x.png"></image>
+        </block>
+        <block wx:if="{{currentAnjian.anjian=='dongtailashen'}}">
+          <image class="dh-icon" src="/images/{{skin}}/dongtailashen-da@2x.png"></image>
+        </block>
+        <block wx:if="{{currentAnjian.anjian=='dongtaijuanfu'}}">
+          <image class="dh-icon" src="/images/{{skin}}/dongtaijuanfu-da@2x.png"></image>
+        </block>
+        <block wx:if="{{currentAnjian.anjian=='dongtaiyaobai'}}">
+          <image class="dh-icon" src="/images/{{skin}}/dongtaiyaobai-da@2x.png"></image>
+        </block>
+        <block wx:if="{{currentAnjian.anjian=='tangping'}}">
+          <image class="dh-icon" src="/images/{{skin}}/tangping-da@2x.png"></image>
+        </block>
+        <view class="dh-name">{{currentAnjian.name}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="anjianqu" style="padding-top:10rpx;">
+    <view class="anjian-left {{currentAnjian.anjian == 'lingya'?'button-bg-selected':'button-bg'}}">
+      <view class="anjiian-content" catchtap="tapLingya" bindtouchstart="touchStart" bindtouchend="touchEnd">
+        <image class="anjian-icon" src="/images/{{skin}}/lingya-xiao@2x.png"></image>
+        <view class="name" class="{{lingya?'select-name':'name'}}">零压</view>
+      </view>
+    </view>
+    <view class="anjian-right {{currentAnjian.anjian == 'xiuxian'?'button-bg-selected':'button-bg'}}">
+      <view class=" anjiian-content" catchtap="tapXiuxian">
+        <image class="anjian-icon" src="/images/dark/xiuxian-xiao@2x.png"></image>
+        <view class="name">休闲</view>
+      </view>
+    </view>
+  </view>
+  <view class="anjianqu" style="padding-top:10rpx;">
+    <view class="anjian-left {{currentAnjian.anjian == 'guanying'?'button-bg-selected':'button-bg'}}">
+      <view class="anjiian-content" catchtap="tapGuanying" bindtouchstart="touchStart" bindtouchend="touchEnd">
+        <image class="anjian-icon" src="/images/{{skin}}/guanying-xiao@2x.png"></image>
+        <view class="{{guanying?'select-name':'name'}}">观影</view>
+      </view>
+    </view>
+    <view class="anjian-right {{currentAnjian.anjian == 'weixunxiaoqi'?'button-bg-selected':'button-bg'}}">
+      <view class=" anjiian-content" catchtap="tapWeixunxiaoqi">
+        <image class="anjian-icon" src="/images/{{skin}}/weixunxiaoqi-xiao@2x.png"></image>
+        <view class="name">微醺小憩</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="anjianqu" style="padding-top:10rpx;">
+    <view class="anjian-left {{currentAnjian.anjian == 'hufutang'?'button-bg-selected':'button-bg'}}">
+      <view class="anjiian-content" catchtap="tapHufutang">
+        <image class="anjian-icon" src="/images/{{skin}}/hufutang-xiao@2x.png"></image>
+        <view class="{{guanying?'select-name':'name'}}">护肤躺</view>
+      </view>
+    </view>
+    <view class="anjian-right {{currentAnjian.anjian == 'clashen'?'button-bg-selected':'button-bg'}}">
+      <view class=" anjiian-content" catchtap="tapClashen">
+        <image class="anjian-icon" src="/images/{{skin}}/clashen-xiao@2x.png"></image>
+        <view class="name">C拉伸</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="anjianqu" style="padding-top:10rpx;">
+    <view class="anjian-left {{currentAnjian.anjian == 'vjuanfu'?'button-bg-selected':'button-bg'}}">
+      <view class="anjiian-content" catchtap="tapVjuanfu">
+        <image class="anjian-icon" src="/images/{{skin}}/vjuanfu-xiao@2x.png"></image>
+        <view class="name">V卷腹</view>
+      </view>
+    </view>
+    <view class="anjian-right {{currentAnjian.anjian == 'tangyilxing'?'button-bg-selected':'button-bg'}}">
+      <view class=" anjiian-content" catchtap="tapTangyilxing">
+        <image class="anjian-icon" src="/images/{{skin}}/tangyilxing-xiao@2x.png"></image>
+        <view class="name">躺椅L型</view>
+      </view>
+    </view>
+  </view>
+
+
+  <view class="anjianqu" style="padding-top:10rpx;">
+    <view class="anjian-left {{currentAnjian.anjian == 'dongtailashen'?'button-bg-selected':'button-bg'}}">
+      <view class="anjiian-content" catchtap="tapDongtailashen" >
+        <image class="anjian-icon" src="/images/{{skin}}/dongtailashen-xiao@2x.png"></image>
+        <view class="{{lashencxing?'select-name':'name'}}">动态拉伸</view>
+      </view>
+    </view>
+    <view class="anjian-right {{currentAnjian.anjian == 'dongtaijuanfu'?'button-bg-selected':'button-bg'}}">
+      <view class="anjiian-content" catchtap="tapDongtaijuanfu">
+        <image class="anjian-icon" src="/images/{{skin}}/dongtaijuanfu-xiao@2x.png"></image>
+        <view class="name">动态卷腹</view>
+      </view>
+    </view>
+  </view>
+  <view class="anjianqu" style="padding-top:10rpx;">
+    <view class="anjian-left {{currentAnjian.anjian == 'dongtaiyaobai'?'button-bg-selected':'button-bg'}}">
+      <view class="anjiian-content" catchtap="tapDongtaiyaobai" >
+        <image class="anjian-icon" src="/images/{{skin}}/dongtaiyaobai-xiao@2x.png"></image>
+        <view class="name">动态摇摆</view>
+      </view>
+    </view>
+
+    <view class="anjian-right {{currentAnjian.anjian == 'tangping'?'button-bg-selected':'button-bg'}}">
+      <view class=" anjiian-content" catchtap="tapTangping">
+        <image class="anjian-icon" src="/images/{{skin}}/tangping-xiao@2x.png"></image>
+        <view class="name">躺平</view>
+      </view>
+    </view>
+  </view>
+</scroll-view>

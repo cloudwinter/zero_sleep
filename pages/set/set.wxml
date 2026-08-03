@@ -9,7 +9,7 @@
         <view class="shezhi-button-left">连接设备</view>
         <view class="shezhi-button-right">
           <view class="shezhi-button-name">{{status}}</view>
-          <image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+          <image class="shezhi-button-icon" src="/images/{{skin}}/row@3x.png"></image>
         </view>
       </view>
 
@@ -18,7 +18,7 @@
         <view class="shezhi-button-left">模式选择</view>
         <view class="shezhi-button-right">
           <view class="shezhi-button-name">{{skin=='dark'?'深黑':'紫色'}}</view>
-          <image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+          <image class="shezhi-button-icon" src="/images/{{skin}}/row@3x.png"></image>
         </view>
       </view>
 
@@ -26,7 +26,7 @@
         <view class="shezhi-button-left">闹钟设置</view>
         <view class="shezhi-button-right">
           <view class="shezhi-button-name">{{alarmStatus}}</view>
-          <image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+          <image class="shezhi-button-icon" src="/images/{{skin}}/row@3x.png"></image>
         </view>
       </view>
 
@@ -35,7 +35,7 @@
         <view class="shezhi-button-left">更换设备</view>
         <view class="shezhi-button-right">
           <view class="shezhi-button-name"></view>
-          <image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+          <image class="shezhi-button-icon" src="/images/{{skin}}/row@3x.png"></image>
         </view>
       </view>
 
@@ -43,7 +43,7 @@
         <view class="shezhi-button-left">循环模式</view>
         <view class="shezhi-button-right">
           <!-- <view class="shezhi-button-name"></view> -->
-          <image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+          <image class="shezhi-button-icon" src="/images/{{skin}}/row@3x.png"></image>
         </view>
       </view>
 
@@ -51,7 +51,7 @@
         <view class="shezhi-button-left">智能睡眠</view>
         <view class="shezhi-button-right">
           <!-- <view class="shezhi-button-name"></view> -->
-          <image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+          <image class="shezhi-button-icon" src="/images/{{skin}}/row@3x.png"></image>
         </view>
       </view>
 
@@ -60,7 +60,7 @@
         <view class="shezhi-button-left">故障调试</view>
         <view class="shezhi-button-right">
           <!-- <view class="shezhi-button-name"></view> -->
-          <image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+          <image class="shezhi-button-icon" src="/images/{{skin}}/row@3x.png"></image>
         </view>
       </view>
 
@@ -78,7 +78,7 @@
         <view class="shezhi-button-left">{{network.title}}</view>
         <view class="shezhi-button-right">
           <view class="shezhi-button-name">{{network.desc}}</view>
-          <image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+          <image class="shezhi-button-icon" src="/images/{{skin}}/row@3x.png"></image>
         </view>
       </view>
 
@@ -86,7 +86,7 @@
         <view class="shezhi-button-left">实时心率数据</view>
         <view class="shezhi-button-right">
           <!-- <view class="shezhi-button-name"></view> -->
-          <image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+          <image class="shezhi-button-icon" src="/images/{{skin}}/row@3x.png"></image>
         </view>
       </view>
 
@@ -94,7 +94,7 @@
         <view class="shezhi-button-left">睡眠报告</view>
         <view class="shezhi-button-right">
           <!-- <view class="shezhi-button-name"></view> -->
-          <image class="shezhi-button-icon" src="../../images/{{skin}}/row@3x.png"></image>
+          <image class="shezhi-button-icon" src="/images/{{skin}}/row@3x.png"></image>
         </view>
       </view>
 

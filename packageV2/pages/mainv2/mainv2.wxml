@@ -1,0 +1,30 @@
+<!--pages/mainv2/mainv2.wxml-->
+<view class="page-{{skin}}">
+  <navbar loading="{{navbar.loading}}" show="{{navbar.show}}" color="{{navbar.color}}" set="{{navbar.set}}" setType="1" background="{{navbar.background}}"></navbar>
+
+  <view class="content" style="height: {{containerHeight}}px;">
+    <view class="taly-module">
+      <image src="/images/dark/taly.png" mode="aspectFit" class="taly"></image>
+    </view>
+    <view class="module">
+      <view class="button  button-bg" catchtap="tapSearch" data-type="diandong">
+        <image class="icon" src="/images/{{skin}}/bedstead@2x.png"></image>
+        <view class="name">智能床</view>
+      </view>
+    </view>
+
+    <view class="module">
+      <view class="button  button-bg" catchtap="tapSearch" data-type="qinang">
+        <image class="icon" src="/images/{{skin}}/airbag_mattress@2x.png"></image>
+        <view class="name">气囊床垫</view>
+      </view>
+    </view>
+    <view class="module">
+      <view class="button  button-bg" catchtap="tapSearch" data-type="lengnuan">
+        <image class="icon" src="/images/{{skin}}/mattress_cold_warm@2x.png"></image>
+        <view class="name">冷暖床垫</view>
+      </view>
+    </view>
+
+  </view>
+</view>

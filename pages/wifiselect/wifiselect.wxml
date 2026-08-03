@@ -12,7 +12,7 @@
               <view class="item-content">
                 <text class="name">{{item}}</text>
                 <view class="item-right">
-                  <image class="wifi-icon" src="../../images/{{skin}}/anmo@3x.png"></image>
+                  <image class="wifi-icon" src="/images/{{skin}}/anmo@3x.png"></image>
                 </view>
               </view>
             </view>

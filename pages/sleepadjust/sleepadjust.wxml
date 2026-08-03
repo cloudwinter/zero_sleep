@@ -32,41 +32,41 @@
           <view class="item-row-column" hidden="{{!showTouB}}">
             <view class="oval-button" style="margin-top:30rpx;" bindtouchstart="touchStart" bindtouchend="touchEnd"
               data-type="touBTop" data-open-gid="top">
-              <image class="sanjiao-icon" src="../../images/{{skin}}/sanjiao_top@2x.png"></image>
+              <image class="sanjiao-icon" src="/images/{{skin}}/sanjiao_top@2x.png"></image>
             </view>
           </view>
           <view class="item-row-column" hidden="{{!showBeiB}}">
             <view class="oval-button" style="margin-top:30rpx;" bindtouchstart="touchStart" bindtouchend="touchEnd"
               data-type="beiBTop" data-open-gid="top">
-              <image class="sanjiao-icon" src="../../images/{{skin}}/sanjiao_top@2x.png"></image>
+              <image class="sanjiao-icon" src="/images/{{skin}}/sanjiao_top@2x.png"></image>
             </view>
           </view>
           <view class="item-row-column" hidden="{{!showYaoB}}">
             <view class="oval-button" style="margin-top:30rpx;" bindtouchstart="touchStart" bindtouchend="touchEnd"
               data-type="yaoBTop" data-open-gid="top">
-              <image class="sanjiao-icon" src="../../images/{{skin}}/sanjiao_top@2x.png"></image>
+              <image class="sanjiao-icon" src="/images/{{skin}}/sanjiao_top@2x.png"></image>
             </view>
           </view>
           <view class="item-row-column" hidden="{{!showTuiB}}">
             <view class="oval-button" style="margin-top:30rpx;" bindtouchstart="touchStart" bindtouchend="touchEnd"
               data-type="tuiBTop" data-open-gid="top">
-              <image class="sanjiao-icon" src="../../images/{{skin}}/sanjiao_top@2x.png"></image>
+              <image class="sanjiao-icon" src="/images/{{skin}}/sanjiao_top@2x.png"></image>
             </view>
           </view>
         </view>
 
         <view class="item-row">
           <view class="item-row-column" hidden="{{!showTouB}}">
-            <image class="xiaoren-icon" src="../../animation/{{skin}}/toubutiaozheng-1@3x.png"></image>
+            <image class="xiaoren-icon" src="/animation/{{skin}}/toubutiaozheng-1@3x.png"></image>
           </view>
           <view class="item-row-column" hidden="{{!showBeiB}}">
-            <image class="xiaoren-icon" src="../../animation/{{skin}}/beibutiaozheng-1@3x.png"></image>
+            <image class="xiaoren-icon" src="/animation/{{skin}}/beibutiaozheng-1@3x.png"></image>
           </view>
           <view class="item-row-column" hidden="{{!showYaoB}}">
-            <image class="xiaoren-icon" src="../../animation/{{skin}}/tunbutiaozheng-1@3x.png"></image>
+            <image class="xiaoren-icon" src="/animation/{{skin}}/tunbutiaozheng-1@3x.png"></image>
           </view>
           <view class="item-row-column" hidden="{{!showTuiB}}">
-            <image class="xiaoren-icon" src="../../animation/{{skin}}/tuibutiaozheng-1@3x.png"></image>
+            <image class="xiaoren-icon" src="/animation/{{skin}}/tuibutiaozheng-1@3x.png"></image>
           </view>
         </view>
 
@@ -75,25 +75,25 @@
           <view class="item-row-column" hidden="{{!showTouB}}">
             <view class="oval-button" bindtouchstart="touchStart" bindtouchend="touchEnd" data-type="touBBottom"
               data-open-gid="bottom">
-              <image class="sanjiao-icon" src="../../images/{{skin}}/sanjiao_bottom@2x.png"></image>
+              <image class="sanjiao-icon" src="/images/{{skin}}/sanjiao_bottom@2x.png"></image>
             </view>
           </view>
           <view class="item-row-column" hidden="{{!showBeiB}}">
             <view class="oval-button" bindtouchstart="touchStart" bindtouchend="touchEnd" data-type="beiBBottom"
               data-open-gid="bottom">
-              <image class="sanjiao-icon" src="../../images/{{skin}}/sanjiao_bottom@2x.png"></image>
+              <image class="sanjiao-icon" src="/images/{{skin}}/sanjiao_bottom@2x.png"></image>
             </view>
           </view>
           <view class="item-row-column" hidden="{{!showYaoB}}">
             <view class="oval-button" bindtouchstart="touchStart" bindtouchend="touchEnd" data-type="yaoBBottom"
               data-open-gid="bottom">
-              <image class="sanjiao-icon" src="../../images/{{skin}}/sanjiao_bottom@2x.png"></image>
+              <image class="sanjiao-icon" src="/images/{{skin}}/sanjiao_bottom@2x.png"></image>
             </view>
           </view>
           <view class="item-row-column" hidden="{{!showTuiB}}">
             <view class="oval-button" bindtouchstart="touchStart" bindtouchend="touchEnd" data-type="tuiBBottom"
               data-open-gid="bottom">
-              <image class="sanjiao-icon" src="../../images/{{skin}}/sanjiao_bottom@2x.png"></image>
+              <image class="sanjiao-icon" src="/images/{{skin}}/sanjiao_bottom@2x.png"></image>
             </view>
           </view>
         </view>

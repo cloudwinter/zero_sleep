@@ -179,7 +179,9 @@ Page({
         // if (sn == '88a0') {
         var isexist = false;
         var devs = that.data.devices;
+        // console.log("截前MAC:",mac)
         mac = mac.slice(8, 20); //取MAC
+        // console.log("截取后MAC:",mac)
         devs.forEach(function (row, index) {
           if (mac == row.mac) {
             console.log("找到");
@@ -198,7 +200,7 @@ Page({
               console.error('不是有效的蓝牙名称', name);
             } else {
               if (res.devices[0].RSSI < -95) {
-                console.error('蓝牙强度小于-80', res.devices[0].RSSI);
+                console.error('蓝牙强度小于-95', res.devices[0].RSSI);
               } else {
                 devs.push({
                   name: name,
@@ -545,7 +547,7 @@ Page({
     var connectedStr = JSON.stringify(connected);
     var name = connected.name;
 
-    if (app.globalData.skin == 'blue') {//如果是蓝色风格，先初始化掉主题风格
+    if (app.globalData.skin == 'blue') {//如果是蓝色风格（K17），先初始化掉主题风格
       configManager.setSkin('dark')
       app.globalData.skin = 'dark'
     }
@@ -554,26 +556,26 @@ Page({
     console.log(name.indexOf('TL-Q') > -1)
     if (name.indexOf('TL-Q') > -1) {//新版零睡吧
       wx.navigateTo({
-        url: '/pages/mainv2/mainv2?connected=' + connectedStr + '&first=' + first,
+        url: '/packageV2/pages/mainv2/mainv2?connected=' + connectedStr + '&first=' + first,
       })
-    } else if (name.indexOf('TL-A') > -1) {
+    } else if (name.indexOf('TL-A') > -1) {//新版零睡吧--气囊床垫
       wx.navigateTo({
-        url: '/pages/singlemain/singlemain?connected=' + connectedStr + '&type=0B',
+        url: '/packageV2/pages/singlemain/singlemain?connected=' + connectedStr + '&type=0B',
       })
-    } else if (name.indexOf('TL-B') > -1) {
+    } else if (name.indexOf('TL-B') > -1) {//新版零睡吧-- 电动床
       wx.navigateTo({
-        url: '/pages/singlemain/singlemain?connected=' + connectedStr + '&type=0A',
+        url: '/packageV2/pages/singlemain/singlemain?connected=' + connectedStr + '&type=0A',
       })
-    } else if (name.indexOf('TL-W') > -1) {
+    } else if (name.indexOf('TL-W') > -1) {//新版零睡吧-- 冷暖床垫
       wx.navigateTo({
-        url: '/pages/singlemain/singlemain?connected=' + connectedStr + '&type=0C',
+        url: '/packageV2/pages/singlemain/singlemain?connected=' + connectedStr + '&type=0C',
       })
-    } else {
+    } else {//普通电动床
       var kuaijieType = this.getKuaijieType(name);
       var weitiaoType = this.getWeitiaoType(name);
       var anmoType = this.getAnMoType(name);
 
-      if (kuaijieType == 'K17') {//设置K17为蓝色风格
+      if (kuaijieType == 'K17') {//设置K17为蓝色风格（特殊风格）
         configManager.setSkin('blue')
         app.globalData.skin = 'blue'
       }
@@ -581,7 +583,7 @@ Page({
       setTimeout(() => {
         // TODO 还需要过滤类型
         wx.navigateTo({
-          url: '../main/main?first=' + first + '&connected=' + connectedStr + '&kuaijieType=' + kuaijieType + '&weitiaoType=' + weitiaoType + '&anmoType=' + anmoType,
+          url: '/packageV1/pages/main/main?first=' + first + '&connected=' + connectedStr + '&kuaijieType=' + kuaijieType + '&weitiaoType=' + weitiaoType + '&anmoType=' + anmoType,
         })
       }, 500)
     }
@@ -644,7 +646,8 @@ Page({
         name.indexOf('TL-B') >= 0 ||
         name.indexOf('TL-W') >= 0 ||
         name.indexOf('TL-Q') >= 0 ||
-        name.indexOf('S4-6') >= 0) {
+        name.indexOf('S4-6') >= 0 ||
+        name.indexOf('S4-V') >= 0) {
         return true;
       }
     }
@@ -723,6 +726,8 @@ Page({
         return 'K16';
       } else if (name.indexOf('S4-6') >= 0) {
         return 'K17';
+      } else if (name.indexOf('S4-V') >= 0) {
+        return 'K18';
       }
     }
     // 默认K1
@@ -803,6 +808,8 @@ Page({
         return 'W20';
       } else if (name.indexOf('S4-6') >= 0) {
         return 'W21';
+      } else if (name.indexOf('S4-V') >= 0) {
+        return 'W22';
       }
     }
     // 默认K1

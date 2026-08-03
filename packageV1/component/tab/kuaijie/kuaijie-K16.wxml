@@ -1,0 +1,107 @@
+<!--component/kuaijie/kuaijie-K16.wxml-->
+<scroll-view scroll-y="true" class="{{skin}}" bindtap="tapBlank" data-blank="blank" enhanced="true" showScrollbar="false" style="height:{{containerHeight}}px">
+  <view class="layer" wx:if="{{tongbukzShow}}" bindtap="tongbukzTab">
+    <view class="button title button-bg">
+      <view class="button-left">同步控制</view>
+      <view class="button-right">
+        <view class="button-name">{{tongbukzStatus?'开启':'关闭'}}</view>
+        <image style="width:20rpx;height:20rpx;margin-left:10rpx;" src="/images/{{skin}}/dian_{{tongbukzStatus?'normal':'selected'}}@2x.png"></image>
+      </view>
+    </view>
+  </view>
+  <view wx:else style="margin-top:{{display=='high'?40:0}}rpx;"></view>
+  <view class="top">
+    <view class="donghuaqu">
+      <view class="dh-content">
+        <block wx:if="{{currentAnjian.anjian=='dianshi'}}">
+          <image class="dh-icon" src="/images/{{skin}}/dianshi-da@3x.png"></image>
+        </block>
+        <block wx:if="{{currentAnjian.anjian=='lingya'}}">
+          <image class="dh-icon" src="/images/{{skin}}/lingya-da@3x.png"></image>
+        </block>
+        <block wx:if="{{currentAnjian.anjian=='shuimian'}}">
+          <image class="dh-icon" src="/images/{{skin}}/shuimian-da@3x.png"></image>
+        </block>
+        <block wx:if="{{currentAnjian.anjian=='xiuxian'}}">
+          <image class="dh-icon" src="/images/{{skin}}/xiuxian-da@3x.png"></image>
+        </block>
+        <block wx:if="{{currentAnjian.anjian=='tuibushuya'}}">
+          <image class="dh-icon" src="/images/{{skin}}/tuibushuya-da@3x.png"></image>
+        </block>
+        <block wx:if="{{currentAnjian.anjian=='yaobaifangsong'}}">
+          <image class="dh-icon" src="/images/{{skin}}/yaobaifangsong-da@3x.png"></image>
+        </block>
+        <view class="dh-name">{{currentAnjian.name}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="child-lock" style="margin-top:20rpx;" wx:if="{{childLock}}">
+    <image class="lock" bindtap="childLockTap" src="/images/{{skin}}/lock.png" wx:if="{{childLockSwitch}}"></image>
+    <image class="lock" bindtap="childLockTap" src="/images/{{skin}}/unlock.png" wx:else></image>
+    <view class="lock-title lock-text" bindtap="childLockTap">童锁</view>
+    <view class="lock-title lock-text">点击图标上锁/解锁</view>
+  </view>
+
+  <view class="anjianqu" style="padding-top:1rpx;">
+    <view class="anjian-left">
+      <image class="anjian-bg" wx:if="{{kandianshi}}" src="/images/{{skin}}/anjian-yuan-seleced@3x.png"></image>
+      <image class="anjian-bg" wx:else src="/images/{{skin}}/anjian-yuan-normal@3x.png"></image>
+      <view class="anjiian-content" catchtap="tapdianshi" bindtouchstart="touchStart" bindtouchend="touchEnd">
+        <image class="anjian-icon" src="/images/{{skin}}/dianshi-xiao@3x.png"></image>
+        <view class="name"><text>电视\n(复位)</text></view>
+      </view>
+    </view>
+    <view class="anjian-right">
+      <image class="anjian-bg" wx:if="{{lingyali}}" src="/images/{{skin}}/anjian-yuan-seleced@3x.png"></image>
+      <image class="anjian-bg" wx:else src="/images/{{skin}}/anjian-yuan-normal@3x.png"></image>
+      <view class="anjiian-content" catchtap="tapLingya" bindtouchstart="touchStart" bindtouchend="touchEnd">
+        <image class="anjian-icon" src="/images/{{skin}}/lingya-xiao@3x.png"></image>
+        <view class="name">零压</view>
+      </view>
+    </view>
+  </view>
+
+
+  <view class="anjianqu" style="margin-top:110rpx">
+    <view class="anjian-left">
+      <image class="anjian-bg" wx:if="{{zhihan}}" src="/images/{{skin}}/anjian-yuan-seleced@3x.png"></image>
+      <image class="anjian-bg" wx:else src="/images/{{skin}}/anjian-yuan-normal@3x.png"></image>
+      <view class="anjiian-content" catchtap="tapShuimian" bindtouchstart="touchStart" bindtouchend="touchEnd">
+        <image class="anjian-icon" src="/images/{{skin}}/shuimian-xiao@3x.png"></image>
+        <view class="name">睡眠</view>
+      </view>
+    </view>
+
+    <view class="anjian-right">
+      <image class="anjian-bg" src="/images/{{skin}}/anjian-yuan-normal@3x.png"></image>
+      <view class="anjiian-content" catchtap="tapXiuxian">
+        <image class="anjian-icon" src="/images/{{skin}}/xiuxian-xiao@3x.png"></image>
+        <view class="name">休闲</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="anjianqu" style="margin-top:110rpx">
+    <view class="anjian-left">
+      <image class="anjian-bg" wx:if="{{zhihan}}" src="/images/{{skin}}/anjian-yuan-seleced@3x.png"></image>
+      <image class="anjian-bg" wx:else src="/images/{{skin}}/anjian-yuan-normal@3x.png"></image>
+      <view class="anjiian-content" catchtap="tapTuibushuya" bindtouchstart="touchStart" bindtouchend="touchEnd">
+        <image class="anjian-icon" src="/images/{{skin}}/tuibushuya-xiao@3x.png"></image>
+        <view class="name">腿部舒压</view>
+      </view>
+    </view>
+
+    <view class="anjian-right">
+      <image class="anjian-bg" src="/images/{{skin}}/anjian-yuan-normal@3x.png"></image>
+      <view class="anjiian-content" catchtap="tapYaobaifangsong">
+        <image class="anjian-icon" src="/images/{{skin}}/yaobaifangsong-xiao@3x.png"></image>
+        <view class="name">摇摆放松</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="lock-hint lock-text" wx:if="{{childLock}}">童锁状态下，小程序可以控制，遥控器不能控制</view>
+
+
+</scroll-view>
